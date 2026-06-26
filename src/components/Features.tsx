@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 /**
  * Features / WorkMap — Timeline cu progres
- * - Culori brand: orange #FE5C02, cream #FFF5F0
+ * - Culori brand: orange #ED5C1B, cream #FFF5F0
  * - Background alb
  * - Header identic cu GetInTouchSection
  * - Desktop: path curbat cu fill progresiv + card-chips
@@ -27,6 +28,7 @@ const easeInOutCubic = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 const Features: React.FC = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const activePathRef = useRef<SVGPathElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -41,6 +43,15 @@ const Features: React.FC = () => {
   // mobile-only
   const [mobileLineProgress, setMobileLineProgress] = useState(0);
   const [activeCards, setActiveCards] = useState<number[]>([]);
+
+  const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mql.matches);
+    const on = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mql.addEventListener?.("change", on);
+    return () => mql.removeEventListener?.("change", on);
+  }, []);
 
   // Breakpoint
   useEffect(() => {
@@ -97,6 +108,10 @@ const Features: React.FC = () => {
 
   // Smooth visual easing
   useEffect(() => {
+    if (reducedMotion) {
+      setDisplayProgress(easeInOutCubic(progress));
+      return;
+    }
     let raf = 0;
     const tick = () => {
       const target = easeInOutCubic(progress);
@@ -109,7 +124,7 @@ const Features: React.FC = () => {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [progress]);
+  }, [progress, reducedMotion]);
 
   // Path length (desktop)
   useEffect(() => {
@@ -122,22 +137,25 @@ const Features: React.FC = () => {
 
   // Particle position (desktop)
   useEffect(() => {
-    if (!activePathRef.current || isMobile) return;
+    if (!activePathRef.current || isMobile || reducedMotion) {
+      setParticlePos(null);
+      return;
+    }
     const path = activePathRef.current;
     const l = displayProgress * pathLen;
     try {
       const pt = path.getPointAtLength(Math.max(0, Math.min(pathLen, l)));
       setParticlePos({ x: pt.x, y: pt.y });
     } catch {}
-  }, [displayProgress, pathLen, isMobile]);
+  }, [displayProgress, pathLen, isMobile, reducedMotion]);
 
   // Nodes & path
   const { pathD, nodes, desktopHeight } = useMemo(() => {
     const base = [
-      { id: "analyze", title: "Analyze", subtitle: "Discovery & audit" },
-      { id: "develop", title: "Develop", subtitle: "Architecture & code" },
-      { id: "create", title: "Create", subtitle: "Design & content" },
-      { id: "deliver", title: "Deliver", subtitle: "QA & launch" },
+      { id: "analyze", title: t("roadmap.phases.analyze_title"), subtitle: t("roadmap.phases.analyze_subtitle") },
+      { id: "develop", title: t("roadmap.phases.develop_title"), subtitle: t("roadmap.phases.develop_subtitle") },
+      { id: "create", title: t("roadmap.phases.create_title"), subtitle: t("roadmap.phases.create_subtitle") },
+      { id: "deliver", title: t("roadmap.phases.deliver_title"), subtitle: t("roadmap.phases.deliver_subtitle") },
     ];
 
     if (isMobile) {
@@ -170,81 +188,21 @@ const Features: React.FC = () => {
         { cx: 70, cy: 78, t: 0.75, side: "right", ...base[2] },
         { cx: 14, cy: 92, t: 0.96, side: "left",  ...base[3] },
       ] as NodeDef[],
-      desktopHeight: "clamp(720px, 88vh, 1000px)",
+      desktopHeight: "clamp(620px, 74vh, 880px)",
     };
-  }, [isMobile]);
+  }, [isMobile, t]);
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Manrope:wght@400;500;700&display=swap');
-
         :root {
-          --orange:#FE5C02;
+          --orange:#ED5C1B;
           --cream:#FFF5F0;
-          --ink:#1A1A1A;
+          --ink:#262626;
         }
 
         .wm-section{ background:#ffffff; position:relative }
         .wm-container{ position:relative; z-index:1 }
-
-        /* Stiluri specifice Features pentru a nu afecta alte componente */
-        .features-pulse-chip {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          padding: 8px 14px;
-          border-radius: 9999px;
-          background: var(--cream);
-          border: 1px solid rgba(254,92,2,.25);
-          color: var(--orange);
-          font-weight: 700;
-          line-height: 1;
-          white-space: nowrap;
-        }
-        
-        .features-bg-pulse {
-          background-color: var(--orange);
-        }
-        
-        .features-divider-line{ 
-          flex:1; 
-          height:.5px; 
-          background:#d7dbe0; 
-          opacity:.8 
-        }
-
-        .section-title{ 
-          font-family: 'Inter', sans-serif;
-          font-weight: 700;
-          font-size: 1.875rem;
-          line-height: 1.1;
-          color: #000000;
-          margin: 0 0 1.2rem 0;
-          letter-spacing:-.02em;
-        }
-        
-        @media (min-width: 640px) {
-          .section-title { font-size: 2.25rem; margin-bottom: 1.6rem; }
-        }
-        
-        @media (min-width: 768px) {
-          .section-title { font-size: 2.6rem; margin-bottom: 1.8rem; }
-        }
-        
-        .section-subtitle {
-          max-width: 36rem;
-          margin: 0 0 2rem 0;
-          line-height: 1.6;
-          color: #666666;
-          font-family: 'Inter', sans-serif;
-          font-weight: 400;
-          font-size: 0.95rem;
-        }
-        
-        @media (min-width: 640px) {
-          .section-subtitle { margin-bottom: 2.4rem; font-size: 1rem; }
-        }
 
         /* Desktop timeline */
         .desktop-timeline{
@@ -266,7 +224,7 @@ const Features: React.FC = () => {
         .card-chip.right{ right:5%; transform:translateY(-50%) translateX(16px) }
         .card-chip.right.active{ transform:translateY(-50%) translateX(0) }
 
-        .chip-title{ font-weight:800; color:#111827; font-size:15px; letter-spacing:-.01em }
+        .chip-title{ font-weight:600; color:#262626; font-size:15px; letter-spacing:-.01em }
         .chip-sub{ font-size:13px; color:#6b7280 }
 
         .dot{ width:40px; height:40px; border-radius:9999px; background:linear-gradient(135deg,var(--cream), #ffffff); display:grid; place-items:center }
@@ -293,19 +251,19 @@ const Features: React.FC = () => {
           border-radius:9999px; 
           background:#fff; 
           border:3px solid #E2E8F0; 
-          z-index:4; 
-          transition:all .3s ease 
+          z-index:4;
+          transition:border-color .3s ease, background-color .3s ease, box-shadow .3s ease
         }
         .mobile-dot.active{ 
           border-color:var(--orange); 
           background:var(--orange); 
-          box-shadow:0 0 0 6px rgba(254,92,2,.15) 
+          box-shadow:0 0 0 6px rgba(237, 92, 27,.15) 
         }
         
         .mobile-cards{ position:relative; z-index:2; display:flex; flex-direction:column; gap:72px }
-        .mobile-card{ background:#fff; border-radius:16px; padding:22px; border:1px solid #eef1f5; box-shadow:0 10px 30px rgba(0,0,0,.06); position:relative; opacity:0; transform:translateY(24px) scale(.97); transition:all .45s cubic-bezier(.34,1.56,.64,1); text-align:center }
+        .mobile-card{ background:#fff; border-radius:16px; padding:22px; border:1px solid #eef1f5; box-shadow:0 10px 30px rgba(0,0,0,.06); position:relative; opacity:0; transform:translateY(24px) scale(.97); transition:transform .45s var(--ease-out-quart,cubic-bezier(0.23,1,0.32,1)), opacity .45s var(--ease-out-quart,cubic-bezier(0.23,1,0.32,1)); text-align:center }
         .mobile-card.active{ opacity:1; transform:translateY(0) scale(1) }
-        .mobile-card-title{ font-size:20px; font-weight:800; color:#111827; margin-bottom:6px; letter-spacing:-.01em }
+        .mobile-card-title{ font-size:20px; font-weight:600; color:#262626; margin-bottom:6px; letter-spacing:-.01em }
         .mobile-card-sub{ font-size:15px; color:#6b7280 }
       `}</style>
 
@@ -317,9 +275,9 @@ const Features: React.FC = () => {
             <div className="flex items-center gap-4">
               <div className="pulse-chip">
                 <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">
-                  4
+                  3
                 </span>
-                <span>Roadmap</span>
+                <span>{t("roadmap.badge")}</span>
               </div>
             </div>
             <div className="divider-line"></div>
@@ -336,9 +294,9 @@ const Features: React.FC = () => {
               >
                 <defs>
                   <linearGradient id="pathGradientDynamic" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FE5C02" stopOpacity="0.12" />
-                    <stop offset={`${displayProgress * 100}%`} stopColor="#FE5C02" stopOpacity="1" />
-                    <stop offset={`${Math.min(100, displayProgress * 100 + 10)}%`} stopColor="#FE5C02" stopOpacity="0.12" />
+                    <stop offset="0%" stopColor="#ED5C1B" stopOpacity="0.12" />
+                    <stop offset={`${displayProgress * 100}%`} stopColor="#ED5C1B" stopOpacity="1" />
+                    <stop offset={`${Math.min(100, displayProgress * 100 + 10)}%`} stopColor="#ED5C1B" stopOpacity="0.12" />
                   </linearGradient>
                   <filter id="glow">
                     <feGaussianBlur stdDeviation="0.5" result="b"/>
@@ -369,7 +327,7 @@ const Features: React.FC = () => {
                         cx={node.cx}
                         cy={node.cy}
                         r={isActive ? 1.8 : 1.25}
-                        fill={isActive ? "#FE5C02" : "#CBD5E1"}
+                        fill={isActive ? "#ED5C1B" : "#CBD5E1"}
                         style={{ transition: "all .35s ease" }}
                       />
                       {isActive && (
@@ -378,7 +336,7 @@ const Features: React.FC = () => {
                           cy={node.cy}
                           r="3.4"
                           fill="none"
-                          stroke="#FE5C02"
+                          stroke="#ED5C1B"
                           strokeWidth="0.18"
                           opacity="0.35"
                         />
@@ -390,7 +348,7 @@ const Features: React.FC = () => {
                 {/* Moving particle */}
                 {particlePos && displayProgress > 0 && displayProgress < 1 && (
                   <g>
-                    <circle cx={particlePos.x} cy={particlePos.y} r="1.1" fill="#FE5C02" />
+                    <circle cx={particlePos.x} cy={particlePos.y} r="1.1" fill="#ED5C1B" />
                     <circle cx={particlePos.x} cy={particlePos.y} r="0.55" fill="#fff" />
                   </g>
                 )}
@@ -440,14 +398,13 @@ const Features: React.FC = () => {
               </div>
 
               <div className="mobile-cards">
-                {["Analyze", "Develop", "Create", "Deliver"].map((title, i) => {
-                  const subtitles = ["Discovery & audit", "Architecture & code", "Design & content", "QA & launch"];
+                {nodes.map((node, i) => {
                   const isActive = activeCards.includes(i);
 
                   return (
-                    <div key={title} className={`mobile-card ${isActive ? "active" : ""}`}>
-                      <div className="mobile-card-title">{title}</div>
-                      <div className="mobile-card-sub">{subtitles[i]}</div>
+                    <div key={node.id} className={`mobile-card ${isActive ? "active" : ""}`}>
+                      <div className="mobile-card-title">{node.title}</div>
+                      <div className="mobile-card-sub">{node.subtitle}</div>
                     </div>
                   );
                 })}

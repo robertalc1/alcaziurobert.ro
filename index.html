@@ -3,32 +3,123 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-    <title>Alcaziu Robert Portofolio</title>
-    <meta name="description" content="Professional web development portfolio" />
+    <meta name="theme-color" content="#FE5C02" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+    <title>Alcaziu Robert — Premium web design &amp; custom development</title>
+    <meta name="description" content="Premium websites and custom web applications for businesses that don't settle for templates. Bespoke design, scalable development, real conversion." />
     <meta name="author" content="Alcaziu Robert" />
-    <meta property="og:image" content="/og-image-update.png" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://alcaziurobert.ro/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://alcaziurobert.ro/" />
+    <meta property="og:title" content="Alcaziu Robert — Premium web design &amp; custom development" />
+    <meta property="og:description" content="Premium websites and custom web applications. Built to convert." />
+    <meta property="og:image" content="/Header-background.webp" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Alcaziu Robert — Premium web design &amp; custom development" />
+    <meta name="twitter:description" content="Premium websites and custom web applications. Built to convert." />
+    <meta name="twitter:image" content="/Header-background.webp" />
+
+    <!-- Typeface: General Sans (Fontshare) — single family across the site -->
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" />
+
+    <!-- Preload the eye logo used by the boot loader -->
+    <link rel="preload" href="/logo.svg" as="image" />
+
+    <!-- Structured data: Person + ProfessionalService + WebSite (parsed as one JSON-LD array) -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Alcaziu Robert",
+        "jobTitle": "Web Developer",
+        "url": "https://alcaziurobert.ro/",
+        "image": "https://alcaziurobert.ro/logo.svg",
+        "telephone": "+40-773-858-164",
+        "email": "contact@alcaziurobert.ro",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "RO"
+        },
+        "knowsAbout": [
+          "Web Development",
+          "React",
+          "TypeScript",
+          "Cloudflare",
+          "Vercel",
+          "Server-side tracking",
+          "NIS2 compliance"
+        ],
+        "sameAs": ["https://alcaziurobert.ro/"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Alcaziu Robert — Premium web design & custom development",
+        "description": "Premium websites and custom web applications for businesses that don't settle for templates. Bespoke design, scalable development, real conversion.",
+        "provider": {
+          "@type": "Person",
+          "name": "Alcaziu Robert",
+          "url": "https://alcaziurobert.ro/"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Romania"
+        },
+        "serviceType": "Web Development",
+        "url": "https://alcaziurobert.ro/",
+        "priceRange": "€€€",
+        "image": "https://alcaziurobert.ro/Header-background.webp",
+        "telephone": "+40-773-858-164",
+        "email": "contact@alcaziurobert.ro"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Alcaziu Robert",
+        "url": "https://alcaziurobert.ro/",
+        "inLanguage": ["en", "ro"],
+        "publisher": {
+          "@type": "Person",
+          "name": "Alcaziu Robert"
+        }
+      }
+    ]
+    </script>
     
     <!-- FIX CRITIC: Previne overflow la load -->
     <style>
       /* Aplicat INSTANT la load, înainte de orice altceva */
+      /* `clip` after `hidden` so position:sticky descendants still work in modern browsers */
       html {
         overflow-x: hidden !important;
+        overflow-x: clip !important;
         max-width: 100vw !important;
         width: 100% !important;
         position: relative;
       }
-      
+
       body {
         overflow-x: hidden !important;
+        overflow-x: clip !important;
         max-width: 100vw !important;
         width: 100% !important;
         position: relative;
         margin: 0;
         padding: 0;
       }
-      
+
       #root {
         overflow-x: hidden !important;
+        overflow-x: clip !important;
         max-width: 100vw !important;
         width: 100% !important;
         position: relative;
@@ -56,15 +147,113 @@
           overscroll-behavior-x: none;
           overscroll-behavior-y: contain;
         }
-        
+
         * {
           max-width: 100vw;
+        }
+      }
+
+      /* ====================================================================
+         BOOT LOADER — premium first-paint moment with the eye logo.
+         Shown once per session via inline JS below.
+         ==================================================================== */
+      #app-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 18px;
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity 380ms cubic-bezier(0.23, 1, 0.32, 1),
+                    transform 380ms cubic-bezier(0.23, 1, 0.32, 1);
+        will-change: opacity, transform;
+      }
+      #app-loader.loader-gone {
+        opacity: 0;
+        transform: scale(0.985);
+        pointer-events: none;
+      }
+      #app-loader .al-eye {
+        width: clamp(80px, 12vw, 120px);
+        height: auto;
+        display: block;
+        opacity: 0;
+        transform: scale(0.96);
+        animation: al-eye-in 360ms cubic-bezier(0.23, 1, 0.32, 1) forwards,
+                   al-breathing 3s 360ms ease-in-out infinite;
+      }
+      #app-loader .al-label {
+        font-family: 'General Sans', system-ui, -apple-system, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #9ca3af;
+        opacity: 0;
+        animation: al-label-in 420ms 220ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      }
+      @keyframes al-eye-in {
+        to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes al-label-in {
+        to { opacity: 1; }
+      }
+      @keyframes al-breathing {
+        0%, 100% { transform: scale(1); }
+        50%      { transform: scale(1.035); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #app-loader .al-eye {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+        #app-loader .al-label {
+          animation: none;
+          opacity: 1;
         }
       }
     </style>
   </head>
   
   <body>
+    <!-- Boot loader (rendered before React mounts). The bootstrap script below
+         either hides it instantly (already shown this session) or waits for the
+         "app-ready" event dispatched from App.tsx after first paint. -->
+    <div id="app-loader" aria-hidden="true">
+      <img class="al-eye" src="/logo.svg" alt="" decoding="async" />
+      <span class="al-label">Alcaziu Robert</span>
+    </div>
+    <script>
+      (function () {
+        var el = document.getElementById("app-loader");
+        if (!el) return;
+        try {
+          if (sessionStorage.getItem("loaderShown")) {
+            el.parentNode && el.parentNode.removeChild(el);
+            return;
+          }
+        } catch (e) { /* ignore storage errors */ }
+        function hide() {
+          if (!el || !el.parentNode) return;
+          el.classList.add("loader-gone");
+          setTimeout(function () {
+            el && el.parentNode && el.parentNode.removeChild(el);
+          }, 420);
+          try { sessionStorage.setItem("loaderShown", "1"); } catch (e) {}
+        }
+        window.addEventListener("app-ready", hide, { once: true });
+        // Safety net — if the app-ready signal never fires (slow JS, error),
+        // hide after 4s so the user is never stuck on a white screen.
+        setTimeout(hide, 4000);
+      })();
+    </script>
+
     <div id="root"></div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>

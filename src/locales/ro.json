@@ -1,0 +1,494 @@
+{
+  "nav": {
+    "portfolio": "Portofoliu",
+    "about": "Despre",
+    "casestudy": "Abordarea noastră",
+    "cta": "Contactează-mă"
+  },
+  "compounding": {
+    "title": "De ce funcționează?",
+    "s1": {
+      "what": "Cu mine",
+      "tag": "Transformă vizitatorii\nîn clienți"
+    },
+    "s2": {
+      "what": "Fără mine",
+      "tag": "Îi pierde\nîn câteva secunde"
+    },
+    "summary_l1": "Funcționează pentru că site-ul e construit să <pill>convertească</pill>, nu doar să arate bine.",
+    "summary_l2": "Aceiași vizitatori, același buget. Singura diferență e <pill>cine a construit site-ul</pill>.",
+    "takeaway": "<pill>Un singur client nou</pill> din sistem acoperă tot build-ul. Tot ce aduce după aceea e profit curat."
+  },
+  "frictionless": {
+    "title": "Nu construiesc site-uri. Construiesc creștere.",
+    "subtitle": "Majoritatea developerilor îți dau un site arătos și pleacă. Eu construiesc mașinăria care <pill>transformă vizitatorii în clienți</pill> — și o țin în funcțiune.",
+    "badge": "Făcut pentru tine, de la cap la coadă."
+  },
+  "painpoints": {
+    "title": "Majoritatea site-urilor sunt sparte.",
+    "p1": "Generate cu AI. Identice cu alte 10.000 de site-uri online.",
+    "p2": "Core Web Vitals proaste. Google te penalizează. Clienții pleacă.",
+    "p3": "Tracking doar client-side. iOS 17+ blochează 30% din evenimente. Reclamele tale pierd bani.",
+    "p4": "Fără NIS2 compliance. Risc legal direct din ianuarie 2024."
+  },
+  "difference": {
+    "title": "Majoritatea proiectelor se opresc la lansare. Al tău continuă să crească.",
+    "subtitle": "Majoritatea freelancerilor și agențiilor livrează site-ul și pleacă. Fără comisioane, fără circ pe TikTok — rămân în spatele cifrelor tale, lună de lună.",
+    "badge": "La alcaziurobert.ro, e altfel.",
+    "item1": "Săptămâna 1 — Unde pierzi bani",
+    "item2": "Săptămâna 2 — Construim să convertească",
+    "item3": "Săptămâna 3 — Lansare",
+    "item4": "Săptămâna 4+ — Scalăm ce merge",
+    "item5": "Continuu — Creștere compusă"
+  },
+  "faq": {
+    "eyebrow": "Întrebări frecvente",
+    "title": "Răspunsuri rapide la întrebările tale.",
+    "lead": "Cele mai frecvente întrebări despre cum lucrez, prețuri, durata proiectelor și ce se întâmplă după livrare.",
+    "cta": "Ai altă întrebare? Scrie-mi",
+    "q1": {
+      "q": "Cât durează construirea unui site?",
+      "a": "3-5 săptămâni pentru site standard. 6-10 pentru proiecte complexe (e-commerce, integrări, dashboard-uri). Timeline-ul exact ți-l dau în discovery call."
+    },
+    "q2": {
+      "q": "Cât costă un site cu tine?",
+      "a": "E gândit după valoarea pe care o creează, nu la oră. Vorbim întâi, îți înțeleg business-ul, apoi primești un singur număr clar care nu se mai schimbă pe parcurs. Dacă ți se pare mult, răspunsul următor are calculul."
+    },
+    "q2b": {
+      "q": "De ce costă cât costă?",
+      "a": "Pentru că îți economisește 3.000-5.000€ pe an. Un specialist SEO costă 1.500€/lună, un developer 1.200€, un manager de analytics 800€. Eu le acopăr pe toate, tu deții totul, iar sistemul merge singur. Plătești o dată și profitul continuă să vină."
+    },
+    "q3": {
+      "q": "Ce tehnologii folosești?",
+      "a": "React, Next.js, TypeScript pentru frontend. Cloudflare pentru securitate enterprise (DDoS, WAF, SSL). Server-side tracking + NIS2 compliance incluse."
+    },
+    "q4": {
+      "q": "Oferi mentenanță după livrare?",
+      "a": "Primele 30 de zile după lansare sunt din partea mea. După aceea, un pachet lunar opțional acoperă monitorizare, backup-uri și ajustări, ca să nu verifici tu niciodată uptime-ul."
+    },
+    "q5": {
+      "q": "Cum decurge procesul de colaborare?",
+      "a": "Discovery → Audit → Design (Figma, 2 runde feedback) → Build (cu staging live pentru tine) → Launch → Owning the metrics (raport lunar)."
+    },
+    "q6": {
+      "q": "Cine deține drepturile asupra codului?",
+      "a": "Tu. După plata finală: cod sursă, Figma files, documentație, acces Git. Zero lock-in."
+    },
+    "q7": {
+      "q": "Cum gestionezi hosting-ul și securitatea?",
+      "a": "Configurez Cloudflare (DDoS, WAF, SSL automat) + recomandare hosting potrivită proiectului. Backup, monitoring uptime și alerte de incident — incluse."
+    }
+  },
+  "hero_v2": {
+    "rating_count": "Solo. Maxim 4 clienți simultan.",
+    "headline_pre": "Construit pentru a <i>converti</i>",
+    "headline_accent": "<i>Lead-uri</i> cu o <i>formulă</i> simplă.",
+    "headline_post": "",
+    "bio": "Sunt Robert. Construiesc singur sisteme care convertesc cold traffic în clienți reali. Fără echipe, fără comisioane, fără pierdere de timp.",
+    "subtitle": "End-to-end: shop, brand, reclame Meta + Google, SEO, securitate NIS2. Un singur partener, stack complet.",
+    "scarcity": "Sloturi limitate lunar — accept aplicații acum",
+    "cta_primary": "Aplică acum",
+    "cta_secondary": "Vezi proiectele"
+  },
+  "portfolio": {
+    "badge": "Portofoliu",
+    "title": "Munca mea vorbește de la sine.",
+    "card_label": "PROIECT",
+    "card_link": "Vezi proiectul",
+    "badges": {
+      "public_institution": "INSTITUȚIE PUBLICĂ"
+    },
+    "subtitles": {
+      "sgc": "Platformă custom pentru OCPI — proiect de stat"
+    },
+    "labels": {
+      "sgc": "SGC — Sistem Gestionare Contestații (OCPI)",
+      "bacde10": "Un Bac de 10 — Pregătire bacalaureat informatică",
+      "picaps": "Picaps",
+      "rdraw": "R-Draw Engineering",
+      "everun": "Everun România",
+      "everati": "Everati",
+      "kickout": "Kickout",
+      "alma": "Alma",
+      "lukton": "Lukton",
+      "ecartop": "Ecartop",
+      "traveltwin": "TravelTwin — Travel Companion"
+    },
+    "metrics": {
+      "sgc": "Proiect de stat · 8K+ buget · Live 12 luni",
+      "bacde10": "Lead-uri organice ×4 în 90 zile",
+      "picaps": "LCP 1.1s · Bounce -38%",
+      "rdraw": "Sub 1.5s global · CWV: 100/100/100/100",
+      "everun": "Conversion rate 4.2% · Industry avg: 1.8%",
+      "everati": "Lansat în 4 săptămâni · primul client în 7 zile",
+      "kickout": "Mobile-first · 70% trafic mobil convertit",
+      "alma": "Lead pipeline automatizat 24/7",
+      "lukton": "Tracking server-side · attribution 97%",
+      "ecartop": "B2B sales funnel · cycle redus cu 40%",
+      "traveltwin": "MVP în 3 săptămâni · validation pas"
+    }
+  },
+  "case_study": {
+    "eyebrow": "STUDIU DE CAZ",
+    "title": "Aplicație custom pentru o instituție publică",
+    "body": "Platformă web la cheie, construită de la zero pentru OCPI / utilizare municipală — uz intern, securizată și optimizată pentru încărcare operațională zilnică. Client confidențial.",
+    "stats": {
+      "tier_value": "€8K+",
+      "tier_label": "Bugetul proiectului",
+      "stack_value": "React · Node · PostgreSQL",
+      "stack_label": "Tehnologii",
+      "scope_value": "Full-stack",
+      "scope_label": "Scope"
+    },
+    "availability": "Disponibil la cerere"
+  },
+  "approach": {
+    "eyebrow": "Abordarea noastră",
+    "h1": "Site-uri premium care chiar funcționează.",
+    "lead": "Majoritatea site-urilor sunt template. Ale noastre convertesc. Iată cum.",
+    "cf_partner": "Partener Cloudflare",
+    "cf_partner_body": "Infrastructură enterprise. Sub 2 secunde global. DDoS, SSL, backup-uri incluse.",
+    "pain_eyebrow": "Problema",
+    "pain_title": "Majoritatea site-urilor sunt rupte.",
+    "pain_1": "Core Web Vitals lente. Google te penalizează. Clienții pleacă.",
+    "pain_2": "Pixeli doar client-side. Reclamele plătite nu scalează.",
+    "pain_3": "Fără NIS2 compliance. Expunere legală directă din 2024.",
+    "road_eyebrow": "Cum construim",
+    "road_title": "Cinci etape. Un singur standard.",
+    "road_lead": "Același standard pentru site-uri, ecommerce, aplicații.",
+    "stage": {
+      "discovery": {
+        "title": "Discovery & strategie",
+        "lead": "Audit. KPI. Funnel. Definite înainte de cod.",
+        "t1": "Audit + analytics",
+        "t2": "Hartă KPI"
+      },
+      "performance": {
+        "title": "Performanță — Powered by Cloudflare",
+        "lead": "Edge Cloudflare. Sub 2 secunde global. Viteza convertește.",
+        "t1": "Cloudflare CDN",
+        "t2": "Core Web Vitals"
+      },
+      "security": {
+        "title": "Securitate — NIS2 compliant",
+        "lead": "WAF, DDoS, SSL, backup-uri. NIS2 ready.",
+        "t1": "WAF + DDoS",
+        "t2": "NIS2 ready"
+      },
+      "tracking": {
+        "title": "Tracking & ads",
+        "lead": "Pixeli Facebook și Google, server-side. Cele două care scalează.",
+        "t1": "FB Conversions API",
+        "t2": "GA4 + Google Ads"
+      },
+      "seo": {
+        "title": "SEO care se compune",
+        "lead": "On-page, tehnic, content. Trafic calificat, fără CPC.",
+        "t1": "On-page + tehnic",
+        "t2": "Schema + sitemap"
+      }
+    },
+    "channels_eyebrow": "Canalele pe care le rulăm",
+    "channels_title": "Marketing pentru high-ticket.",
+    "channels_p1": "Audiențe COLD întâi. Retargetare precisă apoi. Obiectiv Purchase mereu. Fără metrici de vanitate.",
+    "channel_meta": "Facebook Ads",
+    "channel_google": "Google Ads",
+    "addon_eyebrow": "Infrastructură custom",
+    "addon_title": "VPS Linux & Windows — fully managed.",
+    "addon_body": "Puțini o fac corect. Arhitectăm, deploy-uim și mentenăm instanțe Linux sau Windows dedicate. Preț per proiect.",
+    "addon_cta": "Cere o ofertă",
+    "cta_title": "Pregătit?",
+    "cta_body": "Apel de scoping 30 min. Fără pălăvrăgeală.",
+    "cta_button": "Hai să vorbim",
+    "toc": {
+      "title": "Pe această pagină",
+      "overview": "Prezentare",
+      "problem": "Problema",
+      "roadmap": "Cum construim",
+      "channels": "Canale",
+      "addon": "VPS custom",
+      "cta": "Hai să vorbim"
+    }
+  },
+  "whatwedo": {
+    "badge": "Oferta",
+    "clients_eyebrow": "Aceștia ne-au ales",
+    "cf_partner": "Partener Cloudflare",
+    "cf_partner_body": "Infrastructură enterprise. Sub 2 secunde global. DDoS, SSL, backup-uri incluse.",
+    "cta_primary": "Start Convert",
+    "cta_secondary": "Studii de caz",
+    "cf": {
+      "title": "Cloudflare edge",
+      "body": "Sub 2s global. CDN, WAF și SSL incluse."
+    },
+    "tracking": {
+      "title": "Tracking server-side",
+      "body": "Facebook Conversions API + GA4. Reclamele scalează."
+    },
+    "security": {
+      "title": "NIS2 + securitate",
+      "body": "WAF, DDoS, backup-uri. Compliance enterprise."
+    }
+  },
+  "cf_fortune": {
+    "headline": "Cloudflare alimentează 42% din Fortune 500",
+    "subtitle": "De încredere pentru echipele în care ai încredere."
+  },
+  "tech_stack": {
+    "title": "Construit pe instrumentele care contează",
+    "subtitle": "De la edge la deploy, stack-ul potrivit pentru produse premium."
+  },
+  "testimonials": {
+    "badge": "Testimoniale",
+    "title": "Ce zic oamenii care lucrează cu mine.",
+    "subtitle": "Vezi ce au de spus clienții despre noi",
+    "items": [
+      {
+        "text": "Am comparat 4 agenții pentru proiectul OCPI. Robert a venit solo, a livrat în 6 săptămâni și a construit ceva pe care echipa de audit l-a numit <hl>indestructibil</hl>.",
+        "name": "SGC OCPI",
+        "role": "Instituție publică",
+        "initials": "SG",
+        "tone": "orange"
+      },
+      {
+        "text": "Site-ul vechi se încărca în 6 secunde. Cel nou — <hl>1.1</hl>. Aceeași ofertă, bounce cu 38% mai mic, 2× cereri de demo în 30 de zile.",
+        "name": "Picaps",
+        "role": "Client industrial",
+        "initials": "PI",
+        "tone": "ink"
+      },
+      {
+        "text": "Primele 30 de zile după lansare: 7 lead-uri calificate din organic. Doi ani înainte — zero. <hl>Deblocat</hl> un canal pe care nici nu-l puteam deschide.",
+        "name": "R-Draw",
+        "role": "Engineering Studio",
+        "initials": "RD",
+        "tone": "orange"
+      },
+      {
+        "text": "Pe primul apel, Robert a pus întrebări pe care agenția anterioară nu le-a atins în 9 luni. Săptămâna 2 aveam un <hl>plan</hl> real, nu un deck.",
+        "name": "Everun România",
+        "role": "Retail sport",
+        "initials": "ER",
+        "tone": "ink"
+      },
+      {
+        "text": "Răspunde în 2 ore, la 8 luni după lansare. Nu e relație de freelancer. E un <hl>partener</hl> căruia chiar îi pasă de business-ul tău.",
+        "name": "Everati",
+        "role": "Brand tehnologic",
+        "initials": "EV",
+        "tone": "orange"
+      },
+      {
+        "text": "Conversion rate-ul a urcat de la 1.4% la <hl>3.8%</hl> în 60 de zile. Aceleași reclame, același trafic. Site-ul face acum munca grea.",
+        "name": "Kickout",
+        "role": "Brand sportiv",
+        "initials": "KO",
+        "tone": "ink"
+      },
+      {
+        "text": "Am investit 2 ore din timpul meu pe tot build-ul. Site-ul a fost livrat la termen. Acum stau <hl>zero</hl> minute pe lună cu el.",
+        "name": "Alma",
+        "role": "Servicii auto",
+        "initials": "AL",
+        "tone": "orange"
+      },
+      {
+        "text": "A eliminat 3 funcționalități pentru care aveam deja buget. A spus că nu mută acul. Onestitatea asta e <hl>rară</hl> pe piața de azi.",
+        "name": "Lukton",
+        "role": "Servicii B2B",
+        "initials": "LU",
+        "tone": "ink"
+      },
+      {
+        "text": "Robert a construit funnel-ul, apoi ne-a predat cheile. <hl>Control</hl> total — cod, hosting, date. Fără capcană lunară, fără dependență de furnizor.",
+        "name": "Ecartop",
+        "role": "Marketplace auto",
+        "initials": "EC",
+        "tone": "orange"
+      }
+    ]
+  },
+  "globe": {
+    "eyebrow": "Acoperire globală",
+    "title": "Construit în România, livrat în toată lumea.",
+    "subtitle": "De la afaceri locale la branduri internaționale, proiectul tău rulează rapid și aproape de utilizatorii tăi.",
+    "stat_value": "9+ țări",
+    "stat_label": "Proiecte livrate peste granițe",
+    "pillar1_title": "Rulează peste tot",
+    "pillar1_body": "Securitate, conectivitate și cod rulate în 335+ orașe din toată lumea, sub 50ms față de 95% din populația globului.",
+    "pillar2_title": "Rulează oriunde",
+    "pillar2_body": "Rețeaua e aproape de utilizatorii, aplicațiile și site-urile tale. Optimizează tot traficul de la sursă la destinație pentru latență minimă.",
+    "pillar3_title": "Rulează la scară mare",
+    "pillar3_body": "Fără planificare de capacitate. Niciodată."
+  },
+  "roadmap": {
+    "badge": "Etape",
+    "phases": {
+      "analyze_title": "Analiză",
+      "analyze_subtitle": "Discovery & audit",
+      "develop_title": "Dezvoltare",
+      "develop_subtitle": "Arhitectură & cod",
+      "create_title": "Creație",
+      "create_subtitle": "Design & conținut",
+      "deliver_title": "Livrare",
+      "deliver_subtitle": "QA & lansare"
+    }
+  },
+  "contact": {
+    "badge": "Contact",
+    "title": "Hai să vorbim. Fără obligație.",
+    "description_l1": "Îți spun <pill>direct</pill> dacă te pot ajuta sau nu.",
+    "description_l2": "Dacă da, pleci cu <pill>un plan concret</pill> în mână.",
+    "cta": "Cere discovery call"
+  },
+  "footer": {
+    "copyright_l": "Alcaziu Robert",
+    "terms_link": "Termeni și condiții",
+    "privacy_link": "Politica de confidențialitate"
+  },
+  "legal": {
+    "back_home": "← Înapoi la pagina principală",
+    "last_updated": "Ultima actualizare: mai 2026",
+    "disclaimer": "Acest document este un punct de plecare; pentru contracte cu clienți consultă un avocat."
+  },
+  "terms": {
+    "title": "Termeni și Condiții",
+    "toc": {
+      "title": "Pe această pagină",
+      "intro": "Identitatea operatorului",
+      "services": "Scopul site-ului",
+      "form": "Formular contact",
+      "ip": "Proprietate intelectuală",
+      "liability": "Limitarea răspunderii",
+      "changes": "Modificări",
+      "law": "Legislație",
+      "contact": "Contact"
+    },
+    "intro_title": "1. Identitatea operatorului",
+    "intro_body": "Acest site este operat de Alcaziu Robert, persoană fizică, cu domiciliul în România. Site-ul reprezintă portofoliul personal al operatorului și nu este asociat unei entități comerciale înregistrate. Prin accesarea și utilizarea site-ului, ești de acord să respecți acești termeni. Dacă nu ești de acord cu ei, te rog să încetezi utilizarea site-ului.",
+    "services_title": "2. Scopul site-ului",
+    "services_body": "Acest site are rol exclusiv informativ și de prezentare a portofoliului personal (proiecte, tehnologii folosite, experiență). Conținutul nu constituie o ofertă contractuală fermă și nu se încheie contracte de prestări servicii prin intermediul acestei pagini.",
+    "form_title": "3. Utilizarea formularului de contact",
+    "form_body": "Site-ul permite vizitatorilor să trimită o solicitare printr-un formular care colectează: nume, email, telefon, tip proiect și buget estimativ. Prin completarea formularului te angajezi să furnizezi informații reale. Îmi rezerv dreptul de a nu răspunde solicitărilor care par a fi spam sau care conțin un limbaj inadecvat.",
+    "ip_title": "4. Proprietate intelectuală",
+    "ip_body": "Întreg conținutul site-ului (texte, elemente grafice, logo-uri, cod sursă, design) este proprietatea Alcaziu Robert și este protejat de legislația privind drepturile de autor. Este interzisă copierea, reproducerea sau utilizarea oricărui element fără acordul meu scris prealabil.",
+    "liability_title": "5. Limitarea răspunderii",
+    "liability_body": "Site-ul este oferit ca atare. Depun eforturi pentru a menține informațiile corecte și actualizate, dar nu garantez că site-ul va funcționa neîntrerupt sau fără erori. Nu sunt responsabil pentru eventuale daune directe sau indirecte cauzate de utilizarea sau imposibilitatea utilizării site-ului. Informațiile tehnice prezentate au caracter ilustrativ.",
+    "changes_title": "6. Modificări ale termenilor",
+    "changes_body": "Îmi rezerv dreptul de a modifica acești termeni oricând, fără notificare prealabilă. Versiunea actualizată va fi întotdeauna disponibilă pe această pagină.",
+    "law_title": "7. Legislație aplicabilă",
+    "law_body": "Acești termeni sunt guvernați de legile din România. Orice litigiu va fi soluționat pe cale amiabilă sau, în caz contrar, de către instanțele judecătorești competente.",
+    "contact_title": "8. Contact",
+    "contact_body": "Pentru întrebări legate de acești termeni, scrie-mi la contact@alcaziurobert.ro."
+  },
+  "privacy": {
+    "title": "Politica de Confidențialitate",
+    "toc": {
+      "title": "Pe această pagină",
+      "intro": "Cine suntem",
+      "data": "Date colectate",
+      "source": "Sursa datelor",
+      "purpose": "Scopuri și temei",
+      "refusal": "Dacă nu furnizezi datele",
+      "recipients": "Cui divulgăm datele",
+      "transfers": "Transferuri internaționale",
+      "storage": "Cât timp păstrăm",
+      "rights": "Drepturile tale",
+      "cookies": "Cookies",
+      "security": "Securitate",
+      "changes": "Modificări",
+      "contact": "Contact"
+    },
+    "intro_title": "1. Cine suntem",
+    "intro_body": "Site-ul alcaziurobert.ro este operat de Alcaziu Robert, persoană fizică, cu domiciliul în România. Această politică explică ce date colectez atunci când vizitezi site-ul sau mă contactezi, cum le folosesc și ce drepturi ai conform GDPR (Regulamentul UE 2016/679).",
+    "data_title": "2. Ce date pot colecta",
+    "data_body": "Date de identificare și contact: nume, adresă de email, număr de telefon și orice alte informații pe care alegi să mi le transmiți voluntar. Date din solicitări comerciale: tipul proiectului, buget estimativ și orice fișiere sau informații transmise prin formularul de contact sau pe email. Date tehnice și de utilizare: adresă IP, identificatori de sesiune, informații despre browser și dispozitiv, pagini accesate, sursa traficului și preferințe de consimțământ. Date colectate prin cookies și tehnologii similare, în măsura în care acestea sunt activate conform alegerii tale.",
+    "source_title": "3. Sursa datelor",
+    "source_body": "În mod normal, colectez datele direct de la tine, atunci când completezi formularul de contact sau îmi trimiți un email. Unele date tehnice sunt generate automat de browser, de infrastructura pe care rulează site-ul (Cloudflare, Vercel) sau de furnizorii terți activați doar pe baza consimțământului tău.",
+    "purpose_title": "4. Scopurile și temeiurile prelucrării",
+    "purpose_body": "Pentru a răspunde solicitărilor tale și a transmite informații despre serviciile mele. Temei: demersuri precontractuale la cererea ta și interes legitim. Pentru a opera, securiza și administra site-ul, inclusiv prevenirea abuzurilor, depanarea și monitorizarea tehnică. Temei: interes legitim. Pentru a măsura traficul și a îmbunătăți performanța site-ului prin instrumente analitice. Temei: consimțământul tău, atunci când acesta este necesar. Pentru a respecta obligațiile fiscale, contabile sau alte obligații legale aplicabile. Temei: obligație legală. Pentru apărarea sau exercitarea drepturilor mele în caz de litigii sau reclamații. Temei: interes legitim. În prezent nu folosesc taguri de marketing sau remarketing; dacă pe viitor decid să le adaug, voi solicita consimțământul tău prealabil printr-un banner de cookies.",
+    "refusal_title": "5. Dacă nu îmi furnizezi datele",
+    "refusal_body": "Nu ai o obligație legală generală de a-mi furniza datele. Totuși, dacă nu îmi transmiți datele minime necesare (nume, email, telefon), nu voi putea răspunde solicitării tale și nici discuta un eventual proiect.",
+    "recipients_title": "6. Cui pot divulga datele",
+    "recipients_body": "Pot divulga datele, strict în măsura necesară, către furnizori care mă ajută să operez site-ul: Cloudflare (CDN, securitate și analytics privacy-friendly fără cookies), Vercel (hosting și funcții serverless pentru formularul de contact), precum și furnizorul de email folosit pentru SMTP pe domeniul propriu. Datele pot fi divulgate și către consultanți, contabili, avocați, autorități publice sau instanțe, dacă legea cere sau dacă este necesar pentru apărarea drepturilor mele.",
+    "transfers_title": "7. Transferuri internaționale",
+    "transfers_body": "Unele servicii folosite (precum Cloudflare și Vercel) au sediul în Statele Unite, ceea ce poate implica transferuri de date în afara Spațiului Economic European. Pentru aceste transferuri, mă bazez pe mecanisme recunoscute de GDPR, precum clauze contractuale standard (SCC) sau alte garanții adecvate oferite de furnizorii respectivi prin contracte de prelucrare a datelor (DPA).",
+    "storage_title": "8. Cât timp păstrez datele",
+    "storage_body": "Datele din solicitări comerciale și formulare de contact: până la 24 de luni de la ultima interacțiune relevantă, dacă nu rezultă o relație contractuală sau o obligație legală de păstrare mai lungă. Datele necesare pentru facturare sau contabilitate (în cazul unei colaborări ulterioare): pe durata impusă de legislația fiscală aplicabilă (în general 10 ani). Datele tehnice și logurile de securitate: pe perioade limitate, proporționale cu scopul de securitate și mentenanță (de regulă maximum 12 luni). Preferințele de cookies: conform duratelor explicate în Politica de cookies sau conform setărilor browserului.",
+    "rights_title": "9. Drepturile tale",
+    "rights_body": "În condițiile prevăzute de GDPR, ai următoarele drepturi: dreptul de acces la datele tale, dreptul la rectificare, dreptul la ștergere, dreptul la restricționarea prelucrării, dreptul la opoziție (inclusiv față de prelucrările întemeiate pe interes legitim), dreptul la portabilitatea datelor, dreptul de a-ți retrage consimțământul în orice moment fără a afecta legalitatea prelucrării anterioare retragerii și dreptul de a depune plângere la Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP). Pentru exercitarea acestor drepturi, scrie-mi la contact@alcaziurobert.ro. Răspund în maximum 30 de zile.",
+    "cookies_title": "10. Cookies și tehnologii similare",
+    "cookies_body": "Folosesc cookies strict necesare pentru funcționarea site-ului (sesiune, preferință de limbă). Pentru analytics folosesc Cloudflare Analytics, un instrument care măsoară traficul fără cookies și fără date personale identificabile, deci fără a necesita consimțământul tău. Dacă pe viitor activez cookies analitice, funcționale sau de marketing, vei vedea un banner de consimțământ înainte ca acestea să fie setate.",
+    "security_title": "11. Securitatea datelor",
+    "security_body": "Aplic măsuri tehnice și organizatorice rezonabile pentru a proteja datele împotriva accesului neautorizat, pierderii, modificării sau divulgării nepermise: transmisie criptată TLS, infrastructură Cloudflare cu WAF și DDoS protection, backup-uri regulate. Cu toate acestea, niciun sistem online nu poate garanta securitate absolută.",
+    "changes_title": "12. Modificări",
+    "changes_body": "Pot actualiza periodic această politică pentru a reflecta schimbări legislative, operaționale sau tehnice. Versiunea publicată pe site este versiunea aplicabilă la data consultării. Te încurajez să o verifici periodic.",
+    "contact_title": "13. Contact",
+    "contact_body": "Pentru orice solicitare legată de protecția datelor sau exercitarea drepturilor tale, scrie-mi la contact@alcaziurobert.ro."
+  },
+  "lang": {
+    "switch_to": "Schimbă limba"
+  },
+  "form": {
+    "title": "Spune-ne despre proiect",
+    "subtitle": "Răspundem în 24 de ore.",
+    "name_label": "Nume",
+    "name_placeholder": "Ion Popescu",
+    "email_label": "Email",
+    "email_placeholder": "tu@firma.ro",
+    "phone_label": "Telefon",
+    "phone_placeholder": "+40 712 345 678",
+    "project_label": "Tip proiect",
+    "project_placeholder": "Alege tipul",
+    "project_website": "Site web",
+    "project_webapp": "Aplicație web",
+    "project_other": "Altceva",
+    "budget_label": "Buget",
+    "budget_placeholder": "Alege un interval",
+    "budget_low": "€1500–3000",
+    "budget_mid": "€3000–5000",
+    "budget_high": "€5000+",
+    "budget_discuss": "Prefer să discutăm",
+    "submit": "Trimite",
+    "submitting": "Se trimite…",
+    "cancel": "Renunță",
+    "step2_title": "Cum te putem contacta?",
+    "step3_title": "Spune-ne despre proiect",
+    "v_name": "Numele trebuie să aibă minimum 2 caractere.",
+    "v_email": "Introdu un email valid.",
+    "v_phone_required": "Telefonul este obligatoriu.",
+    "v_phone": "Introdu un număr de telefon valid.",
+    "v_project": "Alege un tip de proiect.",
+    "v_budget": "Alege un interval de buget.",
+    "toast_ok_title": "Mesaj trimis",
+    "toast_ok_body": "Mulțumesc — revin în 24 de ore.",
+    "toast_err_title": "Trimitere eșuată",
+    "toast_err_body": "Ceva n-a mers. Încearcă din nou sau scrie-mi direct la contact@alcaziurobert.ro."
+  },
+  "fab": {
+    "aria": "Deschide opțiuni de contact",
+    "heading": "Hai în contact",
+    "call": "Sună-mă",
+    "email": "Trimite email",
+    "message": "Scrie-mi un mesaj"
+  },
+  "whyCf": {
+    "title": "Build without boundaries",
+    "sub_pre": "Tot ce-ți trebuie ca să",
+    "sub_mark": "construiești aplicații sigure și rapide",
+    "chaos_title": "Lupți cu infra în „cloud chaos”",
+    "status": "STATUS: NEREZOLVAT",
+    "cred_title": "Credential stuffing detectat",
+    "cred_body": "142K încercări de login de la 38K IP-uri în ultimele 5 minute.",
+    "latency_title": "Latență mare!!!!!!",
+    "latency_body": "~150–250ms RTT per request",
+    "exfil_title": "Exfiltrare de date sensibile",
+    "exfil_body": "12 înregistrări de clienți lipite în Slack în ultima oră.",
+    "ddos": "IP-ul de origine e expus, suntem loviți direct de trafic DDoS. Trebuie blocat ASAP.",
+    "open_incidents": "2331 incidente deschise",
+    "calm_title": "Shipping with Cloudflare",
+    "pushed_pre": "Am lansat",
+    "pushed_post": "actualizări noi azi",
+    "p0": "P0"
+  }
+}

@@ -3,8 +3,11 @@
    =================================== */
 
 /* NIVEL 1: Blochează overflow DOAR pe containerele principale */
+/* `clip` after `hidden` so modern browsers don't create a scroll container
+   (which would break position:sticky descendants like the TOC sidebar). */
 html, body {
   overflow-x: hidden !important;
+  overflow-x: clip !important;
   max-width: 100vw !important;
   width: 100% !important;
   position: relative;
@@ -12,6 +15,7 @@ html, body {
 
 #root {
   overflow-x: hidden !important;
+  overflow-x: clip !important;
   max-width: 100vw !important;
   width: 100% !important;
 }
@@ -123,30 +127,22 @@ body {
     padding-right: 1rem;
   }
   
-  .button-primary, .button-secondary {
-    padding: 0.75rem 1.25rem;
-    font-size: 0.875rem;
-    width: 100%;
-  }
-  
   .section-container {
     padding: 1.5rem 1rem;
   }
-  
-  .nav-link, button, a {
+
+  /* Touch targets — only real buttons/CTAs, NOT inline text links */
+  .nav-link,
+  button,
+  [role="button"],
+  .btn,
+  .lang-btn,
+  a[href^="tel:"],
+  a[href^="mailto:"] {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .section-title {
-    font-size: 1.75rem !important;
-    line-height: 1.2 !important;
-  }
-  
-  .section-subtitle {
-    font-size: 1rem !important;
   }
 }
 
@@ -168,7 +164,7 @@ body {
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feature-item:hover {

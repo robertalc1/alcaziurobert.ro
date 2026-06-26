@@ -1,479 +1,460 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { motion, useScroll, useTransform } from "motion/react";
 
-const HumanoidSection = () => {
-  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+type CardItem = {
+  title: string;
+  link: string;
+  image: string;
+  background: string;
+  labelKey: string;
+  badgeKey?: string;
+};
 
-  useEffect(() => {
-    // Ensure the array of refs matches the data length (optional cleanup, but good practice)
-    cardRefs.current = cardRefs.current.slice(0, cardData.length);
+const CARDS: CardItem[] = [
+  {
+    title: "Oficiul de Cadastru OCPI",
+    link: "https://sgc.ocpict.ro/",
+    image: "/gov.png",
+    background: "/background-section2.webp",
+    labelKey: "portfolio.labels.sgc",
+    badgeKey: "portfolio.badges.public_institution",
+  },
+  {
+    title: "BAC DE 10",
+    link: "https://unbacde10.ro/bacalaureat-informatica/",
+    image: "/unbacde-10.png",
+    background: "/background-section2.webp",
+    labelKey: "portfolio.labels.bacde10",
+  },
+  {
+    title: "PICAPS",
+    link: "https://picaps.ro/",
+    image: "/picaps3.webp",
+    background: "/background-section1.webp",
+    labelKey: "portfolio.labels.picaps",
+  },
+  {
+    title: "R-DRAW",
+    link: "https://r-draw.com/",
+    image: "/r-draw.com.webp",
+    background: "/background-section2.webp",
+    labelKey: "portfolio.labels.rdraw",
+  },
+  {
+    title: "EVERUN",
+    link: "https://www.everunromania.ro/",
+    image: "/everun.webp",
+    background: "/background-section3.webp",
+    labelKey: "portfolio.labels.everun",
+  },
+  {
+    title: "EVERATI",
+    link: "https://everati.ro/",
+    image: "/everati.webp",
+    background: "/background-section1.webp",
+    labelKey: "portfolio.labels.everati",
+  },
+  {
+    title: "KICKOUT",
+    link: "https://kickout.ro/",
+    image: "/kickout.webp",
+    background: "/background-section3.webp",
+    labelKey: "portfolio.labels.kickout",
+  },
+  {
+    title: "ALMA",
+    link: "https://vopsitoriaalma.ro/",
+    image: "/alma.webp",
+    background: "/background-section1.webp",
+    labelKey: "portfolio.labels.alma",
+  },
+  {
+    title: "LUKTON",
+    link: "https://lukton.ro/",
+    image: "/lukton.webp",
+    background: "/background-section3.webp",
+    labelKey: "portfolio.labels.lukton",
+  },
+  {
+    title: "ECARTOP",
+    link: "https://ecartop.com/",
+    image: "/ecartop.webp",
+    background: "/background-section1.webp",
+    labelKey: "portfolio.labels.ecartop",
+  },
+  {
+    title: "TRAVEL TWIN",
+    link: "https://travel-twin.vercel.app/",
+    image: "/travel-twin.webp",
+    background: "/background-section1.webp",
+    labelKey: "portfolio.labels.traveltwin",
+  },
+];
 
-    const observers = cardRefs.current.map((ref, index) => {
-      if (!ref) return null;
+const StarIcon = (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ width: 10, height: 10 }}>
+    <path d="M12 2l2.939 6.95L22 10.061l-5.5 5.213L17.878 22 12 18.605 6.122 22l1.378-6.726L2 10.061l7.061-1.111L12 2z" />
+  </svg>
+);
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            setVisibleCards((prev) => {
-              const newSet = new Set(prev);
-              if (entry.isIntersecting) newSet.add(index);
-              else newSet.delete(index);
-              return newSet;
-            });
-          });
-        },
-        { threshold: 0.2, rootMargin: "-50px" }
-      );
+const ArrowUpRight = (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    style={{ width: 13, height: 13 }}
+  >
+    <path d="M5 19L19 5" />
+    <path d="M9 5h10v10" />
+  </svg>
+);
 
-      observer.observe(ref);
-      return observer;
-    });
+type ProjectCardProps = {
+  card: CardItem;
+  t: (key: string) => string;
+};
 
-    return () => {
-      observers.forEach((observer, index) => {
-        if (observer && cardRefs.current[index]) {
-          observer.unobserve(cardRefs.current[index]!);
-        }
+const ProjectCard: React.FC<ProjectCardProps> = ({ card, t }) => (
+  <a
+    href={card.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="ww-card"
+    aria-label={`${card.title} — ${t("portfolio.card_link")}`}
+  >
+    <div className="ww-card-image-wrap">
+      <img src={card.image} alt={card.title} loading="lazy" className="ww-card-img" />
+    </div>
+
+    {card.badgeKey && (
+      <span className="ww-card-badge">
+        {StarIcon}
+        {t(card.badgeKey)}
+      </span>
+    )}
+
+    <div className="ww-card-foot">
+      <h3 className="ww-card-title">{card.title}</h3>
+      <span className="ww-card-cta">
+        {t("portfolio.card_link")}
+        {ArrowUpRight}
+      </span>
+    </div>
+  </a>
+);
+
+const ROW_1 = CARDS.slice(0, 5);
+const ROW_2 = CARDS.slice(5);
+
+const HumanoidSection: React.FC = () => {
+  const { t } = useTranslation();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const row1Ref = useRef<HTMLDivElement>(null);
+  const row2Ref = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLDivElement>(null);
+  const cardsZoneRef = useRef<HTMLDivElement>(null);
+  const [layout, setLayout] = useState({
+    range1: 0, range2: 0, rowH: 0, introH: 0, vh: 0,
+  });
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      setLayout({
+        range1: Math.max(0, (row1Ref.current?.scrollWidth ?? 0) - vw),
+        range2: Math.max(0, (row2Ref.current?.scrollWidth ?? 0) - vw),
+        rowH: row1Ref.current?.offsetHeight ?? 0,
+        introH: introRef.current?.offsetHeight ?? 0,
+        vh,
       });
     };
-  }, []); // Only run once on mount, logic handles refs. Or depend on cardData.length if specific behavior needed.
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
-  const cardData = [
-    {
-      logo: "/picaps-logo.webp",
-      title: "PICAPS",
-      link: "https://picaps.ro/",
-      image: "/picaps3.png",
-      background: "/background-section1.png",
-      label: "Picaps",
-    },
-    {
-      logo: "/r-draw.com.png",
-      title: "R-DRAW",
-      link: "https://r-draw.com/",
-      image: "/r-draw.com.png",
-      background: "/background-section1.png",
-      label: "R-DRAW",
-    },
-    {
-      logo: "/kickout-logo.webp",
-      title: "KICKOUT",
-      link: "https://kickout.ro/",
-      image: "/kickout.png",
-      background: "/background-section2.png",
-      label: "Kickout",
-    },
-    {
-      logo: "/alma-logo.png",
-      title: "ALMA",
-      link: "https://vopsitoriaalma.ro/",
-      image: "/alma.png",
-      background: "/background-section3.png",
-      label: "Alma",
-    },
-    {
-      logo: "/lukton.png",
-      title: "LUKTON",
-      link: "https://lukton.ro/",
-      image: "/lukton.png",
-      background: "background-section2.png",
-      label: "Lukton",
-    },
-    {
-      logo: "/ecartop.png",
-      title: "ECARTOP",
-      link: "https://ecartop.com/",
-      image: "/ecartop.png",
-      background: "background-section2.png",
-      label: "Ecartop",
-    },
-  ];
+  // Sequential reveal: phase 1 shows Row 1 at top of cards-zone (below intro).
+  // Transition slides Row 2 up from below into position below Row 1.
+  // Phase 2 keeps Row 1 fixed and scrolls Row 2 rightward (opposite direction).
+  const { range1, range2, rowH, introH, vh } = layout;
+  const HOLD_PX = 220;
+  const TRANSITION_PX = 300;
+  const GAP_PX = 56;
+  const STAGE_BOTTOM_PADDING = 40;
+  const TOP_PADDING = 20;
+  // Fixed navbar height — pin the sticky stage below it so the title isn't hidden behind the navbar.
+  const NAV_CLEARANCE = 88;
+
+  // Adaptive stage height — just enough for intro + 2 rows + tight padding.
+  // No more empty space below cards. Cap at viewport so sticky works.
+  const desiredStageH =
+    introH > 0 && rowH > 0
+      ? introH + TOP_PADDING + 2 * rowH + GAP_PX + STAGE_BOTTOM_PADDING
+      : 800;
+  const stageH = vh > 0 ? Math.min(desiredStageH, vh - NAV_CLEARANCE) : 800;
+  const zoneH = Math.max(0, stageH - introH);
+
+  const totalScrollPx = HOLD_PX + range1 + range2 + TRANSITION_PX;
+  const pHoldEnd = totalScrollPx > 0 ? HOLD_PX / totalScrollPx : 0;
+  const p1End =
+    totalScrollPx > 0 ? (HOLD_PX + range1) / totalScrollPx : 0.33;
+  const p2Start =
+    totalScrollPx > 0
+      ? (HOLD_PX + range1 + TRANSITION_PX) / totalScrollPx
+      : 0.66;
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Horizontal — Row 1 holds at start (HOLD_PX), then leftward to p1End, then held.
+  const x1 = useTransform(
+    scrollYProgress,
+    [0, pHoldEnd, p1End, 1],
+    [0, 0, -range1, -range1]
+  );
+  // Horizontal — Row 2 held until p2Start, then rightward (-range2 → 0).
+  const x2 = useTransform(scrollYProgress, [0, p2Start, 1], [-range2, -range2, 0]);
+
+  // Vertical — Row 1 fixed at top of cards-zone (intro is above in pinned stage).
+  const y1Top = TOP_PADDING;
+  const y1 = useTransform(scrollYProgress, [0, 1], [y1Top, y1Top]);
+
+  // Vertical — Row 2 hidden below cards-zone in phase 1, slides up below Row 1.
+  const y2Hidden = zoneH;
+  const y2Below = TOP_PADDING + rowH + GAP_PX;
+  const y2 = useTransform(scrollYProgress, [p1End, p2Start], [y2Hidden, y2Below]);
 
   return (
-    <>
+    <section className="ww-projects" id="projects" aria-label={t("portfolio.title")}>
       <style>{`
-        :root { --orange:#FE5C02; --ink:#1A1A1A; }
+        .ww-projects { width: 100%; background: #ffffff; }
 
-        .humanoid-wrapper {
-          max-width: 100vw;
-          overflow-x: hidden;
-          width: 100%;
-        }
-
-        .project-card {
-          opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.6s ease, transform 0.6s ease;
-          margin-bottom: 3rem; /* crește spațiul între carduri */
-        }
-
-        .project-card.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .project-card:last-child {
-          margin-bottom: 0;
-        }
-
-        .card-container {
-          background: white;
-          border-radius: 20px;
-          overflow: hidden;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        @media (pointer: fine) {
-          .card-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
-          }
-        }
-
-        .card-background {
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          background-size: cover;
-          background-position: center;
-        }
-
-        .card-content {
+        /* ===== Intro header (PINNED inside sticky stage, above cards-zone) ===== */
+        .ww-projects-intro {
           position: relative;
-          z-index: 10;
-          padding: 2rem;
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-          align-items: start;
-          min-height: 400px;
+          z-index: 2;
+          flex-shrink: 0;
+          max-width: 980px;
+          margin: 0 auto;
+          padding: 16px 16px 14px;
+          text-align: center;
+          background: #ffffff;
+        }
+        .ww-projects-intro h2 {
+          font-family: var(--font-sans);
+          font-weight: 500;
+          letter-spacing: -0.028em;
+          font-size: clamp(1.8rem, 4.6vw, 3rem);
+          line-height: 1.05;
+          color: #262626;
+          margin: 0 auto;
+          max-width: 22ch;
         }
 
-        @media (min-width: 768px) {
-          .card-content {
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 2rem;
-            align-items: center;
-            padding: 2.5rem;
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .card-content {
-            padding: 3rem;
-          }
-        }
-
-        .card-text {
+        /* ===== Scroll-pinned sequential carousel (phase 1 → phase 2) ===== */
+        .ww-carousel { position: relative; width: 100%; }
+        .ww-carousel-stage {
+          position: sticky;
+          top: 0;
+          height: 100vh;
+          width: 100%;
+          overflow: hidden;
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          background: #ffffff;
         }
-
-        .card-header {
+        .ww-cards-zone {
+          position: relative;
+          flex: 1;
+          overflow: hidden;
+        }
+        .ww-track {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
           display: flex;
-          align-items: center;
-          gap: 0.75rem;
+          gap: clamp(24px, 2.6vw, 44px);
+          padding: 0 clamp(24px, 5vw, 80px);
+          will-change: transform, opacity;
         }
 
-        .card-logo {
-          display: none;
-        }
-
-        .divider {
-          width: 1px;
-          height: 32px;
-          background: rgba(255, 255, 255, 0.3);
-          display: none;
-        }
-
-        @media (min-width: 640px) {
-          .divider {
-            display: block;
-          }
-        }
-
-        .card-label {
-          color: rgba(255, 255, 255, 0.7);
-          font-size: 0.875rem;
-          font-weight: 500;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
-          display: none;
-        }
-
-        @media (min-width: 640px) {
-          .card-label {
-            display: block;
-          }
-        }
-
-        .card-title {
-          font-size: 1.5rem;
-          font-weight: bold;
-          color: white;
-          line-height: 1.3;
-        }
-
-        @media (min-width: 768px) {
-          .card-title {
-            font-size: 2rem;
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .card-title {
-            font-size: 2.5rem;
-          }
-        }
-
-        /* Buton */
-        .card-link {
+        /* ===== Card (solid cream bg, dark text) ===== */
+        .ww-card {
           position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          padding: 10px 18px;
-          border-radius: 9999px;
-          border: 1.5px solid rgba(255, 255, 255, 0.9);
-          background: transparent;
-          color: #ffffff;
-          font-family: "Manrope", sans-serif;
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 1;
+          flex: 0 0 auto;
+          width: clamp(260px, min(28vw, calc(48vh - 80px)), 460px);
+          aspect-ratio: 10 / 9;
+          border-radius: 14px;
+          overflow: hidden;
+          isolation: isolate;
           text-decoration: none;
-          transition: transform .25s ease, background-color .25s ease, box-shadow .25s ease;
-          overflow: hidden;
-          align-self: flex-start;
-          white-space: nowrap;
+          color: #1a1a1a;
+          background: #F2ECE2;
+          border: 1px solid rgba(0, 0, 0, 0.06);
+          transition: transform 320ms cubic-bezier(0.23, 1, 0.32, 1),
+                      border-color 320ms cubic-bezier(0.23, 1, 0.32, 1);
+          display: flex;
+          flex-direction: column;
+        }
+        .ww-card:hover {
+          transform: translateY(-2px);
+          border-color: rgba(0, 0, 0, 0.14);
         }
 
-        .card-link::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          transform: translateX(-120%);
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
-          transition: transform .6s ease;
-          pointer-events: none;
-        }
-
-        @media (pointer: fine) {
-          .card-link:hover::before {
-            transform: translateX(120%);
-          }
-
-          .card-link:hover {
-            transform: translateY(-2px);
-            background-color: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-          }
-
-          .card-link:hover svg {
-            transform: translateX(3px);
-          }
-        }
-
-        .card-link svg {
-          width: 14px;
-          height: 14px;
-          transition: transform .25s ease;
-          flex-shrink: 0;
-        }
-
-        .card-link svg path {
-          stroke: #fff;
-        }
-
-        @media (max-width: 640px) {
-          .card-link {
-            padding: 9px 14px;
-            font-size: 13px;
-            gap: 6px;
-          }
-          .card-link svg {
-            width: 12px;
-            height: 12px;
-            }
-        }
-
-        .card-image-wrapper {
+        /* === Screenshot panel (top portion — fixed 16/10 ratio) === */
+        .ww-card-image-wrap {
           position: relative;
-          width: 100%;
-          aspect-ratio: 16/10;
-          border-radius: 16px;
-          overflow: hidden;
-          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
-          border: 1.5px solid rgba(255, 255, 255, 0.85);
-          cursor: pointer;
-        }
-
-        .card-image-wrapper::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(80% 60% at 50% 0%, rgba(255,255,255,0.1), transparent 60%),
-          linear-gradient(135deg, rgba(255,255,255,0.06), transparent 40% 60%, rgba(0,0,0,0.08));
-          mix-blend-mode: screen;
-          pointer-events: none;
           z-index: 1;
+          margin: clamp(12px, 1.2vw, 18px);
+          margin-bottom: 0;
+          aspect-ratio: 16 / 10;
+          border-radius: 10px;
+          overflow: hidden;
+          background: #ffffff;
+          border: 1px solid rgba(0, 0, 0, 0.06);
         }
-
-        .card-image {
+        .ww-card-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          filter: grayscale(100%) contrast(1.06) brightness(0.98);
-          transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+          object-position: top center;
+          display: block;
+          filter: grayscale(100%);
+          transition: transform 600ms cubic-bezier(0.23, 1, 0.32, 1),
+                      filter 400ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .ww-card:hover .ww-card-img {
+          transform: scale(1.04);
+          filter: grayscale(0);
         }
 
-        @media (pointer: fine) {
-          .card-image-wrapper:hover .card-image {
-            transform: scale(1.06);
-          }
-        }
-
-        /* Header section */
-        .head-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          row-gap: 0.6rem;
+        /* === Badge (top-right) === */
+        .ww-card-badge {
+          position: absolute;
+          top: clamp(20px, 2vw, 28px);
+          right: clamp(20px, 2vw, 28px);
+          z-index: 2;
+          display: inline-flex;
           align-items: center;
+          gap: 6px;
+          padding: 5px 11px;
+          border-radius: 9999px;
+          font-family: var(--font-sans);
+          font-size: 9.5px;
+          font-weight: 700;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: #ffffff;
+          background: #ED5C1B;
         }
 
-        .head-badge {
-          justify-self: center;
+        /* === Foot (project title / CTA) === */
+        .ww-card-foot {
+          position: relative;
+          z-index: 1;
+          margin-top: auto;
+          padding: clamp(18px, 2vw, 26px);
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .ww-card-eyebrow {
+          font-family: var(--font-sans);
+          font-size: 10.5px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.78);
+          margin: 0;
+        }
+        .ww-card-title {
+          font-family: var(--font-sans);
+          font-weight: 600;
+          letter-spacing: -0.025em;
+          font-size: clamp(1.15rem, 1.55vw, 1.55rem);
+          line-height: 1.1;
+          color: #1a1a1a;
+          margin: 0;
+        }
+        .ww-card-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          margin-top: 12px;
+          padding: 7px 14px;
+          border-radius: 9999px;
+          background: rgba(0, 0, 0, 0.06);
+          border: none;
+          color: #1a1a1a;
+          font-family: var(--font-sans);
+          font-size: 12.5px;
+          font-weight: 500;
+          letter-spacing: 0.01em;
+          align-self: flex-start;
+          transition: background 220ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .ww-card:hover .ww-card-cta {
+          background: rgba(0, 0, 0, 0.12);
+        }
+        .ww-card-cta svg { transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1); }
+        .ww-card:hover .ww-card-cta svg { transform: translate(2px, -2px); }
+
+        @media (max-width: 768px) {
+          .ww-card { width: 290px; }
+          .ww-card-title { font-size: 1.35rem; }
+          .ww-projects-intro { padding: 14px 16px 10px; }
         }
 
-        .head-title {
-          text-align: center;
-        }
-
-        .vline {
-          width: 1px;
-          height: 24px;
-          background: #d7dbe0;
-          opacity: 0.9;
-          border-radius: 1px;
-          justify-self: center;
-        }
-
-        @media (min-width: 768px) {
-          .head-grid {
-            grid-template-columns: auto 10px 1fr;
-            column-gap: 18px;
-            row-gap: 0;
-          }
-          .head-badge {
-            justify-self: start;
-          }
-          .head-title {
-            text-align: left;
-          }
-          .vline {
-            height: 34px;
-          }
-        }
-
-        @media (max-width: 767px) {
-          .project-card { margin-bottom: 2rem; }
-          .card-content {
-            padding: 1.5rem;
-            min-height: 350px;
-          }
-          .card-title { font-size: 1.25rem; }
+        @media (prefers-reduced-motion: reduce) {
+          .ww-card-img { transition: none !important; }
+          .ww-card:hover { transform: none; }
+          .ww-card:hover .ww-card-img { transform: none; }
         }
       `}</style>
 
-      <section className="w-full py-8 md:py-10 bg-white humanoid-wrapper" id="why-humanoid">
-        <div className="container px-6 lg:px-8 mx-auto">
-          <div className="mb-6 md:mb-8 head-grid">
-            <div className="head-badge">
-              <div className="pulse-chip">
-                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">
-                  2
-                </span>
-                <span>Portofolio</span>
-              </div>
-            </div>
-            <span className="vline" aria-hidden="true" />
-            <div className="head-title">
-              <h2 className="section-title text-3xl sm:text-4xl md:text-5xl font-display font-bold">
-                our work speaks for itself.
-              </h2>
-            </div>
+      <div
+        ref={sectionRef}
+        className="ww-carousel"
+        style={{ height: `${totalScrollPx + stageH}px` }}
+      >
+        <div className="ww-carousel-stage" style={{ height: `${stageH}px`, top: NAV_CLEARANCE }}>
+          <div ref={introRef} className="ww-projects-intro">
+            <h2>{t("portfolio.title")}</h2>
           </div>
-
-          <div className="max-w-6xl mx-auto">
-            {cardData.map((card, index) => (
-              <div
-                key={index}
-                ref={(el) => (cardRefs.current[index] = el)}
-                className={`project-card ${visibleCards.has(index) ? "visible" : ""}`}
-                style={{ transitionDelay: `${index * 0.1}s` }}
-              >
-                <div className="card-container" style={{ position: "relative" }}>
-                  <div
-                    className="card-background"
-                    style={{
-                      backgroundImage: `url('${card.background}')`,
-                    }}
-                  />
-
-                  <div className="card-content">
-                    <div className="card-text">
-                      <div className="card-header">
-                        <img src={card.logo} alt={`${card.label} Logo`} className="card-logo" />
-                        <div className="divider" />
-                        <span className="card-label">PROJECT</span>
-                      </div>
-
-                      <h3 className="card-title">{card.title}</h3>
-
-                      <a
-                        href={card.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="card-link"
-                      >
-                        Check it out!
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-3.5 w-3.5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={2}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M5 19L19 5" />
-                          <path d="M9 5h10v10" />
-                        </svg>
-                      </a>
-                    </div>
-
-                    <a
-                      href={card.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="card-image-wrapper"
-                      aria-label={`View ${card.label} project`}
-                    >
-                      <img src={card.image} alt={`${card.label} Preview`} className="card-image" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div ref={cardsZoneRef} className="ww-cards-zone">
+            <motion.div
+              ref={row1Ref}
+              className="ww-track"
+              style={{ x: x1, y: y1 }}
+            >
+              {ROW_1.map((card) => (
+                <ProjectCard key={card.title} card={card} t={t} />
+              ))}
+            </motion.div>
+            <motion.div
+              ref={row2Ref}
+              className="ww-track"
+              style={{ x: x2, y: y2 }}
+            >
+              {ROW_2.map((card) => (
+                <ProjectCard key={card.title} card={card} t={t} />
+              ))}
+            </motion.div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

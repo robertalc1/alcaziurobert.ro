@@ -45,9 +45,9 @@ const ScrollToTop: React.FC = () => {
         .scroll-indicator { animation: smoothScroll 2s ease-in-out infinite; }
 
         @keyframes orangePulse {
-          0%   { box-shadow: 0 0 0 0 rgba(254,92,2,0.2); }
-          70%  { box-shadow: 0 0 0 10px rgba(254,92,2,0); }
-          100% { box-shadow: 0 0 0 0 rgba(254,92,2,0); }
+          0%   { box-shadow: 0 0 0 0 rgba(237, 92, 27,0.2); }
+          70%  { box-shadow: 0 0 0 10px rgba(237, 92, 27,0); }
+          100% { box-shadow: 0 0 0 0 rgba(237, 92, 27,0); }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -55,7 +55,7 @@ const ScrollToTop: React.FC = () => {
         }
       `}</style>
 
-      <div className="fixed inset-x-0 bottom-6 z-40 flex justify-center pointer-events-none">
+      <div className="fixed inset-x-0 bottom-6 z-40 hidden md:flex justify-center pointer-events-none">
         <button
           onClick={goTop}
           aria-label="Back to top"
@@ -80,14 +80,14 @@ const ScrollToTop: React.FC = () => {
               transition-all duration-300
             "
             style={{
-              borderColor: "#FE5C02",
+              borderColor: "#ED5C1B",
               background: "rgba(255,255,255,0.05)",
-              boxShadow: "0 0 8px rgba(254,92,2,0.25)",
+              boxShadow: "0 0 8px rgba(237, 92, 27,0.25)",
             }}
           >
             <div
               className="scroll-wheel scroll-indicator w-[3px] h-[9px] rounded-full transition-all duration-300"
-              style={{ background: "#FE5C02" }}
+              style={{ background: "#ED5C1B" }}
             />
           </div>
         </button>

@@ -1,263 +1,334 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LiquidMesh from "@/components/LiquidMesh";
+import ContactCTA from "@/components/ContactCTA";
+
+// Renders text with <i>word</i> markers as <em className="hero-italic"> spans,
+// so specific words in the headline appear italic while the rest stays upright.
+const renderItalic = (text: string): React.ReactNode[] => {
+  const parts = text.split(/<i>(.*?)<\/i>/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? (
+      <em key={i} className="hero-italic">{part}</em>
+    ) : (
+      <Fragment key={i}>{part}</Fragment>
+    )
+  );
+};
 
 const Hero = () => {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mql.matches);
+    const onMql = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mql.addEventListener?.("change", onMql);
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      mql.removeEventListener?.("change", onMql);
+    };
   }, []);
 
-  useEffect(() => {
-    if (isMobile) return;
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const elements = document.querySelectorAll<HTMLElement>(".parallax");
-      elements.forEach((el) => {
-        const speed = parseFloat(el.dataset.speed || "0.1");
-        const yPos = -scrollY * speed;
-        el.style.setProperty("--parallax-y", `${yPos}px`);
-      });
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobile]);
-
-  const scrollToNext = () => {
-    const target = document.getElementById("portfolio");
-    if (!target) return;
-    const offset = 80;
-    const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
-    window.scrollTo({ top: y, behavior: "smooth" });
-  };
-
-  const testimonials = [
-    { name: "@lukton", text: "Cool" },
-    { name: "@picaps", text: "Best" },
-    { name: "@kickout", text: "🔥" },
-    { name: "@ecartop", text: "Profesional" },
-  ];
-
   return (
-    <section
-      className="overflow-hidden relative min-h-screen flex items-center justify-center"
-      id="hero"
-      style={{
-        padding: isMobile ? "80px 16px 60px" : "100px 20px 80px",
-        background:
-          "linear-gradient(to bottom, #ffffff 0%, #ffffff 60%, #fff5e6 85%, transparent 100%)",
-      }}
-    >
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover"
-        style={{
-          backgroundImage: 'url("/Header-background.webp")',
-          backgroundPosition: "center 85%",
-          backgroundSize: "cover",
-          zIndex: 0,
-        }}
-      ></div>
+    <section className="hero-section" id="hero">
+      <div className="hero-shell">
+        <div className="hero-card" ref={cardRef}>
+          {isMobile || reducedMotion ? (
+            <div className="hero-mesh hero-mesh-static" aria-hidden="true" />
+          ) : (
+            <LiquidMesh className="hero-mesh" containerRef={cardRef} />
+          )}
 
       <style>{`
-        :root { --orange: #FE5C02; }
+        :root { --orange: #ED5C1B; }
 
-        /* ——— efect glassy, border fin, hover subtil ——— */
-        .chip-effect {
-          background: rgba(255, 255, 255, 0.9) !important;
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(254, 92, 2, 0.15) !important;
-          box-shadow: none !important;
-          transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+        /* ===== Hero shell + rounded card layout ===== */
+        .hero-section {
+          position: relative;
+          width: 100%;
+          background: #ffffff;
         }
-        .chip-effect:hover {
-          background: rgba(255, 255, 255, 1) !important;
-          border-color: rgba(254, 92, 2, 0.3) !important;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        .chip-effect svg path {
-          stroke: #fe5c02;
-          transition: filter 0.25s ease;
-        }
-        .chip-effect:hover svg path {
-          filter: drop-shadow(0 0 4px rgba(254, 92, 2, 0.5));
+        .hero-shell {
+          position: relative;
+          padding: clamp(64px, 7.5vh, 96px) clamp(10px, 1.4vw, 18px) clamp(10px, 1.4vw, 18px);
         }
 
-        /* ——— și pe mobil efect identic ——— */
-        @media (max-width: 768px) {
-          .chip-effect {
-            background: rgba(255, 255, 255, 0.95) !important;
-            border: 1px solid rgba(254, 92, 2, 0.2) !important;
-            backdrop-filter: blur(12px);
-            box-shadow: none !important;
+        /* ===== CTA bay — white "notch" carved into orange card bottom ===== */
+        .hero-cta-bay {
+          position: absolute;
+          bottom: clamp(12px, 1.6vw, 20px);
+          left: 50%;
+          transform: translate(-50%, 15%);
+          z-index: 10;
+          background: #ffffff;
+          padding: clamp(12px, 1.6vw, 16px) clamp(14px, 2vw, 22px);
+          border-radius: 9999px;
+          display: flex;
+          align-items: center;
+          gap: clamp(10px, 1.4vw, 18px);
+          box-shadow: 0 -8px 28px -8px rgba(0, 0, 0, 0.08);
+        }
+        /* === Pill button — orange + white + ripple-expand hover === */
+        .hero-bay-primary {
+          position: relative;
+          isolation: isolate;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 10px 26px;
+          background: #ED5C1B;
+          color: #ffffff;
+          border-radius: 9999px;
+          overflow: hidden;
+          border: none;
+          cursor: pointer;
+          font-family: var(--font-sans);
+          font-weight: 500;
+          font-size: 14.5px;
+          letter-spacing: -0.005em;
+          text-transform: none;
+          white-space: nowrap;
+        }
+        /* The ripple: darker orange circle that expands from center on hover */
+        .hero-bay-primary-circle {
+          position: absolute;
+          width: 0;
+          height: 0;
+          background: #C44E17;
+          border-radius: 9999px;
+          transition: width 500ms cubic-bezier(0, 0, 0.2, 1),
+                      height 500ms cubic-bezier(0, 0, 0.2, 1);
+          z-index: 0;
+          pointer-events: none;
+        }
+        .hero-bay-primary:hover .hero-bay-primary-circle {
+          width: 224px;
+          height: 224px;
+        }
+        /* Text stays above the ripple */
+        .hero-bay-primary-text {
+          position: relative;
+          z-index: 1;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .hero-bay-primary-text svg { display: block; }
+        .hero-bay-secondary {
+          color: #262626;
+          font-family: var(--font-sans);
+          font-weight: 500;
+          font-size: 14.5px;
+          letter-spacing: -0.005em;
+          text-transform: none;
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-thickness: 1.5px;
+          padding: 0 6px;
+          transition: color 220ms cubic-bezier(0.23, 1, 0.32, 1);
+          white-space: nowrap;
+        }
+        .hero-bay-secondary:hover {
+          color: #ED5C1B;
+        }
+        @media (max-width: 640px) {
+          .hero-cta-bay {
+            transform: translate(-50%, 10%);
+            padding: 10px 14px;
+            gap: 10px;
           }
-          .chip-effect:hover {
-            background: rgba(255, 255, 255, 1) !important;
-            border-color: rgba(254, 92, 2, 0.3) !important;
-            transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-          }
+          .hero-bay-primary { padding: 9px 24px; font-size: 13.5px; font-weight: 500; }
+          .hero-bay-secondary { font-size: 13.5px; }
+        }
+        .hero-card {
+          position: relative;
+          width: 100%;
+          min-height: min(82vh, 740px);
+          border-radius: clamp(22px, 2.7vw, 48px);
+          overflow: hidden;
+          isolation: isolate;
+        }
+        .hero-mesh {
+          position: absolute !important;
+          inset: 0;
+          width: 100% !important;
+          height: 100% !important;
+          z-index: 0;
+        }
+        .hero-mesh-static {
+          background:
+            radial-gradient(at 30% 20%, #FF8A3D 0%, transparent 55%),
+            radial-gradient(at 80% 80%, #F0A172 0%, transparent 50%),
+            radial-gradient(at 50% 50%, #DC5418 0%, transparent 60%),
+            #ED5C1B;
+        }
+        .hero-content {
+          position: relative;
+          z-index: 1;
+          width: 100%;
+          min-height: inherit;
+          padding: clamp(56px, 7vh, 88px) clamp(14px, 2.5vw, 18px) clamp(40px, 5vh, 68px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        @media (max-width: 640px) {
+          .hero-card { min-height: min(86vh, 720px); }
+          .hero-content { padding: 80px 16px 40px; }
+        }
+
+        /* ===== Headline + subtitle + CTA ===== */
+        .hero-title {
+          font-family: var(--font-sans);
+          font-weight: 500;
+          letter-spacing: -0.025em;
+          font-size: clamp(1.95rem, 4.95vw, 3.55rem);
+          line-height: 1.08;
+          color: #ffffff;
+          max-width: 22ch;
+          margin: 24px auto 12px;
+          text-wrap: balance;
+        }
+        .hero-italic {
+          font-style: italic;
+        }
+        .hero-sub {
+          font-family: var(--font-sans);
+          font-size: clamp(1rem, 1.3vw, 1.15rem);
+          line-height: 1.55;
+          color: #5b6470;
+          max-width: 54ch;
+          margin: 0 auto clamp(20px, 2.4vh, 28px);
+        }
+        .hero-scarcity {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-family: var(--font-sans);
+          font-size: 12.5px;
+          font-weight: 500;
+          color: rgba(38, 38, 38, 0.7);
+          letter-spacing: 0.01em;
+          margin-bottom: clamp(20px, 2.6vh, 28px);
+          padding: 6px 14px;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.65);
+          border: 1px solid rgba(237, 92, 27, 0.18);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+        .hero-scarcity-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: var(--orange, #ED5C1B);
+          box-shadow: 0 0 0 0 rgba(237, 92, 27, 0.5);
+          animation: scarcity-pulse 2s ease-out infinite;
+          flex-shrink: 0;
+        }
+        @keyframes scarcity-pulse {
+          0%   { box-shadow: 0 0 0 0 rgba(237, 92, 27, 0.55); }
+          70%  { box-shadow: 0 0 0 10px rgba(237, 92, 27, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(237, 92, 27, 0); }
+        }
+        .hero-cta {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+        }
+        .hero-cta .btn svg {
+          width: 15px;
+          height: 15px;
+          transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .hero-cta .btn:hover svg { transform: translateX(2px); }
+
+        @media (max-width: 640px) {
+          .hero-title { margin-top: 22px; }
+          .hero-scarcity { font-size: 11.5px; padding: 5px 12px; }
+          .hero-cta { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; }
+          .hero-cta .btn { width: 100%; justify-content: center; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-scarcity-dot { animation: none; }
         }
 
         @keyframes fade-in {
           from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
+          to   { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out forwards;
-        }
+        .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+
         @keyframes smoothScroll {
           0%, 100% { transform: translateY(0); opacity: 1; }
-          50% { transform: translateY(12px); opacity: 0.3; }
+          50%      { transform: translateY(12px); opacity: 0.3; }
         }
         .scroll-indicator { animation: smoothScroll 2s ease-in-out infinite; }
-        
-        /* Forțăm textul alb pentru subtitlu */
+
         .hero-subtitle {
           color: #FFFFFF !important;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
       `}</style>
 
-      <div
-        className="container px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto relative z-10"
-        ref={containerRef}
-      >
+          <div className="hero-content">
+            <div
+              className="container px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto relative z-10"
+              ref={containerRef}
+            >
         <div className="flex flex-col items-center text-center">
-          {/* Testimonials */}
-          <div
-            className="w-full mb-16 sm:mb-24 opacity-0 animate-fade-in"
-            style={{ animationDelay: "0s", maxWidth: "95vw" }}
-          >
-            <div className="flex flex-col items-center gap-3 sm:gap-4">
-              {/* 1 */}
-              <div
-                className="bg-[#FFF5E6]/90 border border-[#FE5C02]/20 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 chip-effect"
-                style={{ animationDelay: "0s" }}
-              >
-                <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm">
-                  <span className="text-gray-900 font-semibold">
-                    {testimonials[0].name}
-                  </span>
-                  <svg
-                    className="w-3 sm:w-3.5 h-3 sm:h-3.5"
-                    fill="none"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="text-gray-700">{testimonials[0].text}</span>
-                </div>
-              </div>
-
-              {/* 2-3 */}
-              <div className="flex flex-row items-center justify-center gap-2 sm:gap-3 w-full flex-wrap">
-                {testimonials.slice(1, 3).map((item, i) => (
-                  <div
-                    key={item.name}
-                    className="bg-[#FFF5E6]/90 border border-[#FE5C02]/20 rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2 chip-effect"
-                    style={{ animationDelay: `${0.1 + i * 0.1}s`, minWidth: 0 }}
-                  >
-                    <div className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-sm">
-                      <span className="text-gray-900 font-semibold">
-                        {item.name}
-                      </span>
-                      <svg
-                        className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5"
-                        fill="none"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span className="text-gray-700">{item.text}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* 4 */}
-              <div
-                className="bg-[#FFF5E6]/90 border border-[#FE5C02]/20 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 chip-effect"
-                style={{ animationDelay: "0.3s" }}
-              >
-                <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm">
-                  <span className="text-gray-900 font-semibold">
-                    {testimonials[3].name}
-                  </span>
-                  <svg
-                    className="w-3 sm:w-3.5 h-3 sm:h-3.5"
-                    fill="none"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="text-gray-700">{testimonials[3].text}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Title */}
-          <h1
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-tight opacity-0 animate-fade-in mt-0 mb-6 sm:mb-8 font-bold"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <span className="block sm:hidden text-white">
-              Let's make it<br />
-              <span className="text-[#FE5C02]">Happen!</span>
-            </span>
-            <span className="hidden sm:block">
-              <span className="text-white">Let's make it </span>
-              <span className="text-[#FE5C02]">Happen!</span>
-            </span>
+          {/* Headline with italic accent word */}
+          <h1 className="hero-title">
+            {renderItalic(t("hero_v2.headline_pre"))}{" "}
+            {renderItalic(t("hero_v2.headline_accent"))}
+            {t("hero_v2.headline_post") ? ` ${t("hero_v2.headline_post")}` : null}
           </h1>
 
-          {/* Subtitle - FORȚĂM CULOAREA ALBĂ */}
-          <p
-            style={{ 
-              animationDelay: "0.5s",
-              color: "#FFFFFF",
-              textShadow: "0 2px 4px rgba(0,0,0,0.1)"
-            }}
-            className="max-w-3xl mx-auto mb-12 sm:mb-16 leading-relaxed opacity-0 animate-fade-in font-medium text-lg sm:text-xl"
-          >
-            Building an business? Need a new website? We got you!
-          </p>
-
-          {/* Scroll Indicator */}
-          <div
-            className="flex flex-col items-center gap-4 opacity-0 animate-fade-in"
-            style={{ animationDelay: "0.7s" }}
-          >
-            <button
-              onClick={scrollToNext}
-              className="group cursor-pointer scroll-mouse"
-              aria-label="Scroll to next section"
-            >
-              <div className="relative w-7 h-11 border-2 border-white/60 rounded-full flex items-start justify-center pt-2 transition-all duration-300">
-                <div className="scroll-wheel scroll-indicator w-1 h-2.5 bg-white rounded-full transition-all duration-300"></div>
-              </div>
-            </button>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div className="hero-cta-bay">
+        <ContactCTA>
+          <button type="button" className="hero-bay-primary">
+            <span className="hero-bay-primary-circle" aria-hidden="true" />
+            <span className="hero-bay-primary-text">
+              {t("whatwedo.cta_primary")}
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                style={{ width: 14, height: 14 }}
+              >
+                <path d="M5 19L19 5" />
+                <path d="M9 5h10v10" />
+              </svg>
+            </span>
+          </button>
+        </ContactCTA>
+        <Link to="/studii-de-caz" className="hero-bay-secondary">
+          {t("whatwedo.cta_secondary")}
+        </Link>
+      </div>
       </div>
     </section>
   );

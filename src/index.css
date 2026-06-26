@@ -1,14 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-@font-face {
-  font-family: 'Brockmann';
-  src: url('/brockmann-medium-webfont.ttf') format('truetype'),
-       url('/brockmann-medium.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
+/* General Sans (Fontshare) is loaded via <link> in index.html — single typeface for the whole site */
 
 @tailwind base;
 @tailwind components;
@@ -16,13 +6,23 @@
 
 @layer base {
   :root {
+    --font-sans: 'General Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: ui-monospace, 'JetBrains Mono', 'Geist Mono', 'SF Mono', Menlo, monospace;
+    --ease-out-quart: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+    --duration-fast: 160ms;
+    --duration-medium: 220ms;
+    --orange: #ED5C1B;
+    --ink: #262626;
+    --btn-radius: 10px;
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 24 95% 53%;
+    --popover-foreground: 0 0% 15%;
+    --primary: 18 85% 52%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -34,7 +34,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 24 95% 53%;
+    --ring: 18 85% 52%;
     --radius: 0.5rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -47,13 +47,13 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 0 0% 15%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 0 0% 15%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 0 0% 15%;
     --popover-foreground: 210 40% 98%;
-    --primary: 24 95% 53%;
+    --primary: 18 85% 52%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -83,16 +83,61 @@
     box-sizing: border-box;
   }
 
-  /* FIX: Previne overflow DOAR pe containerele principale */
+  /* Previne scroll orizontal pe containerele principale.
+     `clip` (modern) taie overflow-ul orizontal FĂRĂ a crea un scroll
+     container — așa nu strică position: sticky (carusel-ul portofoliu care
+     trebuie să rămână fixat). `hidden` rămâne fallback pentru browsere vechi. */
   html,
   body {
     overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
     position: relative;
   }
 
+  html {
+    /* Single typeface from the root down — everything inherits this */
+    font-family: var(--font-sans);
+    /* Stop iOS bumping up font sizes in landscape */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Form controls don't inherit font-family by default — force it */
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+  }
+
+  /* Branded keyboard focus — visible only for keyboard users, premium feel */
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid rgba(237, 92, 27, 0.65);
+    outline-offset: 2px;
+    border-radius: var(--btn-radius, 10px);
+  }
+
   body {
-    @apply bg-white text-black font-sans antialiased;
+    @apply bg-white font-sans antialiased;
+    color: #262626;
+    font-family: var(--font-sans);
+    letter-spacing: -0.011em;
+    /* Remove the grey flash on tap — feels native/premium on mobile */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-sans);
+    letter-spacing: -0.025em;
+  }
+
+  /* Media never forces horizontal overflow on phones */
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
   }
 
   /* Smooth scrolling */
@@ -139,7 +184,8 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tight;
+    @apply text-[1.75rem] md:text-3xl lg:text-[2.5rem] font-display font-medium tracking-tight;
+    letter-spacing: -0.025em;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
@@ -161,16 +207,165 @@
     transform: translateY(-5px);
   }
 
-  .button-primary {
-    @apply bg-pulse-500 hover:bg-pulse-600 text-white font-medium py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98];
+  /* ============================================================
+     UNIFIED BUTTON SYSTEM — one design language for the whole site
+     GitHub-style rounded rectangle, subtle shadow, hover lift.
+     Use: .btn + .btn-primary | .btn-secondary | .btn-on-dark
+     (+ .btn-block for full-width contexts like the mobile bottom bar)
+     ============================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border-radius: 9999px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 14.5px;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    text-decoration: none;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform var(--duration-fast, 160ms) var(--ease-out-quart, cubic-bezier(0.23, 1, 0.32, 1)),
+                background-color var(--duration-medium, 220ms) ease,
+                border-color var(--duration-medium, 220ms) ease,
+                box-shadow var(--duration-medium, 220ms) ease,
+                color var(--duration-medium, 220ms) ease;
   }
 
-  .button-secondary {
-    @apply bg-transparent border border-gray-300 hover:border-pulse-500 text-gray-800 hover:text-pulse-500 font-medium py-3 px-6 rounded-full transition-all duration-300;
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    transition: transform var(--duration-medium, 220ms) var(--ease-out-quart, cubic-bezier(0.23, 1, 0.32, 1));
+  }
+
+  /* Primary — solid orange + orange-ripple expand on hover (matches Hero) */
+  .btn-primary {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--orange, #ED5C1B);
+    color: #ffffff;
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    background: #C44E17;
+    border-radius: 9999px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 500ms cubic-bezier(0, 0, 0.2, 1),
+                height 500ms cubic-bezier(0, 0, 0.2, 1);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .btn-primary svg path {
+    stroke: #ffffff;
+  }
+
+  /* Secondary — white fill, orange outline */
+  .btn-secondary {
+    background: #ffffff;
+    color: var(--ink, #262626);
+    border-color: var(--orange, #ED5C1B);
+    box-shadow: 0 1px 3px rgba(38, 38, 38, 0.06);
+  }
+
+  .btn-secondary svg path {
+    stroke: var(--orange, #ED5C1B);
+  }
+
+  /* On dark — portfolio cards (dark background): white outline */
+  .btn-on-dark {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  }
+
+  .btn-on-dark svg path {
+    stroke: #ffffff;
+  }
+
+  .btn-block {
+    width: 100%;
+  }
+
+  /* Reusable ripple-fx utility — adds the orange ripple-expand effect to
+     any button without changing its base styles. Apply with className. */
+  .ripple-fx {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .ripple-fx::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    background: #C44E17;
+    border-radius: 9999px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 500ms cubic-bezier(0, 0, 0.2, 1),
+                height 500ms cubic-bezier(0, 0, 0.2, 1);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .ripple-fx:hover::before {
+    width: 360px;
+    height: 360px;
+  }
+
+  @media (hover: hover) {
+    .btn-primary:hover::before {
+      width: 360px;
+      height: 360px;
+    }
+
+    .btn-secondary:hover {
+      color: var(--orange, #ED5C1B);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(237, 92, 27, 0.16);
+    }
+    .btn-secondary:hover svg {
+      transform: translateX(2px);
+    }
+
+    .btn-on-dark:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.26);
+    }
+    .btn-on-dark:hover svg {
+      transform: translateX(2px);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .btn {
+      padding: 10px 16px;
+      font-size: 13.5px;
+    }
   }
 
   .nav-link {
-    @apply relative text-gray-800 hover:text-pulse-500 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-pulse-500 after:transition-all hover:after:w-full;
+    @apply relative text-[#262626] hover:text-pulse-500 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-pulse-500 after:transition-all hover:after:w-full;
   }
 }
 

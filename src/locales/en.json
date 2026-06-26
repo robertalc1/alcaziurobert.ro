@@ -1,0 +1,494 @@
+{
+  "nav": {
+    "portfolio": "Portfolio",
+    "about": "About",
+    "casestudy": "Our Approach",
+    "cta": "Get In Touch"
+  },
+  "compounding": {
+    "title": "Why does this work?",
+    "s1": {
+      "what": "With me",
+      "tag": "Turns visitors\ninto clients"
+    },
+    "s2": {
+      "what": "Without me",
+      "tag": "Loses them\nin seconds"
+    },
+    "summary_l1": "It works because the site is built to <pill>convert</pill>, not just to look good.",
+    "summary_l2": "Same visitors, same budget. The only difference is <pill>who built the site</pill>.",
+    "takeaway": "<pill>One new client</pill> from the system covers the whole build. Everything it brings after that is pure profit."
+  },
+  "frictionless": {
+    "title": "I don't build websites. I build growth.",
+    "subtitle": "Most developers hand you a good-looking site and move on. I build the machine that <pill>turns visitors into customers</pill> — and keep it running.",
+    "badge": "Done for you, start to finish."
+  },
+  "painpoints": {
+    "title": "Most websites are broken.",
+    "p1": "AI-generated. Identical to 10,000 other sites online.",
+    "p2": "Bad Core Web Vitals. Google penalizes you. Customers leave.",
+    "p3": "Client-side tracking only. iOS 17+ blocks 30% of events. Paid ads cannot scale.",
+    "p4": "No NIS2 compliance. Direct legal exposure since January 2024."
+  },
+  "difference": {
+    "title": "Most projects stop at launch. Yours keeps growing.",
+    "subtitle": "Most freelancers and agencies ship the site and walk away. No commissions, no TikTok circus — I stay behind your numbers, month after month.",
+    "badge": "At alcaziurobert.ro, it's different.",
+    "item1": "Week 1 — Find the leaks",
+    "item2": "Week 2 — Build to convert",
+    "item3": "Week 3 — Launch",
+    "item4": "Week 4+ — Scale what works",
+    "item5": "Ongoing — Compound growth"
+  },
+  "faq": {
+    "eyebrow": "Frequently asked",
+    "title": "Quick answers to your questions.",
+    "lead": "The most common questions about how I work, pricing, project timelines, and what happens after launch.",
+    "cta": "Have a different question? Email me",
+    "q1": {
+      "q": "How long does it take to build a site?",
+      "a": "3-5 weeks for a standard site. 6-10 for complex projects (e-commerce, integrations, dashboards). Exact timeline in the discovery call."
+    },
+    "q2": {
+      "q": "How much does a site cost?",
+      "a": "Priced to the value it creates, not by the hour. We talk first, I learn your business, then you get one clear number that doesn't move later. If it sounds steep, the next answer has the math."
+    },
+    "q2b": {
+      "q": "Why does it cost what it costs?",
+      "a": "Because it saves you €3,000-5,000 a year. An SEO specialist runs €1,500/month, a developer €1,200, an analytics manager €800. I cover all of it, you own everything, and the system runs on its own. You pay once and the profit keeps coming."
+    },
+    "q3": {
+      "q": "What technologies do you use?",
+      "a": "React, Next.js, TypeScript for frontend. Cloudflare for enterprise security (DDoS, WAF, SSL). Server-side tracking + NIS2 compliance included."
+    },
+    "q4": {
+      "q": "Do you offer post-launch maintenance?",
+      "a": "The first 30 days after launch are on me. After that, an optional monthly package covers monitoring, backups and tweaks, so you never check uptime yourself."
+    },
+    "q5": {
+      "q": "How does the collaboration process work?",
+      "a": "Discovery → Audit → Design (Figma, 2 feedback rounds) → Build (with live staging for you) → Launch → Owning the metrics (monthly report)."
+    },
+    "q6": {
+      "q": "Who owns the code?",
+      "a": "You do. After final payment: source code, Figma files, documentation, Git access. Zero lock-in."
+    },
+    "q7": {
+      "q": "How do you handle hosting and security?",
+      "a": "I configure Cloudflare (DDoS, WAF, automatic SSL) + recommend hosting that fits the project. Backup, uptime monitoring and incident alerts — included."
+    }
+  },
+  "hero_v2": {
+    "rating_count": "Solo. Max 4 clients at a time.",
+    "headline_pre": "Build to <i>convert</i>",
+    "headline_accent": "<i>Leads</i> with a simple <i>formula</i>.",
+    "headline_post": "",
+    "bio": "I'm Robert. Solo builder of systems that convert cold traffic into real customers. No teams, no commissions, no wasted time.",
+    "subtitle": "End-to-end: shop, brand, Meta + Google Ads, SEO, NIS2 security. One partner, full stack.",
+    "scarcity": "Limited monthly intake — accepting applications",
+    "cta_primary": "Apply now",
+    "cta_secondary": "See our work"
+  },
+  "portfolio": {
+    "badge": "Portfolio",
+    "title": "My work speaks for itself.",
+    "card_label": "PROJECT",
+    "card_link": "Check it out!",
+    "badges": {
+      "public_institution": "PUBLIC INSTITUTION"
+    },
+    "subtitles": {
+      "sgc": "Custom platform for OCPI — government-grade build"
+    },
+    "labels": {
+      "sgc": "SGC — Sistem Gestionare Contestații (OCPI)",
+      "bacde10": "Un Bac de 10 — Informatics baccalaureate prep",
+      "picaps": "Picaps",
+      "rdraw": "R-Draw Engineering",
+      "everun": "Everun Romania",
+      "everati": "Everati",
+      "kickout": "Kickout",
+      "alma": "Alma",
+      "lukton": "Lukton",
+      "ecartop": "Ecartop",
+      "traveltwin": "TravelTwin — Travel Companion"
+    },
+    "metrics": {
+      "sgc": "Government project · €8K+ budget · Live 12 months",
+      "bacde10": "Organic leads ×4 in 90 days",
+      "picaps": "LCP 1.1s · Bounce -38%",
+      "rdraw": "Sub 1.5s global · CWV: 100/100/100/100",
+      "everun": "Conversion rate 4.2% · Industry avg: 1.8%",
+      "everati": "Launched in 4 weeks · first client in 7 days",
+      "kickout": "Mobile-first · 70% mobile traffic converted",
+      "alma": "Automated lead pipeline 24/7",
+      "lukton": "Server-side tracking · 97% attribution",
+      "ecartop": "B2B sales funnel · cycle reduced by 40%",
+      "traveltwin": "MVP in 3 weeks · validation step"
+    }
+  },
+  "case_study": {
+    "eyebrow": "CASE STUDY",
+    "title": "Custom application for a public institution",
+    "body": "A bespoke web platform built from the ground up for OCPI / municipal use — internal-facing, secure, and engineered for daily operational load. Confidential client.",
+    "stats": {
+      "tier_value": "€8K+",
+      "tier_label": "Engagement tier",
+      "stack_value": "React · Node · PostgreSQL",
+      "stack_label": "Stack",
+      "scope_value": "Full-stack",
+      "scope_label": "Scope"
+    },
+    "availability": "Available on request"
+  },
+  "approach": {
+    "eyebrow": "Our approach",
+    "h1": "Premium websites that actually work.",
+    "lead": "Most sites are templates. Ours convert. Here is how.",
+    "cf_partner": "Cloudflare Partner",
+    "cf_partner_body": "Enterprise infrastructure. Sub-2s loads globally. DDoS, SSL, backups included.",
+    "pain_eyebrow": "The problem",
+    "pain_title": "Most websites are broken.",
+    "pain_1": "Bad Core Web Vitals. Google penalizes you. Customers leave.",
+    "pain_2": "Pixels client-side only. Paid ads cannot scale.",
+    "pain_3": "No NIS2 compliance. Direct legal exposure since 2024.",
+    "road_eyebrow": "How we build",
+    "road_title": "Five stages. One standard.",
+    "road_lead": "Same standard for sites, ecommerce, apps.",
+    "stage": {
+      "discovery": {
+        "title": "Discovery & strategy",
+        "lead": "Audit. KPIs. Funnel. Defined before code.",
+        "t1": "Audit + analytics",
+        "t2": "KPI map"
+      },
+      "performance": {
+        "title": "Performance — Powered by Cloudflare",
+        "lead": "Cloudflare edge. Sub-2s globally. Speed converts.",
+        "t1": "Cloudflare CDN",
+        "t2": "Core Web Vitals"
+      },
+      "security": {
+        "title": "Security — NIS2 compliant",
+        "lead": "WAF, DDoS, SSL, backups. NIS2 ready.",
+        "t1": "WAF + DDoS",
+        "t2": "NIS2 ready"
+      },
+      "tracking": {
+        "title": "Tracking & ads",
+        "lead": "Facebook and Google pixels, server-side. The two that scale.",
+        "t1": "FB Conversions API",
+        "t2": "GA4 + Google Ads"
+      },
+      "seo": {
+        "title": "SEO that compounds",
+        "lead": "On-page, technical, content. Qualified traffic, no CPC.",
+        "t1": "On-page + technical",
+        "t2": "Schema + sitemap"
+      }
+    },
+    "channels_eyebrow": "Channels we run",
+    "channels_title": "Marketing for high-ticket.",
+    "channels_p1": "Cold audiences first. Precise retargeting second. Clear Purchase objective always. No vanity metrics.",
+    "channel_meta": "Facebook Ads",
+    "channel_google": "Google Ads",
+    "addon_eyebrow": "Custom infrastructure",
+    "addon_title": "Linux & Windows VPS — fully managed.",
+    "addon_body": "Few do it properly. We architect, deploy, and maintain dedicated Linux or Windows instances. Priced per project.",
+    "addon_cta": "Contact for pricing",
+    "cta_title": "Ready?",
+    "cta_body": "30-minute scoping call. No fluff.",
+    "cta_button": "Let's talk",
+    "toc": {
+      "title": "On this page",
+      "overview": "Overview",
+      "problem": "The problem",
+      "roadmap": "How we build",
+      "channels": "Channels",
+      "addon": "Custom VPS",
+      "cta": "Get in touch"
+    }
+  },
+  "whatwedo": {
+    "badge": "The offer",
+    "clients_eyebrow": "Trusted by",
+    "cf_partner": "Cloudflare Partner",
+    "cf_partner_body": "Enterprise infrastructure. Sub-2s loads globally. DDoS, SSL, backups included.",
+    "cta_primary": "Start Convert",
+    "cta_secondary": "Case Studies",
+    "cf": {
+      "title": "Cloudflare edge",
+      "body": "Sub-2s globally. CDN, WAF and SSL included."
+    },
+    "tracking": {
+      "title": "Server-side tracking",
+      "body": "Facebook Conversions API + GA4. Ads that scale."
+    },
+    "security": {
+      "title": "NIS2 + security",
+      "body": "WAF, DDoS, backups. Enterprise compliance."
+    }
+  },
+  "cf_fortune": {
+    "headline": "Cloudflare powers 42% of the Fortune 500",
+    "subtitle": "Trusted by the teams you trust."
+  },
+  "tech_stack": {
+    "title": "Built on the tools that matter",
+    "subtitle": "From edge to deploy, the right stack for premium products."
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "What people who work with me say.",
+    "subtitle": "See what our customers have to say about us",
+    "items": [
+      {
+        "text": "We compared 4 agencies for the OCPI rebuild. Robert came in solo, delivered in 6 weeks, and built something the audit team called <hl>bulletproof</hl>.",
+        "name": "SGC OCPI",
+        "role": "Public Institution",
+        "initials": "SG",
+        "tone": "orange"
+      },
+      {
+        "text": "Our old site loaded in 6 seconds. The new one — <hl>1.1</hl>. Same offer, 38% lower bounce, 2× demo requests in 30 days.",
+        "name": "Picaps",
+        "role": "Industrial Client",
+        "initials": "PI",
+        "tone": "ink"
+      },
+      {
+        "text": "First 30 days after launch: 7 qualified leads from organic search. Two years prior — zero. <hl>Unlocked</hl> a channel we couldn't even open before.",
+        "name": "R-Draw",
+        "role": "Engineering Studio",
+        "initials": "RD",
+        "tone": "orange"
+      },
+      {
+        "text": "On the first call Robert asked questions our previous agency hadn't touched in 9 months. Week 2 we had a real <hl>plan</hl>, not a deck.",
+        "name": "Everun Romania",
+        "role": "Sports Retail",
+        "initials": "ER",
+        "tone": "ink"
+      },
+      {
+        "text": "He still replies within 2 hours, 8 months after launch. That's not a freelancer relationship. That's a <hl>partner</hl> who actually cares.",
+        "name": "Everati",
+        "role": "Technology Brand",
+        "initials": "EV",
+        "tone": "orange"
+      },
+      {
+        "text": "Conversion rate went from 1.4% to <hl>3.8%</hl> in 60 days. Same ads, same traffic. The site finally does the heavy lifting.",
+        "name": "Kickout",
+        "role": "Sports Brand",
+        "initials": "KO",
+        "tone": "ink"
+      },
+      {
+        "text": "I spent 2 hours of my time across the entire build. Site shipped on schedule. I now spend <hl>zero</hl> minutes per month on it.",
+        "name": "Alma",
+        "role": "Automotive Services",
+        "initials": "AL",
+        "tone": "orange"
+      },
+      {
+        "text": "He killed 3 features I'd already budgeted for. Said they wouldn't move the needle. That kind of honesty is <hl>rare</hl> in this market.",
+        "name": "Lukton",
+        "role": "B2B Services",
+        "initials": "LU",
+        "tone": "ink"
+      },
+      {
+        "text": "Robert built our funnel, then handed over the keys. Full <hl>ownership</hl> — code, hosting, data. No monthly trap, no vendor dependency.",
+        "name": "Ecartop",
+        "role": "Auto Marketplace",
+        "initials": "EC",
+        "tone": "orange"
+      }
+    ]
+  },
+  "globe": {
+    "eyebrow": "Global reach",
+    "title": "Built in Romania, shipped worldwide.",
+    "subtitle": "From local businesses to international brands, your project runs fast and close to your users.",
+    "stat_value": "9+ countries",
+    "stat_label": "Projects delivered across borders",
+    "pillar1_title": "Run everywhere",
+    "pillar1_body": "Security, connectivity, and code run in 335+ cities around the world, within 50ms of 95% of the world's population.",
+    "pillar2_title": "Run anywhere",
+    "pillar2_body": "Our network is close to your users, applications, and sites. It optimizes all your traffic from source to destination for low latency.",
+    "pillar3_title": "Run at massive scale",
+    "pillar3_body": "No more capacity planning. Ever."
+  },
+  "roadmap": {
+    "badge": "Roadmap",
+    "phases": {
+      "analyze_title": "Analyze",
+      "analyze_subtitle": "Discovery & audit",
+      "develop_title": "Develop",
+      "develop_subtitle": "Architecture & code",
+      "create_title": "Create",
+      "create_subtitle": "Design & content",
+      "deliver_title": "Deliver",
+      "deliver_subtitle": "QA & launch"
+    }
+  },
+  "contact": {
+    "badge": "Contact",
+    "title": "Let's talk. No obligation.",
+    "description_l1": "I'll tell you <pill>straight</pill> if I can help or not.",
+    "description_l2": "If yes, you leave with <pill>a concrete plan</pill> in hand.",
+    "cta": "Request discovery call"
+  },
+  "footer": {
+    "copyright_l": "Alcaziu Robert",
+    "terms_link": "Terms & Conditions",
+    "privacy_link": "Privacy Policy"
+  },
+  "legal": {
+    "back_home": "← Back to home",
+    "last_updated": "Last updated: May 2026",
+    "disclaimer": "This document is a starting point; for client contracts please consult a lawyer."
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "toc": {
+      "title": "On this page",
+      "intro": "Operator identity",
+      "services": "Site purpose",
+      "form": "Contact form",
+      "ip": "Intellectual property",
+      "liability": "Limitation of liability",
+      "changes": "Changes",
+      "law": "Governing law",
+      "contact": "Contact"
+    },
+    "intro_title": "1. Operator identity",
+    "intro_body": "This site is operated by Alcaziu Robert, individual, residing in Romania. The site represents the operator's personal portfolio and is not associated with a registered commercial entity. By accessing and using this site, you agree to comply with these terms. If you do not agree with them, please stop using the site.",
+    "services_title": "2. Site purpose",
+    "services_body": "This site is exclusively informational and presents the operator's personal portfolio (projects, technologies used, experience). The content does not constitute a binding contractual offer and no service agreements are concluded through this page.",
+    "form_title": "3. Contact form usage",
+    "form_body": "The site allows visitors to send a request through a form that collects: name, email, phone, project type, and estimated budget. By filling out the form you commit to providing accurate information. I reserve the right not to respond to requests that appear to be spam or contain inappropriate language.",
+    "ip_title": "4. Intellectual property",
+    "ip_body": "All site content (text, graphics, logos, source code, design) is the property of Alcaziu Robert and is protected by copyright law. Copying, reproducing, or using any element without my prior written consent is prohibited.",
+    "liability_title": "5. Limitation of liability",
+    "liability_body": "The site is provided as is. I make efforts to keep the information accurate and up to date, but I do not guarantee that the site will operate uninterrupted or error-free. I am not responsible for any direct or indirect damages caused by the use or inability to use the site. Technical information presented is illustrative.",
+    "changes_title": "6. Changes to these terms",
+    "changes_body": "I reserve the right to modify these terms at any time, without prior notice. The updated version will always be available on this page.",
+    "law_title": "7. Governing law",
+    "law_body": "These terms are governed by the laws of Romania. Any dispute will be resolved amicably or, failing that, by the competent courts.",
+    "contact_title": "8. Contact",
+    "contact_body": "For questions regarding these terms, please write to contact@alcaziurobert.ro."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "toc": {
+      "title": "On this page",
+      "intro": "Who we are",
+      "data": "Data we collect",
+      "source": "Source of data",
+      "purpose": "Purposes and legal basis",
+      "refusal": "If you don't provide data",
+      "recipients": "Recipients",
+      "transfers": "International transfers",
+      "storage": "Retention",
+      "rights": "Your rights",
+      "cookies": "Cookies",
+      "security": "Security",
+      "changes": "Changes",
+      "contact": "Contact"
+    },
+    "intro_title": "1. Who we are",
+    "intro_body": "The alcaziurobert.ro site is operated by Alcaziu Robert, individual, residing in Romania. This policy explains what data I collect when you visit the site or contact me, how I use it, and your rights under GDPR (EU Regulation 2016/679).",
+    "data_title": "2. What data I may collect",
+    "data_body": "Identification and contact data: name, email address, phone number, and any other information you choose to share voluntarily. Commercial inquiry data: project type, estimated budget, and any files or information sent through the contact form or by email. Technical and usage data: IP address, session identifiers, browser and device information, pages visited, traffic source, and consent preferences. Data collected through cookies and similar technologies, only to the extent these are activated according to your choice.",
+    "source_title": "3. Source of data",
+    "source_body": "I normally collect data directly from you, when you fill out the contact form or send me an email. Some technical data is generated automatically by your browser, by the infrastructure running the site (Cloudflare, Vercel), or by third-party providers activated only based on your consent.",
+    "purpose_title": "4. Purposes and legal basis",
+    "purpose_body": "To respond to your requests and provide information about my services. Basis: pre-contractual steps at your request and legitimate interest. To operate, secure, and administer the site, including preventing abuse, debugging, and technical monitoring. Basis: legitimate interest. To measure traffic and improve site performance through analytics tools. Basis: your consent, when required. To comply with tax, accounting, or other applicable legal obligations. Basis: legal obligation. For defending or exercising my rights in case of disputes or claims. Basis: legitimate interest. I currently do not use marketing or remarketing tags; if I decide to add them in the future, I will request your prior consent through a cookie banner.",
+    "refusal_title": "5. If you don't provide data",
+    "refusal_body": "You have no general legal obligation to provide your data. However, if you don't send me the minimum necessary data (name, email, phone), I won't be able to respond to your request or discuss a potential project.",
+    "recipients_title": "6. Recipients of data",
+    "recipients_body": "I may disclose data, strictly to the extent necessary, to providers who help me operate the site: Cloudflare (CDN, security, and privacy-friendly cookieless analytics), Vercel (hosting and serverless functions for the contact form), and the email provider used for SMTP on my own domain. Data may also be disclosed to consultants, accountants, lawyers, public authorities, or courts, if required by law or necessary for defending my rights.",
+    "transfers_title": "7. International transfers",
+    "transfers_body": "Some services used (such as Cloudflare and Vercel) are based in the United States, which may involve data transfers outside the European Economic Area. For these transfers, I rely on mechanisms recognized by GDPR, such as Standard Contractual Clauses (SCC) or other adequate safeguards offered by those providers through Data Processing Agreements (DPA).",
+    "storage_title": "8. Data retention",
+    "storage_body": "Commercial inquiry and contact form data: up to 24 months from the last relevant interaction, unless a contractual relationship or a longer legal retention obligation arises. Data needed for invoicing or accounting (in case of subsequent collaboration): for the duration required by applicable tax legislation (generally 10 years). Technical data and security logs: for limited periods, proportional to security and maintenance purposes (usually up to 12 months). Cookie preferences: as described in the Cookie Policy or according to browser settings.",
+    "rights_title": "9. Your rights",
+    "rights_body": "Under GDPR, you have the following rights: right of access to your data, right to rectification, right to erasure, right to restriction of processing, right to object (including to processing based on legitimate interest), right to data portability, right to withdraw your consent at any time without affecting the lawfulness of processing prior to withdrawal, and the right to lodge a complaint with the Romanian National Supervisory Authority for Personal Data Processing (ANSPDCP). To exercise these rights, write to contact@alcaziurobert.ro. I respond within a maximum of 30 days.",
+    "cookies_title": "10. Cookies and similar technologies",
+    "cookies_body": "I use strictly necessary cookies for site functionality (session, language preference). For analytics I use Cloudflare Analytics, a tool that measures traffic without cookies and without personally identifiable data, so without requiring your consent. If I activate analytical, functional, or marketing cookies in the future, you will see a consent banner before they are set.",
+    "security_title": "11. Data security",
+    "security_body": "I apply reasonable technical and organizational measures to protect data against unauthorized access, loss, alteration, or unpermitted disclosure: TLS-encrypted transmission, Cloudflare infrastructure with WAF and DDoS protection, regular backups. However, no online system can guarantee absolute security.",
+    "changes_title": "12. Changes",
+    "changes_body": "I may periodically update this policy to reflect legislative, operational, or technical changes. The version published on the site is the version applicable on the date of consultation. I encourage you to check it periodically.",
+    "contact_title": "13. Contact",
+    "contact_body": "For any request related to data protection or exercising your rights, write to contact@alcaziurobert.ro."
+  },
+  "lang": {
+    "switch_to": "Switch language"
+  },
+  "form": {
+    "title": "Tell us about your project",
+    "subtitle": "Reply within 24 hours.",
+    "name_label": "Name",
+    "name_placeholder": "John Doe",
+    "email_label": "Email",
+    "email_placeholder": "you@company.com",
+    "phone_label": "Phone",
+    "phone_placeholder": "+40 712 345 678",
+    "project_label": "Project type",
+    "project_placeholder": "Select project type",
+    "project_website": "Website",
+    "project_webapp": "Web application",
+    "project_other": "Something else",
+    "budget_label": "Budget",
+    "budget_placeholder": "Pick a range",
+    "budget_low": "€1500–3000",
+    "budget_mid": "€3000–5000",
+    "budget_high": "€5000+",
+    "budget_discuss": "Prefer to discuss",
+    "submit": "Send",
+    "submitting": "Sending…",
+    "cancel": "Cancel",
+    "step2_title": "How can we reach you?",
+    "step3_title": "Tell us about your project",
+    "v_name": "Name must be at least 2 characters.",
+    "v_email": "Enter a valid email.",
+    "v_phone_required": "Phone is required.",
+    "v_phone": "Enter a valid phone number.",
+    "v_project": "Pick a project type.",
+    "v_budget": "Pick a budget range.",
+    "toast_ok_title": "Message sent",
+    "toast_ok_body": "Thanks — I'll be in touch within 24 hours.",
+    "toast_err_title": "Could not send",
+    "toast_err_body": "Something went wrong. Please try again or email contact@alcaziurobert.ro directly."
+  },
+  "fab": {
+    "aria": "Open contact options",
+    "heading": "Get in touch",
+    "call": "Call me",
+    "email": "Email me",
+    "message": "Send a message"
+  },
+  "whyCf": {
+    "title": "Build without boundaries",
+    "sub_pre": "Everything needed to",
+    "sub_mark": "build secure, performant applications",
+    "chaos_title": "Fighting infra with “cloud chaos”",
+    "status": "STATUS: UNRESOLVED",
+    "cred_title": "Credential stuffing detected",
+    "cred_body": "142K login attempts from 38K IPs in the last 5 minutes.",
+    "latency_title": "High Latency!!!!!!",
+    "latency_body": "~150–250ms RTT per request",
+    "exfil_title": "Sensitive data exfiltration",
+    "exfil_body": "12 customer records pasted into Slack in the last hour.",
+    "ddos": "Origin IP exposed, getting hit with direct DDoS traffic. Need to lock down ASAP.",
+    "open_incidents": "2331 open incidents",
+    "calm_title": "Shipping with Cloudflare",
+    "pushed_pre": "Pushed",
+    "pushed_post": "new updates today",
+    "p0": "P0"
+  }
+}
