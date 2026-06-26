@@ -1,0 +1,54 @@
+name: Deploy pe Hosterion
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout cod
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalare dependente
+        run: npm ci
+
+      - name: Build (vite build)
+        run: npm run build
+
+      - name: Pregatire fisiere pentru deploy
+        run: |
+          rm -rf deploy
+          mkdir -p deploy/tmp
+          cp -R dist deploy/dist
+          cp server.js package.json package-lock.json deploy/
+          date -u +"restart-%Y%m%dT%H%M%SZ" > deploy/tmp/restart.txt
+
+      - name: Deploy pe Hosterion (FTPS)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./deploy/
+          server-dir: ./
+          exclude: |
+            **/node_modules/**
