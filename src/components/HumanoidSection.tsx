@@ -15,14 +15,6 @@ type CardItem = {
 
 const CARDS: CardItem[] = [
   {
-    title: "Oficiul de Cadastru OCPI",
-    link: "https://sgc.ocpict.ro/",
-    image: "/gov.png",
-    background: "/background-section2.webp",
-    labelKey: "portfolio.labels.sgc",
-    badgeKey: "portfolio.badges.public_institution",
-  },
-  {
     title: "BAC DE 10",
     link: "https://unbacde10.ro/bacalaureat-informatica/",
     image: "/unbacde-10.png",

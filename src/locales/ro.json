@@ -95,14 +95,7 @@
     "title": "Munca mea vorbește de la sine.",
     "card_label": "PROIECT",
     "card_link": "Vezi proiectul",
-    "badges": {
-      "public_institution": "INSTITUȚIE PUBLICĂ"
-    },
-    "subtitles": {
-      "sgc": "Platformă custom pentru OCPI — proiect de stat"
-    },
     "labels": {
-      "sgc": "SGC — Sistem Gestionare Contestații (OCPI)",
       "bacde10": "Un Bac de 10 — Pregătire bacalaureat informatică",
       "picaps": "Picaps",
       "rdraw": "R-Draw Engineering",
@@ -115,7 +108,6 @@
       "traveltwin": "TravelTwin — Travel Companion"
     },
     "metrics": {
-      "sgc": "Proiect de stat · 8K+ buget · Live 12 luni",
       "bacde10": "Lead-uri organice ×4 în 90 zile",
       "picaps": "LCP 1.1s · Bounce -38%",
       "rdraw": "Sub 1.5s global · CWV: 100/100/100/100",
@@ -127,20 +119,6 @@
       "ecartop": "B2B sales funnel · cycle redus cu 40%",
       "traveltwin": "MVP în 3 săptămâni · validation pas"
     }
-  },
-  "case_study": {
-    "eyebrow": "STUDIU DE CAZ",
-    "title": "Aplicație custom pentru o instituție publică",
-    "body": "Platformă web la cheie, construită de la zero pentru OCPI / utilizare municipală — uz intern, securizată și optimizată pentru încărcare operațională zilnică. Client confidențial.",
-    "stats": {
-      "tier_value": "€8K+",
-      "tier_label": "Bugetul proiectului",
-      "stack_value": "React · Node · PostgreSQL",
-      "stack_label": "Tehnologii",
-      "scope_value": "Full-stack",
-      "scope_label": "Scope"
-    },
-    "availability": "Disponibil la cerere"
   },
   "approach": {
     "eyebrow": "Abordarea noastră",
@@ -243,13 +221,6 @@
     "title": "Ce zic oamenii care lucrează cu mine.",
     "subtitle": "Vezi ce au de spus clienții despre noi",
     "items": [
-      {
-        "text": "Am comparat 4 agenții pentru proiectul OCPI. Robert a venit solo, a livrat în 6 săptămâni și a construit ceva pe care echipa de audit l-a numit <hl>indestructibil</hl>.",
-        "name": "SGC OCPI",
-        "role": "Instituție publică",
-        "initials": "SG",
-        "tone": "orange"
-      },
       {
         "text": "Site-ul vechi se încărca în 6 secunde. Cel nou — <hl>1.1</hl>. Aceeași ofertă, bounce cu 38% mai mic, 2× cereri de demo în 30 de zile.",
         "name": "Picaps",

@@ -95,14 +95,7 @@
     "title": "My work speaks for itself.",
     "card_label": "PROJECT",
     "card_link": "Check it out!",
-    "badges": {
-      "public_institution": "PUBLIC INSTITUTION"
-    },
-    "subtitles": {
-      "sgc": "Custom platform for OCPI — government-grade build"
-    },
     "labels": {
-      "sgc": "SGC — Sistem Gestionare Contestații (OCPI)",
       "bacde10": "Un Bac de 10 — Informatics baccalaureate prep",
       "picaps": "Picaps",
       "rdraw": "R-Draw Engineering",
@@ -115,7 +108,6 @@
       "traveltwin": "TravelTwin — Travel Companion"
     },
     "metrics": {
-      "sgc": "Government project · €8K+ budget · Live 12 months",
       "bacde10": "Organic leads ×4 in 90 days",
       "picaps": "LCP 1.1s · Bounce -38%",
       "rdraw": "Sub 1.5s global · CWV: 100/100/100/100",
@@ -127,20 +119,6 @@
       "ecartop": "B2B sales funnel · cycle reduced by 40%",
       "traveltwin": "MVP in 3 weeks · validation step"
     }
-  },
-  "case_study": {
-    "eyebrow": "CASE STUDY",
-    "title": "Custom application for a public institution",
-    "body": "A bespoke web platform built from the ground up for OCPI / municipal use — internal-facing, secure, and engineered for daily operational load. Confidential client.",
-    "stats": {
-      "tier_value": "€8K+",
-      "tier_label": "Engagement tier",
-      "stack_value": "React · Node · PostgreSQL",
-      "stack_label": "Stack",
-      "scope_value": "Full-stack",
-      "scope_label": "Scope"
-    },
-    "availability": "Available on request"
   },
   "approach": {
     "eyebrow": "Our approach",
@@ -243,13 +221,6 @@
     "title": "What people who work with me say.",
     "subtitle": "See what our customers have to say about us",
     "items": [
-      {
-        "text": "We compared 4 agencies for the OCPI rebuild. Robert came in solo, delivered in 6 weeks, and built something the audit team called <hl>bulletproof</hl>.",
-        "name": "SGC OCPI",
-        "role": "Public Institution",
-        "initials": "SG",
-        "tone": "orange"
-      },
       {
         "text": "Our old site loaded in 6 seconds. The new one — <hl>1.1</hl>. Same offer, 38% lower bounce, 2× demo requests in 30 days.",
         "name": "Picaps",
