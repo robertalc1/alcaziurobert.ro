@@ -26,12 +26,15 @@ const MadeByHumans = () => {
       <style>{`
         :root { --orange:#ED5C1B; --ink:#262626; }
 
-        /* ===== Shell + rounded mesh card ===== */
+        /* ===== Shell + rounded mesh card (orange card floating on white) ===== */
         .mbh-section {
           position: relative;
           width: 100%;
-          background: #ffffff;
+          background: #FAF8F6;
         }
+        /* iOS overscroll below the page is covered by the html background
+           (src/index.css) — no ::after hack, which used to add 240px of dead
+           scrollable space under the footer. */
         .mbh-shell {
           padding: clamp(12px, 1.6vw, 20px);
         }

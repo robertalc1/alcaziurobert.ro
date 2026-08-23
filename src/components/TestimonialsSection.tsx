@@ -3,6 +3,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonials-columns-1";
+import ContactCTA from "@/components/ContactCTA";
+import Reveal from "@/components/Reveal";
 
 const TestimonialsSection: React.FC = () => {
   const { t } = useTranslation();
@@ -15,7 +17,7 @@ const TestimonialsSection: React.FC = () => {
   const third = items.slice(6, 9);
 
   return (
-    <section className="testimonials-section" aria-label="Client testimonials">
+    <section className="testimonials-section" id="results" aria-label="Client testimonials">
       <style>{`
         .testimonials-section {
           width: 100%;
@@ -151,6 +153,40 @@ const TestimonialsSection: React.FC = () => {
           line-height: 1.25;
         }
 
+        /* CTA under the columns — catch the reader at peak trust */
+        .ts-cta {
+          text-align: center;
+          margin-top: clamp(24px, 3.5vh, 40px);
+        }
+        .ts-cta-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 11px 28px;
+          min-height: 44px;
+          border-radius: 9999px;
+          background: #ED5C1B;
+          color: #ffffff;
+          font-family: var(--font-sans);
+          font-weight: 500;
+          font-size: 14.5px;
+          letter-spacing: -0.005em;
+          white-space: nowrap;
+          border: none;
+          cursor: pointer;
+          transition: background 220ms cubic-bezier(0.23, 1, 0.32, 1),
+                      transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .ts-cta-btn:hover { background: #C44E17; }
+        .ts-cta-btn:active { transform: scale(0.97); }
+        .ts-cta-btn svg {
+          width: 14px;
+          height: 14px;
+          transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .ts-cta-btn:hover svg { transform: translateX(2px); }
+
         @media (hover: hover) and (pointer: fine) {
           .tc-col-wrap:hover .tc-col-track {
             animation-play-state: paused;
@@ -169,9 +205,11 @@ const TestimonialsSection: React.FC = () => {
       `}</style>
 
       <div className="container px-6 lg:px-8 mx-auto">
-        <div className="ts-head">
-          <h2 className="ts-title">{t("testimonials.title")}</h2>
-        </div>
+        <Reveal>
+          <div className="ts-head">
+            <h2 className="ts-title">{t("testimonials.title")}</h2>
+          </div>
+        </Reveal>
         <div className="ts-grid">
           <TestimonialsColumn testimonials={first} duration={26} />
           <TestimonialsColumn
@@ -184,6 +222,26 @@ const TestimonialsSection: React.FC = () => {
             duration={28}
             className="hidden lg:block"
           />
+        </div>
+
+        <div className="ts-cta">
+          <ContactCTA>
+            <button type="button" className="ts-cta-btn">
+              {t("contact.cta")}
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 19L19 5" />
+                <path d="M9 5h10v10" />
+              </svg>
+            </button>
+          </ContactCTA>
         </div>
       </div>
     </section>

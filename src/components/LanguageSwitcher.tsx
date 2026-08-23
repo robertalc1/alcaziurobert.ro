@@ -28,7 +28,8 @@ const LanguageSwitcher: React.FC = () => {
           letter-spacing: 0.04em;
         }
         .lang-btn {
-          padding: 4px 10px;
+          padding: 6px 12px;
+          min-height: 30px;
           border-radius: 7px;
           color: #6b7280;
           background: transparent;
@@ -46,7 +47,7 @@ const LanguageSwitcher: React.FC = () => {
         }
         @media (max-width: 640px) {
           .lang-switch { margin-right: 8px; padding: 3px 4px; }
-          .lang-btn { padding: 4px 8px; font-size: 11px; }
+          .lang-btn { padding: 9px 11px; font-size: 11px; min-height: 36px; }
         }
       `}</style>
       <div className="lang-switch" role="group" aria-label={t("lang.switch_to")}>

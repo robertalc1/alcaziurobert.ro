@@ -1,334 +1,341 @@
 "use client";
 
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";
-import LiquidMesh from "@/components/LiquidMesh";
 import ContactCTA from "@/components/ContactCTA";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { scrollToId } from "@/lib/scroll";
 
-// Renders text with <i>word</i> markers as <em className="hero-italic"> spans,
-// so specific words in the headline appear italic while the rest stays upright.
-const renderItalic = (text: string): React.ReactNode[] => {
-  const parts = text.split(/<i>(.*?)<\/i>/g);
-  return parts.map((part, i) =>
-    i % 2 === 1 ? (
-      <em key={i} className="hero-italic">{part}</em>
-    ) : (
-      <Fragment key={i}>{part}</Fragment>
-    )
-  );
-};
+// Lazy: keeps react-hook-form/zod out of the critical bundle; never fetched
+// below 1024px because the component simply isn't mounted there.
+const HeroContactCard = lazy(() => import("@/components/HeroContactCard"));
+
+const ArrowUpRight = (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M5 19L19 5" />
+    <path d="M9 5h10v10" />
+  </svg>
+);
 
 const Hero = () => {
   const { t } = useTranslation();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const isLg = useMediaQuery("(min-width: 1024px)");
+  const shellRef = React.useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mql.matches);
-    const onMql = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mql.addEventListener?.("change", onMql);
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-      mql.removeEventListener?.("change", onMql);
-    };
-  }, []);
+  // Desktop primary CTA drives the adjacent form: focus the name input and
+  // pulse the card so the visitor's eye lands exactly where the action is.
+  const focusHeroForm = () => {
+    const input = document.querySelector<HTMLInputElement>(
+      '#hero-form input[name="name"]'
+    );
+    if (input) {
+      input.focus();
+      const shell = shellRef.current;
+      if (shell) {
+        shell.classList.remove("is-attn");
+        void shell.offsetWidth; // restart the one-shot animation
+        shell.classList.add("is-attn");
+      }
+    } else {
+      scrollToId("contact");
+    }
+  };
+
+  const handleSeeWork = (e: React.MouseEvent) => {
+    e.preventDefault();
+    scrollToId("work");
+  };
 
   return (
-    <section className="hero-section" id="hero">
-      <div className="hero-shell">
-        <div className="hero-card" ref={cardRef}>
-          {isMobile || reducedMotion ? (
-            <div className="hero-mesh hero-mesh-static" aria-hidden="true" />
-          ) : (
-            <LiquidMesh className="hero-mesh" containerRef={cardRef} />
-          )}
-
+    <section className="hero3" id="hero">
       <style>{`
-        :root { --orange: #ED5C1B; }
-
-        /* ===== Hero shell + rounded card layout ===== */
-        .hero-section {
+        .hero3 {
           position: relative;
           width: 100%;
-          background: #ffffff;
+          background: linear-gradient(180deg, #ffffff 0%, #FAF8F6 100%);
         }
-        .hero-shell {
-          position: relative;
-          padding: clamp(64px, 7.5vh, 96px) clamp(10px, 1.4vw, 18px) clamp(10px, 1.4vw, 18px);
-        }
-
-        /* ===== CTA bay — white "notch" carved into orange card bottom ===== */
-        .hero-cta-bay {
+        /* iOS overscroll above the page is covered by the html background
+           (src/index.css) — no pseudo-element cover needed. */
+        .hero3-glow {
           position: absolute;
-          bottom: clamp(12px, 1.6vw, 20px);
-          left: 50%;
-          transform: translate(-50%, 15%);
-          z-index: 10;
-          background: #ffffff;
-          padding: clamp(12px, 1.6vw, 16px) clamp(14px, 2vw, 22px);
-          border-radius: 9999px;
-          display: flex;
-          align-items: center;
-          gap: clamp(10px, 1.4vw, 18px);
-          box-shadow: 0 -8px 28px -8px rgba(0, 0, 0, 0.08);
-        }
-        /* === Pill button — orange + white + ripple-expand hover === */
-        .hero-bay-primary {
-          position: relative;
-          isolation: isolate;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          padding: 10px 26px;
-          background: #ED5C1B;
-          color: #ffffff;
-          border-radius: 9999px;
-          overflow: hidden;
-          border: none;
-          cursor: pointer;
-          font-family: var(--font-sans);
-          font-weight: 500;
-          font-size: 14.5px;
-          letter-spacing: -0.005em;
-          text-transform: none;
-          white-space: nowrap;
-        }
-        /* The ripple: darker orange circle that expands from center on hover */
-        .hero-bay-primary-circle {
-          position: absolute;
-          width: 0;
-          height: 0;
-          background: #C44E17;
-          border-radius: 9999px;
-          transition: width 500ms cubic-bezier(0, 0, 0.2, 1),
-                      height 500ms cubic-bezier(0, 0, 0.2, 1);
-          z-index: 0;
-          pointer-events: none;
-        }
-        .hero-bay-primary:hover .hero-bay-primary-circle {
-          width: 224px;
-          height: 224px;
-        }
-        /* Text stays above the ripple */
-        .hero-bay-primary-text {
-          position: relative;
-          z-index: 1;
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-        }
-        .hero-bay-primary-text svg { display: block; }
-        .hero-bay-secondary {
-          color: #262626;
-          font-family: var(--font-sans);
-          font-weight: 500;
-          font-size: 14.5px;
-          letter-spacing: -0.005em;
-          text-transform: none;
-          text-decoration: underline;
-          text-underline-offset: 4px;
-          text-decoration-thickness: 1.5px;
-          padding: 0 6px;
-          transition: color 220ms cubic-bezier(0.23, 1, 0.32, 1);
-          white-space: nowrap;
-        }
-        .hero-bay-secondary:hover {
-          color: #ED5C1B;
-        }
-        @media (max-width: 640px) {
-          .hero-cta-bay {
-            transform: translate(-50%, 10%);
-            padding: 10px 14px;
-            gap: 10px;
-          }
-          .hero-bay-primary { padding: 9px 24px; font-size: 13.5px; font-weight: 500; }
-          .hero-bay-secondary { font-size: 13.5px; }
-        }
-        .hero-card {
-          position: relative;
-          width: 100%;
-          min-height: min(82vh, 740px);
-          border-radius: clamp(22px, 2.7vw, 48px);
-          overflow: hidden;
-          isolation: isolate;
-        }
-        .hero-mesh {
-          position: absolute !important;
           inset: 0;
-          width: 100% !important;
-          height: 100% !important;
-          z-index: 0;
-        }
-        .hero-mesh-static {
+          pointer-events: none;
           background:
-            radial-gradient(at 30% 20%, #FF8A3D 0%, transparent 55%),
-            radial-gradient(at 80% 80%, #F0A172 0%, transparent 50%),
-            radial-gradient(at 50% 50%, #DC5418 0%, transparent 60%),
-            #ED5C1B;
+            radial-gradient(52% 46% at 78% 4%, rgba(237, 92, 27, 0.10), transparent 68%),
+            radial-gradient(38% 34% at 4% 96%, rgba(237, 92, 27, 0.05), transparent 70%);
+          animation: hero3-breathe 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
         }
-        .hero-content {
+        @keyframes hero3-breathe {
+          0%, 100% { opacity: 1; }
+          50%      { opacity: 0.72; }
+        }
+        .hero3-inner {
           position: relative;
           z-index: 1;
-          width: 100%;
-          min-height: inherit;
-          padding: clamp(56px, 7vh, 88px) clamp(14px, 2.5vw, 18px) clamp(40px, 5vh, 68px);
+          max-width: 1240px;
+          margin: 0 auto;
+          padding: clamp(118px, 16vh, 168px) clamp(18px, 3vw, 32px) clamp(64px, 9vh, 108px);
           display: flex;
-          align-items: center;
-          justify-content: center;
+          flex-direction: column;
         }
-        @media (max-width: 640px) {
-          .hero-card { min-height: min(86vh, 720px); }
-          .hero-content { padding: 80px 16px 40px; }
+        @media (min-width: 1024px) {
+          .hero3-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 450px;
+            gap: clamp(48px, 5vw, 88px);
+            align-items: center;
+            min-height: min(92vh, 880px);
+            min-height: min(92svh, 880px);
+          }
         }
 
-        /* ===== Headline + subtitle + CTA ===== */
-        .hero-title {
-          font-family: var(--font-sans);
-          font-weight: 500;
-          letter-spacing: -0.025em;
-          font-size: clamp(1.95rem, 4.95vw, 3.55rem);
-          line-height: 1.08;
-          color: #ffffff;
-          max-width: 22ch;
-          margin: 24px auto 12px;
-          text-wrap: balance;
-        }
-        .hero-italic {
-          font-style: italic;
-        }
-        .hero-sub {
-          font-family: var(--font-sans);
-          font-size: clamp(1rem, 1.3vw, 1.15rem);
-          line-height: 1.55;
-          color: #5b6470;
-          max-width: 54ch;
-          margin: 0 auto clamp(20px, 2.4vh, 28px);
-        }
-        .hero-scarcity {
+        /* ── Copy column ── */
+        .hero3-pill {
           display: inline-flex;
           align-items: center;
           gap: 8px;
+          align-self: flex-start;
+          padding: 6px 14px;
+          border-radius: 9999px;
+          background: rgba(38, 38, 38, 0.04);
+          border: 1px solid rgba(38, 38, 38, 0.12);
           font-family: var(--font-sans);
           font-size: 12.5px;
           font-weight: 500;
-          color: rgba(38, 38, 38, 0.7);
           letter-spacing: 0.01em;
-          margin-bottom: clamp(20px, 2.6vh, 28px);
-          padding: 6px 14px;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.65);
-          border: 1px solid rgba(237, 92, 27, 0.18);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
+          color: rgba(38, 38, 38, 0.75);
         }
-        .hero-scarcity-dot {
+        .hero3-pill-dot {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          background: var(--orange, #ED5C1B);
+          background: #ED5C1B;
           box-shadow: 0 0 0 0 rgba(237, 92, 27, 0.5);
-          animation: scarcity-pulse 2s ease-out infinite;
+          animation: hero3-pulse 2s ease-out infinite;
           flex-shrink: 0;
         }
-        @keyframes scarcity-pulse {
+        @keyframes hero3-pulse {
           0%   { box-shadow: 0 0 0 0 rgba(237, 92, 27, 0.55); }
           70%  { box-shadow: 0 0 0 10px rgba(237, 92, 27, 0); }
           100% { box-shadow: 0 0 0 0 rgba(237, 92, 27, 0); }
         }
-        .hero-cta {
+        .hero3-title {
+          font-family: var(--font-sans);
+          font-size: clamp(2.55rem, 6.2vw, 4.9rem);
+          font-weight: 500;
+          letter-spacing: -0.04em;
+          line-height: 1.03;
+          color: #121212;
+          margin: clamp(22px, 3vh, 30px) 0 clamp(18px, 2.4vh, 24px);
+          max-width: 14ch;
+          text-wrap: balance;
+        }
+        .hero3-accent {
+          color: #ED5C1B;
+          font-style: italic;
+        }
+        .hero3-sub {
+          font-family: var(--font-sans);
+          font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+          line-height: 1.6;
+          color: rgba(38, 38, 38, 0.72);
+          max-width: 46ch;
+          margin: 0 0 clamp(20px, 2.6vh, 26px);
+        }
+        .hero3-proof {
           display: flex;
-          gap: 12px;
           flex-wrap: wrap;
           align-items: center;
+          list-style: none;
+          padding: 0;
+          margin: 0 0 clamp(28px, 3.6vh, 38px);
+          row-gap: 10px;
+        }
+        .hero3-proof li {
+          display: inline-flex;
+          align-items: center;
+          font-family: var(--font-sans);
+          font-size: 13px;
+          font-weight: 500;
+          color: rgba(38, 38, 38, 0.55);
+          white-space: nowrap;
+        }
+        .hero3-proof li + li::before {
+          content: "";
+          width: 1px;
+          height: 12px;
+          background: rgba(38, 38, 38, 0.18);
+          margin: 0 14px;
+        }
+        .hero3-cta {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          flex-wrap: wrap;
+        }
+        .hero3-primary {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          padding: 8px 8px 8px 26px;
+          min-height: 52px;
+          border-radius: 9999px;
+          background: #ED5C1B;
+          color: #ffffff;
+          font-family: var(--font-sans);
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: -0.005em;
+          white-space: nowrap;
+          border: none;
+          cursor: pointer;
+          transition: background 260ms cubic-bezier(0.32, 0.72, 0, 1),
+                      transform 200ms cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .hero3-primary:hover { background: #C44E17; }
+        .hero3-primary:active { transform: scale(0.98); }
+        .hero3-primary-icon {
+          width: 36px;
+          height: 36px;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.16);
+          display: inline-flex;
+          align-items: center;
           justify-content: center;
+          transition: transform 260ms cubic-bezier(0.32, 0.72, 0, 1);
+          flex-shrink: 0;
         }
-        .hero-cta .btn svg {
-          width: 15px;
-          height: 15px;
-          transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
+        .hero3-primary-icon svg { width: 15px; height: 15px; }
+        .hero3-primary:hover .hero3-primary-icon { transform: translate(2px, -2px); }
+        .hero3-secondary {
+          font-family: var(--font-sans);
+          font-size: 14.5px;
+          font-weight: 500;
+          color: rgba(38, 38, 38, 0.85);
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-thickness: 1.5px;
+          transition: color 220ms cubic-bezier(0.23, 1, 0.32, 1);
+          padding: 6px 2px;
         }
-        .hero-cta .btn:hover svg { transform: translateX(2px); }
+        .hero3-secondary:hover { color: #ED5C1B; }
+
+        /* ── Form column (double-bezel shell on white) ── */
+        .hero3-card-shell {
+          background: rgba(38, 38, 38, 0.035);
+          border: 1px solid rgba(38, 38, 38, 0.10);
+          border-radius: 27px;
+          padding: 7px;
+          box-shadow: 0 40px 90px -48px rgba(38, 38, 38, 0.28);
+        }
+        .hero3-card-ph {
+          min-height: 520px;
+          border-radius: 20px;
+          background: rgba(38, 38, 38, 0.03);
+        }
+
+        /* ── Load-in stagger ── */
+        @keyframes hero3-fade {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: none; }
+        }
+        /* Headline gets the signature entrance: a soft blur-up */
+        @keyframes hero3-fade-blur {
+          from { opacity: 0; transform: translateY(16px); filter: blur(10px); }
+          to   { opacity: 1; transform: none; filter: blur(0); }
+        }
+        .hero3-reveal-1 { animation: hero3-fade 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.05s both; }
+        .hero3-reveal-2 { animation: hero3-fade-blur 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both; }
+        .hero3-reveal-3 { animation: hero3-fade 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.34s both; }
+        .hero3-reveal-4 { animation: hero3-fade 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.38s both; }
+
+        /* One-shot attention pulse on the form card (triggered by the CTA) */
+        .hero3-card-shell.is-attn {
+          animation: hero3-attn 900ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        @keyframes hero3-attn {
+          0% {
+            box-shadow: 0 40px 90px -48px rgba(38, 38, 38, 0.28),
+                        0 0 0 0 rgba(237, 92, 27, 0.55);
+          }
+          100% {
+            box-shadow: 0 40px 90px -48px rgba(38, 38, 38, 0.28),
+                        0 0 0 20px rgba(237, 92, 27, 0);
+          }
+        }
 
         @media (max-width: 640px) {
-          .hero-title { margin-top: 22px; }
-          .hero-scarcity { font-size: 11.5px; padding: 5px 12px; }
-          .hero-cta { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; }
-          .hero-cta .btn { width: 100%; justify-content: center; }
+          .hero3-cta { flex-direction: column; align-items: stretch; gap: 12px; }
+          .hero3-primary { width: 100%; justify-content: space-between; }
+          .hero3-secondary { text-align: center; padding: 10px 2px; }
+          .hero3-title { max-width: 12ch; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .hero-scarcity-dot { animation: none; }
-        }
-
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(10px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
-
-        @keyframes smoothScroll {
-          0%, 100% { transform: translateY(0); opacity: 1; }
-          50%      { transform: translateY(12px); opacity: 0.3; }
-        }
-        .scroll-indicator { animation: smoothScroll 2s ease-in-out infinite; }
-
-        .hero-subtitle {
-          color: #FFFFFF !important;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+          .hero3-pill-dot { animation: none; }
+          .hero3-glow { animation: none; }
+          .hero3-card-shell.is-attn { animation: none; }
+          .hero3-reveal-1, .hero3-reveal-2, .hero3-reveal-3, .hero3-reveal-4 { animation: none; }
         }
       `}</style>
 
-          <div className="hero-content">
-            <div
-              className="container px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto relative z-10"
-              ref={containerRef}
-            >
-        <div className="flex flex-col items-center text-center">
-          {/* Headline with italic accent word */}
-          <h1 className="hero-title">
-            {renderItalic(t("hero_v2.headline_pre"))}{" "}
-            {renderItalic(t("hero_v2.headline_accent"))}
-            {t("hero_v2.headline_post") ? ` ${t("hero_v2.headline_post")}` : null}
+      <div className="hero3-glow" aria-hidden="true" />
+
+      <div className="hero3-inner">
+        <div className="hero3-copy">
+          <div className="hero3-pill hero3-reveal-1">
+            <span className="hero3-pill-dot" aria-hidden="true" />
+            {t("hero_v2.rating_count")}
+          </div>
+
+          <h1 className="hero3-title hero3-reveal-2">
+            {t("hero_v3.headline_pre")}
+            <br />
+            <span className="hero3-accent">{t("hero_v3.headline_accent")}</span>
           </h1>
 
-            </div>
+          <p className="hero3-sub hero3-reveal-3">{t("hero_v3.subtitle")}</p>
+
+          <ul className="hero3-proof hero3-reveal-3">
+            <li>{t("hero_v3.proof1")}</li>
+            <li>{t("hero_v3.proof2")}</li>
+            <li>{t("hero_v3.proof3")}</li>
+          </ul>
+
+          <div className="hero3-cta hero3-reveal-3">
+            {isLg ? (
+              <button type="button" className="hero3-primary" onClick={focusHeroForm}>
+                {t("whatwedo.cta_primary")}
+                <span className="hero3-primary-icon">{ArrowUpRight}</span>
+              </button>
+            ) : (
+              <ContactCTA>
+                <button type="button" className="hero3-primary">
+                  {t("whatwedo.cta_primary")}
+                  <span className="hero3-primary-icon">{ArrowUpRight}</span>
+                </button>
+              </ContactCTA>
+            )}
+            <a href="#work" className="hero3-secondary" onClick={handleSeeWork}>
+              {t("hero_v3.cta_secondary")} ↓
+            </a>
           </div>
         </div>
-      </div>
 
-      <div className="hero-cta-bay">
-        <ContactCTA>
-          <button type="button" className="hero-bay-primary">
-            <span className="hero-bay-primary-circle" aria-hidden="true" />
-            <span className="hero-bay-primary-text">
-              {t("whatwedo.cta_primary")}
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-                style={{ width: 14, height: 14 }}
-              >
-                <path d="M5 19L19 5" />
-                <path d="M9 5h10v10" />
-              </svg>
-            </span>
-          </button>
-        </ContactCTA>
-        <Link to="/studii-de-caz" className="hero-bay-secondary">
-          {t("whatwedo.cta_secondary")}
-        </Link>
-      </div>
+        {isLg && (
+          <div ref={shellRef} className="hero3-card-shell hero3-reveal-4">
+            <Suspense fallback={<div className="hero3-card-ph" aria-hidden="true" />}>
+              <HeroContactCard />
+            </Suspense>
+          </div>
+        )}
       </div>
     </section>
   );

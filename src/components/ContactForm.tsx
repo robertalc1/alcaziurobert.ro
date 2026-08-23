@@ -285,32 +285,61 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
               animate={stageAnimate}
               transition={stageTransition}
             >
-              <FormField
-                control={form.control}
-                name="budget"
-                render={({ field }) => (
-                  <FormItem className="space-y-1.5">
-                    <FormLabel className={labelClass}>
-                      {t("form.budget_label")}
-                      {required}
-                    </FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value ?? ""}>
-                      <FormControl>
-                        <SelectTrigger className={fieldClass}>
-                          <SelectValue placeholder={t("form.budget_placeholder")} />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="1.5-3k">{t("form.budget_low")}</SelectItem>
-                        <SelectItem value="3-5k">{t("form.budget_mid")}</SelectItem>
-                        <SelectItem value="5k+">{t("form.budget_high")}</SelectItem>
-                        <SelectItem value="discuss">{t("form.budget_discuss")}</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage className="text-[12.5px] font-normal text-[#EF4444]" />
-                  </FormItem>
-                )}
-              />
+              <p className={stepTitleClass}>{t("form.step3_title")}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <FormField
+                  control={form.control}
+                  name="projectType"
+                  render={({ field }) => (
+                    <FormItem className="space-y-1.5">
+                      <FormLabel className={labelClass}>
+                        {t("form.project_label")}
+                        {required}
+                      </FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                        <FormControl>
+                          <SelectTrigger className={fieldClass}>
+                            <SelectValue placeholder={t("form.project_placeholder")} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="website">{t("form.project_website")}</SelectItem>
+                          <SelectItem value="webapp">{t("form.project_webapp")}</SelectItem>
+                          <SelectItem value="other">{t("form.project_other")}</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage className="text-[12.5px] font-normal text-[#EF4444]" />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="budget"
+                  render={({ field }) => (
+                    <FormItem className="space-y-1.5">
+                      <FormLabel className={labelClass}>
+                        {t("form.budget_label")}
+                        {required}
+                      </FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                        <FormControl>
+                          <SelectTrigger className={fieldClass}>
+                            <SelectValue placeholder={t("form.budget_placeholder")} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="1.5-3k">{t("form.budget_low")}</SelectItem>
+                          <SelectItem value="3-5k">{t("form.budget_mid")}</SelectItem>
+                          <SelectItem value="5k+">{t("form.budget_high")}</SelectItem>
+                          <SelectItem value="discuss">{t("form.budget_discuss")}</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage className="text-[12.5px] font-normal text-[#EF4444]" />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </motion.div>
           )}
 
@@ -322,8 +351,11 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
               initial={stageInitial}
               animate={stageAnimate}
               transition={stageTransition}
-              className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end pt-2"
+              className="flex flex-col-reverse sm:flex-row sm:items-center gap-3 sm:justify-end pt-2"
             >
+              <p className="text-[12.5px] text-[#9CA3AF] text-center sm:text-left sm:mr-auto m-0">
+                {t("form.subtitle")}
+              </p>
               {onClose && (
                 <Button
                   type="button"

@@ -3,7 +3,11 @@
     "portfolio": "Portofoliu",
     "about": "Despre",
     "casestudy": "Abordarea noastră",
-    "cta": "Contactează-mă"
+    "cta": "Contactează-mă",
+    "work": "Proiecte",
+    "process": "Proces",
+    "results": "Rezultate",
+    "faq": "FAQ"
   },
   "compounding": {
     "title": "De ce funcționează?",
@@ -85,17 +89,77 @@
     "headline_accent": "<i>Lead-uri</i> cu o <i>formulă</i> simplă.",
     "headline_post": "",
     "bio": "Sunt Robert. Construiesc singur sisteme care convertesc cold traffic în clienți reali. Fără echipe, fără comisioane, fără pierdere de timp.",
-    "subtitle": "End-to-end: shop, brand, reclame Meta + Google, SEO, securitate NIS2. Un singur partener, stack complet.",
+    "subtitle": "Site, funnel, tracking și reclame — construite cap-coadă de un singur partener senior. Live în ~4 săptămâni.",
     "scarcity": "Sloturi limitate lunar — accept aplicații acum",
     "cta_primary": "Aplică acum",
     "cta_secondary": "Vezi proiectele"
+  },
+  "hero_v3": {
+    "headline_pre": "Site-uri construite",
+    "headline_accent": "să convertească.",
+    "subtitle": "Site, funnel, tracking și reclame — un singur partener senior, cap-coadă. Live în ~4 săptămâni.",
+    "proof1": "11 proiecte live",
+    "proof2": "Conversie 1.4% → 3.8%",
+    "proof3": "Răspuns în 24h",
+    "cta_secondary": "Vezi proiectele",
+    "form_title": "Spune-mi despre proiectul tău",
+    "form_note": "Răspund personal în maxim 24 de ore."
+  },
+  "stats": {
+    "kicker": "Dovezi, nu promisiuni",
+    "s1_value": "3.8%",
+    "s1_label": "rată de conversie",
+    "s1_note": "de la 1.4% — aceleași reclame, același trafic",
+    "s2_value": "1.1s",
+    "s2_label": "timp de încărcare",
+    "s2_note": "de la 6 secunde",
+    "s3_value": "−38%",
+    "s3_label": "bounce rate",
+    "s3_note": "la 30 de zile după relansare",
+    "clients_label": "Clienți selectați"
+  },
+  "statement": {
+    "kicker": "Diferența"
+  },
+  "process": {
+    "kicker": "Sistemul",
+    "step1_meta": "Săptămâna 1",
+    "step1_title": "Unde pierzi bani",
+    "step1_body": "Audit, analytics și harta funnel-ului. Știm exact pe unde curg banii afară înainte să scriem o linie de cod.",
+    "step2_meta": "Săptămâna 2",
+    "step2_title": "Construim să convertească",
+    "step2_body": "Design și build, în jurul singurei metrici care contează: lead-uri calificate.",
+    "step3_meta": "Săptămâna 3",
+    "step3_title": "Lansare",
+    "step3_body": "Tracking server-side inclus, încărcare sub 2 secunde, zero capete lăsate libere.",
+    "step4_meta": "Săptămâna 4+",
+    "step4_title": "Scalăm ce merge",
+    "step4_body": "Reclame și SEO îndreptate spre paginile care deja convertesc.",
+    "step5_meta": "Continuu",
+    "step5_title": "Creștere compusă",
+    "step5_body": "Rămân în spatele cifrelor tale, lună de lună."
+  },
+  "work": {
+    "kicker": "Proiecte alese",
+    "featured_name": "Oficiul de Cadastru — OCPI",
+    "featured_chip1": "Proiect €8K+",
+    "featured_chip2": "Live de 12 luni",
+    "featured_chip3": "Standard guvernamental",
+    "visit": "Vezi live"
   },
   "portfolio": {
     "badge": "Portofoliu",
     "title": "Munca mea vorbește de la sine.",
     "card_label": "PROIECT",
     "card_link": "Vezi proiectul",
+    "badges": {
+      "public_institution": "INSTITUȚIE PUBLICĂ"
+    },
+    "subtitles": {
+      "sgc": "Platformă custom pentru OCPI — proiect de stat"
+    },
     "labels": {
+      "sgc": "SGC — Sistem Gestionare Contestații (OCPI)",
       "bacde10": "Un Bac de 10 — Pregătire bacalaureat informatică",
       "picaps": "Picaps",
       "rdraw": "R-Draw Engineering",
@@ -108,6 +172,7 @@
       "traveltwin": "TravelTwin — Travel Companion"
     },
     "metrics": {
+      "sgc": "Proiect de stat · 8K+ buget · Live 12 luni",
       "bacde10": "Lead-uri organice ×4 în 90 zile",
       "picaps": "LCP 1.1s · Bounce -38%",
       "rdraw": "Sub 1.5s global · CWV: 100/100/100/100",
@@ -119,6 +184,20 @@
       "ecartop": "B2B sales funnel · cycle redus cu 40%",
       "traveltwin": "MVP în 3 săptămâni · validation pas"
     }
+  },
+  "case_study": {
+    "eyebrow": "STUDIU DE CAZ",
+    "title": "Aplicație custom pentru o instituție publică",
+    "body": "Platformă web la cheie, construită de la zero pentru OCPI / utilizare municipală — uz intern, securizată și optimizată pentru încărcare operațională zilnică. Client confidențial.",
+    "stats": {
+      "tier_value": "€8K+",
+      "tier_label": "Bugetul proiectului",
+      "stack_value": "React · Node · PostgreSQL",
+      "stack_label": "Tehnologii",
+      "scope_value": "Full-stack",
+      "scope_label": "Scope"
+    },
+    "availability": "Disponibil la cerere"
   },
   "approach": {
     "eyebrow": "Abordarea noastră",
@@ -193,7 +272,7 @@
     "clients_eyebrow": "Aceștia ne-au ales",
     "cf_partner": "Partener Cloudflare",
     "cf_partner_body": "Infrastructură enterprise. Sub 2 secunde global. DDoS, SSL, backup-uri incluse.",
-    "cta_primary": "Start Convert",
+    "cta_primary": "Începe să convertești",
     "cta_secondary": "Studii de caz",
     "cf": {
       "title": "Cloudflare edge",
@@ -221,6 +300,13 @@
     "title": "Ce zic oamenii care lucrează cu mine.",
     "subtitle": "Vezi ce au de spus clienții despre noi",
     "items": [
+      {
+        "text": "Am comparat 4 agenții pentru proiectul OCPI. Robert a venit solo, a livrat în 6 săptămâni și a construit ceva pe care echipa de audit l-a numit <hl>indestructibil</hl>.",
+        "name": "SGC OCPI",
+        "role": "Instituție publică",
+        "initials": "SG",
+        "tone": "orange"
+      },
       {
         "text": "Site-ul vechi se încărca în 6 secunde. Cel nou — <hl>1.1</hl>. Aceeași ofertă, bounce cu 38% mai mic, 2× cereri de demo în 30 de zile.",
         "name": "Picaps",
@@ -401,8 +487,8 @@
     "switch_to": "Schimbă limba"
   },
   "form": {
-    "title": "Spune-ne despre proiect",
-    "subtitle": "Răspundem în 24 de ore.",
+    "title": "Spune-mi despre proiect",
+    "subtitle": "Răspund în 24 de ore.",
     "name_label": "Nume",
     "name_placeholder": "Ion Popescu",
     "email_label": "Email",
@@ -423,8 +509,8 @@
     "submit": "Trimite",
     "submitting": "Se trimite…",
     "cancel": "Renunță",
-    "step2_title": "Cum te putem contacta?",
-    "step3_title": "Spune-ne despre proiect",
+    "step2_title": "Cum te pot contacta?",
+    "step3_title": "Spune-mi despre proiect",
     "v_name": "Numele trebuie să aibă minimum 2 caractere.",
     "v_email": "Introdu un email valid.",
     "v_phone_required": "Telefonul este obligatoriu.",

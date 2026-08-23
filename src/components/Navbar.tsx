@@ -5,7 +5,11 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { useScroll } from "@/hooks/use-scroll";
+import { scrollToId } from "@/lib/scroll";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import ContactCTA from "@/components/ContactCTA";
+
+const ANCHOR_IDS = ["work", "process", "results", "faq"] as const;
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -13,13 +17,22 @@ const Navbar = () => {
   const location = useLocation();
   const scrolled = useScroll(10);
 
+  const isHome = location.pathname === "/";
+
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   // Logo: scroll to top on the homepage, otherwise navigate home.
   const handleLogo = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (location.pathname === "/") scrollToTop();
+    if (isHome) scrollToTop();
     else navigate("/");
+  };
+
+  // Anchor links work from any route: scroll on home, navigate+scroll elsewhere.
+  const handleAnchor = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isHome) scrollToId(id);
+    else navigate("/", { state: { scrollTo: id } });
   };
 
   return (
@@ -51,11 +64,16 @@ const Navbar = () => {
         /* NAVIGATION LINKS */
         .nav-link {
           position: relative;
+          white-space: nowrap;
           color: var(--ink);
           font-family: var(--font-sans);
           font-weight: 500;
-          font-size: 15px;
-          letter-spacing: 0.02em;
+          font-size: 14.5px;
+          letter-spacing: 0.01em;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          padding: 0;
           transition: color .25s ease;
         }
         .nav-link:hover { color: var(--orange); }
@@ -68,6 +86,42 @@ const Navbar = () => {
           transition: width .25s ease;
         }
         .nav-link:hover::after { width: 100%; }
+
+        .nav-logo-name {
+          color: var(--ink);
+          transition: color .3s ease;
+        }
+        .nav-logo-img {
+          background: transparent;
+          border-radius: 8px;
+          transition: background .3s ease;
+        }
+
+        /* NAV CTA — compact orange pill, mirrors the hero primary button */
+        .nav-cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 9px 18px;
+          min-height: 38px;
+          border-radius: 9999px;
+          background: var(--orange);
+          color: #ffffff;
+          font-family: var(--font-sans);
+          font-weight: 500;
+          font-size: 13.5px;
+          letter-spacing: -0.005em;
+          white-space: nowrap;
+          border: none;
+          cursor: pointer;
+          transition: background 220ms cubic-bezier(0.23, 1, 0.32, 1),
+                      transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .nav-cta:hover { background: #C44E17; }
+        .nav-cta:active { transform: scale(0.97); }
+        @media (max-width: 640px) {
+          .nav-cta { padding: 8px 14px; font-size: 12.5px; min-height: 36px; }
+        }
       `}</style>
 
       <div
@@ -88,10 +142,10 @@ const Navbar = () => {
             alt="Logo Alcaziu"
             width={32}
             height={32}
-            className="h-8 w-8 select-none rounded-md"
+            className="nav-logo-img h-8 w-8 select-none"
           />
           <span
-            className="text-[#262626] tracking-tight leading-none text-[14px] sm:text-[15px] md:text-[16px]"
+            className="nav-logo-name tracking-tight leading-none text-[14px] sm:text-[15px] md:text-[16px]"
             style={{
               fontFamily: "var(--font-sans)",
               fontWeight: 500,
@@ -105,13 +159,29 @@ const Navbar = () => {
 
         {/* NAVIGATION + CTA */}
         <div className="ml-auto flex items-center">
-          <nav className="hidden md:flex items-center gap-10 mr-8">
+          <nav className="hidden md:flex items-center gap-7 mr-7">
+            {ANCHOR_IDS.map((id) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className="nav-link"
+                onClick={handleAnchor(id)}
+              >
+                {t(`nav.${id}`)}
+              </a>
+            ))}
             <Link to="/studii-de-caz" className="nav-link">
               {t("nav.casestudy")}
             </Link>
           </nav>
 
           <LanguageSwitcher />
+
+          <ContactCTA>
+            <button type="button" className="nav-cta">
+              {t("nav.cta")}
+            </button>
+          </ContactCTA>
         </div>
       </div>
     </header>

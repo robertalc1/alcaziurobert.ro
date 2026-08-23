@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 
 export type Testimonial = {
@@ -27,7 +27,9 @@ const renderHighlighted = (text: string): React.ReactNode[] => {
         {part}
       </span>
     ) : (
-      <Fragment key={i}>{part}</Fragment>
+      // Plain strings — no Fragment, so lovable-tagger has nothing to tag
+      // (it injects data-lov-id into Fragments, which React warns about).
+      part
     )
   );
 };
@@ -43,30 +45,28 @@ export const TestimonialsColumn: React.FC<Props> = ({
         className="tc-col-track"
         style={{ animationDuration: `${duration}s` }}
       >
-        {[...Array(2)].map((_, k) => (
-          <Fragment key={k}>
-            {testimonials.map((item, i) => (
-              <article className="tc-card" key={`${k}-${i}`}>
-                <p className="tc-text">{renderHighlighted(item.text)}</p>
-                <div className="tc-meta">
-                  <span
-                    className={cn(
-                      "tc-avatar",
-                      item.tone === "ink" ? "tc-avatar--ink" : "tc-avatar--orange"
-                    )}
-                    aria-hidden="true"
-                  >
-                    {item.initials}
-                  </span>
-                  <div className="tc-meta-text">
-                    <span className="tc-name">{item.name}</span>
-                    <span className="tc-role">{item.role}</span>
-                  </div>
+        {[...Array(2)].flatMap((_, k) =>
+          testimonials.map((item, i) => (
+            <article className="tc-card" key={`${k}-${i}`}>
+              <p className="tc-text">{renderHighlighted(item.text)}</p>
+              <div className="tc-meta">
+                <span
+                  className={cn(
+                    "tc-avatar",
+                    item.tone === "ink" ? "tc-avatar--ink" : "tc-avatar--orange"
+                  )}
+                  aria-hidden="true"
+                >
+                  {item.initials}
+                </span>
+                <div className="tc-meta-text">
+                  <span className="tc-name">{item.name}</span>
+                  <span className="tc-role">{item.role}</span>
                 </div>
-              </article>
-            ))}
-          </Fragment>
-        ))}
+              </div>
+            </article>
+          ))
+        )}
       </div>
     </div>
   );

@@ -2,6 +2,8 @@
 
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
+import ContactCTA from "@/components/ContactCTA";
+import Reveal from "@/components/Reveal";
 
 const STEPS = ["s1", "s2"] as const;
 
@@ -151,6 +153,40 @@ const CompoundingSection: React.FC = () => {
           margin-right: auto;
         }
 
+        /* ── Section CTA — orange pill, mirrors the hero primary ── */
+        .comp-cta {
+          text-align: center;
+          margin-top: clamp(20px, 3vh, 32px);
+        }
+        .comp-cta-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 11px 28px;
+          min-height: 44px;
+          border-radius: 9999px;
+          background: #ED5C1B;
+          color: #ffffff;
+          font-family: var(--font-sans);
+          font-weight: 500;
+          font-size: 14.5px;
+          letter-spacing: -0.005em;
+          white-space: nowrap;
+          border: none;
+          cursor: pointer;
+          transition: background 220ms cubic-bezier(0.23, 1, 0.32, 1),
+                      transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .comp-cta-btn:hover { background: #C44E17; }
+        .comp-cta-btn:active { transform: scale(0.97); }
+        .comp-cta-btn svg {
+          width: 14px;
+          height: 14px;
+          transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .comp-cta-btn:hover svg { transform: translateX(2px); }
+
         /* ── 3D emphasis accent ───────────────────── */
         .comp-accent {
           position: absolute;
@@ -205,36 +241,64 @@ const CompoundingSection: React.FC = () => {
 
       <div className="comp-inner">
         <img
-          src="/plane%20(1).png"
+          src="/plane%20(1).webp"
           alt=""
           aria-hidden="true"
           loading="lazy"
           className="comp-accent"
         />
-        <h2 className="comp-title">{t("compounding.title")}</h2>
+        <Reveal>
+          <h2 className="comp-title">{t("compounding.title")}</h2>
+        </Reveal>
 
-        <div className="comp-grid">
-          {STEPS.map((key) => (
-            <article key={key} className="comp-card">
-              <h3 className="comp-card-title">{t(`compounding.${key}.what`)}</h3>
-              <span className="comp-card-tag">{t(`compounding.${key}.tag`)}</span>
-            </article>
-          ))}
-        </div>
+        <Reveal delay={100}>
+          <div className="comp-grid">
+            {STEPS.map((key) => (
+              <article key={key} className="comp-card">
+                <h3 className="comp-card-title">{t(`compounding.${key}.what`)}</h3>
+                <span className="comp-card-tag">{t(`compounding.${key}.tag`)}</span>
+              </article>
+            ))}
+          </div>
+        </Reveal>
 
-        <div className="comp-summary">
-          <p>
-            <Trans i18nKey="compounding.summary_l1" components={pillComponents} />
-          </p>
-          <p>
-            <Trans i18nKey="compounding.summary_l2" components={pillComponents} />
-          </p>
-        </div>
+        <Reveal delay={160}>
+          <div className="comp-summary">
+            <p>
+              <Trans i18nKey="compounding.summary_l1" components={pillComponents} />
+            </p>
+            <p>
+              <Trans i18nKey="compounding.summary_l2" components={pillComponents} />
+            </p>
+          </div>
+        </Reveal>
 
-        <div className="comp-takeaway">
-          <p>
-            <Trans i18nKey="compounding.takeaway" components={pillComponents} />
-          </p>
+        <Reveal delay={220}>
+          <div className="comp-takeaway">
+            <p>
+              <Trans i18nKey="compounding.takeaway" components={pillComponents} />
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="comp-cta">
+          <ContactCTA>
+            <button type="button" className="comp-cta-btn">
+              {t("whatwedo.cta_primary")}
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 19L19 5" />
+                <path d="M9 5h10v10" />
+              </svg>
+            </button>
+          </ContactCTA>
         </div>
       </div>
     </section>

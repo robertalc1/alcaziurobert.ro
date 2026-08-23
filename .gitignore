@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.gstack/
+
+# Build/deploy artifacts
+build.zip
+alcaziurobert-deploy.zip
+nul
+
+# Local agent settings
+.claude/settings.local.json

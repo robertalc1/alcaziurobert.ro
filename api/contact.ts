@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import nodemailer from "nodemailer";
 import { z } from "zod";
+import { createHash } from "node:crypto";
 
 const schema = z.object({
   name: z.string().trim().min(2).max(80),
@@ -20,6 +21,66 @@ const schema = z.object({
 
 const escapeHtml = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+
+const sha256 = (v: string) => createHash("sha256").update(v).digest("hex");
+
+/**
+ * Server-side Meta Conversions API "Lead" event — lets ad campaigns optimize
+ * on real leads without any client-side pixel or cookies. No-op until both
+ * FB_PIXEL_ID and FB_CAPI_ACCESS_TOKEN are configured. Fired only after the
+ * lead email is delivered; PII is SHA-256 hashed as Meta requires.
+ * NOTE: update the Privacy Policy before enabling in production.
+ */
+async function sendLeadToMetaCapi(
+  req: VercelRequest,
+  data: { email: string; phone: string; budget: string; projectType: string }
+) {
+  const pixelId = process.env.FB_PIXEL_ID;
+  const token = process.env.FB_CAPI_ACCESS_TOKEN;
+  if (!pixelId || !token) return;
+
+  const fwd = req.headers["x-forwarded-for"];
+  const ip = (Array.isArray(fwd) ? fwd[0] : fwd)?.split(",")[0]?.trim();
+  const ua = req.headers["user-agent"];
+
+  const payload = {
+    data: [
+      {
+        event_name: "Lead",
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: `lead-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
+        action_source: "website",
+        event_source_url: "https://alcaziurobert.ro/",
+        user_data: {
+          em: [sha256(data.email.trim().toLowerCase())],
+          ph: [sha256(data.phone.replace(/[^0-9]/g, ""))],
+          ...(ip ? { client_ip_address: ip } : {}),
+          ...(typeof ua === "string" ? { client_user_agent: ua } : {}),
+        },
+        custom_data: { budget: data.budget, project_type: data.projectType },
+      },
+    ],
+    ...(process.env.FB_CAPI_TEST_EVENT_CODE
+      ? { test_event_code: process.env.FB_CAPI_TEST_EVENT_CODE }
+      : {}),
+  };
+
+  try {
+    const resp = await fetch(
+      `https://graph.facebook.com/v21.0/${pixelId}/events?access_token=${encodeURIComponent(token)}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+    if (!resp.ok) {
+      console.error("[api/contact] CAPI failed:", resp.status, await resp.text().catch(() => ""));
+    }
+  } catch (err) {
+    console.error("[api/contact] CAPI error:", err instanceof Error ? err.message : err);
+  }
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
@@ -91,6 +152,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       text,
       html,
     });
+    // Fire-and-tolerate: a CAPI hiccup must never fail the lead itself.
+    await sendLeadToMetaCapi(req, data);
     return res.status(200).json({ ok: true });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "unknown";

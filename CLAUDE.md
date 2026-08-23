@@ -13,29 +13,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 No test runner is configured.
 
+## What this site is
+
+Bilingual (EN default / RO) **premium web-development funnel** for Alcaziu Robert, a solo operator selling high-ticket site/funnel builds. The funnel: Meta/IG ad → this landing → progressive qualification form (budget) → discovery call. Positioning is premium/exclusive — no generic-agency tone, brand orange `#ED5C1B`, single typeface General Sans. See `ANALIZA-SI-PLAN.md` for the living audit + improvement backlog.
+
 ## Architecture
 
-This is a **single-page marketing site** built with Vite + React 18 + TypeScript, styled with Tailwind CSS and shadcn/ui (Radix-based) components. The project originates from Lovable (`lovable-tagger` runs as a Vite plugin in dev mode only).
+Vite + React 18 + TypeScript, Tailwind + shadcn/ui (Radix), `react-i18next`, `react-hook-form` + zod, `motion/react`. Originates from Lovable (`lovable-tagger` runs as a Vite plugin in dev mode only).
 
 ### Top-level shape
 
-- `src/main.tsx` → mounts `<App />`
-- `src/App.tsx` → wraps the app in `QueryClientProvider` (TanStack Query), `TooltipProvider`, and two toasters (`Toaster` from shadcn + `Sonner`). Defines two routes via `react-router-dom`:
-  - `/` → `pages/Index.tsx`
-  - `*` → `pages/NotFound.tsx`
-  - A global `<ScrollToTop />` button sits outside the router.
-- `pages/Index.tsx` is the entire landing page: it composes section components (`Hero`, `HumanoidSection`, `SpecsSection`, `Features`, `GetInTouchSection`, `MadeByHumans`) under a `<Navbar />`. It also wires two global behaviors:
-  - An `IntersectionObserver` that adds `animate-fade-in` to any element with the `.animate-on-scroll` class as it enters the viewport.
-  - A click handler on every `a[href^="#"]` that performs smooth scrolling with a mobile-aware offset (100px under 768px width, 80px otherwise).
+- `src/App.tsx` → providers (`QueryClientProvider`, `TooltipProvider`, helmet, both toasters) + lazy routes: `/` (Index), `/studii-de-caz` (CaseStudy), `/termeni-si-conditii`, `/politica-de-confidentialitate`, `*` (NotFound). `SEOHead` mounts globally; an `app-ready` event hides the boot loader defined in `index.html`.
+- `pages/Index.tsx` — the landing (redesigned 2026-07: dark cinematic conversion hero + white editorial body). Render order: `Navbar` (transparent/light-on-dark over the hero on `/`, white floating pill after 10px scroll; anchor links Work/Process/Results/FAQ) → `Hero` (ink `#121212`, huge headline with one orange italic accent word, proof row, primary CTA; on ≥1024px the right column lazy-mounts `HeroContactCard` with the qualification form) → `StatsBandSection` (giant metrics + client wordmarks) → `StatementSection` → `ProcessSection` (`#process`, numbered 01–05 rows) → `SelectedWorkSection` (`#work`, featured OCPI + 2-col grid in CSS browser frames) → `CompoundingSection` → `TestimonialsSection` (`#results`) → `FaqsSection` (`#faq`) → `GetInTouchSection` (`#contact`, inline `ContactForm`) → `MadeByHumans` (footer, the only remaining `LiquidMesh` WebGL user) + `MobileBottomBar` (mobile FAB). Below-the-fold sections are `React.lazy` with height-reserving placeholders (keep this pattern). Anchor scrolling goes through `src/lib/scroll.ts` (`scrollToId`, navbar offsets 100/80).
+- **Copy lives in `src/locales/en.json` + `ro.json`** — edit those for content changes, both languages together. Several components are orphaned (never imported) and many locale keys are dormant; check `pages/Index.tsx` for render truth before assuming a component is live.
 
-When adding a new section, add a component under `src/components/` and slot it into the `<main>` of `pages/Index.tsx`. New routes go above the `"*"` catch-all in `App.tsx`.
+### Conversion path (don't break these)
+
+- `ContactCTA` wraps any trigger: mobile → bottom Drawer with the form (lazy-loaded on open); desktop → smooth-scroll to `#contact` (navigates home first if the section isn't on the page). Used by Hero (mobile), Navbar, CompoundingSection, TestimonialsSection, MobileBottomBar. On desktop the hero primary CTA focuses the in-hero form instead. Up to two `ContactForm` instances render simultaneously (hero card + `#contact`) — they are independent react-hook-form instances; ids come from `React.useId`, so no collisions.
+- `ContactForm` → `POST /api/contact` → `api/contact.ts` (Vercel, nodemailer SMTP; Express mirror in `server.js`). Honeypot field `company`. Meta Conversions API `Lead` event fires server-side only when `FB_PIXEL_ID` + `FB_CAPI_ACCESS_TOKEN` env vars are set (see `.env.example`).
+- Scroll-reveal animations use `src/components/Reveal.tsx` (per-instance IntersectionObserver; settles on `transform: none` so sticky descendants keep working). Do NOT add a page-level `.animate-on-scroll` observer — lazy sections mount after page effects run.
 
 ### Components
 
-- `src/components/ui/` — shadcn/ui primitives (button, dialog, form, toast, etc.). Configured via `components.json` (style `default`, base color `slate`, CSS variables enabled). Use the shadcn CLI to add more.
-- `src/components/*.tsx` — page-level section components. These are the things to edit for content changes.
-- `src/hooks/` — `use-mobile`, `use-toast`.
-- `src/lib/utils.ts` — shadcn `cn()` helper.
+- `src/components/ui/` — shadcn/ui primitives; only ~9 are actually used (toast, sonner, tooltip, drawer, button, input, select, form, accordion, popover).
+- `src/components/*.tsx` — section components. Styling is per-section inline `<style>` blocks with hardcoded `#ED5C1B` and `clamp()` scales (section titles `clamp(1.8rem, 4.6vw, 3rem)`, body `clamp(1.05rem, 1.5vw, 1.3rem)`, card-section padding `clamp(48px, 6vh, 80px)`) — match these when adding sections.
+- `src/hooks/` — `use-mobile` (768px), `use-scroll`, `use-toast`.
 
 ### Path alias
 
@@ -43,11 +45,11 @@ When adding a new section, add a component under `src/components/` and slot it i
 
 ### Styling
 
-Tailwind is configured in `tailwind.config.ts` with `@tailwindcss/typography` and `tailwindcss-animate`. Global styles and CSS variables live in `src/index.css`. Custom fonts (`brockmann-medium`) are served from `public/`.
+Tailwind config in `tailwind.config.ts`; global styles + shadcn CSS variables in `src/index.css` (`--primary` is tuned to exactly `#ED5C1B`). Single typeface **General Sans** loaded from Fontshare in `index.html` (the `brockmann`/`playfair` aliases in the Tailwind config are dead template leftovers). The site is light-only; the `.dark` token set is unused.
 
 ### Assets
 
-All marketing imagery, logos, and the Lottie/WebM hero animation live in `public/` and are referenced by absolute paths (e.g. `/loop-animation.webm`).
+Everything in `public/`, referenced by absolute paths. Watch out: `CompoundingSection` references `plane (1).png` URL-encoded as `/plane%20(1).png` — a filename grep won't find it. `public/` also contains ~1.8MB of orphaned legacy images (list in `ANALIZA-SI-PLAN.md`).
 
 ## Lovable integration
 

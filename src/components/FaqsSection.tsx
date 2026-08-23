@@ -8,8 +8,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Reveal from "@/components/Reveal";
 
-const FAQ_KEYS = ["q2", "q2b", "q4"] as const;
+// Ordered as an objection-handling sequence: price → price rationale →
+// timeline → process → maintenance → ownership → security → stack.
+const FAQ_KEYS = ["q2", "q2b", "q1", "q5", "q4", "q6", "q7", "q3"] as const;
 
 const FaqsSection: React.FC = () => {
   const { t } = useTranslation();
@@ -104,12 +107,32 @@ const FaqsSection: React.FC = () => {
           max-width: 56ch;
           text-wrap: balance;
         }
+
+        .faq-cta-row {
+          text-align: center;
+          margin-top: clamp(24px, 3.5vh, 40px);
+        }
+        .faq-cta-link {
+          display: inline-block;
+          padding: 10px 6px;
+          font-family: var(--font-sans);
+          font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+          font-weight: 500;
+          color: #262626;
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-thickness: 1.5px;
+          transition: color 220ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .faq-cta-link:hover { color: #ED5C1B; }
       `}</style>
 
       <div className="faq-inner">
-        <header className="faq-header">
-          <h2 className="faq-title">{t("faq.title")}</h2>
-        </header>
+        <Reveal>
+          <header className="faq-header">
+            <h2 className="faq-title">{t("faq.title")}</h2>
+          </header>
+        </Reveal>
 
         <Accordion type="single" collapsible className="faq-list">
           {FAQ_KEYS.map((key) => (
@@ -128,6 +151,12 @@ const FaqsSection: React.FC = () => {
             </AccordionItem>
           ))}
         </Accordion>
+
+        <div className="faq-cta-row">
+          <a href="mailto:contact@alcaziurobert.ro" className="faq-cta-link">
+            {t("faq.cta")}
+          </a>
+        </div>
       </div>
     </section>
   );

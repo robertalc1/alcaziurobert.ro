@@ -1,5 +1,6 @@
 import React from "react";
 import { Slot } from "@radix-ui/react-slot";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
@@ -9,7 +10,10 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import ContactForm from "@/components/ContactForm";
+
+// Lazy: the drawer's form chunk (react-hook-form + zod) loads only when the
+// drawer actually opens — keeps it out of the eager Navbar/Hero graph.
+const ContactForm = React.lazy(() => import("@/components/ContactForm"));
 
 type Props = {
   children: React.ReactNode;
@@ -25,6 +29,7 @@ const CONTACT_SECTION_ID = "contact";
 const ContactCTA: React.FC<Props> = ({ children }) => {
   const { t } = useTranslation();
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
 
   const close = React.useCallback(() => setOpen(false), []);
@@ -45,7 +50,9 @@ const ContactCTA: React.FC<Props> = ({ children }) => {
               <DrawerDescription>{t("form.subtitle")}</DrawerDescription>
             </DrawerHeader>
             <div className="px-4 pb-8 overflow-y-auto flex-1 min-h-0">
-              <ContactForm onClose={close} />
+              <React.Suspense fallback={<div style={{ minHeight: 200 }} aria-hidden="true" />}>
+                <ContactForm onClose={close} />
+              </React.Suspense>
             </div>
           </DrawerContent>
         </Drawer>
@@ -53,10 +60,15 @@ const ContactCTA: React.FC<Props> = ({ children }) => {
     );
   }
 
-  // Desktop: smooth-scroll to the inline form section.
+  // Desktop: smooth-scroll to the inline form section. When the form isn't on
+  // the current page (e.g. /studii-de-caz), go home and let Index scroll to it.
   const scrollToContact = (e: React.MouseEvent) => {
     const target = document.getElementById(CONTACT_SECTION_ID);
-    if (!target) return;
+    if (!target) {
+      e.preventDefault();
+      navigate("/", { state: { scrollTo: CONTACT_SECTION_ID } });
+      return;
+    }
     e.preventDefault();
     const offset = window.innerWidth < 768 ? 100 : 80;
     const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
