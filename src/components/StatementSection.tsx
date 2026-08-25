@@ -24,28 +24,45 @@ const StatementSection: React.FC = () => {
           max-width: 1180px;
           margin: 0 auto;
         }
+        /* Same treatment as the summary block in CompoundingSection */
+        .st-card {
+          background: #1A1A1A;
+          border-radius: clamp(16px, 2vw, 22px);
+          padding: clamp(24px, 3vw, 40px) clamp(22px, 3vw, 44px);
+          max-width: 720px;
+          margin: 0 auto;
+        }
         .st-body {
           font-family: var(--font-sans);
-          font-size: clamp(1.5rem, 3.1vw, 2.4rem);
-          font-weight: 500;
-          letter-spacing: -0.025em;
-          line-height: 1.35;
+          font-size: clamp(1.15rem, 2.1vw, 1.7rem);
+          font-weight: 400;
+          letter-spacing: -0.015em;
+          line-height: 1.55;
           color: #F5F5F5;
-          max-width: 26ch;
+          max-width: 30ch;
           margin: 0 auto;
           text-align: center;
           text-wrap: balance;
         }
         .st-accent {
-          color: #ED5C1B;
+          background: #ED5C1B;
+          color: #ffffff;
+          font-weight: 700;
+          padding: 3px 11px;
+          border-radius: 7px;
+          -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+          letter-spacing: -0.005em;
         }
       `}</style>
 
       <div className="st-inner">
         <Reveal>
+          <div className="st-card">
           <p className="st-body">
             <Trans i18nKey="frictionless.subtitle" components={accentComponents} />
           </p>
+          </div>
         </Reveal>
       </div>
     </section>

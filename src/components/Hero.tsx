@@ -102,35 +102,6 @@ const Hero = () => {
         }
 
         /* ── Copy column ── */
-        .hero3-pill {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          align-self: flex-start;
-          padding: 6px 14px;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.14);
-          font-family: var(--font-sans);
-          font-size: 12.5px;
-          font-weight: 500;
-          letter-spacing: 0.01em;
-          color: rgba(255, 255, 255, 0.86);
-        }
-        .hero3-pill-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #ED5C1B;
-          box-shadow: 0 0 0 0 rgba(237, 92, 27, 0.5);
-          animation: hero3-pulse 2s ease-out infinite;
-          flex-shrink: 0;
-        }
-        @keyframes hero3-pulse {
-          0%   { box-shadow: 0 0 0 0 rgba(237, 92, 27, 0.55); }
-          70%  { box-shadow: 0 0 0 10px rgba(237, 92, 27, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(237, 92, 27, 0); }
-        }
         .hero3-title {
           font-family: var(--font-sans);
           font-size: clamp(2.55rem, 6.2vw, 4.9rem);
@@ -252,7 +223,6 @@ const Hero = () => {
           .hero3-title { max-width: 12ch; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .hero3-pill-dot { animation: none; }
           .hero3-card-shell.is-attn { animation: none; }
           .hero3-reveal-1, .hero3-reveal-3, .hero3-reveal-4 { animation: none; }
         }
@@ -260,10 +230,6 @@ const Hero = () => {
 
       <div className="hero3-inner">
         <div className="hero3-copy">
-          <div className="hero3-pill hero3-reveal-1">
-            <span className="hero3-pill-dot" aria-hidden="true" />
-            {t("hero_v2.rating_count")}
-          </div>
 
           {/* No entrance animation on the h1: it's the LCP element, and Chrome
               discounts elements that start at opacity:0 when timing LCP —
