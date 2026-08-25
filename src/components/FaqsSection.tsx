@@ -10,9 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import Reveal from "@/components/Reveal";
 
-// Ordered as an objection-handling sequence: price → price rationale →
-// timeline → process → maintenance → ownership → security → stack.
-const FAQ_KEYS = ["q2", "q2b", "q1", "q5", "q4", "q6", "q7", "q3"] as const;
+const FAQ_KEYS = ["why1", "why2", "why3"] as const;
 
 const FaqsSection: React.FC = () => {
   const { t } = useTranslation();
@@ -22,7 +20,7 @@ const FaqsSection: React.FC = () => {
       <style>{`
         .faq-section {
           width: 100%;
-          background: #ffffff;
+          background: #0F0F0F;
           padding: clamp(48px, 6vh, 80px) 16px;
         }
         .faq-inner {
@@ -39,17 +37,17 @@ const FaqsSection: React.FC = () => {
           letter-spacing: -0.028em;
           font-size: clamp(1.8rem, 4.6vw, 3rem);
           line-height: 1.05;
-          color: #262626;
+          color: #F5F5F5;
           margin: 0;
           text-wrap: balance;
         }
 
         .faq-list {
-          border-top: 1px solid rgba(38, 38, 38, 0.10);
-          border-bottom: 1px solid rgba(38, 38, 38, 0.10);
+          border-top: 1px solid rgba(255, 255, 255, 0.10);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.10);
         }
         .faq-item {
-          border-bottom: 1px solid rgba(38, 38, 38, 0.10);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.10);
         }
         .faq-item:last-of-type {
           border-bottom: none;
@@ -65,7 +63,7 @@ const FaqsSection: React.FC = () => {
           font-family: var(--font-sans);
           font-size: clamp(0.98rem, 1.15vw, 1.1rem);
           font-weight: 500;
-          color: #262626;
+          color: #F5F5F5;
           text-align: left;
           background: transparent;
           border: none;
@@ -84,7 +82,7 @@ const FaqsSection: React.FC = () => {
           align-items: center;
           justify-content: center;
           border-radius: 50%;
-          background: rgba(237, 92, 27, 0.08);
+          background: rgba(237, 92, 27, 0.14);
           color: #ED5C1B;
           transition: background 220ms ease, transform 320ms cubic-bezier(0.23, 1, 0.32, 1);
         }
@@ -103,7 +101,7 @@ const FaqsSection: React.FC = () => {
           font-family: var(--font-sans);
           font-size: clamp(1.05rem, 1.5vw, 1.3rem);
           line-height: 1.75;
-          color: #1f1f1f;
+          color: rgba(255, 255, 255, 0.78);
           max-width: 56ch;
           text-wrap: balance;
         }
@@ -118,13 +116,13 @@ const FaqsSection: React.FC = () => {
           font-family: var(--font-sans);
           font-size: clamp(0.95rem, 1.1vw, 1.05rem);
           font-weight: 500;
-          color: #262626;
+          color: #FFFFFF;
           text-decoration: underline;
           text-underline-offset: 4px;
           text-decoration-thickness: 1.5px;
           transition: color 220ms cubic-bezier(0.23, 1, 0.32, 1);
         }
-        .faq-cta-link:hover { color: #ED5C1B; }
+        .faq-cta-link:hover { color: #ED5C1B; text-decoration-thickness: 2px; }
       `}</style>
 
       <div className="faq-inner">
@@ -153,7 +151,13 @@ const FaqsSection: React.FC = () => {
         </Accordion>
 
         <div className="faq-cta-row">
-          <a href="mailto:contact@alcaziurobert.ro" className="faq-cta-link">
+          {/* Straight to WhatsApp — fastest reply channel */}
+          <a
+            href="https://wa.me/40773858164"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="faq-cta-link"
+          >
             {t("faq.cta")}
           </a>
         </div>

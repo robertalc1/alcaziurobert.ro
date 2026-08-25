@@ -2,7 +2,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { Trans, useTranslation } from "react-i18next";
+import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import { toast } from "sonner";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
@@ -29,10 +31,10 @@ type Props = {
 };
 
 const PROJECT_VALUES = ["website", "webapp", "other"] as const;
-const BUDGET_VALUES = ["1.5-3k", "3-5k", "5k+", "discuss"] as const;
 
 const ContactForm: React.FC<Props> = ({ onClose }) => {
   const { t, i18n } = useTranslation();
+  const { consent } = useCookieConsent();
   const prefersReduced = useReducedMotion();
 
   // Schema rebuilt per render so validation messages follow the active language.
@@ -57,9 +59,7 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
         projectType: z.enum(PROJECT_VALUES, {
           errorMap: () => ({ message: t("form.v_project") }),
         }),
-        budget: z.enum(BUDGET_VALUES, {
-          errorMap: () => ({ message: t("form.v_budget") }),
-        }),
+        message: z.string().trim().max(1000, { message: t("form.v_message") }).optional(),
         company: z.string().optional(),
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,7 +75,7 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
       email: "",
       phone: "",
       projectType: "website",
-      budget: undefined as unknown as Values["budget"],
+      message: "",
       company: "",
     },
     mode: "onBlur",
@@ -87,7 +87,7 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
   const name = form.watch("name");
   const phone = form.watch("phone");
   const email = form.watch("email");
-  const budget = form.watch("budget");
+  const projectType = form.watch("projectType");
 
   // Lightweight validity checks for reveal logic only — silent (no error UI).
   // Real validation still runs onBlur via zod resolver and on submit.
@@ -96,7 +96,7 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
   const phoneOk = /^(\+[1-9]\d{6,14}|0\d{9})$/.test(
     (phone ?? "").replace(/[\s\-().]/g, "")
   );
-  const detailsOk = !!budget;
+  const detailsOk = !!projectType;
 
   // Sticky max stage — only advances, never falls back. Prevents jarring
   // collapse if the user erases a field after revealing the next group.
@@ -118,6 +118,8 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
           ...values,
           phone: normalizedPhone,
           locale: i18n.language?.startsWith("ro") ? "ro" : "en",
+          // Gates the server-side Meta CAPI event — no marketing consent, no event.
+          marketingConsent: consent.marketing === true,
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -138,18 +140,18 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
 
   // Shared input styling (premium hairline / brand orange focus).
   const fieldClass =
-    "h-11 rounded-lg border border-[#E5E7EB] bg-white px-4 text-[15px] text-[#262626] " +
-    "placeholder:text-[#9CA3AF] shadow-none " +
+    "h-11 rounded-lg border border-white/20 bg-white/[0.04] px-4 text-[15px] text-[#F5F5F5] " +
+    "placeholder:text-white/50 shadow-none " +
     "transition-[border-color,box-shadow] duration-150 ease-out " +
-    "hover:border-[#D1D5DB] " +
+    "hover:border-white/30 " +
     "focus-visible:border-[#ED5C1B] focus-visible:ring-[3px] focus-visible:ring-[#ED5C1B]/15 focus-visible:ring-offset-0 " +
     "aria-[invalid=true]:border-[#EF4444] aria-[invalid=true]:hover:border-[#EF4444] " +
     "aria-[invalid=true]:focus-visible:border-[#EF4444] aria-[invalid=true]:focus-visible:ring-[#EF4444]/15";
 
-  const labelClass = "text-[#262626] text-[13px] font-medium tracking-[0.01em]";
+  const labelClass = "text-[#F5F5F5] text-[13px] font-medium tracking-[0.01em]";
 
   const stepTitleClass =
-    "text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9CA3AF] mb-2";
+    "text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C4C9D0] mb-2";
 
   const required = (
     <span className="text-[#EF4444] ml-0.5" aria-hidden="true">
@@ -315,26 +317,19 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
 
                 <FormField
                   control={form.control}
-                  name="budget"
+                  name="message"
                   render={({ field }) => (
-                    <FormItem className="space-y-1.5">
-                      <FormLabel className={labelClass}>
-                        {t("form.budget_label")}
-                        {required}
-                      </FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value ?? ""}>
-                        <FormControl>
-                          <SelectTrigger className={fieldClass}>
-                            <SelectValue placeholder={t("form.budget_placeholder")} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="1.5-3k">{t("form.budget_low")}</SelectItem>
-                          <SelectItem value="3-5k">{t("form.budget_mid")}</SelectItem>
-                          <SelectItem value="5k+">{t("form.budget_high")}</SelectItem>
-                          <SelectItem value="discuss">{t("form.budget_discuss")}</SelectItem>
-                        </SelectContent>
-                      </Select>
+                    <FormItem className="space-y-1.5 sm:col-span-2">
+                      <FormLabel className={labelClass}>{t("form.message_label")}</FormLabel>
+                      <FormControl>
+                        <textarea
+                          {...field}
+                          rows={3}
+                          maxLength={1000}
+                          placeholder={t("form.message_placeholder")}
+                          className={fieldClass.replace("h-11", "min-h-[88px] py-3") + " resize-y w-full"}
+                        />
+                      </FormControl>
                       <FormMessage className="text-[12.5px] font-normal text-[#EF4444]" />
                     </FormItem>
                   )}
@@ -353,7 +348,7 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
               transition={stageTransition}
               className="flex flex-col-reverse sm:flex-row sm:items-center gap-3 sm:justify-end pt-2"
             >
-              <p className="text-[12.5px] text-[#9CA3AF] text-center sm:text-left sm:mr-auto m-0">
+              <p className="text-[12.5px] text-[#C4C9D0] text-center sm:text-left sm:mr-auto m-0">
                 {t("form.subtitle")}
               </p>
               {onClose && (
@@ -362,7 +357,7 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
                   variant="ghost"
                   onClick={onClose}
                   disabled={submitting}
-                  className="text-[#5b6470] hover:text-[#262626] hover:bg-transparent"
+                  className="text-[#C4C9D0] hover:text-[#F5F5F5] hover:bg-transparent"
                 >
                   {t("form.cancel")}
                 </Button>
@@ -393,6 +388,24 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* GDPR art. 13 — information notice at the point of collection, so it
+            is visible from the first field, not only at the submit step. */}
+        {(
+          <p className="text-[11.5px] leading-relaxed text-[#C4C9D0] m-0 pt-1">
+            <Trans
+              i18nKey="form.privacy_note"
+              components={{
+                privacy: (
+                  <Link
+                    to="/politica-de-confidentialitate"
+                    className="underline underline-offset-2 hover:text-[#ED5C1B]"
+                  />
+                ),
+              }}
+            />
+          </p>
+        )}
       </form>
     </Form>
   );

@@ -7,7 +7,9 @@
     "work": "Proiecte",
     "process": "Proces",
     "results": "Rezultate",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "menu": "Meniu",
+    "close": "Închide"
   },
   "compounding": {
     "title": "De ce funcționează?",
@@ -28,13 +30,6 @@
     "subtitle": "Majoritatea developerilor îți dau un site arătos și pleacă. Eu construiesc mașinăria care <pill>transformă vizitatorii în clienți</pill> — și o țin în funcțiune.",
     "badge": "Făcut pentru tine, de la cap la coadă."
   },
-  "painpoints": {
-    "title": "Majoritatea site-urilor sunt sparte.",
-    "p1": "Generate cu AI. Identice cu alte 10.000 de site-uri online.",
-    "p2": "Core Web Vitals proaste. Google te penalizează. Clienții pleacă.",
-    "p3": "Tracking doar client-side. iOS 17+ blochează 30% din evenimente. Reclamele tale pierd bani.",
-    "p4": "Fără NIS2 compliance. Risc legal direct din ianuarie 2024."
-  },
   "difference": {
     "title": "Majoritatea proiectelor se opresc la lansare. Al tău continuă să crească.",
     "subtitle": "Majoritatea freelancerilor și agențiilor livrează site-ul și pleacă. Fără comisioane, fără circ pe TikTok — rămân în spatele cifrelor tale, lună de lună.",
@@ -48,39 +43,19 @@
   "faq": {
     "eyebrow": "Întrebări frecvente",
     "title": "Răspunsuri rapide la întrebările tale.",
-    "lead": "Cele mai frecvente întrebări despre cum lucrez, prețuri, durata proiectelor și ce se întâmplă după livrare.",
-    "cta": "Ai altă întrebare? Scrie-mi",
-    "q1": {
-      "q": "Cât durează construirea unui site?",
-      "a": "3-5 săptămâni pentru site standard. 6-10 pentru proiecte complexe (e-commerce, integrări, dashboard-uri). Timeline-ul exact ți-l dau în discovery call."
+    "lead": "Cele mai frecvente întrebări despre cum lucrez, durata proiectelor și ce se întâmplă după livrare.",
+    "cta": "Ai altă întrebare? Scrie-mi pe WhatsApp",
+    "why1": {
+      "q": "Ceea ce recomand e testat, nu ghicit.",
+      "a": "Fiecare decizie de design sau copywriting trece prin teste reale, nu presupuneri. Am dus rata de conversie de la 1,4% la 3,8% pe proiecte reale, cu același trafic — de-asta știu ce funcționează, nu doar ce sună bine în teorie."
     },
-    "q2": {
-      "q": "Cât costă un site cu tine?",
-      "a": "E gândit după valoarea pe care o creează, nu la oră. Vorbim întâi, îți înțeleg business-ul, apoi primești un singur număr clar care nu se mai schimbă pe parcurs. Dacă ți se pare mult, răspunsul următor are calculul."
+    "why2": {
+      "q": "Un singur om, responsabil de tot lanțul: design, cod, tracking, reclame.",
+      "a": "Nu lucrezi cu o agenție care externalizează bucăți din proiect la freelanceri diferiți. Totul trece prin aceeași persoană, de la primul wireframe până la ultima linie de tracking, ca nimic să nu se piardă pe drum."
     },
-    "q2b": {
-      "q": "De ce costă cât costă?",
-      "a": "Pentru că îți economisește 3.000-5.000€ pe an. Un specialist SEO costă 1.500€/lună, un developer 1.200€, un manager de analytics 800€. Eu le acopăr pe toate, tu deții totul, iar sistemul merge singur. Plătești o dată și profitul continuă să vină."
-    },
-    "q3": {
-      "q": "Ce tehnologii folosești?",
-      "a": "React, Next.js, TypeScript pentru frontend. Cloudflare pentru securitate enterprise (DDoS, WAF, SSL). Server-side tracking + NIS2 compliance incluse."
-    },
-    "q4": {
-      "q": "Oferi mentenanță după livrare?",
-      "a": "Primele 30 de zile după lansare sunt din partea mea. După aceea, un pachet lunar opțional acoperă monitorizare, backup-uri și ajustări, ca să nu verifici tu niciodată uptime-ul."
-    },
-    "q5": {
-      "q": "Cum decurge procesul de colaborare?",
-      "a": "Discovery → Audit → Design (Figma, 2 runde feedback) → Build (cu staging live pentru tine) → Launch → Owning the metrics (raport lunar)."
-    },
-    "q6": {
-      "q": "Cine deține drepturile asupra codului?",
-      "a": "Tu. După plata finală: cod sursă, Figma files, documentație, acces Git. Zero lock-in."
-    },
-    "q7": {
-      "q": "Cum gestionezi hosting-ul și securitatea?",
-      "a": "Configurez Cloudflare (DDoS, WAF, SSL automat) + recomandare hosting potrivită proiectului. Backup, monitoring uptime și alerte de incident — incluse."
+    "why3": {
+      "q": "Rămân implicat pe tot parcursul, cu comunicare directă și rezultate verificabile.",
+      "a": "Nu dispar după livrare. Primești rapoarte lunare clare despre ce funcționează, răspuns în 24 de ore la orice întrebare, iar primele 30 de zile după lansare sunt incluse gratuit — ca să știi mereu exact unde se duce fiecare investiție."
     }
   },
   "hero_v2": {
@@ -98,9 +73,6 @@
     "headline_pre": "Site-uri construite",
     "headline_accent": "să convertească.",
     "subtitle": "Site, funnel, tracking și reclame — un singur partener senior, cap-coadă. Live în ~4 săptămâni.",
-    "proof1": "11 proiecte live",
-    "proof2": "Conversie 1.4% → 3.8%",
-    "proof3": "Răspuns în 24h",
     "cta_secondary": "Vezi proiectele",
     "form_title": "Spune-mi despre proiectul tău",
     "form_note": "Răspund personal în maxim 24 de ore."
@@ -117,9 +89,6 @@
     "s3_label": "bounce rate",
     "s3_note": "la 30 de zile după relansare",
     "clients_label": "Clienți selectați"
-  },
-  "statement": {
-    "kicker": "Diferența"
   },
   "process": {
     "kicker": "Sistemul",
@@ -140,12 +109,13 @@
     "step5_body": "Rămân în spatele cifrelor tale, lună de lună."
   },
   "work": {
-    "kicker": "Proiecte alese",
     "featured_name": "Oficiul de Cadastru — OCPI",
-    "featured_chip1": "Proiect €8K+",
+    "featured_chip1": "Proiect pentru instituție publică",
     "featured_chip2": "Live de 12 luni",
     "featured_chip3": "Standard guvernamental",
-    "visit": "Vezi live"
+    "visit": "Vezi live",
+    "drag": "Trage pentru a explora",
+    "section_title": "Proiecte de succes"
   },
   "portfolio": {
     "badge": "Portofoliu",
@@ -172,7 +142,7 @@
       "traveltwin": "TravelTwin — Travel Companion"
     },
     "metrics": {
-      "sgc": "Proiect de stat · 8K+ buget · Live 12 luni",
+      "sgc": "Proiect de stat · live de 12 luni",
       "bacde10": "Lead-uri organice ×4 în 90 zile",
       "picaps": "LCP 1.1s · Bounce -38%",
       "rdraw": "Sub 1.5s global · CWV: 100/100/100/100",
@@ -183,28 +153,23 @@
       "lukton": "Tracking server-side · attribution 97%",
       "ecartop": "B2B sales funnel · cycle redus cu 40%",
       "traveltwin": "MVP în 3 săptămâni · validation pas"
-    }
-  },
-  "case_study": {
-    "eyebrow": "STUDIU DE CAZ",
-    "title": "Aplicație custom pentru o instituție publică",
-    "body": "Platformă web la cheie, construită de la zero pentru OCPI / utilizare municipală — uz intern, securizată și optimizată pentru încărcare operațională zilnică. Client confidențial.",
-    "stats": {
-      "tier_value": "€8K+",
-      "tier_label": "Bugetul proiectului",
-      "stack_value": "React · Node · PostgreSQL",
-      "stack_label": "Tehnologii",
-      "scope_value": "Full-stack",
-      "scope_label": "Scope"
     },
-    "availability": "Disponibil la cerere"
+    "categories": {
+      "sgc": "INSTITUȚIE PUBLICĂ",
+      "picaps": "SITE DE PREZENTARE",
+      "kickout": "MAGAZIN ONLINE",
+      "rdraw": "SITE CORPORATE",
+      "everun": "SITE DEALER",
+      "everati": "LANSARE PRODUS",
+      "alma": "SERVICII LOCALE",
+      "lukton": "FUNNEL DE LEAD-URI",
+      "ecartop": "FUNNEL B2B"
+    }
   },
   "approach": {
     "eyebrow": "Abordarea noastră",
     "h1": "Site-uri premium care chiar funcționează.",
     "lead": "Majoritatea site-urilor sunt template. Ale noastre convertesc. Iată cum.",
-    "cf_partner": "Partener Cloudflare",
-    "cf_partner_body": "Infrastructură enterprise. Sub 2 secunde global. DDoS, SSL, backup-uri incluse.",
     "pain_eyebrow": "Problema",
     "pain_title": "Majoritatea site-urilor sunt rupte.",
     "pain_1": "Core Web Vitals lente. Google te penalizează. Clienții pleacă.",
@@ -221,9 +186,9 @@
         "t2": "Hartă KPI"
       },
       "performance": {
-        "title": "Performanță — Powered by Cloudflare",
-        "lead": "Edge Cloudflare. Sub 2 secunde global. Viteza convertește.",
-        "t1": "Cloudflare CDN",
+        "title": "Performanță — viteză reală",
+        "lead": "Livrare prin CDN, imagini optimizate, cod minim. Încărcare rapidă pe orice conexiune.",
+        "t1": "CDN + cache",
         "t2": "Core Web Vitals"
       },
       "security": {
@@ -252,7 +217,7 @@
     "channel_google": "Google Ads",
     "addon_eyebrow": "Infrastructură custom",
     "addon_title": "VPS Linux & Windows — fully managed.",
-    "addon_body": "Puțini o fac corect. Arhitectăm, deploy-uim și mentenăm instanțe Linux sau Windows dedicate. Preț per proiect.",
+    "addon_body": "Puțini o fac corect. Arhitectăm, deploy-uim și mentenăm instanțe Linux sau Windows dedicate.",
     "addon_cta": "Cere o ofertă",
     "cta_title": "Pregătit?",
     "cta_body": "Apel de scoping 30 min. Fără pălăvrăgeală.",
@@ -270,14 +235,9 @@
   "whatwedo": {
     "badge": "Oferta",
     "clients_eyebrow": "Aceștia ne-au ales",
-    "cf_partner": "Partener Cloudflare",
     "cf_partner_body": "Infrastructură enterprise. Sub 2 secunde global. DDoS, SSL, backup-uri incluse.",
     "cta_primary": "Începe să convertești",
     "cta_secondary": "Studii de caz",
-    "cf": {
-      "title": "Cloudflare edge",
-      "body": "Sub 2s global. CDN, WAF și SSL incluse."
-    },
     "tracking": {
       "title": "Tracking server-side",
       "body": "Facebook Conversions API + GA4. Reclamele scalează."
@@ -286,14 +246,6 @@
       "title": "NIS2 + securitate",
       "body": "WAF, DDoS, backup-uri. Compliance enterprise."
     }
-  },
-  "cf_fortune": {
-    "headline": "Cloudflare alimentează 42% din Fortune 500",
-    "subtitle": "De încredere pentru echipele în care ai încredere."
-  },
-  "tech_stack": {
-    "title": "Construit pe instrumentele care contează",
-    "subtitle": "De la edge la deploy, stack-ul potrivit pentru produse premium."
   },
   "testimonials": {
     "badge": "Testimoniale",
@@ -365,32 +317,6 @@
       }
     ]
   },
-  "globe": {
-    "eyebrow": "Acoperire globală",
-    "title": "Construit în România, livrat în toată lumea.",
-    "subtitle": "De la afaceri locale la branduri internaționale, proiectul tău rulează rapid și aproape de utilizatorii tăi.",
-    "stat_value": "9+ țări",
-    "stat_label": "Proiecte livrate peste granițe",
-    "pillar1_title": "Rulează peste tot",
-    "pillar1_body": "Securitate, conectivitate și cod rulate în 335+ orașe din toată lumea, sub 50ms față de 95% din populația globului.",
-    "pillar2_title": "Rulează oriunde",
-    "pillar2_body": "Rețeaua e aproape de utilizatorii, aplicațiile și site-urile tale. Optimizează tot traficul de la sursă la destinație pentru latență minimă.",
-    "pillar3_title": "Rulează la scară mare",
-    "pillar3_body": "Fără planificare de capacitate. Niciodată."
-  },
-  "roadmap": {
-    "badge": "Etape",
-    "phases": {
-      "analyze_title": "Analiză",
-      "analyze_subtitle": "Discovery & audit",
-      "develop_title": "Dezvoltare",
-      "develop_subtitle": "Arhitectură & cod",
-      "create_title": "Creație",
-      "create_subtitle": "Design & conținut",
-      "deliver_title": "Livrare",
-      "deliver_subtitle": "QA & lansare"
-    }
-  },
   "contact": {
     "badge": "Contact",
     "title": "Hai să vorbim. Fără obligație.",
@@ -401,12 +327,25 @@
   "footer": {
     "copyright_l": "Alcaziu Robert",
     "terms_link": "Termeni și condiții",
-    "privacy_link": "Politica de confidențialitate"
+    "privacy_link": "Politica de confidențialitate",
+    "cookies_link": "Politica de Cookie-uri",
+    "cta_title": "Hai să discutăm.",
+    "cta_body": "Spune-mi ce construiești. Îți zic direct dacă te pot ajuta — și ce ar presupune.",
+    "cta_button": "Programează o discuție",
+    "email_label": "Adresă de mail",
+    "phone_label": "Telefon · răspund în 24h",
+    "whatsapp_label": "WhatsApp",
+    "whatsapp_value": "Scrie-mi direct",
+    "wordmark": "ALCAZIU ROBERT",
+    "cookie_settings": "Setări cookie-uri"
   },
   "legal": {
     "back_home": "← Înapoi la pagina principală",
     "last_updated": "Ultima actualizare: mai 2026",
-    "disclaimer": "Acest document este un punct de plecare; pentru contracte cu clienți consultă un avocat."
+    "disclaimer": "Acest document este un punct de plecare; pentru contracte cu clienți consultă un avocat.",
+    "notfound_title": "Pagina nu a fost găsită",
+    "notfound_body": "Pagina pe care o cauți nu există sau a fost mutată.",
+    "notfound_cta": "Înapoi la pagina principală"
   },
   "terms": {
     "title": "Termeni și Condiții",
@@ -422,11 +361,11 @@
       "contact": "Contact"
     },
     "intro_title": "1. Identitatea operatorului",
-    "intro_body": "Acest site este operat de Alcaziu Robert, persoană fizică, cu domiciliul în România. Site-ul reprezintă portofoliul personal al operatorului și nu este asociat unei entități comerciale înregistrate. Prin accesarea și utilizarea site-ului, ești de acord să respecți acești termeni. Dacă nu ești de acord cu ei, te rog să încetezi utilizarea site-ului.",
+    "intro_body": "alcaziurobert.ro este site-ul personal al lui Alcaziu Robert și are rol de portofoliu profesional (un CV online): prezintă proiecte la care am lucrat și modul în care lucrez. Site-ul nu vinde produse sau servicii online, nu afișează prețuri, nu procesează plăți și nu încheie contracte prin intermediul lui. Singura interacțiune posibilă este trimiterea unui mesaj prin formularul de contact sau contactarea directă pe email, telefon ori WhatsApp. Prin utilizarea site-ului ești de acord cu acești termeni; dacă nu ești de acord, te rog să încetezi utilizarea lui.",
     "services_title": "2. Scopul site-ului",
-    "services_body": "Acest site are rol exclusiv informativ și de prezentare a portofoliului personal (proiecte, tehnologii folosite, experiență). Conținutul nu constituie o ofertă contractuală fermă și nu se încheie contracte de prestări servicii prin intermediul acestei pagini.",
+    "services_body": "Conținutul site-ului are caracter informativ și de prezentare. Proiectele afișate ilustrează experiența mea profesională. Orice colaborare se discută și se stabilește separat, în afara site-ului, printr-un acord direct între părți — site-ul în sine nu constituie o ofertă comercială și nu creează obligații contractuale.",
     "form_title": "3. Utilizarea formularului de contact",
-    "form_body": "Site-ul permite vizitatorilor să trimită o solicitare printr-un formular care colectează: nume, email, telefon, tip proiect și buget estimativ. Prin completarea formularului te angajezi să furnizezi informații reale. Îmi rezerv dreptul de a nu răspunde solicitărilor care par a fi spam sau care conțin un limbaj inadecvat.",
+    "form_body": "Site-ul permite vizitatorilor să trimită un mesaj printr-un formular care colectează: nume, email, telefon, tipul proiectului și, opțional, un mesaj. Datele sunt folosite exclusiv pentru a răspunde solicitării tale — vezi Politica de confidențialitate. Prin completarea formularului te angajezi să furnizezi informații reale. Îmi rezerv dreptul de a nu răspunde solicitărilor care par spam sau care conțin conținut abuziv.",
     "ip_title": "4. Proprietate intelectuală",
     "ip_body": "Întreg conținutul site-ului (texte, elemente grafice, logo-uri, cod sursă, design) este proprietatea Alcaziu Robert și este protejat de legislația privind drepturile de autor. Este interzisă copierea, reproducerea sau utilizarea oricărui element fără acordul meu scris prealabil.",
     "liability_title": "5. Limitarea răspunderii",
@@ -457,31 +396,111 @@
       "contact": "Contact"
     },
     "intro_title": "1. Cine suntem",
-    "intro_body": "Site-ul alcaziurobert.ro este operat de Alcaziu Robert, persoană fizică, cu domiciliul în România. Această politică explică ce date colectez atunci când vizitezi site-ul sau mă contactezi, cum le folosesc și ce drepturi ai conform GDPR (Regulamentul UE 2016/679).",
+    "intro_body": "alcaziurobert.ro este site-ul personal (portofoliu profesional) al lui Alcaziu Robert, persoană fizică, cu domiciliul în România, care acționează ca operator de date în sensul GDPR. Site-ul nu vinde nimic online și nu procesează plăți. Această politică explică ce date colectez atunci când vizitezi site-ul sau mă contactezi, cum le folosesc și ce drepturi ai conform GDPR (Regulamentul UE 2016/679).",
     "data_title": "2. Ce date pot colecta",
-    "data_body": "Date de identificare și contact: nume, adresă de email, număr de telefon și orice alte informații pe care alegi să mi le transmiți voluntar. Date din solicitări comerciale: tipul proiectului, buget estimativ și orice fișiere sau informații transmise prin formularul de contact sau pe email. Date tehnice și de utilizare: adresă IP, identificatori de sesiune, informații despre browser și dispozitiv, pagini accesate, sursa traficului și preferințe de consimțământ. Date colectate prin cookies și tehnologii similare, în măsura în care acestea sunt activate conform alegerii tale.",
+    "data_body": "Date de identificare și contact: nume, adresă de email, număr de telefon și orice alte informații pe care alegi să mi le transmiți voluntar. Date din mesajul tău: tipul proiectului și textul opțional pe care îl scrii în formular. Date tehnice și de utilizare: adresă IP, identificatori de sesiune, informații despre browser și dispozitiv, pagini accesate, sursa traficului și preferințele de consimțământ. Date colectate prin cookies și tehnologii similare, în măsura în care acestea sunt activate conform alegerii tale.",
     "source_title": "3. Sursa datelor",
-    "source_body": "În mod normal, colectez datele direct de la tine, atunci când completezi formularul de contact sau îmi trimiți un email. Unele date tehnice sunt generate automat de browser, de infrastructura pe care rulează site-ul (Cloudflare, Vercel) sau de furnizorii terți activați doar pe baza consimțământului tău.",
+    "source_body": "În mod normal, colectez datele direct de la tine, atunci când completezi formularul de contact sau îmi trimiți un email. Unele date tehnice sunt generate automat de browser, de infrastructura pe care rulează site-ul (serverul de găzduire) sau de furnizorii terți activați doar pe baza consimțământului tău.",
     "purpose_title": "4. Scopurile și temeiurile prelucrării",
-    "purpose_body": "Pentru a răspunde solicitărilor tale și a transmite informații despre serviciile mele. Temei: demersuri precontractuale la cererea ta și interes legitim. Pentru a opera, securiza și administra site-ul, inclusiv prevenirea abuzurilor, depanarea și monitorizarea tehnică. Temei: interes legitim. Pentru a măsura traficul și a îmbunătăți performanța site-ului prin instrumente analitice. Temei: consimțământul tău, atunci când acesta este necesar. Pentru a respecta obligațiile fiscale, contabile sau alte obligații legale aplicabile. Temei: obligație legală. Pentru apărarea sau exercitarea drepturilor mele în caz de litigii sau reclamații. Temei: interes legitim. În prezent nu folosesc taguri de marketing sau remarketing; dacă pe viitor decid să le adaug, voi solicita consimțământul tău prealabil printr-un banner de cookies.",
+    "purpose_body": "Pentru a răspunde solicitărilor tale și a transmite informații despre serviciile mele. Temei: demersuri precontractuale la cererea ta și interes legitim. Pentru a opera, securiza și administra site-ul, inclusiv prevenirea abuzurilor, depanarea și monitorizarea tehnică. Temei: interes legitim. Pentru a măsura traficul și a îmbunătăți performanța site-ului prin instrumente analitice. Temei: consimțământul tău, atunci când acesta este necesar. Pentru a respecta obligațiile fiscale, contabile sau alte obligații legale aplicabile. Temei: obligație legală. Pentru apărarea sau exercitarea drepturilor mele în caz de litigii sau reclamații. Temei: interes legitim. Folosesc Google Analytics pentru măsurarea traficului și Meta Pixel pentru măsurarea reclamelor de pe Facebook/Instagram, ambele exclusiv pe baza consimțământului acordat prin bannerul de cookie-uri; fără consimțământ, niciunul nu se încarcă.",
     "refusal_title": "5. Dacă nu îmi furnizezi datele",
     "refusal_body": "Nu ai o obligație legală generală de a-mi furniza datele. Totuși, dacă nu îmi transmiți datele minime necesare (nume, email, telefon), nu voi putea răspunde solicitării tale și nici discuta un eventual proiect.",
     "recipients_title": "6. Cui pot divulga datele",
-    "recipients_body": "Pot divulga datele, strict în măsura necesară, către furnizori care mă ajută să operez site-ul: Cloudflare (CDN, securitate și analytics privacy-friendly fără cookies), Vercel (hosting și funcții serverless pentru formularul de contact), precum și furnizorul de email folosit pentru SMTP pe domeniul propriu. Datele pot fi divulgate și către consultanți, contabili, avocați, autorități publice sau instanțe, dacă legea cere sau dacă este necesar pentru apărarea drepturilor mele.",
+    "recipients_body": "Pot divulga datele, strict în măsura necesară, către furnizori care mă ajută să operez site-ul: Hosterion (găzduirea site-ului, servere în România) și furnizorul de email folosit pentru SMTP pe domeniul propriu. Dacă accepți cookie-urile de performanță, Google (Google Analytics) procesează și date de trafic agregate; dacă accepți cookie-urile de marketing, Meta Platforms Ireland procesează date de navigare prin Meta Pixel, plus numele, emailul și telefonul din formularul de contact în formă hash-uită SHA-256 (Advanced Matching), pentru măsurarea reclamelor — vezi Politica de Cookie-uri pentru detalii. Datele pot fi divulgate și către consultanți, contabili, avocați, autorități publice sau instanțe, dacă legea cere sau dacă este necesar pentru apărarea drepturilor mele.",
     "transfers_title": "7. Transferuri internaționale",
-    "transfers_body": "Unele servicii folosite (precum Cloudflare și Vercel) au sediul în Statele Unite, ceea ce poate implica transferuri de date în afara Spațiului Economic European. Pentru aceste transferuri, mă bazez pe mecanisme recunoscute de GDPR, precum clauze contractuale standard (SCC) sau alte garanții adecvate oferite de furnizorii respectivi prin contracte de prelucrare a datelor (DPA).",
+    "transfers_body": "Găzduirea site-ului și emailul rămân în Uniunea Europeană, deci datele din formularul de contact nu părăsesc Spațiul Economic European. Transferuri în Statele Unite apar doar pentru serviciile pe care le accepți: Google (Google Analytics) și Meta (Meta Pixel). Pentru astfel de transferuri mă bazez pe mecanisme recunoscute de GDPR, precum clauzele contractuale standard (SCC) sau alte garanții adecvate oferite prin contracte de prelucrare a datelor (DPA).",
     "storage_title": "8. Cât timp păstrez datele",
-    "storage_body": "Datele din solicitări comerciale și formulare de contact: până la 24 de luni de la ultima interacțiune relevantă, dacă nu rezultă o relație contractuală sau o obligație legală de păstrare mai lungă. Datele necesare pentru facturare sau contabilitate (în cazul unei colaborări ulterioare): pe durata impusă de legislația fiscală aplicabilă (în general 10 ani). Datele tehnice și logurile de securitate: pe perioade limitate, proporționale cu scopul de securitate și mentenanță (de regulă maximum 12 luni). Preferințele de cookies: conform duratelor explicate în Politica de cookies sau conform setărilor browserului.",
+    "storage_body": "Datele din solicitări comerciale și formulare de contact: până la 24 de luni de la ultima interacțiune relevantă, dacă nu rezultă o relație contractuală sau o obligație legală de păstrare mai lungă. Datele necesare pentru facturare sau contabilitate (în cazul unei colaborări ulterioare): pe durata impusă de legislația fiscală aplicabilă (în general 10 ani). Datele tehnice și logurile de securitate: pe perioade limitate, proporționale cu scopul de securitate și mentenanță (de regulă maximum 12 luni). Preferințele de cookies: conform duratelor explicate în Politica de Cookie-uri sau conform setărilor browserului.",
     "rights_title": "9. Drepturile tale",
     "rights_body": "În condițiile prevăzute de GDPR, ai următoarele drepturi: dreptul de acces la datele tale, dreptul la rectificare, dreptul la ștergere, dreptul la restricționarea prelucrării, dreptul la opoziție (inclusiv față de prelucrările întemeiate pe interes legitim), dreptul la portabilitatea datelor, dreptul de a-ți retrage consimțământul în orice moment fără a afecta legalitatea prelucrării anterioare retragerii și dreptul de a depune plângere la Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP). Pentru exercitarea acestor drepturi, scrie-mi la contact@alcaziurobert.ro. Răspund în maximum 30 de zile.",
     "cookies_title": "10. Cookies și tehnologii similare",
-    "cookies_body": "Folosesc cookies strict necesare pentru funcționarea site-ului (sesiune, preferință de limbă). Pentru analytics folosesc Cloudflare Analytics, un instrument care măsoară traficul fără cookies și fără date personale identificabile, deci fără a necesita consimțământul tău. Dacă pe viitor activez cookies analitice, funcționale sau de marketing, vei vedea un banner de consimțământ înainte ca acestea să fie setate.",
+    "cookies_body": "Folosesc cookie-uri strict necesare pentru funcționarea site-ului (sesiune, limbă și preferința ta de cookie-uri). Cu acordul tău, folosesc Google Analytics pentru analiză/performanță și Meta Pixel pentru măsurarea reclamelor (Facebook/Instagram). Un banner de consimțământ îți permite să accepți toate cookie-urile, doar pe cele necesare, sau să personalizezi alegerea pe categorii (necesare, performanță, marketing) oricând — vezi Politica de Cookie-uri completă pentru detalii despre fiecare categorie, parteneri terți și durata de păstrare.",
     "security_title": "11. Securitatea datelor",
-    "security_body": "Aplic măsuri tehnice și organizatorice rezonabile pentru a proteja datele împotriva accesului neautorizat, pierderii, modificării sau divulgării nepermise: transmisie criptată TLS, infrastructură Cloudflare cu WAF și DDoS protection, backup-uri regulate. Cu toate acestea, niciun sistem online nu poate garanta securitate absolută.",
+    "security_body": "Aplic măsuri tehnice și organizatorice rezonabile pentru a proteja datele împotriva accesului neautorizat, pierderii, modificării sau divulgării nepermise: transmisie criptată TLS, găzduire cu firewall și protecție anti-DDoS la nivel de server, backup-uri regulate. Cu toate acestea, niciun sistem online nu poate garanta securitate absolută.",
     "changes_title": "12. Modificări",
     "changes_body": "Pot actualiza periodic această politică pentru a reflecta schimbări legislative, operaționale sau tehnice. Versiunea publicată pe site este versiunea aplicabilă la data consultării. Te încurajez să o verifici periodic.",
     "contact_title": "13. Contact",
     "contact_body": "Pentru orice solicitare legată de protecția datelor sau exercitarea drepturilor tale, scrie-mi la contact@alcaziurobert.ro."
+  },
+  "cookieConsent": {
+    "banner": {
+      "heading": "Cookie-uri pe alcaziurobert.ro",
+      "body1": "Cookie-urile rețin preferințele, ajustează conținutul afișat și fac site-ul să funcționeze mai bine la vizite ulterioare. Folosesc parteneri externi de încredere pentru analiză, personalizare și publicitate.",
+      "body2": "Acceptarea tuturor înseamnă experiența completă; doar cele esențiale păstrează site-ul funcțional în varianta de bază. Setarea se poate modifica oricând.",
+      "details_btn": "Arată detalii",
+      "accept_necessary_btn": "Acceptă necesare",
+      "accept_all_btn": "Acceptă toate",
+      "privacy_link": "Politica de confidențialitate",
+      "cookie_policy_link": "Politica de Cookie-uri"
+    },
+    "modal": {
+      "title": "Centrul de preferințe pentru confidențialitate",
+      "intro": "Ce este un cookie? Un cookie este un fișier care se salvează pe calculatorul tău atunci când vizitezi un website. Acest fișier permite memorarea setărilor și a preferințelor tale când vizitezi din nou site-ul respectiv, pentru a-ți oferi o mai bună experiență online. Ai posibilitatea de a permite sau nu utilizarea de cookie-uri, dar dacă nu vrei să permiți lansarea acestora, va trebui să faci setările adecvate. Cookie-urile nu pot fi folosite pentru a rula programe sau a transmite viruși informatici în dispozitivul tău. De asemenea, poți selecta cookie-urile pe care vrei să le accepți din secțiunea dedicată: cookie-uri strict necesare, cookie-uri de performanță și cookie-uri de marketing și targetare.",
+      "necessary": {
+        "title": "Cookie-uri Strict Necesare",
+        "always_active": "Întotdeauna activate",
+        "description": "Aceste cookie-uri sunt necesare pentru funcționarea website-ului. Ele sunt, de obicei, făcute pentru a răspunde numai acțiunilor făcute de tine: alegerea setărilor de confidențialitate, intrarea în cont sau completarea unor formulare. Poți alege să setezi ca browserul tău să blocheze sau să te alerteze în legătură cu aceste cookie-uri, dar asta va însemna că anumite secțiuni ale website-ului nu vor funcționa. Aceste cookie-uri nu vor stoca informații care te pot identifica personal."
+      },
+      "performance": {
+        "title": "Cookie-uri Performanță",
+        "description": "Aceste module cookie îmi permit să contorizez vizitele și sursele de trafic, astfel încât să pot măsura și îmbunătăți performanța site-ului. Acestea mă ajută să cunosc cele mai populare pagini și să văd cum se deplasează vizitatorii în jurul site-ului. Toate informațiile pe care le colectează aceste cookie-uri sunt agregate și, prin urmare, anonime. Dacă nu permiți aceste cookie-uri, nu voi ști când ai vizitat site-ul.",
+        "table_name": "Nume",
+        "table_description": "Descriere partener folosit",
+        "table_cookies": "Cookies",
+        "partner_ga_name": "Google Analytics",
+        "partner_ga_description": "Platformă de analiză web oferită de Google, folosită pentru a monitoriza și raporta traficul și comportamentul utilizatorilor pe un site web.",
+        "see_cookies_link": "Vezi lista cookies"
+      },
+      "marketing": {
+        "title": "Cookie-uri Marketing și Targetare",
+        "description": "Această categorie acoperă măsurarea reclamelor. Încarcă Meta Pixel (reclame Facebook/Instagram) doar după ce accepți — până atunci nu se trimite nimic către Meta, iar consimțământul poate fi retras oricând.",
+        "partner_google_ads_name": "Google Ads",
+        "partner_google_ads_description": "Nu este încă activ. Ar fi folosit pentru a crea și gestiona campanii publicitare plătite pe Google Search, site-uri partenere și alte canale de afișare.",
+        "partner_meta_name": "Meta",
+        "partner_meta_description": "Activ pe bază de consimțământ. Meta Pixel (ID 1555333129701586) măsoară ce reclame aduc vizitatori și conversii și construiește audiențe pentru campanii pe Facebook, Instagram, Messenger și Audience Network. Setează cookie-ul _fbp și trimite către Meta adresa IP, date despre browser și paginile vizitate. Are activat Advanced Matching automat: dacă completezi formularul de contact, numele, emailul și telefonul sunt transformate în cod (hash SHA-256) în browserul tău și trimise astfel către Meta, pentru a potrivi conversia cu contul tău de Facebook — Meta nu primește datele în clar.",
+        "partner_tiktok_name": "TikTok",
+        "partner_tiktok_description": "Nu este încă activ. Ar fi folosit pentru a crea și gestiona campanii publicitare pe TikTok.",
+        "see_cookies_link": "Vezi lista cookies"
+      },
+      "save_btn": "Salvează preferințele",
+      "accept_necessary_btn": "Acceptă necesare",
+      "accept_all_btn": "Acceptă toate",
+      "close_label": "Închide"
+    }
+  },
+  "cookiePolicy": {
+    "title": "Politica de Cookie-uri",
+    "toc": {
+      "title": "Pe această pagină",
+      "intro": "Prezentare generală",
+      "what_are_cookies": "Ce sunt cookie-urile",
+      "necessary": "Cookie-uri necesare",
+      "performance": "Cookie-uri de performanță",
+      "marketing": "Cookie-uri de marketing",
+      "third_party": "Parteneri terți",
+      "duration": "Cât timp le păstrăm",
+      "manage": "Gestionează alegerea",
+      "contact": "Contact"
+    },
+    "intro_title": "1. Prezentare generală",
+    "intro_body": "Această Politică de Cookie-uri explică ce cookie-uri și tehnologii similare folosește alcaziurobert.ro, de ce și cum le poți controla. Completează Politica de Confidențialitate, care acoperă datele personale în ansamblu — consultă acea pagină pentru detalii despre destinatarii datelor, durata de păstrare și drepturile tale conform GDPR.",
+    "what_are_cookies_title": "2. Ce sunt cookie-urile",
+    "what_are_cookies_body": "Un cookie este un fișier mic salvat pe dispozitivul tău atunci când vizitezi un site. Îi permite site-ului să-ți rețină setările și preferințele la următoarea vizită, pentru o experiență de navigare mai bună. Cookie-urile nu pot rula programe și nu pot transmite viruși pe dispozitivul tău.",
+    "necessary_title": "3. Cookie-uri strict necesare",
+    "necessary_body": "Aceste cookie-uri sunt necesare pentru funcționarea site-ului — de exemplu memorarea limbii alese și a preferinței tale de cookie-uri. Nu necesită consimțământ și nu pot fi dezactivate din centrul de preferințe, dar le poți bloca din setările browserului, cu riscul ca unele funcții ale site-ului să nu mai meargă.",
+    "performance_title": "4. Cookie-uri de performanță",
+    "performance_body": "Cu acordul tău, folosesc Google Analytics pentru a măsura vizitele și sursele de trafic, a înțelege ce pagini sunt cele mai utile și a îmbunătăți site-ul în timp. Datele colectate astfel sunt agregate și folosite pentru statistici, nu pentru a te identifica individual. Aceste cookie-uri se încarcă doar după ce accepți categoria „Performanță” din bannerul de cookie-uri.",
+    "marketing_title": "5. Cookie-uri de marketing și targetare",
+    "marketing_body": "Această categorie acoperă cookie-urile publicitare. Un singur partener este activ: Meta Pixel (Facebook/Instagram), care setează cookie-ul _fbp — valabil până la 3 luni — pentru a măsura ce reclame aduc vizitatori și conversii și pentru a construi audiențe de campanie. Pixelul are activat Advanced Matching automat, deci datele pe care le completezi în formularul de contact (nume, email, telefon) sunt hash-uite SHA-256 în browser și trimise în această formă către Meta, pentru potrivirea conversiilor. Totul se încarcă exclusiv după ce accepți această categorie; dacă refuzi sau îți retragi consimțământul, nu se trimite nimic către Meta. Google Ads și TikTok rămân pregătite, dar inactive.",
+    "third_party_title": "6. Parteneri terți",
+    "third_party_body": "Doi furnizori terți pot seta cookie-uri pe acest site. Google Analytics (categoria performanță) setează _ga și _ga_<container-id> — vezi Politica de confidențialitate a Google. Meta Pixel (categoria marketing) setează _fbp, valabil până la 3 luni, folosit pentru măsurarea și targetarea campaniilor Facebook/Instagram — vezi Politica de cookie-uri Meta. Ambele se încarcă doar după ce accepți categoria corespunzătoare. Google Ads și TikTok rămân listați ca parteneri pregătiți, dar inactivi.",
+    "duration_title": "7. Cât timp păstrăm cookie-urile",
+    "duration_body": "Cookie-urile Google Analytics sunt păstrate de obicei până la 13 luni. Alegerea ta de consimțământ este stocată în stocarea locală a browserului și se aplică până când o schimbi, ștergi datele browserului, sau o actualizare viitoare a acestei politici necesită o nouă confirmare.",
+    "manage_title": "8. Gestionează sau retrage consimțământul",
+    "manage_body": "Poți schimba preferințele de cookie-uri oricând — de pe această pagină, sau din linkul „Gestionează preferințele cookie” din footer-ul site-ului. Poți bloca sau șterge cookie-urile și din setările browserului, deși asta poate afecta funcționarea site-ului.",
+    "manage_cta_label": "Gestionează preferințele cookie",
+    "contact_title": "9. Contact",
+    "contact_body": "Pentru orice întrebare legată de această Politică de Cookie-uri, scrie-mi la contact@alcaziurobert.ro."
   },
   "lang": {
     "switch_to": "Schimbă limba"
@@ -500,12 +519,6 @@
     "project_website": "Site web",
     "project_webapp": "Aplicație web",
     "project_other": "Altceva",
-    "budget_label": "Buget",
-    "budget_placeholder": "Alege un interval",
-    "budget_low": "€1500–3000",
-    "budget_mid": "€3000–5000",
-    "budget_high": "€5000+",
-    "budget_discuss": "Prefer să discutăm",
     "submit": "Trimite",
     "submitting": "Se trimite…",
     "cancel": "Renunță",
@@ -516,11 +529,14 @@
     "v_phone_required": "Telefonul este obligatoriu.",
     "v_phone": "Introdu un număr de telefon valid.",
     "v_project": "Alege un tip de proiect.",
-    "v_budget": "Alege un interval de buget.",
     "toast_ok_title": "Mesaj trimis",
     "toast_ok_body": "Mulțumesc — revin în 24 de ore.",
     "toast_err_title": "Trimitere eșuată",
-    "toast_err_body": "Ceva n-a mers. Încearcă din nou sau scrie-mi direct la contact@alcaziurobert.ro."
+    "toast_err_body": "Ceva n-a mers. Încearcă din nou sau scrie-mi direct la contact@alcaziurobert.ro.",
+    "privacy_note": "Prin trimitere ești de acord ca datele tale să fie folosite pentru a-ți răspunde. Detalii în <privacy>Politica de confidențialitate</privacy>.",
+    "message_label": "Mesaj (opțional)",
+    "message_placeholder": "Spune-mi pe scurt ce ai în minte.",
+    "v_message": "Mesajul poate avea maximum 1000 de caractere."
   },
   "fab": {
     "aria": "Deschide opțiuni de contact",
@@ -528,24 +544,5 @@
     "call": "Sună-mă",
     "email": "Trimite email",
     "message": "Scrie-mi un mesaj"
-  },
-  "whyCf": {
-    "title": "Build without boundaries",
-    "sub_pre": "Tot ce-ți trebuie ca să",
-    "sub_mark": "construiești aplicații sigure și rapide",
-    "chaos_title": "Lupți cu infra în „cloud chaos”",
-    "status": "STATUS: NEREZOLVAT",
-    "cred_title": "Credential stuffing detectat",
-    "cred_body": "142K încercări de login de la 38K IP-uri în ultimele 5 minute.",
-    "latency_title": "Latență mare!!!!!!",
-    "latency_body": "~150–250ms RTT per request",
-    "exfil_title": "Exfiltrare de date sensibile",
-    "exfil_body": "12 înregistrări de clienți lipite în Slack în ultima oră.",
-    "ddos": "IP-ul de origine e expus, suntem loviți direct de trafic DDoS. Trebuie blocat ASAP.",
-    "open_incidents": "2331 incidente deschise",
-    "calm_title": "Shipping with Cloudflare",
-    "pushed_pre": "Am lansat",
-    "pushed_post": "actualizări noi azi",
-    "p0": "P0"
   }
 }

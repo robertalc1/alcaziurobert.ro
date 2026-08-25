@@ -18,7 +18,7 @@ const CompoundingSection: React.FC = () => {
       <style>{`
         .comp-section {
           width: 100%;
-          background: #ffffff;
+          background: #0F0F0F;
           padding: clamp(48px, 6vh, 80px) 16px;
         }
         .comp-inner {
@@ -32,7 +32,7 @@ const CompoundingSection: React.FC = () => {
           letter-spacing: -0.028em;
           font-size: clamp(1.8rem, 4.6vw, 3rem);
           line-height: 1.05;
-          color: #1f1f1f;
+          color: #F5F5F5;
           margin: 0 auto clamp(20px, 3vh, 34px);
           max-width: 22ch;
           text-wrap: balance;
@@ -58,12 +58,12 @@ const CompoundingSection: React.FC = () => {
           font-family: var(--font-sans);
           font-size: clamp(1.6rem, 2.8vw, 2.2rem);
           font-weight: 700;
-          color: #1f1f1f;
+          color: #F5F5F5;
           letter-spacing: -0.005em;
           line-height: 1.1;
           margin: 0;
           text-wrap: balance;
-          background: #F0EFEA;
+          background: #1A1A1A;
           padding: 7px 22px;
           border-radius: 7px;
           -webkit-box-decoration-break: clone;
@@ -82,7 +82,7 @@ const CompoundingSection: React.FC = () => {
           align-self: center;
           display: inline-block;
           background: transparent;
-          color: #5b6470;
+          color: #C4C9D0;
           font-family: var(--font-sans);
           font-weight: 400;
           font-size: clamp(1.05rem, 1.5vw, 1.3rem);
@@ -98,7 +98,7 @@ const CompoundingSection: React.FC = () => {
         }
         /* ── Gray summary block ───────────────────── */
         .comp-summary {
-          background: #F1EFEA;
+          background: #1A1A1A;
           border-radius: clamp(16px, 2vw, 22px);
           padding: clamp(18px, 2.4vw, 26px) clamp(20px, 2.6vw, 30px);
           text-align: center;
@@ -110,7 +110,7 @@ const CompoundingSection: React.FC = () => {
           font-weight: 400;
           font-size: clamp(1.05rem, 1.5vw, 1.3rem);
           line-height: 1.6;
-          color: #1f1f1f;
+          color: #F5F5F5;
           margin: 0;
           text-wrap: balance;
           max-width: 56ch;
@@ -145,7 +145,7 @@ const CompoundingSection: React.FC = () => {
           font-weight: 400;
           font-size: clamp(1.05rem, 1.5vw, 1.3rem);
           line-height: 1.6;
-          color: #1f1f1f;
+          color: #F5F5F5;
           margin: 0;
           text-wrap: balance;
           max-width: 56ch;
@@ -166,7 +166,7 @@ const CompoundingSection: React.FC = () => {
           padding: 11px 28px;
           min-height: 44px;
           border-radius: 9999px;
-          background: #ED5C1B;
+          background: #C44E17;
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
@@ -178,7 +178,7 @@ const CompoundingSection: React.FC = () => {
           transition: background 220ms cubic-bezier(0.23, 1, 0.32, 1),
                       transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
         }
-        .comp-cta-btn:hover { background: #C44E17; }
+        .comp-cta-btn:hover { background: #A8420F; }
         .comp-cta-btn:active { transform: scale(0.97); }
         .comp-cta-btn svg {
           width: 14px;
@@ -245,6 +245,8 @@ const CompoundingSection: React.FC = () => {
           alt=""
           aria-hidden="true"
           loading="lazy"
+          width={1000}
+          height={1000}
           className="comp-accent"
         />
         <Reveal>

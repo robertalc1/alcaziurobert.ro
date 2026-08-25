@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#0F0F0F" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>Alcaziu Robert — Premium web design &amp; custom development</title>
     <meta name="description" content="Premium websites and custom web applications for businesses that don't settle for templates. Bespoke design, scalable development, real conversion." />
     <meta name="author" content="Alcaziu Robert" />
@@ -25,13 +28,12 @@
     <meta name="twitter:description" content="Premium websites and custom web applications. Built to convert." />
     <meta name="twitter:image" content="https://alcaziurobert.ro/Header-background.webp" />
 
-    <!-- Typeface: General Sans (Fontshare) — single family across the site -->
-    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
-    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" />
+    <!-- Typeface: General Sans — self-hosted, single family across the site (see src/index.css) -->
+    <link rel="preload" href="/fonts/general-sans-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/general-sans-400.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Preload the logo used by the boot loader -->
-    <link rel="preload" href="/favicon.ico" as="image" />
+    <!-- Preload the small logo used by the boot loader + navbar (9KB, not the favicon) -->
+    <link rel="preload" href="/logo-mark.webp" as="image" />
 
     <!-- Structured data: Person + ProfessionalService + WebSite (parsed as one JSON-LD array) -->
     <script type="application/ld+json">
@@ -42,7 +44,7 @@
         "name": "Alcaziu Robert",
         "jobTitle": "Web Developer",
         "url": "https://alcaziurobert.ro/",
-        "image": "https://alcaziurobert.ro/favicon.ico",
+        "image": "https://alcaziurobert.ro/logo-mark.webp",
         "telephone": "+40-773-858-164",
         "email": "contact@alcaziurobert.ro",
         "address": {
@@ -54,32 +56,9 @@
           "React",
           "TypeScript",
           "Cloudflare",
-          "Vercel",
           "Server-side tracking",
           "NIS2 compliance"
-        ],
-        "sameAs": ["https://alcaziurobert.ro/"]
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "Alcaziu Robert — Premium web design & custom development",
-        "description": "Premium websites and custom web applications for businesses that don't settle for templates. Bespoke design, scalable development, real conversion.",
-        "provider": {
-          "@type": "Person",
-          "name": "Alcaziu Robert",
-          "url": "https://alcaziurobert.ro/"
-        },
-        "areaServed": {
-          "@type": "Country",
-          "name": "Romania"
-        },
-        "serviceType": "Web Development",
-        "url": "https://alcaziurobert.ro/",
-        "priceRange": "€€€",
-        "image": "https://alcaziurobert.ro/Header-background.webp",
-        "telephone": "+40-773-858-164",
-        "email": "contact@alcaziurobert.ro"
+        ]
       },
       {
         "@context": "https://schema.org",
@@ -161,7 +140,7 @@
         position: fixed;
         inset: 0;
         z-index: 99999;
-        background: #ffffff;
+        background: #0F0F0F;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -179,8 +158,8 @@
         pointer-events: none;
       }
       #app-loader .al-eye {
-        width: clamp(80px, 12vw, 120px);
-        height: auto;
+        width: auto;
+        height: clamp(56px, 8vw, 82px);
         display: block;
         opacity: 0;
         transform: scale(0.96);
@@ -219,14 +198,19 @@
         }
       }
     </style>
+
+    <!-- Meta Pixel (ID 1555333129701586) is NOT inlined here on purpose: under
+         GDPR it may only load after the visitor accepts Marketing cookies, so
+         Meta's base code lives in src/lib/marketingPixels.ts and is injected
+         by the consent flow (src/hooks/use-cookie-consent.tsx). -->
   </head>
-  
+
   <body>
     <!-- Boot loader (rendered before React mounts). The bootstrap script below
          either hides it instantly (already shown this session) or waits for the
-         "app-ready" event dispatched from App.tsx after first paint. -->
+         "app-ready" event dispatched from Hero.tsx after its own first paint. -->
     <div id="app-loader" aria-hidden="true">
-      <img class="al-eye" src="/favicon.ico" alt="" decoding="async" />
+      <img class="al-eye" src="/logo-mark.webp" alt="" decoding="async" />
       <span class="al-label">Alcaziu Robert</span>
     </div>
     <script>
@@ -255,8 +239,6 @@
     </script>
 
     <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

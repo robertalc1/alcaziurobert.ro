@@ -17,9 +17,8 @@ const StatementSection: React.FC = () => {
       <style>{`
         .st-section {
           width: 100%;
-          background: #ffffff;
+          background: #0F0F0F;
           padding: clamp(56px, 8vh, 104px) clamp(18px, 3vw, 32px);
-          border-top: 1px solid rgba(38, 38, 38, 0.08);
         }
         .st-inner {
           max-width: 1180px;
@@ -31,9 +30,10 @@ const StatementSection: React.FC = () => {
           font-weight: 500;
           letter-spacing: -0.025em;
           line-height: 1.35;
-          color: #141414;
-          max-width: 30ch;
-          margin: 0;
+          color: #F5F5F5;
+          max-width: 26ch;
+          margin: 0 auto;
+          text-align: center;
           text-wrap: balance;
         }
         .st-accent {

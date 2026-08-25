@@ -1,8 +1,11 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const NotFound = () => {
   const location = useLocation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     console.error(
@@ -12,13 +15,72 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
+    <div className="nf-root">
+      <style>{`
+        .nf-root {
+          min-height: 100vh;
+          background: #0F0F0F;
+          color: #F5F5F5;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          text-align: center;
+        }
+        .nf-code {
+          font-family: var(--font-sans);
+          font-weight: 600;
+          font-size: clamp(3.5rem, 12vw, 7rem);
+          line-height: 1;
+          letter-spacing: -0.04em;
+          color: #ED5C1B;
+          margin: 0 0 12px;
+        }
+        .nf-title {
+          font-family: var(--font-sans);
+          font-weight: 500;
+          font-size: clamp(1.3rem, 3vw, 1.8rem);
+          letter-spacing: -0.025em;
+          margin: 0 0 10px;
+        }
+        .nf-body {
+          font-family: var(--font-sans);
+          font-size: 15px;
+          line-height: 1.6;
+          color: rgba(255, 255, 255, 0.72);
+          margin: 0 0 28px;
+          max-width: 44ch;
+        }
+        .nf-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 13px 28px;
+          min-height: 48px;
+          border-radius: 9999px;
+          background: #ED5C1B;
+          color: #ffffff;
+          font-family: var(--font-sans);
+          font-weight: 500;
+          font-size: 15px;
+          text-decoration: none;
+          transition: background 220ms cubic-bezier(.23,1,.32,1);
+        }
+        .nf-link:hover { background: #C44E17; }
+      `}</style>
+
+      <div>
+        <p className="nf-code">404</p>
+        <h1 className="nf-title">{t("legal.notfound_title", "Page not found")}</h1>
+        <p className="nf-body">
+          {t(
+            "legal.notfound_body",
+            "The page you are looking for does not exist or has been moved."
+          )}
+        </p>
+        <Link to="/" className="nf-link">
+          {t("legal.notfound_cta", "Back to home")}
+        </Link>
       </div>
     </div>
   );

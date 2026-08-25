@@ -14,7 +14,7 @@ const ProcessSection: React.FC = () => {
       <style>{`
         .proc-section {
           width: 100%;
-          background: #ffffff;
+          background: #0F0F0F;
           padding: clamp(56px, 8vh, 104px) clamp(18px, 3vw, 32px);
         }
         .proc-inner {
@@ -36,7 +36,7 @@ const ProcessSection: React.FC = () => {
           letter-spacing: -0.028em;
           font-size: clamp(1.8rem, 4.6vw, 3rem);
           line-height: 1.05;
-          color: #141414;
+          color: #F5F5F5;
           margin: clamp(20px, 3vh, 30px) 0 0;
           max-width: 24ch;
           text-wrap: balance;
@@ -45,7 +45,7 @@ const ProcessSection: React.FC = () => {
           font-family: var(--font-sans);
           font-size: clamp(1rem, 1.3vw, 1.15rem);
           line-height: 1.6;
-          color: rgba(38, 38, 38, 0.60);
+          color: rgba(255, 255, 255, 0.76);
           max-width: 58ch;
           margin: clamp(14px, 2vh, 20px) 0 0;
         }
@@ -53,10 +53,10 @@ const ProcessSection: React.FC = () => {
           list-style: none;
           padding: 0;
           margin: clamp(36px, 5vh, 56px) 0 0;
-          border-bottom: 1px solid rgba(38, 38, 38, 0.10);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.10);
         }
         .proc-list li {
-          border-top: 1px solid rgba(38, 38, 38, 0.10);
+          border-top: 1px solid rgba(255, 255, 255, 0.10);
         }
         .proc-row {
           display: grid;
@@ -81,7 +81,7 @@ const ProcessSection: React.FC = () => {
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.16em;
-          color: rgba(38, 38, 38, 0.40);
+          color: rgba(255, 255, 255, 0.62);
           margin-bottom: 7px;
         }
         .proc-step-title {
@@ -90,14 +90,14 @@ const ProcessSection: React.FC = () => {
           font-weight: 500;
           letter-spacing: -0.02em;
           line-height: 1.2;
-          color: #141414;
+          color: #F5F5F5;
           margin: 0;
         }
         .proc-body {
           font-family: var(--font-sans);
           font-size: 15px;
           line-height: 1.65;
-          color: rgba(38, 38, 38, 0.62);
+          color: rgba(255, 255, 255, 0.78);
           max-width: 52ch;
           margin: 0;
           padding-top: 5px;

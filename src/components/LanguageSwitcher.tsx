@@ -43,7 +43,7 @@ const LanguageSwitcher: React.FC = () => {
         .lang-btn:active { transform: scale(0.96); }
         .lang-btn.active {
           color: #ffffff;
-          background: #ED5C1B;
+          background: #C44E17;
         }
         @media (max-width: 640px) {
           .lang-switch { margin-right: 8px; padding: 3px 4px; }

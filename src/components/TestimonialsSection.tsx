@@ -21,7 +21,7 @@ const TestimonialsSection: React.FC = () => {
       <style>{`
         .testimonials-section {
           width: 100%;
-          background: #fff;
+          background: #0F0F0F;
           padding: clamp(48px, 6vh, 80px) 0;
         }
 
@@ -38,14 +38,14 @@ const TestimonialsSection: React.FC = () => {
           letter-spacing: -0.028em;
           font-size: clamp(1.8rem, 4.6vw, 3rem);
           line-height: 1.05;
-          color: #262626;
+          color: #F5F5F5;
           margin: 0 0 12px;
         }
         .ts-subtitle {
           font-family: var(--font-sans);
           font-size: clamp(1rem, 1.2vw, 1.1rem);
           line-height: 1.55;
-          color: #5b6470;
+          color: #C4C9D0;
           max-width: 52ch;
           margin: 0 auto;
         }
@@ -83,10 +83,10 @@ const TestimonialsSection: React.FC = () => {
         .tc-card {
           padding: 26px 24px;
           border-radius: 18px;
-          border: 1px solid rgba(38, 38, 38, 0.08);
-          background: #fff;
-          box-shadow: 0 4px 22px rgba(237, 92, 27, 0.06),
-                      0 1px 2px rgba(38, 38, 38, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: #171717;
+          box-shadow: 0 4px 22px rgba(237, 92, 27, 0.08),
+                      0 1px 2px rgba(0, 0, 0, 0.3);
           width: 320px;
           max-width: 92vw;
         }
@@ -98,13 +98,13 @@ const TestimonialsSection: React.FC = () => {
           font-family: var(--font-sans), 'General Sans', system-ui, sans-serif;
           font-size: 0.95rem;
           line-height: 1.55;
-          color: #262626;
+          color: #F5F5F5;
           margin: 0;
           letter-spacing: -0.005em;
         }
         .tc-highlight {
           color: #ED5C1B;
-          font-weight: 600;
+          font-weight: 700;
         }
         .tc-meta {
           display: flex;
@@ -126,12 +126,12 @@ const TestimonialsSection: React.FC = () => {
           line-height: 1;
         }
         .tc-avatar--orange {
-          background: rgba(237, 92, 27, 0.12);
+          background: rgba(237, 92, 27, 0.16);
           color: #ED5C1B;
         }
         .tc-avatar--ink {
-          background: rgba(38, 38, 38, 0.08);
-          color: #262626;
+          background: rgba(255, 255, 255, 0.08);
+          color: #F5F5F5;
         }
         .tc-meta-text {
           display: flex;
@@ -142,13 +142,13 @@ const TestimonialsSection: React.FC = () => {
         .tc-name {
           font-weight: 500;
           font-size: 14px;
-          color: #262626;
+          color: #F5F5F5;
           letter-spacing: -0.005em;
           line-height: 1.25;
         }
         .tc-role {
           font-size: 12.5px;
-          color: #8b95a3;
+          color: #C4C9D0;
           letter-spacing: 0;
           line-height: 1.25;
         }

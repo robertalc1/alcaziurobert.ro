@@ -27,8 +27,6 @@ const renderHighlighted = (text: string): React.ReactNode[] => {
         {part}
       </span>
     ) : (
-      // Plain strings — no Fragment, so lovable-tagger has nothing to tag
-      // (it injects data-lov-id into Fragments, which React warns about).
       part
     )
   );

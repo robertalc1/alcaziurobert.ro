@@ -1,13 +1,84 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import { createHash } from "crypto";
 import nodemailer from "nodemailer";
 import { z } from "zod";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
+app.disable("x-powered-by");
+app.set("trust proxy", true);
 app.use(express.json({ limit: "32kb" }));
+
+// Security headers for every response (previously set by the host's config).
+app.use((req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "SAMEORIGIN");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  // Only meaningful over HTTPS; harmless otherwise.
+  res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
+  next();
+});
+
+const sha256 = (v) => createHash("sha256").update(v).digest("hex");
+
+/**
+ * Server-side Meta Conversions API "Lead" event — lets ad campaigns optimize
+ * on real leads without any client-side pixel or cookies. No-op until both
+ * FB_PIXEL_ID and FB_CAPI_ACCESS_TOKEN are configured. Fired only after the
+ * lead email is delivered; PII is SHA-256 hashed as Meta requires.
+ * NOTE: update the Privacy Policy before enabling in production.
+ */
+async function sendLeadToMetaCapi(req, data) {
+  const pixelId = process.env.FB_PIXEL_ID;
+  const token = process.env.FB_CAPI_ACCESS_TOKEN;
+  if (!pixelId || !token) return;
+
+  const fwd = req.headers["x-forwarded-for"];
+  const ip = (Array.isArray(fwd) ? fwd[0] : fwd)?.split(",")[0]?.trim() ?? req.ip;
+  const ua = req.headers["user-agent"];
+
+  const payload = {
+    data: [
+      {
+        event_name: "Lead",
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: `lead-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
+        action_source: "website",
+        event_source_url: "https://alcaziurobert.ro/",
+        user_data: {
+          em: [sha256(data.email.trim().toLowerCase())],
+          ph: [sha256(data.phone.replace(/[^0-9]/g, ""))],
+          ...(ip ? { client_ip_address: ip } : {}),
+          ...(typeof ua === "string" ? { client_user_agent: ua } : {}),
+        },
+        custom_data: { project_type: data.projectType },
+      },
+    ],
+    ...(process.env.FB_CAPI_TEST_EVENT_CODE
+      ? { test_event_code: process.env.FB_CAPI_TEST_EVENT_CODE }
+      : {}),
+  };
+
+  try {
+    const resp = await fetch(
+      `https://graph.facebook.com/v21.0/${pixelId}/events?access_token=${encodeURIComponent(token)}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+    if (!resp.ok) {
+      console.error("[contact] CAPI failed:", resp.status, await resp.text().catch(() => ""));
+    }
+  } catch (err) {
+    console.error("[contact] CAPI error:", err?.message ?? err);
+  }
+}
 
 const schema = z.object({
   name: z.string().trim().min(2).max(80),
@@ -19,9 +90,11 @@ const schema = z.object({
     .max(20)
     .refine((v) => /^(\+[1-9]\d{6,14}|0\d{9})$/.test(v.replace(/[\s\-().]/g, ""))),
   projectType: z.enum(["website", "webapp", "other"]),
-  budget: z.enum(["1.5-3k", "3-5k", "5k+", "discuss"]),
+  message: z.string().trim().max(1000).optional(),
   company: z.string().optional(),
   locale: z.enum(["en", "ro"]).optional(),
+  // Set by the client from the cookie banner choice (Marketing category).
+  marketingConsent: z.boolean().optional(),
 });
 
 const escapeHtml = (s) =>
@@ -62,14 +135,14 @@ app.post("/api/contact", async (req, res) => {
     auth: { user, pass },
   });
 
-  const subject = `[alcaziurobert.ro] ${data.projectType} · ${data.budget} · ${data.name}`;
+  const subject = `[alcaziurobert.ro] ${data.projectType} · ${data.name}`;
   const text = [
     `Name:    ${data.name}`,
     `Email:   ${data.email}`,
     `Phone:   ${data.phone}`,
     `Type:    ${data.projectType}`,
-    `Budget:  ${data.budget}`,
     `Locale:  ${data.locale ?? "n/a"}`,
+    `Message: ${data.message || "—"}`,
   ].join("\n");
 
   const html = `
@@ -80,8 +153,8 @@ app.post("/api/contact", async (req, res) => {
         <tr><td style="padding:6px 12px 6px 0;color:#5b6470">Email</td><td><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></td></tr>
         <tr><td style="padding:6px 12px 6px 0;color:#5b6470">Telefon</td><td><a href="tel:${escapeHtml(data.phone)}">${escapeHtml(data.phone)}</a></td></tr>
         <tr><td style="padding:6px 12px 6px 0;color:#5b6470">Proiect</td><td>${escapeHtml(data.projectType)}</td></tr>
-        <tr><td style="padding:6px 12px 6px 0;color:#5b6470">Buget</td><td>${escapeHtml(data.budget)}</td></tr>
         <tr><td style="padding:6px 12px 6px 0;color:#5b6470">Limba</td><td>${escapeHtml(data.locale ?? "n/a")}</td></tr>
+        <tr><td style="padding:6px 12px 6px 0;color:#5b6470;vertical-align:top">Mesaj</td><td>${escapeHtml(data.message || "—")}</td></tr>
       </table>
     </div>
   `;
@@ -95,6 +168,11 @@ app.post("/api/contact", async (req, res) => {
       text,
       html,
     });
+    // Fire-and-tolerate: a CAPI hiccup must never fail the lead itself.
+    // GDPR: the Lead event carries hashed personal data for advertising, so it
+    // only goes out when the visitor accepted Marketing cookies.
+    if (data.marketingConsent === true) await sendLeadToMetaCapi(req, data);
+    else console.log("[contact] CAPI skipped — no marketing consent");
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error("[contact] send failed:", err?.message ?? err);

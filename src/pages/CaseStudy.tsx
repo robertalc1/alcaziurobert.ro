@@ -14,8 +14,8 @@ const STAGES = [
 ] as const;
 
 const CHANNELS = [
-  { key: "meta",    src: "/logos/meta.png",       labelKey: "approach.channel_meta" },
-  { key: "google",  src: "/logos/google-ads.png", labelKey: "approach.channel_google" },
+  { key: "meta",    src: "/logos/meta.png",       labelKey: "approach.channel_meta",   w: 500, h: 375 },
+  { key: "google",  src: "/logos/google-ads.png", labelKey: "approach.channel_google", w: 501, h: 376 },
 ] as const;
 
 const TOC_IDS = [
@@ -99,7 +99,7 @@ const Approach: React.FC = () => {
   return (
     <div className="cs-root">
       <style>{`
-        .cs-root { padding-top: 64px; min-height: 100vh; background: #fff; color: #262626; }
+        .cs-root { padding-top: 78px; min-height: 100vh; background: #0F0F0F; color: #F5F5F5; }
         .cs-page { padding: clamp(28px, 4vh, 52px) 20px clamp(36px, 5.5vh, 60px); }
 
         /* Layout: 2-col on desktop (sticky TOC + content), single column mobile */
@@ -128,25 +128,25 @@ const Approach: React.FC = () => {
         }
         .cs-toc-eyebrow {
           font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em;
-          text-transform: uppercase; color: #ED5C1B;
+          text-transform: uppercase; color: #F5F5F5;
           margin: 0 0 14px;
         }
         .cs-toc nav { display: flex; flex-direction: column; gap: 2px; }
         .cs-toc a {
           display: block;
           padding: 8px 0 8px 14px;
-          border-left: 2px solid rgba(38,38,38,.08);
+          border-left: 2px solid rgba(255,255,255,.10);
           font-size: 13.5px; font-weight: 500;
-          color: #5b6470; text-decoration: none;
+          color: rgba(255, 255, 255, 0.72); text-decoration: none;
           line-height: 1.35;
           transition:
             color 220ms cubic-bezier(0.23,1,0.32,1),
             border-color 220ms cubic-bezier(0.23,1,0.32,1),
             font-weight 220ms cubic-bezier(0.23,1,0.32,1);
         }
-        .cs-toc a:hover { color: #262626; }
+        .cs-toc a:hover { color: #F5F5F5; }
         .cs-toc a.active {
-          color: #ED5C1B;
+          color: #F5F5F5;
           font-weight: 600;
           border-left-color: #ED5C1B;
         }
@@ -163,60 +163,12 @@ const Approach: React.FC = () => {
         .cs-h1 {
           font-family: var(--font-sans);
           font-weight: 500; letter-spacing: -0.025em; line-height: 1.15;
-          font-size: clamp(1.7rem, 3.6vw, 2.4rem); color: #262626;
+          font-size: clamp(1.7rem, 3.6vw, 2.4rem); color: #F5F5F5;
           margin: 0 0 16px; max-width: 24ch;
         }
         .cs-lead {
           font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.6;
-          color: #5b6470; margin: 0 0 20px; max-width: 60ch;
-        }
-        .cf-block {
-          display: flex; align-items: center;
-          gap: clamp(20px, 3vw, 32px);
-          padding: clamp(22px, 3vw, 28px) 0;
-          margin: clamp(8px, 1.5vh, 16px) 0 0;
-          border-top: 1px solid rgba(38,38,38,.08);
-          border-bottom: 1px solid rgba(38,38,38,.08);
-          max-width: 680px;
-        }
-        .cf-block img {
-          width: clamp(88px, 11vw, 124px);
-          height: auto;
-          display: block;
-          flex-shrink: 0;
-        }
-        .cf-block-text { display: flex; flex-direction: column; gap: 6px; }
-        .cf-block-title {
-          font-family: var(--font-sans);
-          font-weight: 500;
-          font-size: clamp(1.2rem, 1.9vw, 1.45rem);
-          letter-spacing: -0.015em;
-          color: #262626;
-          line-height: 1.2;
-        }
-        .cf-block-body {
-          font-size: clamp(.95rem, 1.1vw, 1.05rem);
-          line-height: 1.55;
-          color: #5b6470;
-          margin: 0;
-        }
-        @media (max-width: 600px) {
-          .cf-block {
-            flex-direction: column; align-items: flex-start;
-            gap: 16px;
-            padding: clamp(20px, 4vw, 26px) 0;
-          }
-          .cf-block img { width: clamp(96px, 26vw, 128px); }
-          .cf-block-title { font-size: clamp(1.15rem, 5.2vw, 1.4rem); }
-          .cf-block-body { font-size: clamp(.92rem, 3.8vw, 1rem); }
-        }
-
-        /* H2 */
-        .cs-h2 {
-          font-family: var(--font-sans);
-          font-weight: 500; letter-spacing: -0.025em; line-height: 1.15;
-          font-size: clamp(1.7rem, 3.6vw, 2.4rem); color: #262626;
-          margin: 0 0 14px; max-width: 24ch;
+          color: rgba(255, 255, 255, 0.72); margin: 0 0 20px; max-width: 60ch;
         }
 
         /* PAIN */
@@ -226,14 +178,14 @@ const Approach: React.FC = () => {
         }
         .cs-pain-list li {
           position: relative; padding-left: 36px;
-          font-size: clamp(.97rem, 1.2vw, 1.07rem); line-height: 1.55; color: #262626;
+          font-size: clamp(.97rem, 1.2vw, 1.07rem); line-height: 1.55; color: #F5F5F5;
         }
         .cs-pain-list li::before {
           content: "✕"; position: absolute; left: 0; top: 1px;
           width: 22px; height: 22px;
           display: inline-flex; align-items: center; justify-content: center;
           font-size: 11px; font-weight: 700; color: #fff;
-          background: #ED5C1B; border-radius: 6px;
+          background: #C44E17; border-radius: 6px;
         }
 
         /* ROADMAP */
@@ -244,7 +196,7 @@ const Approach: React.FC = () => {
         .cs-stage {
           display: grid; grid-template-columns: 88px 1fr; gap: 28px; align-items: start;
           padding-bottom: clamp(20px, 3vh, 28px);
-          border-bottom: 1px solid rgba(38,38,38,.06);
+          border-bottom: 1px solid rgba(255,255,255,.08);
         }
         .cs-stage:last-child { border-bottom: none; padding-bottom: 0; }
         .cs-stage-num {
@@ -255,11 +207,11 @@ const Approach: React.FC = () => {
         .cs-stage-title {
           font-family: var(--font-sans);
           font-weight: 500; font-size: clamp(1.15rem, 2vw, 1.4rem);
-          letter-spacing: -0.02em; color: #262626; margin: 0 0 8px;
+          letter-spacing: -0.02em; color: #F5F5F5; margin: 0 0 8px;
         }
         .cs-stage-lead {
           font-size: clamp(.97rem, 1.2vw, 1.05rem); line-height: 1.55;
-          color: #5b6470; margin: 0 0 14px; max-width: 58ch;
+          color: rgba(255, 255, 255, 0.72); margin: 0 0 14px; max-width: 58ch;
         }
         .cs-stage-tech {
           list-style: none; padding: 0; margin: 0;
@@ -268,16 +220,16 @@ const Approach: React.FC = () => {
         .cs-stage-tech li {
           font-size: 12.5px; font-weight: 600; letter-spacing: 0.02em;
           padding: 5px 11px; border-radius: 6px;
-          background: rgba(38,38,38,.04); color: #262626;
-          border: 1px solid rgba(38,38,38,.08);
+          background: rgba(255,255,255,.05); color: #F5F5F5;
+          border: 1px solid rgba(255,255,255,.10);
         }
 
         /* CHANNELS */
         .cs-channels-body p {
           font-size: clamp(.97rem, 1.2vw, 1.05rem); line-height: 1.6;
-          color: #5b6470; margin: 0 0 14px; max-width: 62ch;
+          color: rgba(255, 255, 255, 0.72); margin: 0 0 14px; max-width: 62ch;
         }
-        .cs-channels-body p strong { color: #262626; font-weight: 600; }
+        .cs-channels-body p strong { color: #F5F5F5; font-weight: 600; }
         .cs-channels-grid {
           display: flex; flex-wrap: wrap;
           gap: clamp(36px, 5vw, 72px) clamp(40px, 6vw, 80px);
@@ -299,12 +251,15 @@ const Approach: React.FC = () => {
           width: auto;
           display: block;
           object-fit: contain;
+          background: #ffffff;
+          border-radius: 14px;
+          padding: 10px 16px;
         }
         .cs-channel span {
           font-size: clamp(14.5px, 1.25vw, 16.5px);
           font-weight: 600;
           letter-spacing: -0.005em;
-          color: #262626;
+          color: #F5F5F5;
         }
         @media (prefers-reduced-motion: reduce) {
           .cs-channel { transition: none; }
@@ -324,16 +279,16 @@ const Approach: React.FC = () => {
         /* CTA */
         .cs-cta {
           padding-top: clamp(28px, 5vh, 56px);
-          border-top: 1px solid rgba(38,38,38,.06);
+          border-top: 1px solid rgba(255,255,255,.08);
         }
         .cs-cta-title {
           font-family: var(--font-sans);
           font-weight: 500; letter-spacing: -0.025em;
-          font-size: clamp(1.7rem, 3.6vw, 2.4rem); color: #262626;
+          font-size: clamp(1.7rem, 3.6vw, 2.4rem); color: #F5F5F5;
           margin: 0 0 14px;
         }
         .cs-cta-body {
-          font-size: clamp(1rem, 1.3vw, 1.1rem); color: #5b6470;
+          font-size: clamp(1rem, 1.3vw, 1.1rem); color: rgba(255, 255, 255, 0.72);
           line-height: 1.6; margin: 0 0 22px; max-width: 54ch;
         }
         .cs-cta .btn svg {
@@ -400,13 +355,6 @@ const Approach: React.FC = () => {
             <section id="cs-overview" className="cs-hero cs-reveal">
               <h1 className="cs-h1">{t("approach.h1")}</h1>
               <p className="cs-lead">{t("approach.lead")}</p>
-              <div className="cf-block">
-                <img src="/logos/cloudflare.png" alt="" aria-hidden="true" />
-                <div className="cf-block-text">
-                  <span className="cf-block-title">{t("approach.cf_partner")}</span>
-                  <p className="cf-block-body">{t("approach.cf_partner_body")}</p>
-                </div>
-              </div>
             </section>
 
             {/* 2. PAIN */}
@@ -460,7 +408,7 @@ const Approach: React.FC = () => {
               <div className="cs-channels-grid">
                 {CHANNELS.map((c) => (
                   <div key={c.key} className="cs-channel">
-                    <img src={c.src} alt="" aria-hidden="true" />
+                    <img src={c.src} alt="" aria-hidden="true" width={c.w} height={c.h} />
                     <span>{t(c.labelKey)}</span>
                   </div>
                 ))}

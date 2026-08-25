@@ -31,6 +31,10 @@ jobs:
 
       - name: Build (vite build)
         run: npm run build
+        env:
+          # VITE_* vars are inlined at build time, so GA4 has to be set here.
+          # Empty secret = analytics simply stays off.
+          VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
 
       - name: Pregatire fisiere pentru deploy
         run: |

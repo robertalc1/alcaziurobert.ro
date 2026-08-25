@@ -30,6 +30,25 @@ const Hero = () => {
   const isLg = useMediaQuery("(min-width: 1024px)");
   const shellRef = React.useRef<HTMLDivElement>(null);
 
+  // Signal the boot loader (in index.html) that the real above-the-fold
+  // content is mounted and painted — not just that App.tsx committed an
+  // empty Suspense fallback. Two RAFs guarantee this fires after Hero's
+  // own first paint, so the loader-to-page transition never reveals a
+  // blank frame while Hero is still loading/rendering.
+  React.useEffect(() => {
+    let raf1 = 0;
+    let raf2 = 0;
+    raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        window.dispatchEvent(new Event("app-ready"));
+      });
+    });
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, []);
+
   // Desktop primary CTA drives the adjacent form: focus the name input and
   // pulse the card so the visitor's eye lands exactly where the action is.
   const focusHeroForm = () => {
@@ -60,22 +79,7 @@ const Hero = () => {
         .hero3 {
           position: relative;
           width: 100%;
-          background: linear-gradient(180deg, #ffffff 0%, #FAF8F6 100%);
-        }
-        /* iOS overscroll above the page is covered by the html background
-           (src/index.css) — no pseudo-element cover needed. */
-        .hero3-glow {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          background:
-            radial-gradient(52% 46% at 78% 4%, rgba(237, 92, 27, 0.10), transparent 68%),
-            radial-gradient(38% 34% at 4% 96%, rgba(237, 92, 27, 0.05), transparent 70%);
-          animation: hero3-breathe 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-        }
-        @keyframes hero3-breathe {
-          0%, 100% { opacity: 1; }
-          50%      { opacity: 0.72; }
+          background: #0F0F0F;
         }
         .hero3-inner {
           position: relative;
@@ -105,13 +109,13 @@ const Hero = () => {
           align-self: flex-start;
           padding: 6px 14px;
           border-radius: 9999px;
-          background: rgba(38, 38, 38, 0.04);
-          border: 1px solid rgba(38, 38, 38, 0.12);
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.14);
           font-family: var(--font-sans);
           font-size: 12.5px;
           font-weight: 500;
           letter-spacing: 0.01em;
-          color: rgba(38, 38, 38, 0.75);
+          color: rgba(255, 255, 255, 0.86);
         }
         .hero3-pill-dot {
           width: 8px;
@@ -133,7 +137,7 @@ const Hero = () => {
           font-weight: 500;
           letter-spacing: -0.04em;
           line-height: 1.03;
-          color: #121212;
+          color: #F5F5F5;
           margin: clamp(22px, 3vh, 30px) 0 clamp(18px, 2.4vh, 24px);
           max-width: 14ch;
           text-wrap: balance;
@@ -146,34 +150,9 @@ const Hero = () => {
           font-family: var(--font-sans);
           font-size: clamp(1.05rem, 1.35vw, 1.2rem);
           line-height: 1.6;
-          color: rgba(38, 38, 38, 0.72);
+          color: rgba(255, 255, 255, 0.84);
           max-width: 46ch;
-          margin: 0 0 clamp(20px, 2.6vh, 26px);
-        }
-        .hero3-proof {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          list-style: none;
-          padding: 0;
           margin: 0 0 clamp(28px, 3.6vh, 38px);
-          row-gap: 10px;
-        }
-        .hero3-proof li {
-          display: inline-flex;
-          align-items: center;
-          font-family: var(--font-sans);
-          font-size: 13px;
-          font-weight: 500;
-          color: rgba(38, 38, 38, 0.55);
-          white-space: nowrap;
-        }
-        .hero3-proof li + li::before {
-          content: "";
-          width: 1px;
-          height: 12px;
-          background: rgba(38, 38, 38, 0.18);
-          margin: 0 14px;
         }
         .hero3-cta {
           display: flex;
@@ -219,7 +198,7 @@ const Hero = () => {
           font-family: var(--font-sans);
           font-size: 14.5px;
           font-weight: 500;
-          color: rgba(38, 38, 38, 0.85);
+          color: rgba(255, 255, 255, 0.92);
           text-decoration: underline;
           text-underline-offset: 4px;
           text-decoration-thickness: 1.5px;
@@ -228,18 +207,18 @@ const Hero = () => {
         }
         .hero3-secondary:hover { color: #ED5C1B; }
 
-        /* ── Form column (double-bezel shell on white) ── */
+        /* ── Form column (double-bezel shell, dark) ── */
         .hero3-card-shell {
-          background: rgba(38, 38, 38, 0.035);
-          border: 1px solid rgba(38, 38, 38, 0.10);
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.10);
           border-radius: 27px;
           padding: 7px;
-          box-shadow: 0 40px 90px -48px rgba(38, 38, 38, 0.28);
+          box-shadow: 0 40px 90px -48px rgba(0, 0, 0, 0.7);
         }
         .hero3-card-ph {
           min-height: 520px;
           border-radius: 20px;
-          background: rgba(38, 38, 38, 0.03);
+          background: rgba(255, 255, 255, 0.04);
         }
 
         /* ── Load-in stagger ── */
@@ -247,13 +226,7 @@ const Hero = () => {
           from { opacity: 0; transform: translateY(12px); }
           to   { opacity: 1; transform: none; }
         }
-        /* Headline gets the signature entrance: a soft blur-up */
-        @keyframes hero3-fade-blur {
-          from { opacity: 0; transform: translateY(16px); filter: blur(10px); }
-          to   { opacity: 1; transform: none; filter: blur(0); }
-        }
         .hero3-reveal-1 { animation: hero3-fade 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.05s both; }
-        .hero3-reveal-2 { animation: hero3-fade-blur 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both; }
         .hero3-reveal-3 { animation: hero3-fade 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.34s both; }
         .hero3-reveal-4 { animation: hero3-fade 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.38s both; }
 
@@ -263,11 +236,11 @@ const Hero = () => {
         }
         @keyframes hero3-attn {
           0% {
-            box-shadow: 0 40px 90px -48px rgba(38, 38, 38, 0.28),
+            box-shadow: 0 40px 90px -48px rgba(0, 0, 0, 0.7),
                         0 0 0 0 rgba(237, 92, 27, 0.55);
           }
           100% {
-            box-shadow: 0 40px 90px -48px rgba(38, 38, 38, 0.28),
+            box-shadow: 0 40px 90px -48px rgba(0, 0, 0, 0.7),
                         0 0 0 20px rgba(237, 92, 27, 0);
           }
         }
@@ -280,13 +253,10 @@ const Hero = () => {
         }
         @media (prefers-reduced-motion: reduce) {
           .hero3-pill-dot { animation: none; }
-          .hero3-glow { animation: none; }
           .hero3-card-shell.is-attn { animation: none; }
-          .hero3-reveal-1, .hero3-reveal-2, .hero3-reveal-3, .hero3-reveal-4 { animation: none; }
+          .hero3-reveal-1, .hero3-reveal-3, .hero3-reveal-4 { animation: none; }
         }
       `}</style>
-
-      <div className="hero3-glow" aria-hidden="true" />
 
       <div className="hero3-inner">
         <div className="hero3-copy">
@@ -295,19 +265,16 @@ const Hero = () => {
             {t("hero_v2.rating_count")}
           </div>
 
-          <h1 className="hero3-title hero3-reveal-2">
+          {/* No entrance animation on the h1: it's the LCP element, and Chrome
+              discounts elements that start at opacity:0 when timing LCP —
+              it must be visible immediately, not faded/blurred in. */}
+          <h1 className="hero3-title">
             {t("hero_v3.headline_pre")}
             <br />
             <span className="hero3-accent">{t("hero_v3.headline_accent")}</span>
           </h1>
 
           <p className="hero3-sub hero3-reveal-3">{t("hero_v3.subtitle")}</p>
-
-          <ul className="hero3-proof hero3-reveal-3">
-            <li>{t("hero_v3.proof1")}</li>
-            <li>{t("hero_v3.proof2")}</li>
-            <li>{t("hero_v3.proof3")}</li>
-          </ul>
 
           <div className="hero3-cta hero3-reveal-3">
             {isLg ? (

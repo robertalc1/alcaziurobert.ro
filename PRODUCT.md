@@ -27,7 +27,7 @@ Ad click → landing → qualification form (name → contact → project type +
 
 - Anything that reads "AI slop" or cheap generic agency ("orice agenție de cacat"): buzzword soup, purple gradients, glassmorphism-by-default, emoji in copy, stock photos, icon-soup feature grids, fake logos walls.
 - Volume-brag competitor tone (Lead Printer: "150+ clients, 1400 leads/mo"). Robert counter-positions on craft + scarcity.
-- Template look of any kind. If a section could be from a Lovable/Webflow template, it fails.
+- Template look of any kind. If a section could be from a generic AI page-builder/Webflow template, it fails.
 
 ## Strategic principles
 

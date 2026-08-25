@@ -1,4 +1,34 @@
-/* General Sans (Fontshare) is loaded via <link> in index.html — single typeface for the whole site */
+/* General Sans — self-hosted (public/fonts/), single typeface for the whole site.
+   Previously loaded from Fontshare's CDN via a render-blocking <link rel="stylesheet">;
+   self-hosting removes that extra DNS/connection + CSS round-trip before text can paint. */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -14,27 +44,29 @@
     --duration-fast: 160ms;
     --duration-medium: 220ms;
     --orange: #ED5C1B;
-    --ink: #262626;
+    --ink: #F5F5F5;
+    --bg: #0F0F0F;
+    --bg-elevated: #1A1A1A;
     --btn-radius: 10px;
-    --background: 0 0% 100%;
-    --foreground: 0 0% 15%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --background: 0 0% 6%;
+    --foreground: 0 0% 96%;
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 96%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 96%;
     /* Exact brand orange #ED5C1B in HSL — keeps shadcn controls on-brand */
     --primary: 18.6 85.4% 51.8%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 74%;
+    --accent: 0 0% 14%;
+    --accent-foreground: 0 0% 96%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --border: 0 0% 24%;
+    --input: 0 0% 26%;
     --ring: 18.6 85.4% 51.8%;
     --radius: 0.5rem;
     --sidebar-background: 0 0% 98%;
@@ -102,9 +134,8 @@
     /* Stop iOS bumping up font sizes in landscape */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* Canvas color for iOS rubber-band overscroll (top shows white hero,
-       bottom shows the warm footer white — this splits the difference) */
-    background-color: #FCFBF9;
+    /* Canvas color for iOS rubber-band overscroll */
+    background-color: #0F0F0F;
   }
 
   /* Form controls don't inherit font-family by default — force it */
@@ -123,8 +154,9 @@
   }
 
   body {
-    @apply bg-white font-sans antialiased;
-    color: #262626;
+    @apply font-sans antialiased;
+    background-color: #0F0F0F;
+    color: #F5F5F5;
     font-family: var(--font-sans);
     letter-spacing: -0.011em;
     /* Remove the grey flash on tap — feels native/premium on mobile */
@@ -155,16 +187,16 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #1a1a1a;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #444;
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #666;
   }
 }
 
@@ -175,10 +207,6 @@
     color: transparent;
     background-size: cover;
     background-position: center;
-  }
-
-  .pulse-chip {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-pulse-100 text-pulse-600 border border-pulse-200;
   }
 
   .section-container {
@@ -195,11 +223,11 @@
   }
 
   .section-subtitle {
-    @apply text-lg md:text-xl text-gray-600 mt-4 max-w-3xl;
+    @apply text-lg md:text-xl text-gray-400 mt-4 max-w-3xl;
   }
 
   .glass-card {
-    @apply bg-white/70 backdrop-blur-sm border border-white/20 rounded-2xl shadow-elegant transition-all duration-300 hover:shadow-elegant-hover;
+    @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl shadow-elegant transition-all duration-300 hover:shadow-elegant-hover;
   }
 
   .feature-card {
@@ -280,12 +308,12 @@
     stroke: #ffffff;
   }
 
-  /* Secondary — white fill, orange outline */
+  /* Secondary — dark fill, orange outline */
   .btn-secondary {
-    background: #ffffff;
-    color: var(--ink, #262626);
+    background: var(--bg-elevated, #1A1A1A);
+    color: var(--ink, #F5F5F5);
     border-color: var(--orange, #ED5C1B);
-    box-shadow: 0 1px 3px rgba(38, 38, 38, 0.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
   .btn-secondary svg path {
@@ -368,9 +396,6 @@
     }
   }
 
-  .nav-link {
-    @apply relative text-[#262626] hover:text-pulse-500 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-pulse-500 after:transition-all hover:after:w-full;
-  }
 }
 
 .image-scale-in {

@@ -6,9 +6,7 @@ import { navOffset } from "@/lib/scroll";
 
 // Below-the-fold sections — lazy-loaded so the initial bundle stays small.
 // Each Suspense fallback reserves enough vertical space to keep CLS = 0.
-const StatsBandSection = lazy(() => import("@/components/StatsBandSection"));
 const StatementSection = lazy(() => import("@/components/StatementSection"));
-const ProcessSection = lazy(() => import("@/components/ProcessSection"));
 const SelectedWorkSection = lazy(() => import("@/components/SelectedWorkSection"));
 const CompoundingSection = lazy(() => import("@/components/CompoundingSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
@@ -52,14 +50,8 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
-        <Suspense fallback={<Placeholder minHeight={480} />}>
-          <StatsBandSection />
-        </Suspense>
         <Suspense fallback={<Placeholder minHeight={300} />}>
           <StatementSection />
-        </Suspense>
-        <Suspense fallback={<Placeholder minHeight={640} />}>
-          <ProcessSection />
         </Suspense>
         <Suspense fallback={<Placeholder minHeight={1600} />}>
           <SelectedWorkSection />

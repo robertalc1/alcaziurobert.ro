@@ -81,7 +81,7 @@ const TermsConditions: React.FC = () => {
   return (
     <div className="cs-root">
       <style>{`
-        .cs-root { padding-top: 64px; min-height: 100vh; background: #fff; color: #262626; }
+        .cs-root { padding-top: 78px; min-height: 100vh; background: #0F0F0F; color: #F5F5F5; }
         .cs-page { padding: clamp(28px, 4vh, 52px) 20px clamp(36px, 5.5vh, 60px); }
 
         .cs-layout {
@@ -108,25 +108,25 @@ const TermsConditions: React.FC = () => {
         }
         .cs-toc-eyebrow {
           font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em;
-          text-transform: uppercase; color: #ED5C1B;
+          text-transform: uppercase; color: #F5F5F5;
           margin: 0 0 14px;
         }
         .cs-toc nav { display: flex; flex-direction: column; gap: 2px; }
         .cs-toc a {
           display: block;
           padding: 8px 0 8px 14px;
-          border-left: 2px solid rgba(38,38,38,.08);
+          border-left: 2px solid rgba(255,255,255,.10);
           font-size: 13.5px; font-weight: 500;
-          color: #5b6470; text-decoration: none;
+          color: rgba(255, 255, 255, 0.72); text-decoration: none;
           line-height: 1.35;
           transition:
             color 220ms cubic-bezier(0.23,1,0.32,1),
             border-color 220ms cubic-bezier(0.23,1,0.32,1),
             font-weight 220ms cubic-bezier(0.23,1,0.32,1);
         }
-        .cs-toc a:hover { color: #262626; }
+        .cs-toc a:hover { color: #F5F5F5; }
         .cs-toc a.active {
-          color: #ED5C1B;
+          color: #F5F5F5;
           font-weight: 600;
           border-left-color: #ED5C1B;
         }
@@ -142,27 +142,27 @@ const TermsConditions: React.FC = () => {
           display: inline-flex; align-items: center;
           font-family: var(--font-sans);
           font-size: 13px; font-weight: 500;
-          color: #5b6470; text-decoration: none;
+          color: rgba(255, 255, 255, 0.72); text-decoration: none;
           margin-bottom: clamp(24px, 3vh, 36px);
           transition: color 220ms cubic-bezier(0.23, 1, 0.32, 1);
         }
-        .cs-back:hover { color: #ED5C1B; }
+        .cs-back:hover { color: #F5F5F5; }
 
         .cs-h1 {
           font-family: var(--font-sans);
           font-weight: 500; letter-spacing: -0.025em; line-height: 1.15;
-          font-size: clamp(1.7rem, 3.6vw, 2.4rem); color: #262626;
+          font-size: clamp(1.7rem, 3.6vw, 2.4rem); color: #F5F5F5;
           margin: 0 0 12px; max-width: 24ch;
         }
         .cs-lead {
           font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.6;
-          color: #8b95a3; margin: 0 0 clamp(28px, 4vh, 44px);
+          color: rgba(255, 255, 255, 0.72); margin: 0 0 clamp(28px, 4vh, 44px);
         }
 
         .cs-h2 {
           font-family: var(--font-sans);
           font-weight: 500; letter-spacing: -0.025em; line-height: 1.2;
-          font-size: clamp(1.25rem, 2.2vw, 1.55rem); color: #262626;
+          font-size: clamp(1.25rem, 2.2vw, 1.55rem); color: #F5F5F5;
           margin: 0 0 14px; max-width: 32ch;
         }
         .cs-body {

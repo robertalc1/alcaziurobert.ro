@@ -7,7 +7,9 @@
     "work": "Work",
     "process": "Process",
     "results": "Results",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "menu": "Menu",
+    "close": "Close"
   },
   "compounding": {
     "title": "Why does this work?",
@@ -28,13 +30,6 @@
     "subtitle": "Most developers hand you a good-looking site and move on. I build the machine that <pill>turns visitors into customers</pill> — and keep it running.",
     "badge": "Done for you, start to finish."
   },
-  "painpoints": {
-    "title": "Most websites are broken.",
-    "p1": "AI-generated. Identical to 10,000 other sites online.",
-    "p2": "Bad Core Web Vitals. Google penalizes you. Customers leave.",
-    "p3": "Client-side tracking only. iOS 17+ blocks 30% of events. Paid ads cannot scale.",
-    "p4": "No NIS2 compliance. Direct legal exposure since January 2024."
-  },
   "difference": {
     "title": "Most projects stop at launch. Yours keeps growing.",
     "subtitle": "Most freelancers and agencies ship the site and walk away. No commissions, no TikTok circus — I stay behind your numbers, month after month.",
@@ -48,39 +43,19 @@
   "faq": {
     "eyebrow": "Frequently asked",
     "title": "Quick answers to your questions.",
-    "lead": "The most common questions about how I work, pricing, project timelines, and what happens after launch.",
-    "cta": "Have a different question? Email me",
-    "q1": {
-      "q": "How long does it take to build a site?",
-      "a": "3-5 weeks for a standard site. 6-10 for complex projects (e-commerce, integrations, dashboards). Exact timeline in the discovery call."
+    "lead": "The most common questions about how I work, project timelines, and what happens after launch.",
+    "cta": "Have a different question? Message me on WhatsApp",
+    "why1": {
+      "q": "What I recommend is tested, not guessed.",
+      "a": "Every design and copy decision goes through real testing, not assumptions. I've taken conversion rates from 1.4% to 3.8% on live projects, same traffic — that's how I know what actually works, not just what sounds good in theory."
     },
-    "q2": {
-      "q": "How much does a site cost?",
-      "a": "Priced to the value it creates, not by the hour. We talk first, I learn your business, then you get one clear number that doesn't move later. If it sounds steep, the next answer has the math."
+    "why2": {
+      "q": "One person, accountable for the whole chain: design, code, tracking, ads.",
+      "a": "You're not working with an agency that farms pieces of the project out to different freelancers. Everything runs through the same person, from the first wireframe to the last tracking event, so nothing gets lost in translation."
     },
-    "q2b": {
-      "q": "Why does it cost what it costs?",
-      "a": "Because it saves you €3,000-5,000 a year. An SEO specialist runs €1,500/month, a developer €1,200, an analytics manager €800. I cover all of it, you own everything, and the system runs on its own. You pay once and the profit keeps coming."
-    },
-    "q3": {
-      "q": "What technologies do you use?",
-      "a": "React, Next.js, TypeScript for frontend. Cloudflare for enterprise security (DDoS, WAF, SSL). Server-side tracking + NIS2 compliance included."
-    },
-    "q4": {
-      "q": "Do you offer post-launch maintenance?",
-      "a": "The first 30 days after launch are on me. After that, an optional monthly package covers monitoring, backups and tweaks, so you never check uptime yourself."
-    },
-    "q5": {
-      "q": "How does the collaboration process work?",
-      "a": "Discovery → Audit → Design (Figma, 2 feedback rounds) → Build (with live staging for you) → Launch → Owning the metrics (monthly report)."
-    },
-    "q6": {
-      "q": "Who owns the code?",
-      "a": "You do. After final payment: source code, Figma files, documentation, Git access. Zero lock-in."
-    },
-    "q7": {
-      "q": "How do you handle hosting and security?",
-      "a": "I configure Cloudflare (DDoS, WAF, automatic SSL) + recommend hosting that fits the project. Backup, uptime monitoring and incident alerts — included."
+    "why3": {
+      "q": "I stay involved end to end, with direct communication and results you can check.",
+      "a": "I don't disappear after launch. You get clear monthly reports on what's working, replies within 24 hours to any question, and the first 30 days after launch are covered for free — so you always know exactly where every euro goes."
     }
   },
   "hero_v2": {
@@ -98,9 +73,6 @@
     "headline_pre": "Websites built",
     "headline_accent": "to convert.",
     "subtitle": "Site, funnel, tracking and ads — one senior partner, end to end. Live in about 4 weeks.",
-    "proof1": "11 projects live",
-    "proof2": "Conversion 1.4% → 3.8%",
-    "proof3": "Reply within 24h",
     "cta_secondary": "See the work",
     "form_title": "Tell me about your project",
     "form_note": "I reply personally within 24 hours."
@@ -117,9 +89,6 @@
     "s3_label": "bounce rate",
     "s3_note": "30 days after relaunch",
     "clients_label": "Selected clients"
-  },
-  "statement": {
-    "kicker": "The difference"
   },
   "process": {
     "kicker": "The system",
@@ -140,12 +109,13 @@
     "step5_body": "I stay behind your numbers, month after month."
   },
   "work": {
-    "kicker": "Selected work",
     "featured_name": "Oficiul de Cadastru — OCPI",
-    "featured_chip1": "€8K+ engagement",
+    "featured_chip1": "Public institution project",
     "featured_chip2": "Live 12 months",
     "featured_chip3": "Government-grade",
-    "visit": "View live"
+    "visit": "View live",
+    "drag": "Drag to explore",
+    "section_title": "Successful projects"
   },
   "portfolio": {
     "badge": "Portfolio",
@@ -172,7 +142,7 @@
       "traveltwin": "TravelTwin — Travel Companion"
     },
     "metrics": {
-      "sgc": "Government project · €8K+ budget · Live 12 months",
+      "sgc": "Government project · live for 12 months",
       "bacde10": "Organic leads ×4 in 90 days",
       "picaps": "LCP 1.1s · Bounce -38%",
       "rdraw": "Sub 1.5s global · CWV: 100/100/100/100",
@@ -183,28 +153,23 @@
       "lukton": "Server-side tracking · 97% attribution",
       "ecartop": "B2B sales funnel · cycle reduced by 40%",
       "traveltwin": "MVP in 3 weeks · validation step"
-    }
-  },
-  "case_study": {
-    "eyebrow": "CASE STUDY",
-    "title": "Custom application for a public institution",
-    "body": "A bespoke web platform built from the ground up for OCPI / municipal use — internal-facing, secure, and engineered for daily operational load. Confidential client.",
-    "stats": {
-      "tier_value": "€8K+",
-      "tier_label": "Engagement tier",
-      "stack_value": "React · Node · PostgreSQL",
-      "stack_label": "Stack",
-      "scope_value": "Full-stack",
-      "scope_label": "Scope"
     },
-    "availability": "Available on request"
+    "categories": {
+      "sgc": "PUBLIC INSTITUTION",
+      "picaps": "PRESENTATION SITE",
+      "kickout": "ONLINE STORE",
+      "rdraw": "CORPORATE SITE",
+      "everun": "DEALER SITE",
+      "everati": "PRODUCT LAUNCH",
+      "alma": "LOCAL SERVICES",
+      "lukton": "LEAD FUNNEL",
+      "ecartop": "B2B FUNNEL"
+    }
   },
   "approach": {
     "eyebrow": "Our approach",
     "h1": "Premium websites that actually work.",
     "lead": "Most sites are templates. Ours convert. Here is how.",
-    "cf_partner": "Cloudflare Partner",
-    "cf_partner_body": "Enterprise infrastructure. Sub-2s loads globally. DDoS, SSL, backups included.",
     "pain_eyebrow": "The problem",
     "pain_title": "Most websites are broken.",
     "pain_1": "Bad Core Web Vitals. Google penalizes you. Customers leave.",
@@ -221,9 +186,9 @@
         "t2": "KPI map"
       },
       "performance": {
-        "title": "Performance — Powered by Cloudflare",
-        "lead": "Cloudflare edge. Sub-2s globally. Speed converts.",
-        "t1": "Cloudflare CDN",
+        "title": "Performance — real speed",
+        "lead": "CDN delivery, optimised images, minimal code. Fast loads on any connection.",
+        "t1": "CDN + cache",
         "t2": "Core Web Vitals"
       },
       "security": {
@@ -252,7 +217,7 @@
     "channel_google": "Google Ads",
     "addon_eyebrow": "Custom infrastructure",
     "addon_title": "Linux & Windows VPS — fully managed.",
-    "addon_body": "Few do it properly. We architect, deploy, and maintain dedicated Linux or Windows instances. Priced per project.",
+    "addon_body": "Few do it properly. I architect, deploy and maintain dedicated Linux or Windows instances.",
     "addon_cta": "Contact for pricing",
     "cta_title": "Ready?",
     "cta_body": "30-minute scoping call. No fluff.",
@@ -270,14 +235,9 @@
   "whatwedo": {
     "badge": "The offer",
     "clients_eyebrow": "Trusted by",
-    "cf_partner": "Cloudflare Partner",
     "cf_partner_body": "Enterprise infrastructure. Sub-2s loads globally. DDoS, SSL, backups included.",
     "cta_primary": "Start converting",
     "cta_secondary": "Case Studies",
-    "cf": {
-      "title": "Cloudflare edge",
-      "body": "Sub-2s globally. CDN, WAF and SSL included."
-    },
     "tracking": {
       "title": "Server-side tracking",
       "body": "Facebook Conversions API + GA4. Ads that scale."
@@ -286,14 +246,6 @@
       "title": "NIS2 + security",
       "body": "WAF, DDoS, backups. Enterprise compliance."
     }
-  },
-  "cf_fortune": {
-    "headline": "Cloudflare powers 42% of the Fortune 500",
-    "subtitle": "Trusted by the teams you trust."
-  },
-  "tech_stack": {
-    "title": "Built on the tools that matter",
-    "subtitle": "From edge to deploy, the right stack for premium products."
   },
   "testimonials": {
     "badge": "Testimonials",
@@ -365,32 +317,6 @@
       }
     ]
   },
-  "globe": {
-    "eyebrow": "Global reach",
-    "title": "Built in Romania, shipped worldwide.",
-    "subtitle": "From local businesses to international brands, your project runs fast and close to your users.",
-    "stat_value": "9+ countries",
-    "stat_label": "Projects delivered across borders",
-    "pillar1_title": "Run everywhere",
-    "pillar1_body": "Security, connectivity, and code run in 335+ cities around the world, within 50ms of 95% of the world's population.",
-    "pillar2_title": "Run anywhere",
-    "pillar2_body": "Our network is close to your users, applications, and sites. It optimizes all your traffic from source to destination for low latency.",
-    "pillar3_title": "Run at massive scale",
-    "pillar3_body": "No more capacity planning. Ever."
-  },
-  "roadmap": {
-    "badge": "Roadmap",
-    "phases": {
-      "analyze_title": "Analyze",
-      "analyze_subtitle": "Discovery & audit",
-      "develop_title": "Develop",
-      "develop_subtitle": "Architecture & code",
-      "create_title": "Create",
-      "create_subtitle": "Design & content",
-      "deliver_title": "Deliver",
-      "deliver_subtitle": "QA & launch"
-    }
-  },
   "contact": {
     "badge": "Contact",
     "title": "Let's talk. No obligation.",
@@ -401,12 +327,25 @@
   "footer": {
     "copyright_l": "Alcaziu Robert",
     "terms_link": "Terms & Conditions",
-    "privacy_link": "Privacy Policy"
+    "privacy_link": "Privacy Policy",
+    "cookies_link": "Cookie Policy",
+    "cta_title": "Let's talk.",
+    "cta_body": "Tell me what you are building. I will say straight away whether I can help — and what it would take.",
+    "cta_button": "Book a discovery call",
+    "email_label": "Email address",
+    "phone_label": "Phone · replies within 24h",
+    "whatsapp_label": "WhatsApp",
+    "whatsapp_value": "Message me directly",
+    "wordmark": "ALCAZIU ROBERT",
+    "cookie_settings": "Cookie settings"
   },
   "legal": {
     "back_home": "← Back to home",
     "last_updated": "Last updated: May 2026",
-    "disclaimer": "This document is a starting point; for client contracts please consult a lawyer."
+    "disclaimer": "This document is a starting point; for client contracts please consult a lawyer.",
+    "notfound_title": "Page not found",
+    "notfound_body": "The page you are looking for does not exist or has been moved.",
+    "notfound_cta": "Back to home"
   },
   "terms": {
     "title": "Terms & Conditions",
@@ -422,11 +361,11 @@
       "contact": "Contact"
     },
     "intro_title": "1. Operator identity",
-    "intro_body": "This site is operated by Alcaziu Robert, individual, residing in Romania. The site represents the operator's personal portfolio and is not associated with a registered commercial entity. By accessing and using this site, you agree to comply with these terms. If you do not agree with them, please stop using the site.",
+    "intro_body": "alcaziurobert.ro is the personal website of Alcaziu Robert and serves as a professional portfolio (an online CV): it presents projects I have worked on and how I work. The site does not sell products or services online, shows no prices, processes no payments, and concludes no contracts. The only possible interaction is sending a message through the contact form, or reaching me directly by email, phone, or WhatsApp. By using the site you agree to these terms; if you do not agree, please stop using it.",
     "services_title": "2. Site purpose",
-    "services_body": "This site is exclusively informational and presents the operator's personal portfolio (projects, technologies used, experience). The content does not constitute a binding contractual offer and no service agreements are concluded through this page.",
+    "services_body": "The content of this site is informational and presentational. The projects shown illustrate my professional experience. Any collaboration is discussed and agreed separately, outside the site, through a direct agreement between the parties — the site itself is not a commercial offer and creates no contractual obligations.",
     "form_title": "3. Contact form usage",
-    "form_body": "The site allows visitors to send a request through a form that collects: name, email, phone, project type, and estimated budget. By filling out the form you commit to providing accurate information. I reserve the right not to respond to requests that appear to be spam or contain inappropriate language.",
+    "form_body": "The site lets visitors send a message through a form that collects: name, email, phone, project type and, optionally, a message. The data is used solely to reply to your enquiry — see the Privacy Policy. By filling in the form you undertake to provide accurate information. I reserve the right not to reply to enquiries that appear to be spam or contain abusive content.",
     "ip_title": "4. Intellectual property",
     "ip_body": "All site content (text, graphics, logos, source code, design) is the property of Alcaziu Robert and is protected by copyright law. Copying, reproducing, or using any element without my prior written consent is prohibited.",
     "liability_title": "5. Limitation of liability",
@@ -457,31 +396,111 @@
       "contact": "Contact"
     },
     "intro_title": "1. Who we are",
-    "intro_body": "The alcaziurobert.ro site is operated by Alcaziu Robert, individual, residing in Romania. This policy explains what data I collect when you visit the site or contact me, how I use it, and your rights under GDPR (EU Regulation 2016/679).",
+    "intro_body": "alcaziurobert.ro is the personal website (professional portfolio) of Alcaziu Robert, a natural person residing in Romania, acting as data controller under GDPR. The site sells nothing online and processes no payments. This policy explains what data I collect when you visit the site or contact me, how I use it, and what rights you have under GDPR (EU Regulation 2016/679).",
     "data_title": "2. What data I may collect",
-    "data_body": "Identification and contact data: name, email address, phone number, and any other information you choose to share voluntarily. Commercial inquiry data: project type, estimated budget, and any files or information sent through the contact form or by email. Technical and usage data: IP address, session identifiers, browser and device information, pages visited, traffic source, and consent preferences. Data collected through cookies and similar technologies, only to the extent these are activated according to your choice.",
+    "data_body": "Identification and contact data: name, email address, phone number, and any other information you choose to send me voluntarily. Data from your message: the project type and the optional text you write in the form. Technical and usage data: IP address, session identifiers, browser and device information, pages visited, traffic source, and your consent preferences. Data collected through cookies and similar technologies, to the extent they are enabled according to your choice.",
     "source_title": "3. Source of data",
-    "source_body": "I normally collect data directly from you, when you fill out the contact form or send me an email. Some technical data is generated automatically by your browser, by the infrastructure running the site (Cloudflare, Vercel), or by third-party providers activated only based on your consent.",
+    "source_body": "I normally collect data directly from you, when you fill out the contact form or send me an email. Some technical data is generated automatically by your browser, by the infrastructure running the site (the hosting server), or by third-party providers activated only based on your consent.",
     "purpose_title": "4. Purposes and legal basis",
-    "purpose_body": "To respond to your requests and provide information about my services. Basis: pre-contractual steps at your request and legitimate interest. To operate, secure, and administer the site, including preventing abuse, debugging, and technical monitoring. Basis: legitimate interest. To measure traffic and improve site performance through analytics tools. Basis: your consent, when required. To comply with tax, accounting, or other applicable legal obligations. Basis: legal obligation. For defending or exercising my rights in case of disputes or claims. Basis: legitimate interest. I currently do not use marketing or remarketing tags; if I decide to add them in the future, I will request your prior consent through a cookie banner.",
+    "purpose_body": "To respond to your requests and provide information about my services. Basis: pre-contractual steps at your request and legitimate interest. To operate, secure, and administer the site, including preventing abuse, debugging, and technical monitoring. Basis: legitimate interest. To measure traffic and improve site performance through analytics tools. Basis: your consent, when required. To comply with tax, accounting, or other applicable legal obligations. Basis: legal obligation. For defending or exercising my rights in case of disputes or claims. Basis: legitimate interest. I use Google Analytics for traffic measurement and the Meta Pixel for Facebook/Instagram ad measurement, both strictly based on the consent you give through the cookie banner; without consent, neither loads.",
     "refusal_title": "5. If you don't provide data",
     "refusal_body": "You have no general legal obligation to provide your data. However, if you don't send me the minimum necessary data (name, email, phone), I won't be able to respond to your request or discuss a potential project.",
     "recipients_title": "6. Recipients of data",
-    "recipients_body": "I may disclose data, strictly to the extent necessary, to providers who help me operate the site: Cloudflare (CDN, security, and privacy-friendly cookieless analytics), Vercel (hosting and serverless functions for the contact form), and the email provider used for SMTP on my own domain. Data may also be disclosed to consultants, accountants, lawyers, public authorities, or courts, if required by law or necessary for defending my rights.",
+    "recipients_body": "I may disclose data, strictly to the extent necessary, to providers who help me operate the site: Hosterion (site hosting, servers in Romania) and the email provider used for SMTP on my own domain. If you consent to performance cookies, Google (Google Analytics) also processes aggregated traffic data; if you consent to marketing cookies, Meta Platforms Ireland processes browsing data through the Meta Pixel, plus the name, email, and phone from the contact form in SHA-256 hashed form (Advanced Matching), for advertising measurement — see the Cookie Policy for details. Data may also be disclosed to consultants, accountants, lawyers, public authorities, or courts, if required by law or necessary for defending my rights.",
     "transfers_title": "7. International transfers",
-    "transfers_body": "Some services used (such as Cloudflare and Vercel) are based in the United States, which may involve data transfers outside the European Economic Area. For these transfers, I rely on mechanisms recognized by GDPR, such as Standard Contractual Clauses (SCC) or other adequate safeguards offered by those providers through Data Processing Agreements (DPA).",
+    "transfers_body": "Hosting and email stay inside the European Union, so contact form data does not leave the European Economic Area. Transfers to the United States occur only for the services you consent to: Google (Google Analytics) and Meta (Meta Pixel). For such transfers I rely on mechanisms recognized by GDPR, such as Standard Contractual Clauses (SCC) or other adequate safeguards provided through Data Processing Agreements (DPA).",
     "storage_title": "8. Data retention",
     "storage_body": "Commercial inquiry and contact form data: up to 24 months from the last relevant interaction, unless a contractual relationship or a longer legal retention obligation arises. Data needed for invoicing or accounting (in case of subsequent collaboration): for the duration required by applicable tax legislation (generally 10 years). Technical data and security logs: for limited periods, proportional to security and maintenance purposes (usually up to 12 months). Cookie preferences: as described in the Cookie Policy or according to browser settings.",
     "rights_title": "9. Your rights",
     "rights_body": "Under GDPR, you have the following rights: right of access to your data, right to rectification, right to erasure, right to restriction of processing, right to object (including to processing based on legitimate interest), right to data portability, right to withdraw your consent at any time without affecting the lawfulness of processing prior to withdrawal, and the right to lodge a complaint with the Romanian National Supervisory Authority for Personal Data Processing (ANSPDCP). To exercise these rights, write to contact@alcaziurobert.ro. I respond within a maximum of 30 days.",
     "cookies_title": "10. Cookies and similar technologies",
-    "cookies_body": "I use strictly necessary cookies for site functionality (session, language preference). For analytics I use Cloudflare Analytics, a tool that measures traffic without cookies and without personally identifiable data, so without requiring your consent. If I activate analytical, functional, or marketing cookies in the future, you will see a consent banner before they are set.",
+    "cookies_body": "I use strictly necessary cookies for site functionality (session, language, and your cookie preference itself). With your consent, I use Google Analytics for performance/analytics and the Meta Pixel for advertising measurement (Facebook/Instagram). A consent banner lets you accept all cookies, accept only necessary ones, or customize your choice by category (necessary, performance, marketing) at any time — see the full Cookie Policy for details on each category, third-party partners, and retention periods.",
     "security_title": "11. Data security",
-    "security_body": "I apply reasonable technical and organizational measures to protect data against unauthorized access, loss, alteration, or unpermitted disclosure: TLS-encrypted transmission, Cloudflare infrastructure with WAF and DDoS protection, regular backups. However, no online system can guarantee absolute security.",
+    "security_body": "I apply reasonable technical and organizational measures to protect data against unauthorized access, loss, alteration, or unpermitted disclosure: TLS-encrypted transmission, hosting with a server-level firewall and DDoS protection, regular backups. However, no online system can guarantee absolute security.",
     "changes_title": "12. Changes",
     "changes_body": "I may periodically update this policy to reflect legislative, operational, or technical changes. The version published on the site is the version applicable on the date of consultation. I encourage you to check it periodically.",
     "contact_title": "13. Contact",
     "contact_body": "For any request related to data protection or exercising your rights, write to contact@alcaziurobert.ro."
+  },
+  "cookieConsent": {
+    "banner": {
+      "heading": "Cookies on alcaziurobert.ro",
+      "body1": "Cookies remember your preferences, adjust the content shown, and help the site work better on repeat visits. I use trusted external partners for analytics, personalization, and advertising.",
+      "body2": "Accepting all means the full experience; only essential cookies keep the site running in its basic form. You can change this anytime.",
+      "details_btn": "Show details",
+      "accept_necessary_btn": "Accept necessary",
+      "accept_all_btn": "Accept all",
+      "privacy_link": "Privacy Policy",
+      "cookie_policy_link": "Cookie Policy"
+    },
+    "modal": {
+      "title": "Privacy preference center",
+      "intro": "What is a cookie? A cookie is a file saved on your device when you visit a website. It lets the site remember your settings and preferences on your next visit, for a better browsing experience. You can allow or refuse cookies, but if you refuse, some site sections may not work. Cookies cannot run programs or transmit viruses to your device. You can also select which cookies to accept, by category: strictly necessary, performance, and marketing cookies.",
+      "necessary": {
+        "title": "Strictly Necessary Cookies",
+        "always_active": "Always active",
+        "description": "These cookies are required for the site to function. They typically only respond to actions you take, such as setting your privacy preferences, logging in, or filling out forms. You can set your browser to block or alert you about these cookies, but some parts of the site won't work. These cookies don't store personally identifiable information."
+      },
+      "performance": {
+        "title": "Performance Cookies",
+        "description": "These cookies let me count visits and traffic sources, so I can measure and improve the site's performance. They help me know which pages are most popular and how visitors move around the site. All information collected is aggregated and therefore anonymous. If you don't allow these cookies, I won't know when you visited the site.",
+        "table_name": "Name",
+        "table_description": "Partner description",
+        "table_cookies": "Cookies",
+        "partner_ga_name": "Google Analytics",
+        "partner_ga_description": "Web analytics platform provided by Google, used to monitor and report traffic and user behavior on a website.",
+        "see_cookies_link": "See cookie list"
+      },
+      "marketing": {
+        "title": "Marketing and Targeting Cookies",
+        "description": "This category powers advertising measurement. It loads the Meta Pixel (Facebook/Instagram ads) only after you accept — nothing is sent to Meta beforehand, and you can withdraw consent at any time.",
+        "partner_google_ads_name": "Google Ads",
+        "partner_google_ads_description": "Not yet active. Would be used to run and manage paid ad campaigns across Google Search, partner sites, and other display channels.",
+        "partner_meta_name": "Meta",
+        "partner_meta_description": "Active on consent. The Meta Pixel (ID 1555333129701586) measures which ads bring visitors and conversions, and builds audiences for campaigns across Facebook, Instagram, Messenger, and the Audience Network. It sets the _fbp cookie and sends Meta your IP, browser data, and the pages you visit. Automatic Advanced Matching is enabled: if you submit the contact form, your name, email, and phone number are hashed (SHA-256) in your browser and sent to Meta in that form, to match the conversion to your Facebook account — Meta never receives them in plain text.",
+        "partner_tiktok_name": "TikTok",
+        "partner_tiktok_description": "Not yet active. Would be used to run and manage ad campaigns on TikTok.",
+        "see_cookies_link": "See cookie list"
+      },
+      "save_btn": "Save preferences",
+      "accept_necessary_btn": "Accept necessary",
+      "accept_all_btn": "Accept all",
+      "close_label": "Close"
+    }
+  },
+  "cookiePolicy": {
+    "title": "Cookie Policy",
+    "toc": {
+      "title": "On this page",
+      "intro": "Overview",
+      "what_are_cookies": "What are cookies",
+      "necessary": "Necessary cookies",
+      "performance": "Performance cookies",
+      "marketing": "Marketing cookies",
+      "third_party": "Third-party partners",
+      "duration": "How long we keep them",
+      "manage": "Manage your choice",
+      "contact": "Contact"
+    },
+    "intro_title": "1. Overview",
+    "intro_body": "This Cookie Policy explains what cookies and similar technologies alcaziurobert.ro uses, why, and how you can control them. It complements the Privacy Policy, which covers personal data more broadly — read that page for details on data recipients, retention periods, and your GDPR rights.",
+    "what_are_cookies_title": "2. What are cookies",
+    "what_are_cookies_body": "A cookie is a small file saved on your device when you visit a website. It lets the site remember your settings and preferences on your next visit, so you get a better browsing experience. Cookies cannot run programs or transmit viruses to your device.",
+    "necessary_title": "3. Strictly necessary cookies",
+    "necessary_body": "These cookies are required for the site to function — for example remembering your language and your cookie preference itself. They don't require consent and can't be turned off from the preference center, but you can block them from your browser settings, at the cost of some site features not working.",
+    "performance_title": "4. Performance cookies",
+    "performance_body": "With your consent, I use Google Analytics to measure visits and traffic sources, understand which pages are most useful, and improve the site over time. Data collected this way is aggregated and used for statistics, not to identify you individually. These cookies only load after you accept the \"Performance\" category in the cookie banner.",
+    "marketing_title": "5. Marketing and targeting cookies",
+    "marketing_body": "This category covers advertising cookies. One partner is active: the Meta Pixel (Facebook/Instagram), which sets the _fbp cookie — valid for up to 3 months — to measure which ads bring visitors and conversions and to build campaign audiences. The pixel has Automatic Advanced Matching enabled, so the details you enter in the contact form (name, email, phone) are SHA-256 hashed in the browser and sent to Meta in that form, for conversion matching. All of it loads only after you accept this category; if you decline or withdraw consent, nothing is sent to Meta. Google Ads and TikTok remain prepared but inactive.",
+    "third_party_title": "6. Third-party partners",
+    "third_party_body": "Two third-party providers can set cookies here. Google Analytics (performance category) sets _ga and _ga_<container-id> — see Google's Privacy Policy. The Meta Pixel (marketing category) sets _fbp, valid for up to 3 months, and is used to measure and target Facebook/Instagram ad campaigns — see Meta's Cookie Policy. Both load only after you accept the matching category. Google Ads and TikTok remain listed as prepared-but-inactive partners.",
+    "duration_title": "7. How long cookies are kept",
+    "duration_body": "Google Analytics cookies are typically kept for up to 13 months. Your cookie consent choice itself is stored in your browser's local storage and applies until you change it, clear your browser data, or a future update to this policy requires asking again.",
+    "manage_title": "8. Manage or withdraw your consent",
+    "manage_body": "You can change your cookie preferences at any time — from this page, or from the \"Manage cookie preferences\" link in the site footer. You can also block or delete cookies from your browser settings, though this may affect how the site works.",
+    "manage_cta_label": "Manage cookie preferences",
+    "contact_title": "9. Contact",
+    "contact_body": "For any question about this Cookie Policy, write to contact@alcaziurobert.ro."
   },
   "lang": {
     "switch_to": "Switch language"
@@ -500,27 +519,24 @@
     "project_website": "Website",
     "project_webapp": "Web application",
     "project_other": "Something else",
-    "budget_label": "Budget",
-    "budget_placeholder": "Pick a range",
-    "budget_low": "€1500–3000",
-    "budget_mid": "€3000–5000",
-    "budget_high": "€5000+",
-    "budget_discuss": "Prefer to discuss",
     "submit": "Send",
     "submitting": "Sending…",
     "cancel": "Cancel",
     "step2_title": "How can I reach you?",
-    "step3_title": "Tell me about your project",
+    "step3_title": "Tell me about the project",
     "v_name": "Name must be at least 2 characters.",
     "v_email": "Enter a valid email.",
     "v_phone_required": "Phone is required.",
     "v_phone": "Enter a valid phone number.",
     "v_project": "Pick a project type.",
-    "v_budget": "Pick a budget range.",
     "toast_ok_title": "Message sent",
     "toast_ok_body": "Thanks — I'll be in touch within 24 hours.",
     "toast_err_title": "Could not send",
-    "toast_err_body": "Something went wrong. Please try again or email contact@alcaziurobert.ro directly."
+    "toast_err_body": "Something went wrong. Please try again or email contact@alcaziurobert.ro directly.",
+    "privacy_note": "By submitting, you agree that your details will be used to reply to you. Details in the <privacy>Privacy Policy</privacy>.",
+    "message_label": "Message (optional)",
+    "message_placeholder": "Tell me briefly what you have in mind.",
+    "v_message": "The message can be at most 1000 characters."
   },
   "fab": {
     "aria": "Open contact options",
@@ -528,24 +544,5 @@
     "call": "Call me",
     "email": "Email me",
     "message": "Send a message"
-  },
-  "whyCf": {
-    "title": "Build without boundaries",
-    "sub_pre": "Everything needed to",
-    "sub_mark": "build secure, performant applications",
-    "chaos_title": "Fighting infra with “cloud chaos”",
-    "status": "STATUS: UNRESOLVED",
-    "cred_title": "Credential stuffing detected",
-    "cred_body": "142K login attempts from 38K IPs in the last 5 minutes.",
-    "latency_title": "High Latency!!!!!!",
-    "latency_body": "~150–250ms RTT per request",
-    "exfil_title": "Sensitive data exfiltration",
-    "exfil_body": "12 customer records pasted into Slack in the last hour.",
-    "ddos": "Origin IP exposed, getting hit with direct DDoS traffic. Need to lock down ASAP.",
-    "open_incidents": "2331 open incidents",
-    "calm_title": "Shipping with Cloudflare",
-    "pushed_pre": "Pushed",
-    "pushed_post": "new updates today",
-    "p0": "P0"
   }
 }

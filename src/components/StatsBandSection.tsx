@@ -71,7 +71,7 @@ const StatsBandSection: React.FC = () => {
       <style>{`
         .stats-section {
           width: 100%;
-          background: #ffffff;
+          background: #0F0F0F;
           padding: clamp(64px, 9vh, 112px) clamp(18px, 3vw, 32px);
         }
         .stats-inner {
@@ -98,7 +98,7 @@ const StatsBandSection: React.FC = () => {
           flex-direction: column;
           gap: 10px;
           padding-left: clamp(18px, 2vw, 28px);
-          border-left: 1px solid rgba(38, 38, 38, 0.10);
+          border-left: 1px solid rgba(255, 255, 255, 0.10);
         }
         .stats-value {
           font-family: var(--font-sans);
@@ -106,7 +106,7 @@ const StatsBandSection: React.FC = () => {
           font-weight: 500;
           letter-spacing: -0.045em;
           line-height: 1;
-          color: #141414;
+          color: #F5F5F5;
           font-variant-numeric: tabular-nums;
         }
         .stats-label {
@@ -121,13 +121,13 @@ const StatsBandSection: React.FC = () => {
           font-family: var(--font-sans);
           font-size: 13.5px;
           line-height: 1.5;
-          color: rgba(38, 38, 38, 0.55);
+          color: rgba(255, 255, 255, 0.72);
           max-width: 26ch;
         }
         .stats-marks {
           margin-top: clamp(52px, 7vh, 80px);
           padding-top: clamp(26px, 3.5vh, 36px);
-          border-top: 1px solid rgba(38, 38, 38, 0.10);
+          border-top: 1px solid rgba(255, 255, 255, 0.10);
           display: flex;
           flex-direction: column;
           gap: 18px;
@@ -138,7 +138,7 @@ const StatsBandSection: React.FC = () => {
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.18em;
-          color: rgba(38, 38, 38, 0.38);
+          color: rgba(255, 255, 255, 0.60);
         }
         .stats-marks-row {
           display: flex;
@@ -152,7 +152,7 @@ const StatsBandSection: React.FC = () => {
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.13em;
-          color: rgba(38, 38, 38, 0.38);
+          color: rgba(255, 255, 255, 0.60);
           white-space: nowrap;
         }
         @media (max-width: 768px) {

@@ -11,9 +11,9 @@ const GetInTouchSection = () => {
   return (
     <>
       <style>{`
-        :root {
+        .touch-section {
           --orange: #ED5C1B;
-          --ink: #262626;
+          --ink: #F5F5F5;
         }
 
         @keyframes fadeInUp {
@@ -26,21 +26,11 @@ const GetInTouchSection = () => {
           to { opacity: 1; }
         }
 
-        /* Light close — soft warm white with a whisper of orange */
         .touch-section {
           position: relative;
           padding: clamp(56px, 7.5vh, 96px) 0 clamp(48px, 6vh, 80px);
-          background: linear-gradient(180deg, #ffffff 0%, #FAF8F6 100%);
+          background: #0F0F0F;
         }
-        .touch-glow {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          background:
-            radial-gradient(46% 42% at 10% 100%, rgba(237, 92, 27, 0.07), transparent 70%),
-            radial-gradient(36% 30% at 92% 2%, rgba(237, 92, 27, 0.04), transparent 70%);
-        }
-
         .touch-title {
           font-family: var(--font-sans);
           font-weight: 500;
@@ -56,7 +46,7 @@ const GetInTouchSection = () => {
           max-width: 56ch;
           margin: 0 auto 2rem auto;
           line-height: 1.75;
-          color: rgba(38, 38, 38, 0.72);
+          color: rgba(255, 255, 255, 0.84);
           font-family: var(--font-sans);
           font-weight: 400;
           font-size: clamp(1.05rem, 1.5vw, 1.3rem);
@@ -115,15 +105,15 @@ const GetInTouchSection = () => {
           50%      { transform: translateY(-16px) rotate(-2deg); }
         }
 
-        /* Inline form — white card in a double-bezel shell, mirroring the hero */
+        /* Inline form — dark card in a double-bezel shell, mirroring the hero */
         .touch-form-shell {
           max-width: 656px;
           margin: 0 auto;
-          background: rgba(38, 38, 38, 0.035);
-          border: 1px solid rgba(38, 38, 38, 0.10);
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.10);
           border-radius: 27px;
           padding: 7px;
-          box-shadow: 0 40px 90px -48px rgba(38, 38, 38, 0.28);
+          box-shadow: 0 40px 90px -48px rgba(0, 0, 0, 0.7);
           animation: fadeInUp 1s ease-out;
           animation-delay: 0.4s;
           opacity: 0;
@@ -132,24 +122,23 @@ const GetInTouchSection = () => {
         .touch-form {
           text-align: left;
           padding: 30px 40px 40px;
-          background: #ffffff;
-          border: 1px solid rgba(38, 38, 38, 0.06);
+          background: #161616;
+          border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 20px;
         }
-        /* Same header pattern as the hero form card — the bare form field
-           floating in white read as unfinished without it */
+        /* Same header pattern as the hero form card */
         .touch-form-title {
           font-family: var(--font-sans);
           font-size: 1.15rem;
           font-weight: 600;
           letter-spacing: -0.015em;
-          color: #141414;
+          color: #F5F5F5;
           margin: 0 0 4px;
         }
         .touch-form-note {
           font-family: var(--font-sans);
           font-size: 12.5px;
-          color: rgba(38, 38, 38, 0.55);
+          color: rgba(255, 255, 255, 0.72);
           margin: 0 0 18px;
         }
 
@@ -167,7 +156,6 @@ const GetInTouchSection = () => {
 
       {/* eliminat spațiul de jos: pb-0 */}
       <section className="w-full touch-section" id="contact">
-        <div className="touch-glow" aria-hidden="true" />
         <div className="container px-4 sm:px-6 lg:px-8 mx-auto relative">
           <div className="touch-content-box">
             <img
@@ -176,6 +164,8 @@ const GetInTouchSection = () => {
               aria-hidden="true"
               loading="lazy"
               decoding="async"
+              width={1000}
+              height={1000}
               className="touch-plane"
             />
             <h2 className="touch-title">{t("contact.title")}</h2>

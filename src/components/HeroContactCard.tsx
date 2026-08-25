@@ -14,8 +14,8 @@ const HeroContactCard: React.FC = () => {
     <div className="hero3-card" id="hero-form">
       <style>{`
         .hero3-card {
-          background: #ffffff;
-          border: 1px solid rgba(38, 38, 38, 0.06);
+          background: #161616;
+          border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 20px;
           padding: clamp(22px, 2vw, 30px);
         }
@@ -24,13 +24,13 @@ const HeroContactCard: React.FC = () => {
           font-size: 1.15rem;
           font-weight: 600;
           letter-spacing: -0.015em;
-          color: #141414;
+          color: #F5F5F5;
           margin: 0 0 4px;
         }
         .hero3-card-note {
           font-family: var(--font-sans);
           font-size: 12.5px;
-          color: rgba(38, 38, 38, 0.55);
+          color: rgba(255, 255, 255, 0.72);
           margin: 0 0 18px;
         }
       `}</style>

@@ -3,28 +3,26 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Navbar from "@/components/Navbar";
 import MadeByHumans from "@/components/MadeByHumans";
+import { useCookieConsent } from "@/hooks/use-cookie-consent";
 
 const SECTIONS = [
   "intro",
-  "data",
-  "source",
-  "purpose",
-  "refusal",
-  "recipients",
-  "transfers",
-  "storage",
-  "rights",
-  "cookies",
-  "security",
-  "changes",
+  "what_are_cookies",
+  "necessary",
+  "performance",
+  "marketing",
+  "third_party",
+  "duration",
+  "manage",
   "contact",
 ] as const;
 
-const TOC_IDS = SECTIONS.map((s) => `pp-${s}`);
+const TOC_IDS = SECTIONS.map((s) => `cp-${s}`);
 const NAV_OFFSET = 96;
 
-const PrivacyPolicy: React.FC = () => {
+const CookiePolicy: React.FC = () => {
   const { t } = useTranslation();
+  const { openPreferences } = useCookieConsent();
   const [activeId, setActiveId] = useState<string>(TOC_IDS[0]);
 
   useEffect(() => {
@@ -200,7 +198,7 @@ const PrivacyPolicy: React.FC = () => {
           <aside className="cs-toc">
             <nav>
               {SECTIONS.map((key) => {
-                const id = `pp-${key}`;
+                const id = `cp-${key}`;
                 return (
                   <a
                     key={id}
@@ -208,7 +206,7 @@ const PrivacyPolicy: React.FC = () => {
                     className={activeId === id ? "active" : ""}
                     onClick={handleTocClick(id)}
                   >
-                    {t(`privacy.toc.${key}`)}
+                    {t(`cookiePolicy.toc.${key}`)}
                   </a>
                 );
               })}
@@ -217,13 +215,22 @@ const PrivacyPolicy: React.FC = () => {
 
           <div className="cs-col">
             <Link to="/" className="cs-back">{t("legal.back_home")}</Link>
-            <h1 className="cs-h1">{t("privacy.title")}</h1>
+            <h1 className="cs-h1">{t("cookiePolicy.title")}</h1>
             <p className="cs-lead">{t("legal.last_updated")}</p>
 
             {SECTIONS.map((key) => (
-              <section key={key} id={`pp-${key}`} className="cs-reveal">
-                <h2 className="cs-h2">{t(`privacy.${key}_title`)}</h2>
-                <p className="cs-body">{t(`privacy.${key}_body`)}</p>
+              <section key={key} id={`cp-${key}`} className="cs-reveal">
+                <h2 className="cs-h2">{t(`cookiePolicy.${key}_title`)}</h2>
+                <p className="cs-body">{t(`cookiePolicy.${key}_body`)}</p>
+                {key === "manage" && (
+                  <button
+                    type="button"
+                    className="btn btn-primary mt-5"
+                    onClick={openPreferences}
+                  >
+                    {t("cookiePolicy.manage_cta_label")}
+                  </button>
+                )}
               </section>
             ))}
           </div>
@@ -235,4 +242,4 @@ const PrivacyPolicy: React.FC = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default CookiePolicy;

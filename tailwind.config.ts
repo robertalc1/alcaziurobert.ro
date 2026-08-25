@@ -1,5 +1,8 @@
 
 import type { Config } from "tailwindcss";
+// ESM import instead of require(): keeps this file consistent with the rest of
+// the codebase and satisfies @typescript-eslint/no-require-imports.
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -63,19 +66,6 @@ export default {
     				border: 'hsl(var(--sidebar-border))',
     				ring: 'hsl(var(--sidebar-ring))'
     			},
-    			pulse: {
-    				'50': '#fff7ed',
-    				'100': '#ffedd5',
-    				'200': '#fed7aa',
-    				'300': '#fdba74',
-    				'400': '#fb923c',
-    				'500': '#f97316',
-    				'600': '#ea580c',
-    				'700': '#c2410c',
-    				'800': '#9a3412',
-    				'900': '#7c2d12',
-    				'950': '#431407'
-    			},
     			dark: {
     				'900': '#121212',
     				'800': '#1e1e1e',
@@ -115,26 +105,6 @@ export default {
     					transform: 'translateY(0)'
     				}
     			},
-    			'fade-in-right': {
-    				'0%': {
-    					opacity: '0',
-    					transform: 'translateX(-20px)'
-    				},
-    				'100%': {
-    					opacity: '1',
-    					transform: 'translateX(0)'
-    				}
-    			},
-    			'fade-in-left': {
-    				'0%': {
-    					opacity: '0',
-    					transform: 'translateX(20px)'
-    				},
-    				'100%': {
-    					opacity: '1',
-    					transform: 'translateX(0)'
-    				}
-    			},
     			'pulse-slow': {
     				'0%, 100%': {
     					opacity: '1'
@@ -142,29 +112,13 @@ export default {
     				'50%': {
     					opacity: '0.8'
     				}
-    			},
-    			float: {
-    				'0%, 100%': {
-    					transform: 'translateY(0)'
-    				},
-    				'50%': {
-    					transform: 'translateY(-10px)'
-    				}
     			}
     		},
     		animation: {
     			'accordion-down': 'accordion-down 0.2s ease-out',
     			'accordion-up': 'accordion-up 0.2s ease-out',
     			'fade-in': 'fade-in 0.7s ease-out forwards',
-    			'fade-in-right': 'fade-in-right 0.7s ease-out forwards',
-    			'fade-in-left': 'fade-in-left 0.7s ease-out forwards',
-    			'pulse-slow': 'pulse-slow 3s infinite',
-    			float: 'float 6s ease-in-out infinite'
-    		},
-    		backgroundImage: {
-    			'hero-gradient': 'linear-gradient(90deg, hsla(24, 100%, 83%, 1) 0%, hsla(341, 91%, 68%, 1) 100%)',
-    			'hero-gradient-2': 'linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%)',
-    			'pulse-gradient': 'linear-gradient(180deg, rgba(249,115,22,0.8) 0%, rgba(249,115,22,0) 100%)'
+    			'pulse-slow': 'pulse-slow 3s infinite'
     		},
     		fontFamily: {
     			sans: [
@@ -176,16 +130,6 @@ export default {
     				'General Sans',
     				'system-ui',
     				'sans-serif'
-    			],
-    			brockmann: [
-    				'General Sans',
-    				'system-ui',
-    				'sans-serif'
-    			],
-    			playfair: [
-    				'General Sans',
-    				'system-ui',
-    				'sans-serif'
     			]
     		},
     		boxShadow: {
@@ -194,5 +138,5 @@ export default {
     		}
     	}
     },
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindcssAnimate],
 } satisfies Config;
