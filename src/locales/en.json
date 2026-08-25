@@ -439,33 +439,32 @@
       "necessary": {
         "title": "Strictly Necessary Cookies",
         "always_active": "Always active",
-        "description": "These cookies are required for the site to function. They typically only respond to actions you take, such as setting your privacy preferences, logging in, or filling out forms. You can set your browser to block or alert you about these cookies, but some parts of the site won't work. These cookies don't store personally identifiable information."
+        "description": "These cookies are required for the site to function. They typically only respond to actions you take, such as setting your privacy preferences, logging in, or filling out forms. You can set your browser to block or alert you about these cookies, but some parts of the site won't work. These cookies don't store personally identifiable information.",
+        "row_consent_purpose": "Remembers your choice in this panel so you are not asked on every visit. Stored locally, it goes nowhere.",
+        "row_lang_purpose": "Remembers the language you selected (Romanian or English). Stored locally."
       },
       "performance": {
         "title": "Performance Cookies",
         "description": "These cookies let me count visits and traffic sources, so I can measure and improve the site's performance. They help me know which pages are most popular and how visitors move around the site. All information collected is aggregated and therefore anonymous. If you don't allow these cookies, I won't know when you visited the site.",
-        "table_name": "Name",
-        "table_description": "Partner description",
-        "table_cookies": "Cookies",
-        "partner_ga_name": "Google Analytics",
-        "partner_ga_description": "Web analytics platform provided by Google, used to monitor and report traffic and user behavior on a website.",
-        "see_cookies_link": "See cookie list"
+        "partner_ga_description": "Google Analytics — measures traffic and pages visited, aggregated and anonymised, so I know what works on the site."
       },
       "marketing": {
         "title": "Marketing and Targeting Cookies",
         "description": "This category powers advertising measurement. It loads the Meta Pixel (Facebook/Instagram ads) only after you accept — nothing is sent to Meta beforehand, and you can withdraw consent at any time.",
-        "partner_google_ads_name": "Google Ads",
-        "partner_google_ads_description": "Not yet active. Would be used to run and manage paid ad campaigns across Google Search, partner sites, and other display channels.",
-        "partner_meta_name": "Meta",
-        "partner_meta_description": "Active on consent. The Meta Pixel (ID 1555333129701586) measures which ads bring visitors and conversions, and builds audiences for campaigns across Facebook, Instagram, Messenger, and the Audience Network. It sets the _fbp cookie and sends Meta your IP, browser data, and the pages you visit. Automatic Advanced Matching is enabled: if you submit the contact form, your name, email, and phone number are hashed (SHA-256) in your browser and sent to Meta in that form, to match the conversion to your Facebook account — Meta never receives them in plain text.",
-        "partner_tiktok_name": "TikTok",
-        "partner_tiktok_description": "Not yet active. Would be used to run and manage ad campaigns on TikTok.",
-        "see_cookies_link": "See cookie list"
+        "partner_meta_description": "Meta Pixel — measures which Facebook/Instagram ads bring visitors and builds campaign audiences. With Advanced Matching on, the name, email, and phone from the form are sent SHA-256 hashed, never in plain text."
       },
       "save_btn": "Save preferences",
       "accept_necessary_btn": "Accept necessary",
       "accept_all_btn": "Accept all",
-      "close_label": "Close"
+      "close_label": "Close",
+      "table_name": "Name",
+      "table_purpose": "Purpose",
+      "table_duration": "Duration",
+      "see_cookies_link": "See policy",
+      "duration_12m": "12 months",
+      "duration_2y": "2 years",
+      "duration_3m": "3 months",
+      "duration_until_cleared": "Until you clear it"
     }
   },
   "cookiePolicy": {
@@ -491,9 +490,9 @@
     "performance_title": "4. Performance cookies",
     "performance_body": "With your consent, I use Google Analytics to measure visits and traffic sources, understand which pages are most useful, and improve the site over time. Data collected this way is aggregated and used for statistics, not to identify you individually. These cookies only load after you accept the \"Performance\" category in the cookie banner.",
     "marketing_title": "5. Marketing and targeting cookies",
-    "marketing_body": "This category covers advertising cookies. One partner is active: the Meta Pixel (Facebook/Instagram), which sets the _fbp cookie — valid for up to 3 months — to measure which ads bring visitors and conversions and to build campaign audiences. The pixel has Automatic Advanced Matching enabled, so the details you enter in the contact form (name, email, phone) are SHA-256 hashed in the browser and sent to Meta in that form, for conversion matching. All of it loads only after you accept this category; if you decline or withdraw consent, nothing is sent to Meta. Google Ads and TikTok remain prepared but inactive.",
+    "marketing_body": "This category covers advertising cookies. One partner is active: the Meta Pixel (Facebook/Instagram), which sets the _fbp cookie — valid for up to 3 months — to measure which ads bring visitors and conversions and to build campaign audiences. The pixel has Automatic Advanced Matching enabled, so the details you enter in the contact form (name, email, phone) are SHA-256 hashed in the browser and sent to Meta in that form, for conversion matching. All of it loads only after you accept this category; if you decline or withdraw consent, nothing is sent to Meta.",
     "third_party_title": "6. Third-party partners",
-    "third_party_body": "Two third-party providers can set cookies here. Google Analytics (performance category) sets _ga and _ga_<container-id> — see Google's Privacy Policy. The Meta Pixel (marketing category) sets _fbp, valid for up to 3 months, and is used to measure and target Facebook/Instagram ad campaigns — see Meta's Cookie Policy. Both load only after you accept the matching category. Google Ads and TikTok remain listed as prepared-but-inactive partners.",
+    "third_party_body": "Two third-party providers can set cookies here. Google Analytics (performance category) sets _ga and _ga_<container-id> — see Google's Privacy Policy. The Meta Pixel (marketing category) sets _fbp, valid for up to 3 months, and is used to measure and target Facebook/Instagram ad campaigns — see Meta's Cookie Policy. Both load only after you accept the matching category.",
     "duration_title": "7. How long cookies are kept",
     "duration_body": "Google Analytics cookies are typically kept for up to 13 months. Your cookie consent choice itself is stored in your browser's local storage and applies until you change it, clear your browser data, or a future update to this policy requires asking again.",
     "manage_title": "8. Manage or withdraw your consent",

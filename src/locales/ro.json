@@ -439,33 +439,32 @@
       "necessary": {
         "title": "Cookie-uri Strict Necesare",
         "always_active": "Întotdeauna activate",
-        "description": "Aceste cookie-uri sunt necesare pentru funcționarea website-ului. Ele sunt, de obicei, făcute pentru a răspunde numai acțiunilor făcute de tine: alegerea setărilor de confidențialitate, intrarea în cont sau completarea unor formulare. Poți alege să setezi ca browserul tău să blocheze sau să te alerteze în legătură cu aceste cookie-uri, dar asta va însemna că anumite secțiuni ale website-ului nu vor funcționa. Aceste cookie-uri nu vor stoca informații care te pot identifica personal."
+        "description": "Aceste cookie-uri sunt necesare pentru funcționarea website-ului. Ele sunt, de obicei, făcute pentru a răspunde numai acțiunilor făcute de tine: alegerea setărilor de confidențialitate, intrarea în cont sau completarea unor formulare. Poți alege să setezi ca browserul tău să blocheze sau să te alerteze în legătură cu aceste cookie-uri, dar asta va însemna că anumite secțiuni ale website-ului nu vor funcționa. Aceste cookie-uri nu vor stoca informații care te pot identifica personal.",
+        "row_consent_purpose": "Reține alegerea ta din acest panou, ca să nu fii întrebat la fiecare vizită. Salvat local, nu pleacă nicăieri.",
+        "row_lang_purpose": "Reține limba selectată (română sau engleză). Salvat local."
       },
       "performance": {
         "title": "Cookie-uri Performanță",
         "description": "Aceste module cookie îmi permit să contorizez vizitele și sursele de trafic, astfel încât să pot măsura și îmbunătăți performanța site-ului. Acestea mă ajută să cunosc cele mai populare pagini și să văd cum se deplasează vizitatorii în jurul site-ului. Toate informațiile pe care le colectează aceste cookie-uri sunt agregate și, prin urmare, anonime. Dacă nu permiți aceste cookie-uri, nu voi ști când ai vizitat site-ul.",
-        "table_name": "Nume",
-        "table_description": "Descriere partener folosit",
-        "table_cookies": "Cookies",
-        "partner_ga_name": "Google Analytics",
-        "partner_ga_description": "Platformă de analiză web oferită de Google, folosită pentru a monitoriza și raporta traficul și comportamentul utilizatorilor pe un site web.",
-        "see_cookies_link": "Vezi lista cookies"
+        "partner_ga_description": "Google Analytics — măsoară traficul și paginile vizitate, agregat și anonimizat, ca să știu ce funcționează pe site."
       },
       "marketing": {
         "title": "Cookie-uri Marketing și Targetare",
         "description": "Această categorie acoperă măsurarea reclamelor. Încarcă Meta Pixel (reclame Facebook/Instagram) doar după ce accepți — până atunci nu se trimite nimic către Meta, iar consimțământul poate fi retras oricând.",
-        "partner_google_ads_name": "Google Ads",
-        "partner_google_ads_description": "Nu este încă activ. Ar fi folosit pentru a crea și gestiona campanii publicitare plătite pe Google Search, site-uri partenere și alte canale de afișare.",
-        "partner_meta_name": "Meta",
-        "partner_meta_description": "Activ pe bază de consimțământ. Meta Pixel (ID 1555333129701586) măsoară ce reclame aduc vizitatori și conversii și construiește audiențe pentru campanii pe Facebook, Instagram, Messenger și Audience Network. Setează cookie-ul _fbp și trimite către Meta adresa IP, date despre browser și paginile vizitate. Are activat Advanced Matching automat: dacă completezi formularul de contact, numele, emailul și telefonul sunt transformate în cod (hash SHA-256) în browserul tău și trimise astfel către Meta, pentru a potrivi conversia cu contul tău de Facebook — Meta nu primește datele în clar.",
-        "partner_tiktok_name": "TikTok",
-        "partner_tiktok_description": "Nu este încă activ. Ar fi folosit pentru a crea și gestiona campanii publicitare pe TikTok.",
-        "see_cookies_link": "Vezi lista cookies"
+        "partner_meta_description": "Meta Pixel — măsoară ce reclame de pe Facebook/Instagram aduc vizitatori și construiește audiențe de campanie. Cu Advanced Matching activ, numele, emailul și telefonul din formular pleacă hash-uite SHA-256, niciodată în clar."
       },
       "save_btn": "Salvează preferințele",
       "accept_necessary_btn": "Acceptă necesare",
       "accept_all_btn": "Acceptă toate",
-      "close_label": "Închide"
+      "close_label": "Închide",
+      "table_name": "Nume",
+      "table_purpose": "Scop",
+      "table_duration": "Durată",
+      "see_cookies_link": "Vezi politica",
+      "duration_12m": "12 luni",
+      "duration_2y": "2 ani",
+      "duration_3m": "3 luni",
+      "duration_until_cleared": "Până îl ștergi"
     }
   },
   "cookiePolicy": {
@@ -491,9 +490,9 @@
     "performance_title": "4. Cookie-uri de performanță",
     "performance_body": "Cu acordul tău, folosesc Google Analytics pentru a măsura vizitele și sursele de trafic, a înțelege ce pagini sunt cele mai utile și a îmbunătăți site-ul în timp. Datele colectate astfel sunt agregate și folosite pentru statistici, nu pentru a te identifica individual. Aceste cookie-uri se încarcă doar după ce accepți categoria „Performanță” din bannerul de cookie-uri.",
     "marketing_title": "5. Cookie-uri de marketing și targetare",
-    "marketing_body": "Această categorie acoperă cookie-urile publicitare. Un singur partener este activ: Meta Pixel (Facebook/Instagram), care setează cookie-ul _fbp — valabil până la 3 luni — pentru a măsura ce reclame aduc vizitatori și conversii și pentru a construi audiențe de campanie. Pixelul are activat Advanced Matching automat, deci datele pe care le completezi în formularul de contact (nume, email, telefon) sunt hash-uite SHA-256 în browser și trimise în această formă către Meta, pentru potrivirea conversiilor. Totul se încarcă exclusiv după ce accepți această categorie; dacă refuzi sau îți retragi consimțământul, nu se trimite nimic către Meta. Google Ads și TikTok rămân pregătite, dar inactive.",
+    "marketing_body": "Această categorie acoperă cookie-urile publicitare. Un singur partener este activ: Meta Pixel (Facebook/Instagram), care setează cookie-ul _fbp — valabil până la 3 luni — pentru a măsura ce reclame aduc vizitatori și conversii și pentru a construi audiențe de campanie. Pixelul are activat Advanced Matching automat, deci datele pe care le completezi în formularul de contact (nume, email, telefon) sunt hash-uite SHA-256 în browser și trimise în această formă către Meta, pentru potrivirea conversiilor. Totul se încarcă exclusiv după ce accepți această categorie; dacă refuzi sau îți retragi consimțământul, nu se trimite nimic către Meta.",
     "third_party_title": "6. Parteneri terți",
-    "third_party_body": "Doi furnizori terți pot seta cookie-uri pe acest site. Google Analytics (categoria performanță) setează _ga și _ga_<container-id> — vezi Politica de confidențialitate a Google. Meta Pixel (categoria marketing) setează _fbp, valabil până la 3 luni, folosit pentru măsurarea și targetarea campaniilor Facebook/Instagram — vezi Politica de cookie-uri Meta. Ambele se încarcă doar după ce accepți categoria corespunzătoare. Google Ads și TikTok rămân listați ca parteneri pregătiți, dar inactivi.",
+    "third_party_body": "Doi furnizori terți pot seta cookie-uri pe acest site. Google Analytics (categoria performanță) setează _ga și _ga_<container-id> — vezi Politica de confidențialitate a Google. Meta Pixel (categoria marketing) setează _fbp, valabil până la 3 luni, folosit pentru măsurarea și targetarea campaniilor Facebook/Instagram — vezi Politica de cookie-uri Meta. Ambele se încarcă doar după ce accepți categoria corespunzătoare.",
     "duration_title": "7. Cât timp păstrăm cookie-urile",
     "duration_body": "Cookie-urile Google Analytics sunt păstrate de obicei până la 13 luni. Alegerea ta de consimțământ este stocată în stocarea locală a browserului și se aplică până când o schimbi, ștergi datele browserului, sau o actualizare viitoare a acestei politici necesită o nouă confirmare.",
     "manage_title": "8. Gestionează sau retrage consimțământul",
