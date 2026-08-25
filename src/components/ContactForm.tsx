@@ -392,7 +392,7 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
         {/* GDPR art. 13 — information notice at the point of collection, so it
             is visible from the first field, not only at the submit step. */}
         {(
-          <p className="text-[11.5px] leading-relaxed text-[#C4C9D0] m-0 pt-1">
+          <p className="text-[12.5px] sm:text-[11.5px] leading-relaxed text-[#C4C9D0] m-0 pt-1">
             <Trans
               i18nKey="form.privacy_note"
               components={{

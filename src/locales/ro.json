@@ -115,7 +115,8 @@
     "featured_chip3": "Standard guvernamental",
     "visit": "Vezi live",
     "drag": "Trage pentru a explora",
-    "section_title": "Proiecte de succes"
+    "section_title": "Proiecte de succes",
+    "swipe_hint": "Trage lateral pentru toate proiectele"
   },
   "portfolio": {
     "badge": "Portofoliu",

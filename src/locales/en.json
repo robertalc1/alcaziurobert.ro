@@ -115,7 +115,8 @@
     "featured_chip3": "Government-grade",
     "visit": "View live",
     "drag": "Drag to explore",
-    "section_title": "Successful projects"
+    "section_title": "Successful projects",
+    "swipe_hint": "Swipe to see every project"
   },
   "portfolio": {
     "badge": "Portfolio",

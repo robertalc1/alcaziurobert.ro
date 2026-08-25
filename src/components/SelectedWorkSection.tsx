@@ -3,6 +3,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Reveal from "@/components/Reveal";
+import ContactCTA from "@/components/ContactCTA";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 type Project = {
@@ -81,6 +82,7 @@ const SelectedWorkSection: React.FC = () => {
   const isMobile = useIsMobile();
 
   const viewportRef = React.useRef<HTMLDivElement>(null);
+  // Auto-drift only on pointer devices; on touch the visitor swipes.
   // Auto-scroll bookkeeping: `pos` is the float position we own, `paused`
   // covers hover/drag, `selfScroll` tells our own writes apart from the
   // user's native (touch / trackpad) scrolling.
@@ -92,7 +94,11 @@ const SelectedWorkSection: React.FC = () => {
   // one list's width lands on an identical frame — seamless in both directions.
   React.useEffect(() => {
     const el = viewportRef.current;
-    if (!el || isMobile) return;
+    if (!el) return;
+    if (isMobile) {
+      el.scrollLeft = 0;
+      return;
+    }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let raf = 0;
@@ -194,17 +200,20 @@ const SelectedWorkSection: React.FC = () => {
       </a>
       <div className="pw-meta">
         <span className="pw-cat">{t(`portfolio.categories.${p.slug}`)}</span>
-        <h3 className="pw-name">{p.name}</h3>
-        <a
-          className="pw-link"
-          href={p.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          tabIndex={copy === 1 ? -1 : undefined}
-        >
-          {t("work.visit")}
-          <span className="pw-link-icon">{ArrowUpRight}</span>
-        </a>
+        <div className="pw-meta-row">
+          <h3 className="pw-name">{p.name}</h3>
+          <a
+            className="pw-link"
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            tabIndex={copy === 1 ? -1 : undefined}
+            aria-label={`${p.name} — ${t("work.visit")}`}
+          >
+            <span className="pw-link-label">{t("work.visit")}</span>
+            <span className="pw-link-icon">{ArrowUpRight}</span>
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -265,21 +274,31 @@ const SelectedWorkSection: React.FC = () => {
 
         .pw-item {
           display: flex;
-          align-items: center;
-          gap: clamp(24px, 3vw, 48px);
+          flex-direction: column;
+          width: clamp(300px, 32vw, 460px);
           flex-shrink: 0;
+          padding: 10px 10px 18px;
+          border-radius: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(255, 255, 255, 0.02);
+          transition: border-color .35s ease, background-color .35s ease,
+                      transform .45s cubic-bezier(.23,1,.32,1);
+        }
+        .pw-item:hover {
+          border-color: rgba(255, 255, 255, 0.16);
+          background: rgba(255, 255, 255, 0.04);
+          transform: translateY(-4px);
         }
         .pw-shot {
           display: block;
-          width: clamp(420px, 44vw, 620px);
+          width: 100%;
           text-decoration: none;
-          transition: transform .45s cubic-bezier(.23,1,.32,1);
         }
-        .pw-shot:hover { transform: translateY(-6px); }
 
         .pw-meta {
-          width: clamp(230px, 20vw, 300px);
-          flex-shrink: 0;
+          display: flex;
+          flex-direction: column;
+          padding: 18px 10px 0;
         }
         .pw-cat {
           display: inline-block;
@@ -291,14 +310,20 @@ const SelectedWorkSection: React.FC = () => {
           text-transform: uppercase;
           margin-bottom: 12px;
         }
+        .pw-meta-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+        }
         .pw-name {
           font-family: var(--font-sans);
           font-weight: 700;
-          font-size: clamp(1.6rem, 2.5vw, 2.35rem);
+          font-size: clamp(1.35rem, 1.9vw, 1.8rem);
           line-height: 1.1;
           letter-spacing: -0.03em;
           color: #F5F5F5;
-          margin: 0 0 20px;
+          margin: 0;
           text-wrap: balance;
         }
         /* Outlined display type, static — falls back to solid where text-stroke is unsupported */
@@ -312,6 +337,7 @@ const SelectedWorkSection: React.FC = () => {
           display: inline-flex;
           align-items: center;
           gap: 10px;
+          flex-shrink: 0;
           color: #F5F5F5;
           font-family: var(--font-sans);
           font-size: 14.5px;
@@ -319,8 +345,18 @@ const SelectedWorkSection: React.FC = () => {
           text-decoration: none;
           transition: color .25s ease;
         }
+        /* Label kept for screen readers; the round icon carries it visually */
+        .pw-link-label {
+          position: absolute;
+          width: 1px; height: 1px;
+          padding: 0; margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
         .pw-link-icon {
-          width: 30px; height: 30px;
+          width: 42px; height: 42px;
           border-radius: 9999px;
           border: 1px solid rgba(255, 255, 255, 0.22);
           display: inline-flex;
@@ -391,7 +427,39 @@ const SelectedWorkSection: React.FC = () => {
         }
         .pw-shot:hover .bf-img { transform: scale(1.03); }
 
-        /* ── Mobile: wordmark grid instead of the carousel ── */
+        /* ── Mobile: swipe hint + section CTA (funnel: most traffic is phones) ── */
+        .pw-hint {
+          display: none;
+          font-family: var(--font-sans);
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.55);
+          text-align: center;
+          margin: 18px 0 0;
+        }
+        .pw-cta {
+          display: none;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          width: 100%;
+          min-height: 52px;
+          margin-top: 18px;
+          padding: 15px 24px;
+          border: none;
+          border-radius: 9999px;
+          background: #ED5C1B;
+          color: #ffffff;
+          font-family: var(--font-sans);
+          font-weight: 500;
+          font-size: 15.5px;
+          cursor: pointer;
+        }
+        .pw-cta svg { width: 15px; height: 15px; }
+        @media (max-width: 767px) {
+          .pw-cta { display: inline-flex; }
+        }
+
+        /* ── Legacy wordmark grid (unused since the cards work on phones too) ── */
         .pw-marks {
           list-style: none;
           margin: 0;
@@ -426,8 +494,25 @@ const SelectedWorkSection: React.FC = () => {
         }
         .pw-mark:active { background: rgba(255, 255, 255, 0.04); color: #ED5C1B; }
 
-        @media (max-width: 640px) {
+        @media (max-width: 767px) {
           .work-title { max-width: 100%; }
+          .pw-viewport {
+            scroll-snap-type: x mandatory;
+            -webkit-mask-image: none;
+            mask-image: none;
+          }
+          .pw-track { gap: 14px; padding: 6px 16px; }
+          .pw-item {
+            width: min(84vw, 340px);
+            scroll-snap-align: center;
+            padding: 8px 8px 14px;
+          }
+          .pw-meta { padding: 14px 6px 0; }
+          .pw-cat { font-size: 12px; margin-bottom: 8px; }
+          .bf-domain { font-size: 12px; }
+          .pw-name { font-size: 1.25rem; -webkit-text-stroke-width: 1px; }
+          .pw-link-icon { width: 44px; height: 44px; }
+          .pw-hint { display: block; }
         }
         @media (prefers-reduced-motion: reduce) {
           .pw-shot, .bf-img, .pw-link-icon { transition: none; }
@@ -442,43 +527,39 @@ const SelectedWorkSection: React.FC = () => {
         </Reveal>
       </div>
 
-      {isMobile ? (
-        <div className="work-inner">
-          <ul className="pw-marks">
-            {PROJECTS.map((p) => (
-              <li key={p.slug}>
-                <a
-                  className="pw-mark"
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {p.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+      {/* Same cards everywhere. On desktop the track drifts on its own and can be
+          dragged; on touch it is a snap carousel the visitor swipes — the list is
+          rendered once there, since there is no auto-loop to feed. */}
+      <div
+        className="pw-viewport"
+        ref={viewportRef}
+        role="region"
+        aria-label={t("portfolio.title")}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onClickCapture={onClickCapture}
+        onMouseEnter={() => (paused.current = true)}
+        onMouseLeave={() => (paused.current = false)}
+        onFocusCapture={() => (paused.current = true)}
+        onBlurCapture={() => (paused.current = false)}
+      >
+        <div className="pw-track">
+          {PROJECTS.map((p, i) => renderItem(p, i, 0))}
+          {!isMobile && PROJECTS.map((p, i) => renderItem(p, i, 1))}
         </div>
-      ) : (
-        <div
-          className="pw-viewport"
-          ref={viewportRef}
-          role="region"
-          aria-label={t("portfolio.title")}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
-          onClickCapture={onClickCapture}
-          onMouseEnter={() => (paused.current = true)}
-          onMouseLeave={() => (paused.current = false)}
-          onFocusCapture={() => (paused.current = true)}
-          onBlurCapture={() => (paused.current = false)}
-        >
-          <div className="pw-track">
-            {PROJECTS.map((p, i) => renderItem(p, i, 0))}
-            {PROJECTS.map((p, i) => renderItem(p, i, 1))}
-          </div>
+      </div>
+
+      {isMobile && (
+        <div className="work-inner">
+          <p className="pw-hint">{t("work.swipe_hint")}</p>
+          <ContactCTA>
+            <button type="button" className="pw-cta">
+              {t("nav.cta")}
+              {ArrowUpRight}
+            </button>
+          </ContactCTA>
         </div>
       )}
     </section>

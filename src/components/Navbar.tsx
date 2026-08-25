@@ -360,8 +360,11 @@ const Navbar = () => {
         }
         .nav-cta:hover { background: #C44E17; }
         .nav-cta:active { transform: scale(0.97); }
-        @media (max-width: 640px) {
-          .nav-cta { padding: 9px 16px; font-size: 13px; min-height: 38px; }
+        @media (max-width: 767px) {
+          /* 44px minimum touch targets — most of the traffic is phones */
+          .nav-cta { padding: 11px 18px; font-size: 13.5px; min-height: 44px; }
+          .nav-menu-trigger { padding: 11px 6px; min-height: 44px; min-width: 44px; justify-content: center; }
+          .nav-logo { padding: 7px 2px; }
         }
 
         /* ─────────────────────── FULLSCREEN MENU ─────────────────────── */

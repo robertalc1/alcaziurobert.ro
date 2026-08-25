@@ -269,8 +269,9 @@ const MadeByHumans = () => {
             text-align: left;
           }
           .ft-row:last-child { border-bottom: none; }
-          .ft-legal { gap: 14px 22px; }
-          .ft-legal a { font-size: 13.5px; }
+          .ft-legal { gap: 4px 18px; }
+          .ft-legal a, .ft-legal-btn { font-size: 13.5px; padding: 12px 2px; }
+          .ft-copy { font-size: 12.5px; }
         }
         @media (prefers-reduced-motion: reduce) {
           .ft-cta, .ft-cta svg, .ft-row-value, .ft-icon { transition: none; }
