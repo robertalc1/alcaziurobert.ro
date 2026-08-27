@@ -533,6 +533,8 @@
     "toast_ok_body": "Thanks — I'll be in touch within 24 hours.",
     "toast_err_title": "Could not send",
     "toast_err_body": "Something went wrong. Please try again or email contact@alcaziurobert.ro directly.",
+    "toast_rate_title": "Too many attempts",
+    "toast_rate_body": "You have already sent a few messages. Please wait a few minutes, or email contact@alcaziurobert.ro directly.",
     "privacy_note": "By submitting, you agree that your details will be used to reply to you. Details in the <privacy>Privacy Policy</privacy>.",
     "message_label": "Message (optional)",
     "message_placeholder": "Tell me briefly what you have in mind.",

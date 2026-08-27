@@ -35,3 +35,6 @@ CLAUDE.md
 .agents/
 skills-lock.json
 .mcp.json
+
+# Lead backup written by server.js (contains personal data — never commit)
+leads.jsonl

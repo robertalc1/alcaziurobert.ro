@@ -35,6 +35,9 @@ jobs:
           # VITE_* vars are inlined at build time, so GA4 has to be set here.
           # Empty secret = analytics simply stays off.
           VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
+          # Optional override; src/lib/marketingPixels.ts falls back to the
+          # hardcoded pixel id when this secret is not set.
+          VITE_FB_PIXEL_ID: ${{ secrets.VITE_FB_PIXEL_ID }}
 
       - name: Pregatire fisiere pentru deploy
         run: |
@@ -56,3 +59,8 @@ jobs:
           server-dir: ./
           exclude: |
             **/node_modules/**
+            # Server-side state that must survive a deploy. Without these the
+            # sync would delete the lead backup and the installed dependencies.
+            **/leads.jsonl
+            **/.env
+            **/logs/**

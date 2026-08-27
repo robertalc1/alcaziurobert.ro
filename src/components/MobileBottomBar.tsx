@@ -16,7 +16,7 @@ const EMAIL_ADDRESS = "contact@alcaziurobert.ro";
  * - Pill-shaped FAB in bottom-right corner, orange brand, elevated shadow.
  * - On tap, opens a Popover with 3 quick contact actions (call, email, scroll to form).
  * - Reveals after a small scroll so the hero stays unobstructed.
- * - Auto-hides when the footer (.mbh-section) enters view, so it never overlaps
+ * - Auto-hides when the footer (#made-by-humans) enters view, so it never overlaps
  *   the final contact icons.
  */
 const MobileBottomBar: React.FC = () => {
@@ -35,15 +35,36 @@ const MobileBottomBar: React.FC = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // The footer is lazy-loaded, so it is usually not in the DOM yet when this
+  // effect first runs. Poll briefly for it, then observe. (The previous
+  // selector, `.mbh-section`, no longer existed after the footer redesign —
+  // the observer was never attached and the FAB sat on top of the footer's
+  // contact rows.)
   useEffect(() => {
-    const footer = document.querySelector<HTMLElement>(".mbh-section");
-    if (!footer) return;
-    const io = new IntersectionObserver(
-      ([entry]) => setOverFooter(entry.isIntersecting),
-      { rootMargin: "0px 0px -88px 0px", threshold: 0 }
-    );
-    io.observe(footer);
-    return () => io.disconnect();
+    let io: IntersectionObserver | null = null;
+    let poll = 0;
+
+    const attach = () => {
+      const footer = document.getElementById("made-by-humans");
+      if (!footer) return false;
+      io = new IntersectionObserver(
+        ([entry]) => setOverFooter(entry.isIntersecting),
+        { rootMargin: "0px 0px -88px 0px", threshold: 0 }
+      );
+      io.observe(footer);
+      return true;
+    };
+
+    if (!attach()) {
+      poll = window.setInterval(() => {
+        if (attach()) window.clearInterval(poll);
+      }, 300);
+    }
+
+    return () => {
+      if (poll) window.clearInterval(poll);
+      io?.disconnect();
+    };
   }, []);
 
   // Close the popover automatically when the FAB hides (scrolled to top or over footer)

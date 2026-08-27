@@ -2,6 +2,7 @@ const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 const SCRIPT_ID = "ga4-gtag-script";
 
 let injected = false;
+let granted = false;
 
 export function isGaConfigured(): boolean {
   return Boolean(GA_MEASUREMENT_ID);
@@ -29,6 +30,7 @@ export function loadGoogleAnalytics(): void {
     return;
   }
 
+  granted = true;
   (window as unknown as Record<string, boolean>)[`ga-disable-${GA_MEASUREMENT_ID}`] = false;
 
   if (injected || document.getElementById(SCRIPT_ID)) return;
@@ -46,9 +48,26 @@ export function loadGoogleAnalytics(): void {
   window.gtag!("config", GA_MEASUREMENT_ID);
 }
 
+/**
+ * GA4 conversion for a submitted contact form. `generate_lead` is GA4's
+ * recommended event name, so it can be marked as a key event in the GA4 UI and
+ * imported into Google Ads without any extra tagging. No-ops until the visitor
+ * has accepted the Performance category (gtag only exists after that).
+ */
+export function trackLead(projectType: string, locale: string): void {
+  // `granted` — not just the presence of window.gtag — is the gate: any other
+  // script defining gtag must not be able to make this fire without consent.
+  if (!granted || !GA_MEASUREMENT_ID || !window.gtag) return;
+  window.gtag("event", "generate_lead", {
+    project_type: projectType,
+    locale,
+  });
+}
+
 // Stops further hits via GA's documented opt-out flag, without removing the
 // already-injected script — used when consent is revoked mid-session.
 export function disableGoogleAnalytics(): void {
+  granted = false;
   if (!GA_MEASUREMENT_ID) return;
   (window as unknown as Record<string, boolean>)[`ga-disable-${GA_MEASUREMENT_ID}`] = true;
 }

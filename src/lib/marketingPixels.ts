@@ -80,3 +80,14 @@ export function trackPixelPageView(): void {
   if (!granted || !window.fbq) return;
   window.fbq("track", "PageView");
 }
+
+/**
+ * Browser-side "Lead" for a submitted contact form. The same `eventId` is sent
+ * to the Conversions API by server.js, and Meta deduplicates the pair — so the
+ * lead is reported twice over two channels but counted once, which is exactly
+ * what makes attribution survive ad-blockers and iOS. No-ops without consent.
+ */
+export function trackPixelLead(eventId: string): void {
+  if (!granted || !window.fbq) return;
+  window.fbq("track", "Lead", {}, { eventID: eventId });
+}

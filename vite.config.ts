@@ -7,6 +7,16 @@ export default defineConfig(() => ({
   server: {
     host: "::",
     port: 8080,
+    // The contact form is the only backend call the site makes, and it lives in
+    // server.js. Without this proxy `npm run dev` answers POST /api/contact with
+    // a 404, so the form can never be tested locally. Run the API alongside the
+    // dev server with:  node --env-file=.env.local server.js
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:3000",
+        changeOrigin: false,
+      },
+    },
   },
   plugins: [react()],
   resolve: {

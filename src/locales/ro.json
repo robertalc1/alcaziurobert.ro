@@ -533,6 +533,8 @@
     "toast_ok_body": "Mulțumesc — revin în 24 de ore.",
     "toast_err_title": "Trimitere eșuată",
     "toast_err_body": "Ceva n-a mers. Încearcă din nou sau scrie-mi direct la contact@alcaziurobert.ro.",
+    "toast_rate_title": "Prea multe încercări",
+    "toast_rate_body": "Ai trimis deja câteva mesaje. Așteaptă câteva minute sau scrie-mi direct la contact@alcaziurobert.ro.",
     "privacy_note": "Prin trimitere ești de acord ca datele tale să fie folosite pentru a-ți răspunde. Detalii în <privacy>Politica de confidențialitate</privacy>.",
     "message_label": "Mesaj (opțional)",
     "message_placeholder": "Spune-mi pe scurt ce ai în minte.",

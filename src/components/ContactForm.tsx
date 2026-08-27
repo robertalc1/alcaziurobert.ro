@@ -5,6 +5,8 @@ import { z } from "zod";
 import { Link } from "react-router-dom";
 import { Trans, useTranslation } from "react-i18next";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
+import { trackLead } from "@/lib/analytics";
+import { trackPixelLead } from "@/lib/marketingPixels";
 import { toast } from "sonner";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
@@ -100,15 +102,31 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
 
   // Sticky max stage — only advances, never falls back. Prevents jarring
   // collapse if the user erases a field after revealing the next group.
+  //
+  // One step per commit, via the functional updater: reading `maxStage` from
+  // the closure made all three `setMaxStage` calls see the same stale value in
+  // a single effect run, so the last one won and stages 3 and 4 appeared at
+  // the same instant — the reveal stopped being progressive past step 2.
   const [maxStage, setMaxStage] = React.useState(1);
   React.useEffect(() => {
-    if (nameOk && maxStage < 2) setMaxStage(2);
-    if (nameOk && emailOk && phoneOk && maxStage < 3) setMaxStage(3);
-    if (nameOk && emailOk && phoneOk && detailsOk && maxStage < 4) setMaxStage(4);
+    setMaxStage((stage) => {
+      if (stage < 2) return nameOk ? 2 : stage;
+      if (stage < 3) return nameOk && emailOk && phoneOk ? 3 : stage;
+      if (stage < 4) return nameOk && emailOk && phoneOk && detailsOk ? 4 : stage;
+      return stage;
+    });
+    // `maxStage` is a dependency so the effect re-runs after each advance and
+    // can unlock the next step; returning the same value bails out of the
+    // re-render, so this settles instead of looping.
   }, [nameOk, emailOk, phoneOk, detailsOk, maxStage]);
 
   const onSubmit = async (values: Values) => {
     setSubmitting(true);
+    const locale = i18n.language?.startsWith("ro") ? "ro" : "en";
+    // Shared between the browser pixel's Lead and the server's CAPI Lead so
+    // Meta deduplicates the pair instead of counting one lead twice.
+    const eventId = `lead-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+
     try {
       const normalizedPhone = values.phone.replace(/[\s\-().]/g, "");
       const res = await fetch("/api/contact", {
@@ -117,12 +135,27 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
         body: JSON.stringify({
           ...values,
           phone: normalizedPhone,
-          locale: i18n.language?.startsWith("ro") ? "ro" : "en",
+          locale,
+          eventId,
+          pageUrl: window.location.href,
           // Gates the server-side Meta CAPI event — no marketing consent, no event.
           marketingConsent: consent.marketing === true,
         }),
       });
+
+      if (res.status === 429) {
+        toast.error(t("form.toast_rate_title"), {
+          description: t("form.toast_rate_body"),
+        });
+        return;
+      }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      // Conversion signals. Each no-ops unless its own consent category was
+      // accepted, so this never fires anything the visitor refused.
+      trackLead(values.projectType, locale);
+      if (consent.marketing === true) trackPixelLead(eventId);
+
       toast.success(t("form.toast_ok_title"), {
         description: t("form.toast_ok_body"),
       });
@@ -278,7 +311,7 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
             </motion.div>
           )}
 
-          {/* Stage 3 — Project Type + Budget */}
+          {/* Stage 3 — Project type + free-text brief */}
           {maxStage >= 3 && (
             <motion.div
               key="stage-3"
