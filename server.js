@@ -283,29 +283,137 @@ app.post("/api/contact", async (req, res) => {
     auth: { user, pass },
   });
 
-  const subject = `[alcaziurobert.ro] ${data.projectType} · ${data.name}`;
+  // ─────────────────────── Lead notification email ───────────────────────
+  // Built to be scanned in two seconds on a phone: the name is the headline,
+  // the phone and email are thumb-sized buttons (calling back fast is what
+  // wins the lead), and everything else is secondary detail underneath.
+  // Table-based layout with inline styles only — that is the one thing every
+  // mail client still renders the same way.
+
+  const PROJECT_LABELS = {
+    website: "Website",
+    webapp: "Aplicație web",
+    other: "Altceva",
+  };
+  const projectLabel = PROJECT_LABELS[data.projectType] ?? data.projectType;
+  const localeLabel = data.locale === "ro" ? "Română" : data.locale === "en" ? "Engleză" : "—";
+
+  // Name first: in a list of subjects, who it is beats what it is about.
+  const subject = `[alcaziurobert.ro] ${data.name} · ${projectLabel}`;
+
+  const receivedAt = new Intl.DateTimeFormat("ro-RO", {
+    dateStyle: "long",
+    timeStyle: "short",
+    timeZone: "Europe/Bucharest",
+  }).format(new Date());
+
+  const telHref = data.phone.replace(/[^\d+]/g, "");
+  const messageBody = data.message?.trim() || "";
+
   const text = [
-    `Name:    ${data.name}`,
-    `Email:   ${data.email}`,
-    `Phone:   ${data.phone}`,
-    `Type:    ${data.projectType}`,
-    `Locale:  ${data.locale ?? "n/a"}`,
-    `Message: ${data.message || "—"}`,
+    `LEAD NOU — alcaziurobert.ro`,
+    ``,
+    `${data.name}`,
+    `${data.phone}`,
+    `${data.email}`,
+    ``,
+    `Proiect:  ${projectLabel}`,
+    `Limba:    ${localeLabel}`,
+    `Primit:   ${receivedAt}`,
+    ``,
+    messageBody ? `MESAJ\n${"-".repeat(40)}\n${messageBody}` : `Fără mesaj.`,
+    ``,
+    `Răspunde direct la acest email — pleacă spre ${data.email}.`,
   ].join("\n");
 
-  const html = `
-    <div style="font-family:system-ui,-apple-system,sans-serif;line-height:1.55;color:#262626;max-width:560px">
-      <h2 style="font-size:18px;font-weight:600;margin:0 0 16px;color:#FE5C02">Contact nou — alcaziurobert.ro</h2>
-      <table style="border-collapse:collapse;font-size:14px">
-        <tr><td style="padding:6px 12px 6px 0;color:#5b6470">Nume</td><td><strong>${escapeHtml(data.name)}</strong></td></tr>
-        <tr><td style="padding:6px 12px 6px 0;color:#5b6470">Email</td><td><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></td></tr>
-        <tr><td style="padding:6px 12px 6px 0;color:#5b6470">Telefon</td><td><a href="tel:${escapeHtml(data.phone)}">${escapeHtml(data.phone)}</a></td></tr>
-        <tr><td style="padding:6px 12px 6px 0;color:#5b6470">Proiect</td><td>${escapeHtml(data.projectType)}</td></tr>
-        <tr><td style="padding:6px 12px 6px 0;color:#5b6470">Limba</td><td>${escapeHtml(data.locale ?? "n/a")}</td></tr>
-        <tr><td style="padding:6px 12px 6px 0;color:#5b6470;vertical-align:top">Mesaj</td><td style="white-space:pre-wrap">${escapeHtml(data.message || "—")}</td></tr>
-      </table>
-    </div>
-  `;
+  // Escaped, then newlines become <br>: `white-space: pre-wrap` alone is
+  // dropped by several clients, <br> is not.
+  const messageHtml = messageBody
+    ? escapeHtml(messageBody).replace(/\r?\n/g, "<br>")
+    : `<span style="color:#9AA1AC">Nu a scris niciun mesaj.</span>`;
+
+  const html = `<!doctype html>
+<html lang="ro">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#F4F5F7">
+
+  <!-- Preview line in the inbox list, before the mail is even opened -->
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0">
+    ${escapeHtml(data.name)} · ${escapeHtml(data.phone)} · ${escapeHtml(projectLabel)}
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F4F5F7">
+    <tr>
+      <td align="center" style="padding:24px 12px">
+
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FFFFFF;border-radius:14px;overflow:hidden;border:1px solid #E3E6EA">
+
+          <!-- Orange rule + eyebrow -->
+          <tr><td style="height:4px;background:#ED5C1B;line-height:4px;font-size:0">&nbsp;</td></tr>
+
+          <tr>
+            <td style="padding:26px 28px 0">
+              <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#ED5C1B">
+                Lead nou
+              </div>
+              <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:27px;line-height:1.2;font-weight:700;color:#16181D;padding-top:8px">
+                ${escapeHtml(data.name)}
+              </div>
+              <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:13px;color:#7A828E;padding-top:7px">
+                ${escapeHtml(projectLabel)} &nbsp;·&nbsp; ${escapeHtml(localeLabel)} &nbsp;·&nbsp; ${escapeHtml(receivedAt)}
+              </div>
+            </td>
+          </tr>
+
+          <!-- The two actions that matter. Big enough for a thumb. -->
+          <tr>
+            <td style="padding:22px 28px 0">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="padding-bottom:10px">
+                    <a href="tel:${escapeHtml(telHref)}" style="display:block;padding:15px 20px;background:#ED5C1B;border-radius:10px;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:17px;font-weight:600;color:#FFFFFF;text-align:center">
+                      Sună &nbsp;${escapeHtml(data.phone)}
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="mailto:${escapeHtml(data.email)}" style="display:block;padding:14px 20px;background:#FFFFFF;border:1px solid #D6DAE0;border-radius:10px;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:15px;font-weight:500;color:#16181D;text-align:center">
+                      ${escapeHtml(data.email)}
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- What they wrote -->
+          <tr>
+            <td style="padding:24px 28px 0">
+              <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#7A828E;padding-bottom:9px">
+                Mesaj
+              </div>
+              <div style="background:#F7F8FA;border-left:3px solid #ED5C1B;border-radius:0 8px 8px 0;padding:15px 17px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:15px;line-height:1.6;color:#16181D">
+                ${messageHtml}
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:20px 28px 28px">
+              <div style="border-top:1px solid #EDEFF2;padding-top:15px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:12px;line-height:1.6;color:#9AA1AC">
+                Formularul de contact de pe <a href="https://alcaziurobert.ro" style="color:#9AA1AC">alcaziurobert.ro</a>.
+                Dacă apeși <strong style="color:#7A828E">Răspunde</strong>, mesajul pleacă direct către ${escapeHtml(data.email)}.
+              </div>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
 
   try {
     await transporter.sendMail({
