@@ -91,3 +91,15 @@ export function trackPixelLead(eventId: string): void {
   if (!granted || !window.fbq) return;
   window.fbq("track", "Lead", {}, { eventID: eventId });
 }
+
+/**
+ * Custom "FormStart" for the Meta pixel. Lead volume on a high-ticket funnel is
+ * far too low to optimise a campaign on directly, so this mid-funnel signal
+ * gives the algorithm something to learn from between leads — and it doubles as
+ * a retargeting audience of people who started the form and walked away.
+ * No-ops without Marketing consent.
+ */
+export function trackPixelFormStart(): void {
+  if (!granted || !window.fbq) return;
+  window.fbq("trackCustom", "FormStart");
+}

@@ -227,6 +227,36 @@ const schema = z.object({
   pageUrl: z.string().trim().max(300).optional(),
 });
 
+/**
+ * Display form of a stored E.164 number, for the notification email only. The
+ * tel: link keeps the raw E.164 — this is purely so the number is readable at
+ * a glance instead of a 12-digit run.
+ */
+function displayPhone(e164) {
+  const clean = String(e164).replace(/[^\d+]/g, "");
+  if (!clean.startsWith("+")) return e164;
+  const digits = clean.slice(1);
+  // +40 (the market) and every other two-digit code split cleanly into threes.
+  // NANP/Kazakhstan use a single digit; the 3xx/4xx/5xx/8xx/9xx European and
+  // overseas ranges use three. Only the grouping depends on this — a wrong
+  // guess is cosmetic, never a wrong number.
+  const ccLen = /^[17]/.test(digits)
+    ? 1
+    : /^(2[1-9]\d|3[5-9]\d|42[0-9]|5[0-9]\d|6[7-9]\d|8[5-8]\d|9[6-9]\d)/.test(digits)
+      ? 3
+      : 2;
+  const cc = digits.slice(0, ccLen);
+  const rest = digits.slice(ccLen);
+  if (!rest) return clean;
+  const groups = rest.match(/.{1,3}/g) || [rest];
+  // A lone trailing digit reads as a typo ("791 112 345 6"), so it joins the
+  // group before it.
+  if (groups.length > 1 && groups[groups.length - 1].length === 1) {
+    groups[groups.length - 2] += groups.pop();
+  }
+  return `+${cc} ${groups.join(" ")}`;
+}
+
 const escapeHtml = (s) =>
   s.replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
@@ -308,13 +338,14 @@ app.post("/api/contact", async (req, res) => {
   }).format(new Date());
 
   const telHref = data.phone.replace(/[^\d+]/g, "");
+  const phoneText = displayPhone(data.phone);
   const messageBody = data.message?.trim() || "";
 
   const text = [
     `LEAD NOU — alcaziurobert.ro`,
     ``,
     `${data.name}`,
-    `${data.phone}`,
+    `${phoneText}`,
     `${data.email}`,
     ``,
     `Proiect:  ${projectLabel}`,
@@ -339,7 +370,7 @@ app.post("/api/contact", async (req, res) => {
 
   <!-- Preview line in the inbox list, before the mail is even opened -->
   <div style="display:none;max-height:0;overflow:hidden;opacity:0">
-    ${escapeHtml(data.name)} · ${escapeHtml(data.phone)} · ${escapeHtml(projectLabel)}
+    ${escapeHtml(data.name)} · ${escapeHtml(phoneText)} · ${escapeHtml(projectLabel)}
   </div>
 
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F4F5F7">
@@ -372,7 +403,7 @@ app.post("/api/contact", async (req, res) => {
                 <tr>
                   <td style="padding-bottom:10px">
                     <a href="tel:${escapeHtml(telHref)}" style="display:block;padding:15px 20px;background:#ED5C1B;border-radius:10px;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:17px;font-weight:600;color:#FFFFFF;text-align:center">
-                      Sună &nbsp;${escapeHtml(data.phone)}
+                      Sună &nbsp;${escapeHtml(phoneText)}
                     </a>
                   </td>
                 </tr>

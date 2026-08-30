@@ -71,3 +71,14 @@ export function disableGoogleAnalytics(): void {
   if (!GA_MEASUREMENT_ID) return;
   (window as unknown as Record<string, boolean>)[`ga-disable-${GA_MEASUREMENT_ID}`] = true;
 }
+
+/**
+ * GA4 `form_start` — fired the first time a visitor touches the contact form,
+ * whether or not they finish it. It is what makes the funnel readable: without
+ * it a page with 200 sessions and 4 leads looks identical to one where nobody
+ * ever tried. No-ops until Performance consent is granted.
+ */
+export function trackFormStart(): void {
+  if (!granted || !GA_MEASUREMENT_ID || !window.gtag) return;
+  window.gtag("event", "form_start", { form_name: "contact" });
+}

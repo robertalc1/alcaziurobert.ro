@@ -29,6 +29,20 @@ jobs:
       - name: Instalare dependente
         run: npm ci
 
+      # A missing VITE_* secret does not fail the build — it silently inlines an
+      # empty string, and the feature it powers simply stops existing in
+      # production with nothing in the log to say so. This is exactly how GA4
+      # went missing from the deployed bundle, so the gap gets announced.
+      - name: Verifica secretele de tracking
+        env:
+          GA: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
+        run: |
+          if [ -z "$GA" ]; then
+            echo "::warning title=GA4 lipseste::VITE_GA_MEASUREMENT_ID nu este setat in Settings -> Secrets -> Actions. Google Analytics NU va exista in build-ul de productie."
+          else
+            echo "GA4 configurat."
+          fi
+
       - name: Build (vite build)
         run: npm run build
         env:
