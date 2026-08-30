@@ -182,7 +182,10 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
       });
       form.reset();
       setEmailSuggestion(null);
-      startedRef.current = false;
+      // `startedRef` deliberately stays true. Clearing it here re-armed the
+      // event, and the field changes that reset() itself produces then bubbled
+      // into onChangeCapture — every successful lead was followed by a phantom
+      // FormStart. One start per mounted form is what the metric means anyway.
       onClose?.();
     } catch {
       toast.error(t("form.toast_err_title"), {
