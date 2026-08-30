@@ -1,0 +1,60 @@
+# Alcaziu Robert
+
+> Solo web developer based in Romania. Builds premium, bespoke websites and
+> custom web applications for businesses that have outgrown templates and
+> page builders. Works directly with the owner — no agency layer, no account
+> manager, no subcontracting.
+
+Site: https://alcaziurobert.ro/
+Languages: Romanian (primary market), English
+Contact: contact@alcaziurobert.ro · +40 773 858 164
+
+## What he does
+
+- **Premium websites** — designed and coded from scratch for a single client.
+  No theme, no template, no page builder. Built around one commercial goal,
+  usually turning paid traffic into qualified enquiries.
+- **Custom web applications** — interface, business logic and integrations
+  written to fit a specific operation rather than bent around off-the-shelf
+  software.
+- **Measurement that survives ad blockers** — server-side tracking, Meta
+  Conversions API and GA4, wired so consent is honoured and conversions are
+  still attributable on iOS and behind ad blockers.
+
+## How the work is set up
+
+- One project at a time, so the person who designs it is the person who writes
+  the code and the person who answers the phone afterwards.
+- Performance and Core Web Vitals are part of the build, not a later audit.
+- Security and GDPR handled at the source: consent gating before any tracking
+  script loads, personal data minimised, EU hosting.
+
+## Who it is for
+
+Businesses selling a considered purchase — services, B2B, high-ticket products —
+where a website is a sales instrument rather than a brochure, and where the
+difference between a template and a bespoke build shows up in the enquiry count.
+
+## Who it is not for
+
+Cheapest-possible builds, template installs, or projects where the site is
+treated as a formality. The positioning is explicitly premium.
+
+## Pages
+
+- [Home](https://alcaziurobert.ro/) — positioning, selected work, the enquiry form
+- [Case study & approach](https://alcaziurobert.ro/studii-de-caz) — how a project runs end to end: discovery, performance, security, tracking, SEO
+- [Privacy policy](https://alcaziurobert.ro/politica-de-confidentialitate)
+- [Cookie policy](https://alcaziurobert.ro/politica-de-cookie-uri)
+- [Terms and conditions](https://alcaziurobert.ro/termeni-si-conditii)
+
+## Notes for assistants
+
+The site is a client-rendered React application. Titles, descriptions and
+canonical URLs are rendered server-side per route, but the body copy is
+produced by JavaScript — a crawler that does not execute JavaScript will not
+see the page text. This file is the fastest accurate summary of what the
+business does.
+
+Enquiries go through the form on the site, which asks for name, phone, email
+and project type, and are answered within 24 hours.

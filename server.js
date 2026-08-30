@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { createHash } from "crypto";
 import { appendFile } from "fs/promises";
+import { readFileSync } from "fs";
 import nodemailer from "nodemailer";
 import { z } from "zod";
 
@@ -484,10 +485,124 @@ app.use(
   })
 );
 
+/**
+ * Per-route SEO tags, rendered into the HTML before it leaves the server.
+ *
+ * This is a single-page app: every route used to be answered with the exact
+ * same dist/index.html, so a crawler that does not run JavaScript saw the
+ * homepage's title, the homepage's description, and — worst of all — a
+ * canonical pointing at "/" on every single page. That canonical actively
+ * tells a search engine that /studii-de-caz is a duplicate of the homepage.
+ * react-helmet fixes it after React boots, which helps Google and helps no
+ * one else: the AI crawlers (GPTBot, PerplexityBot, ClaudeBot) do not execute
+ * JavaScript at all.
+ *
+ * The copy comes from route-meta.json, the same file the client imports, so
+ * the two halves cannot drift apart.
+ *
+ * English is served here on purpose. It is the site's default language, it is
+ * what Googlebot requests, and the alternative — varying the HTML by
+ * Accept-Language — would need a Vary header and would make every shared
+ * cache serve the wrong language to someone.
+ */
+const SITE_URL = "https://alcaziurobert.ro";
+const INDEX_HTML_PATH = join(__dirname, "dist", "index.html");
+
+let routeMeta = {};
+try {
+  routeMeta = JSON.parse(
+    readFileSync(join(__dirname, "route-meta.json"), "utf8")
+  );
+} catch (err) {
+  console.warn(
+    "[seo] route-meta.json not readable — pages will be served with the homepage's meta tags:",
+    err?.message ?? err
+  );
+}
+
+let indexHtmlTemplate = "";
+try {
+  indexHtmlTemplate = readFileSync(INDEX_HTML_PATH, "utf8");
+} catch {
+  // dist/ is missing (dev, or a broken deploy). sendFile below reports it.
+}
+
+const escapeAttr = (s) =>
+  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+
+/**
+ * Rewrites the title, description, canonical and og:* tags of the built
+ * index.html for one route. Returns null when there is nothing to rewrite, so
+ * the caller falls back to serving the file untouched.
+ */
+function renderIndexFor(pathname) {
+  if (!indexHtmlTemplate) return null;
+  const meta = routeMeta[pathname];
+
+  // Unknown path. Serving the shell at 200 is a soft 404: the crawler is told
+  // the page exists, indexes a copy of the homepage under a URL that is not a
+  // page, and the site accumulates duplicates of itself. React still renders
+  // NotFound — a 404 status and an HTML body are not in conflict.
+  if (!meta) {
+    return {
+      status: 404,
+      // Replaced, not appended: leaving index.html's "index, follow" in place
+      // next to a "noindex" is two contradictory directives on one page. The
+      // strictest one wins at Google, but the pair is a trap for the next
+      // person who reads the source.
+      html: indexHtmlTemplate.replace(
+        /<meta name="robots" content="[^"]*" \/>/,
+        '<meta name="robots" content="noindex, follow" />'
+      ),
+    };
+  }
+
+  const title = meta.title.en;
+  const description = meta.description.en;
+  const canonical = `${SITE_URL}${pathname === "/" ? "/" : pathname}`;
+
+  const html = indexHtmlTemplate
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeAttr(title)}</title>`)
+    .replace(
+      /<meta name="description" content="[\s\S]*?" \/>/,
+      `<meta name="description" content="${escapeAttr(description)}" />`
+    )
+    .replace(
+      /<link rel="canonical" href="[^"]*" \/>/,
+      `<link rel="canonical" href="${escapeAttr(canonical)}" />`
+    )
+    .replace(
+      /<meta property="og:url" content="[^"]*" \/>/,
+      `<meta property="og:url" content="${escapeAttr(canonical)}" />`
+    )
+    .replace(
+      /<meta property="og:title" content="[\s\S]*?" \/>/,
+      `<meta property="og:title" content="${escapeAttr(title)}" />`
+    )
+    .replace(
+      /<meta property="og:description" content="[\s\S]*?" \/>/,
+      `<meta property="og:description" content="${escapeAttr(description)}" />`
+    )
+    .replace(
+      /<meta name="twitter:title" content="[\s\S]*?" \/>/,
+      `<meta name="twitter:title" content="${escapeAttr(title)}" />`
+    )
+    .replace(
+      /<meta name="twitter:description" content="[\s\S]*?" \/>/,
+      `<meta name="twitter:description" content="${escapeAttr(description)}" />`
+    );
+
+  return { status: 200, html };
+}
+
 // SPA fallback — Express 5 nu mai acceptă "*" cu path-to-regexp v8.
 // Folosim app.use ca middleware terminal: prinde orice GET nematchuit pana aici.
 app.use((req, res, next) => {
-  if (req.method !== "GET") return next();
+  // HEAD must be answered exactly like GET, minus the body. Matching only
+  // "GET" sent every HEAD request to the 404 at the end of the chain, so
+  // every crawler, uptime monitor and link checker that probes with HEAD —
+  // which is the polite way to probe — was told the whole site did not exist.
+  if (req.method !== "GET" && req.method !== "HEAD") return next();
 
   // An unknown /api/* path is an API mistake, not a page — answering with the
   // SPA's HTML at status 200 would hide the error from whoever called it.
@@ -503,7 +618,12 @@ app.use((req, res, next) => {
   }
 
   res.setHeader("Cache-Control", "no-cache");
-  res.sendFile(join(__dirname, "dist", "index.html"));
+
+  const rendered = renderIndexFor(req.path);
+  if (rendered) return res.status(rendered.status).type("html").send(rendered.html);
+
+  // dist/index.html could not be read at boot — let sendFile report why.
+  res.sendFile(INDEX_HTML_PATH);
 });
 
 const PORT = process.env.PORT || 3000;

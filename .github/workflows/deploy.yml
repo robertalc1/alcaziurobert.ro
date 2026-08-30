@@ -63,7 +63,10 @@ jobs:
           rm -rf deploy
           mkdir -p deploy/tmp
           cp -R dist deploy/dist
-          cp server.js package.json package-lock.json deploy/
+          # route-meta.json is read by server.js at boot to render per-route
+          # title/description/canonical. Without it every page ships with the
+          # homepage's tags again.
+          cp server.js package.json package-lock.json route-meta.json deploy/
           date -u +"restart-%Y%m%dT%H%M%SZ" > deploy/tmp/restart.txt
 
       - name: Deploy pe Hosterion (FTPS)
