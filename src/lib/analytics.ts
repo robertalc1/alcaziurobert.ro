@@ -12,11 +12,26 @@ export function isGaConfigured(): boolean {
   return Boolean(GA_MEASUREMENT_ID);
 }
 
+/**
+ * Google's gtag stub, kept byte-for-byte faithful to the official snippet in
+ * the one detail that matters: it pushes the `arguments` object, not an array.
+ *
+ * gtag.js walks dataLayer and only treats an entry as a gtag command when it is
+ * an Arguments object — a real Array is silently ignored. The tidy-looking
+ * rest-parameter version this replaces pushed `["config", "G-…"]`, so the
+ * container loaded, answered 200, fired gtm.dom and gtm.load, and never
+ * configured the measurement id. No page_view, no /collect, no error: GA had
+ * never recorded a single hit.
+ *
+ * The `function` keyword is load-bearing — an arrow function has no
+ * `arguments`.
+ */
 function ensureGtagStub() {
   window.dataLayer = window.dataLayer || [];
   if (!window.gtag) {
-    window.gtag = (...args: unknown[]) => {
-      window.dataLayer!.push(args);
+    window.gtag = function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer!.push(arguments);
     };
   }
 }
