@@ -39,7 +39,10 @@ const SEOHead: React.FC = () => {
   const copy = ROUTE_COPY[pathname];
   const isKnownRoute = Boolean(copy);
   const { title, description } = copy ?? ROUTE_COPY["/"];
-  const canonicalUrl = `${SITE_URL}${pathname === "/" ? "" : pathname}`;
+  // Trailing slash kept on the homepage so this matches sitemap.xml and the
+  // copy server.js renders. Two spellings of the same URL is exactly the kind
+  // of thing that splits a page's signals in half.
+  const canonicalUrl = `${SITE_URL}${pathname === "/" ? "/" : pathname}`;
 
   return (
     <Helmet htmlAttributes={{ lang }}>

@@ -506,7 +506,8 @@ app.use(
  * cache serve the wrong language to someone.
  */
 const SITE_URL = "https://alcaziurobert.ro";
-const INDEX_HTML_PATH = join(__dirname, "dist", "index.html");
+const DIST_DIR = join(__dirname, "dist");
+const INDEX_HTML_PATH = join(DIST_DIR, "index.html");
 
 let routeMeta = {};
 try {
@@ -527,6 +528,27 @@ try {
   // dist/ is missing (dev, or a broken deploy). sendFile below reports it.
 }
 
+/**
+ * Static snapshots produced by scripts/prerender.mjs at build time — the real
+ * page, text and all, for anything that will not run JavaScript. Loaded once
+ * at boot; a missing file just means this route falls back to the meta-only
+ * template, which is what happens in dev where nothing has been prerendered.
+ */
+const prerendered = new Map();
+for (const route of Object.keys(routeMeta)) {
+  const file = (route === "/" ? "index" : route.slice(1)) + ".html";
+  try {
+    prerendered.set(route, readFileSync(join(DIST_DIR, "prerendered", file), "utf8"));
+  } catch {
+    // Not prerendered — renderIndexFor falls back to patching index.html.
+  }
+}
+console.log(
+  prerendered.size
+    ? `[seo] ${prerendered.size}/${Object.keys(routeMeta).length} routes served from prerendered HTML`
+    : "[seo] no prerendered HTML found — crawlers that do not run JavaScript will see an empty shell"
+);
+
 const escapeAttr = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 
@@ -537,6 +559,11 @@ const escapeAttr = (s) =>
  */
 function renderIndexFor(pathname) {
   if (!indexHtmlTemplate) return null;
+  // A prerendered snapshot already carries the right title, description,
+  // canonical and the actual page text — nothing left to patch.
+  const snapshot = prerendered.get(pathname);
+  if (snapshot) return { status: 200, html: snapshot };
+
   const meta = routeMeta[pathname];
 
   // Unknown path. Serving the shell at 200 is a soft 404: the crawler is told

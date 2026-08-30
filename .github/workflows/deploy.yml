@@ -48,7 +48,13 @@ jobs:
             echo "GA4 configurat."
           fi
 
-      - name: Build (vite build)
+      # `npm run build` prerenders every route in a real browser after vite
+      # finishes, so the runner needs one. Chromium only — the other engines
+      # would triple the download for nothing.
+      - name: Instalare Chromium pentru prerender
+        run: npx playwright install --with-deps chromium
+
+      - name: Build (vite build + prerender)
         run: npm run build
         env:
           # VITE_* vars are inlined at build time, so GA4 has to be set here.
