@@ -1,4 +1,8 @@
-const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
+// Trimmed on purpose. The id travels by copy-paste into a GitHub secret, and a
+// single leading space survives all the way into the tag URL
+// (`gtag/js?id=%20G-…`): the script loads, GA answers, nothing is ever
+// collected, and no error appears anywhere. Cost us a deploy to find.
+const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim();
 const SCRIPT_ID = "ga4-gtag-script";
 
 let injected = false;

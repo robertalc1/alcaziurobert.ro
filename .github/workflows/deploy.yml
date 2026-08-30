@@ -39,6 +39,11 @@ jobs:
         run: |
           if [ -z "$GA" ]; then
             echo "::warning title=GA4 lipseste::VITE_GA_MEASUREMENT_ID nu este setat in Settings -> Secrets -> Actions. Google Analytics NU va exista in build-ul de productie."
+          elif ! printf '%s' "$GA" | grep -qE '^G-[A-Z0-9]+$'; then
+            # Un spatiu lipit odata cu ID-ul trece de orice verificare de tipul
+            # "e gol?" si ajunge in URL-ul tag-ului ca %20. Scriptul se incarca,
+            # Google raspunde, nu se colecteaza nimic si nu apare nicio eroare.
+            echo "::warning title=GA4 invalid::VITE_GA_MEASUREMENT_ID nu are forma G-XXXXXXXXXX (spatiu in plus? ghilimele?). Codul face trim, dar curata secretul."
           else
             echo "GA4 configurat."
           fi

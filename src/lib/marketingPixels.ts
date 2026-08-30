@@ -8,7 +8,9 @@
 // The base code below is Meta's standard snippet, ported to TypeScript so it
 // can be injected on demand instead of running on page load.
 
-const PIXEL_ID = import.meta.env.VITE_FB_PIXEL_ID || "1555333129701586";
+// Trimmed for the same reason as the GA id — a stray space in the secret would
+// silently initialise a pixel that does not exist.
+const PIXEL_ID = import.meta.env.VITE_FB_PIXEL_ID?.trim() || "1555333129701586";
 const SCRIPT_ID = "meta-pixel-script";
 const SCRIPT_SRC = "https://connect.facebook.net/en_US/fbevents.js";
 
