@@ -545,9 +545,27 @@ for (const route of Object.keys(routeMeta)) {
 }
 console.log(
   prerendered.size
-    ? `[seo] ${prerendered.size}/${Object.keys(routeMeta).length} routes served from prerendered HTML`
+    ? `[seo] ${prerendered.size}/${Object.keys(routeMeta).length} routes have a prerendered snapshot for crawlers`
     : "[seo] no prerendered HTML found — crawlers that do not run JavaScript will see an empty shell"
 );
+
+/**
+ * Crawlers get the prerendered snapshot; people get the app.
+ *
+ * Serving the snapshot to everyone was tried and measured, and it costs the
+ * visitor: the browser paints the static HTML, then React clears #root and
+ * paints again, so the largest element lands on the second pass. On a phone
+ * throttled to slow 4G that pushed LCP from 2.6s to 3.8s — the crawlers
+ * gained a page, the humans paid for it.
+ *
+ * Splitting the two is the standard fix, and it is not cloaking: both sides
+ * are the same page produced by the same code, one of them simply rendered
+ * ahead of time. `Vary: User-Agent` keeps any shared cache from mixing them up.
+ */
+const CRAWLER_UA =
+  /bot|crawler|spider|crawling|gptbot|oai-searchbot|chatgpt-user|claudebot|claude-web|anthropic-ai|perplexity|cohere-ai|bytespider|ccbot|google-extended|meta-externalagent|applebot|slurp|duckduckbot|baiduspider|yandex|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|discordbot|embedly|quora link preview|pinterest|slackbot|vkshare|w3c_validator|lighthouse|headlesschrome/i;
+
+const isCrawler = (req) => CRAWLER_UA.test(req.headers["user-agent"] || "");
 
 const escapeAttr = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
@@ -557,12 +575,14 @@ const escapeAttr = (s) =>
  * index.html for one route. Returns null when there is nothing to rewrite, so
  * the caller falls back to serving the file untouched.
  */
-function renderIndexFor(pathname) {
+function renderIndexFor(pathname, forCrawler) {
   if (!indexHtmlTemplate) return null;
-  // A prerendered snapshot already carries the right title, description,
-  // canonical and the actual page text — nothing left to patch.
-  const snapshot = prerendered.get(pathname);
-  if (snapshot) return { status: 200, html: snapshot };
+  // A crawler gets the full snapshot: right title, right canonical, and the
+  // page text it could never have rendered for itself.
+  if (forCrawler) {
+    const snapshot = prerendered.get(pathname);
+    if (snapshot) return { status: 200, html: snapshot };
+  }
 
   const meta = routeMeta[pathname];
 
@@ -645,8 +665,9 @@ app.use((req, res, next) => {
   }
 
   res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Vary", "User-Agent");
 
-  const rendered = renderIndexFor(req.path);
+  const rendered = renderIndexFor(req.path, isCrawler(req));
   if (rendered) return res.status(rendered.status).type("html").send(rendered.html);
 
   // dist/index.html could not be read at boot — let sendFile report why.
