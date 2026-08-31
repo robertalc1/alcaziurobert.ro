@@ -166,7 +166,8 @@ const TestimonialsSection: React.FC = () => {
           padding: 11px 28px;
           min-height: 44px;
           border-radius: 9999px;
-          background: #ED5C1B;
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow);
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
@@ -175,10 +176,15 @@ const TestimonialsSection: React.FC = () => {
           white-space: nowrap;
           border: none;
           cursor: pointer;
-          transition: background 220ms cubic-bezier(0.23, 1, 0.32, 1),
+          transition: filter 220ms cubic-bezier(0.23, 1, 0.32, 1),
+                      box-shadow 220ms cubic-bezier(0.23, 1, 0.32, 1),
                       transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
         }
-        .ts-cta-btn:hover { background: #C44E17; }
+        .ts-cta-btn:hover {
+          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          box-shadow: var(--btn-gloss-shadow-hover);
+          transform: translateY(-1px);
+        }
         .ts-cta-btn:active { transform: scale(0.97); }
         .ts-cta-btn svg {
           width: 14px;

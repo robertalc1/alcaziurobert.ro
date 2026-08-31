@@ -138,7 +138,8 @@ const Hero = () => {
           padding: 8px 8px 8px 26px;
           min-height: 52px;
           border-radius: 9999px;
-          background: #ED5C1B;
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow);
           color: #ffffff;
           font-family: var(--font-sans);
           font-size: 15px;
@@ -147,10 +148,15 @@ const Hero = () => {
           white-space: nowrap;
           border: none;
           cursor: pointer;
-          transition: background 260ms cubic-bezier(0.32, 0.72, 0, 1),
+          transition: filter 260ms cubic-bezier(0.32, 0.72, 0, 1),
+                      box-shadow 260ms cubic-bezier(0.32, 0.72, 0, 1),
                       transform 200ms cubic-bezier(0.32, 0.72, 0, 1);
         }
-        .hero3-primary:hover { background: #C44E17; }
+        .hero3-primary:hover {
+          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          box-shadow: var(--btn-gloss-shadow-hover);
+          transform: translateY(-1px);
+        }
         .hero3-primary:active { transform: scale(0.98); }
         .hero3-primary-icon {
           width: 36px;

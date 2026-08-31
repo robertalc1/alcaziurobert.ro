@@ -346,7 +346,8 @@ const Navbar = () => {
           padding: 10px 22px;
           min-height: 42px;
           border-radius: 9999px;
-          background: #ED5C1B;
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow-sm);
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
@@ -355,10 +356,15 @@ const Navbar = () => {
           white-space: nowrap;
           border: none;
           cursor: pointer;
-          transition: background 220ms cubic-bezier(0.23, 1, 0.32, 1),
+          transition: filter 220ms cubic-bezier(0.23, 1, 0.32, 1),
+                      box-shadow 220ms cubic-bezier(0.23, 1, 0.32, 1),
                       transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
         }
-        .nav-cta:hover { background: #C44E17; }
+        .nav-cta:hover {
+          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          box-shadow: var(--btn-gloss-shadow-sm-hover);
+          transform: translateY(-1px);
+        }
         .nav-cta:active { transform: scale(0.97); }
         @media (max-width: 767px) {
           /* 44px minimum touch targets — most of the traffic is phones */
@@ -417,18 +423,29 @@ const Navbar = () => {
           align-items: center;
           justify-content: center;
           border-radius: 9999px;
-          border: none;
-          background: #F5F5F5;
-          color: #121212;
+          /* Brighter rim than the standard steel: this is the only way out of
+             a fullscreen overlay, so it has to read at a glance. */
+          border: 1px solid var(--btn-steel-border-hover);
+          background: var(--btn-steel);
+          box-shadow: var(--btn-steel-shadow);
+          color: #F5F5F5;
           cursor: pointer;
-          transition: background .25s ease, color .25s ease,
+          transition: border-color .25s ease, color .25s ease,
                       transform .35s cubic-bezier(.23,1,.32,1);
         }
+        /* The pill is round — the global focus ring's 10px radius would draw a
+           rounded square around it. */
+        .nav-close:focus-visible { border-radius: 9999px; }
         .nav-close svg {
           width: 20px; height: 20px;
           fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round;
         }
-        .nav-close:hover { background: #ED5C1B; color: #ffffff; transform: rotate(90deg); }
+        .nav-close:hover {
+          background: var(--btn-steel-hover);
+          border-color: rgba(255, 255, 255, 0.5);
+          color: #ffffff;
+          transform: rotate(90deg);
+        }
         @media (max-width: 640px) {
           .nav-close { width: 46px; height: 46px; }
           .nav-close svg { width: 18px; height: 18px; }
@@ -513,14 +530,16 @@ const Navbar = () => {
           padding: 15px 30px;
           border-radius: 9999px;
           border: none;
-          background: #ED5C1B;
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow);
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
           font-size: 15.5px;
           letter-spacing: -0.005em;
           cursor: pointer;
-          transition: background .25s ease, transform .2s cubic-bezier(.23,1,.32,1);
+          transition: filter .25s ease, box-shadow .25s ease,
+                      transform .2s cubic-bezier(.23,1,.32,1);
         }
         .nav-ov-cta svg {
           width: 15px; height: 15px;
@@ -528,7 +547,11 @@ const Navbar = () => {
           stroke-linecap: round; stroke-linejoin: round;
           transition: transform .25s cubic-bezier(.23,1,.32,1);
         }
-        .nav-ov-cta:hover { background: #C44E17; }
+        .nav-ov-cta:hover {
+          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          box-shadow: var(--btn-gloss-shadow-hover);
+          transform: translateY(-1px);
+        }
         .nav-ov-cta:hover svg { transform: translate(2px, -2px); }
         .nav-ov-cta:active { transform: scale(0.98); }
 
@@ -583,7 +606,11 @@ const Navbar = () => {
         }
         .nav-overlay .lang-btn { color: rgba(255, 255, 255, 0.62); }
         .nav-overlay .lang-btn:hover { color: #FFFFFF; }
-        .nav-overlay .lang-btn.active { color: #FFFFFF; background: #ED5C1B; }
+        .nav-overlay .lang-btn.active {
+          color: #FFFFFF;
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow-flat);
+        }
 
         @media (max-width: 900px) {
           .nav-overlay-main {

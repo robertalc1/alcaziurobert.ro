@@ -103,13 +103,11 @@ const MobileBottomBar: React.FC = () => {
         }
 
         .mbb-fab {
-          position: relative;
-          isolation: isolate;
-          overflow: hidden;
           width: 56px;
           height: 56px;
           border-radius: 9999px;
-          background: var(--orange, #ED5C1B);
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow-sm);
           color: #ffffff;
           display: inline-flex;
           align-items: center;
@@ -117,27 +115,14 @@ const MobileBottomBar: React.FC = () => {
           border: 0;
           padding: 0;
           cursor: pointer;
-          transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+          transition: filter 220ms cubic-bezier(0.23, 1, 0.32, 1),
+                      box-shadow 220ms cubic-bezier(0.23, 1, 0.32, 1),
+                      transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
           -webkit-tap-highlight-color: transparent;
         }
-        .mbb-fab::before {
-          content: "";
-          position: absolute;
-          width: 0;
-          height: 0;
-          background: #C44E17;
-          border-radius: 9999px;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          transition: width 500ms cubic-bezier(0, 0, 0.2, 1),
-                      height 500ms cubic-bezier(0, 0, 0.2, 1);
-          z-index: -1;
-          pointer-events: none;
-        }
-        .mbb-fab:hover::before {
-          width: 80px;
-          height: 80px;
+        .mbb-fab:hover {
+          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          box-shadow: var(--btn-gloss-shadow-sm-hover);
         }
         .mbb-fab:active {
           transform: scale(0.96);

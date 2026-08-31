@@ -48,6 +48,48 @@
     --bg: #0F0F0F;
     --bg-elevated: #1A1A1A;
     --btn-radius: 10px;
+
+    /* ── Button finish — single source of truth for every CTA on the site ──
+       Two families, nothing else:
+         gloss → primary / conversion actions (orange pill)
+         steel → secondary actions and icon controls (dark pill)
+       Each component's own button rule pulls from these vars instead of
+       declaring a flat colour, so the finish is tuned in ONE place. Hover
+       brightens the gloss with `filter` (gradients don't interpolate, filters
+       do) and swaps the steel gradient, which is subtle enough to snap. */
+    --btn-gloss: linear-gradient(180deg, #F76F30 0%, #ED5C1B 46%, #D9500F 100%);
+    --btn-gloss-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.34),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+      0 12px 30px -12px rgba(237, 92, 27, 0.62);
+    --btn-gloss-shadow-hover:
+      inset 0 1px 0 rgba(255, 255, 255, 0.42),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.30),
+      0 16px 38px -12px rgba(237, 92, 27, 0.78);
+    --btn-gloss-brightness: 1.06;
+    /* Same recipe, tighter bloom — for buttons under ~46px tall (nav, FAB),
+       where the full-size glow spills past the control and reads as a smudge. */
+    --btn-gloss-shadow-sm:
+      inset 0 1px 0 rgba(255, 255, 255, 0.34),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+      0 6px 16px -8px rgba(237, 92, 27, 0.55);
+    --btn-gloss-shadow-sm-hover:
+      inset 0 1px 0 rgba(255, 255, 255, 0.42),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.30),
+      0 9px 22px -8px rgba(237, 92, 27, 0.72);
+    /* Insets only — for chips inside a bordered track (segmented language
+       switcher), where an outer bloom would leak past the track's edge. */
+    --btn-gloss-shadow-flat:
+      inset 0 1px 0 rgba(255, 255, 255, 0.30),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.26);
+
+    --btn-steel: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.07) 52%, rgba(255, 255, 255, 0.03) 100%);
+    --btn-steel-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.12) 52%, rgba(255, 255, 255, 0.06) 100%);
+    --btn-steel-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.40);
+    --btn-steel-border: rgba(255, 255, 255, 0.16);
+    --btn-steel-border-hover: rgba(255, 255, 255, 0.30);
     --background: 0 0% 6%;
     --foreground: 0 0% 96%;
     --card: 0 0% 9%;
@@ -262,7 +304,7 @@
     cursor: pointer;
     white-space: nowrap;
     transition: transform var(--duration-fast, 160ms) var(--ease-out-quart, cubic-bezier(0.23, 1, 0.32, 1)),
-                background-color var(--duration-medium, 220ms) ease,
+                filter var(--duration-medium, 220ms) ease,
                 border-color var(--duration-medium, 220ms) ease,
                 box-shadow var(--duration-medium, 220ms) ease,
                 color var(--duration-medium, 220ms) ease;
@@ -279,53 +321,35 @@
     transition: transform var(--duration-medium, 220ms) var(--ease-out-quart, cubic-bezier(0.23, 1, 0.32, 1));
   }
 
-  /* Primary — solid orange + orange-ripple expand on hover (matches Hero) */
+  /* Primary — glossy orange pill (--btn-gloss* in :root) */
   .btn-primary {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    background: var(--orange, #ED5C1B);
+    background: var(--btn-gloss);
+    box-shadow: var(--btn-gloss-shadow);
     color: #ffffff;
-  }
-
-  .btn-primary::before {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    background: #C44E17;
-    border-radius: 9999px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 500ms cubic-bezier(0, 0, 0.2, 1),
-                height 500ms cubic-bezier(0, 0, 0.2, 1);
-    z-index: -1;
-    pointer-events: none;
   }
 
   .btn-primary svg path {
     stroke: #ffffff;
   }
 
-  /* Secondary — dark fill, orange outline */
+  /* Secondary — steel pill: same anatomy, neutral finish */
   .btn-secondary {
-    background: var(--bg-elevated, #1A1A1A);
+    background: var(--btn-steel);
+    box-shadow: var(--btn-steel-shadow);
     color: var(--ink, #F5F5F5);
-    border-color: var(--orange, #ED5C1B);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    border-color: var(--btn-steel-border);
   }
 
   .btn-secondary svg path {
-    stroke: var(--orange, #ED5C1B);
+    stroke: currentColor;
   }
 
-  /* On dark — portfolio cards (dark background): white outline */
+  /* On dark — portfolio cards: steel with a brighter rim for contrast */
   .btn-on-dark {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--btn-steel);
+    box-shadow: var(--btn-steel-shadow);
     color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    border-color: var(--btn-steel-border-hover);
   }
 
   .btn-on-dark svg path {
@@ -364,26 +388,22 @@
   }
 
   @media (hover: hover) {
-    .btn-primary:hover::before {
-      width: 360px;
-      height: 360px;
-    }
-
-    .btn-secondary:hover {
-      color: var(--orange, #ED5C1B);
+    .btn-primary:hover {
+      filter: brightness(var(--btn-gloss-brightness, 1.06));
+      box-shadow: var(--btn-gloss-shadow-hover);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(237, 92, 27, 0.16);
     }
-    .btn-secondary:hover svg {
+    .btn-primary:hover svg {
       transform: translateX(2px);
     }
 
+    .btn-secondary:hover,
     .btn-on-dark:hover {
-      background: rgba(255, 255, 255, 0.14);
-      border-color: #ffffff;
+      background: var(--btn-steel-hover);
+      border-color: var(--btn-steel-border-hover);
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.26);
     }
+    .btn-secondary:hover svg,
     .btn-on-dark:hover svg {
       transform: translateX(2px);
     }

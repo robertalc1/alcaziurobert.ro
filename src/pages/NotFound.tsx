@@ -58,15 +58,22 @@ const NotFound = () => {
           padding: 13px 28px;
           min-height: 48px;
           border-radius: 9999px;
-          background: #ED5C1B;
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow);
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
           font-size: 15px;
           text-decoration: none;
-          transition: background 220ms cubic-bezier(.23,1,.32,1);
+          transition: filter 220ms cubic-bezier(.23,1,.32,1),
+                      box-shadow 220ms cubic-bezier(.23,1,.32,1),
+                      transform 160ms cubic-bezier(.23,1,.32,1);
         }
-        .nf-link:hover { background: #C44E17; }
+        .nf-link:hover {
+          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          box-shadow: var(--btn-gloss-shadow-hover);
+          transform: translateY(-1px);
+        }
       `}</style>
 
       <div>

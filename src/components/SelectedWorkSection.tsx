@@ -358,17 +358,19 @@ const SelectedWorkSection: React.FC = () => {
         .pw-link-icon {
           width: 42px; height: 42px;
           border-radius: 9999px;
-          border: 1px solid rgba(255, 255, 255, 0.22);
+          border: 1px solid var(--btn-steel-border);
+          background: var(--btn-steel);
+          box-shadow: var(--btn-steel-shadow);
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          transition: background-color .25s ease, border-color .25s ease, transform .25s cubic-bezier(.23,1,.32,1);
+          transition: border-color .25s ease, transform .25s cubic-bezier(.23,1,.32,1);
         }
         .pw-link-icon svg { width: 12px; height: 12px; }
         .pw-link:hover { color: #ED5C1B; }
         .pw-link:hover .pw-link-icon {
-          background: #ED5C1B;
-          border-color: #ED5C1B;
+          background: var(--btn-steel-hover);
+          border-color: var(--btn-steel-border-hover);
           color: #ffffff;
           transform: translate(2px, -2px);
         }
@@ -447,13 +449,23 @@ const SelectedWorkSection: React.FC = () => {
           padding: 15px 24px;
           border: none;
           border-radius: 9999px;
-          background: #ED5C1B;
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow);
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
           font-size: 15.5px;
           cursor: pointer;
+          transition: filter 220ms cubic-bezier(.23,1,.32,1),
+                      box-shadow 220ms cubic-bezier(.23,1,.32,1),
+                      transform 160ms cubic-bezier(.23,1,.32,1);
         }
+        .pw-cta:hover {
+          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          box-shadow: var(--btn-gloss-shadow-hover);
+          transform: translateY(-1px);
+        }
+        .pw-cta:active { transform: scale(0.98); }
         .pw-cta svg { width: 15px; height: 15px; }
         @media (max-width: 767px) {
           .pw-cta { display: inline-flex; }

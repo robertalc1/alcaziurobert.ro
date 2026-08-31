@@ -89,17 +89,23 @@ const MadeByHumans = () => {
           min-height: 50px;
           border-radius: 9999px;
           border: none;
-          background: #ED5C1B;
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow);
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
           font-size: 15px;
           letter-spacing: -0.005em;
           cursor: pointer;
-          transition: background 240ms cubic-bezier(.23,1,.32,1),
+          transition: filter 240ms cubic-bezier(.23,1,.32,1),
+                      box-shadow 240ms cubic-bezier(.23,1,.32,1),
                       transform 180ms cubic-bezier(.23,1,.32,1);
         }
-        .ft-cta:hover { background: #C44E17; }
+        .ft-cta:hover {
+          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          box-shadow: var(--btn-gloss-shadow-hover);
+          transform: translateY(-1px);
+        }
         .ft-cta:active { transform: scale(0.98); }
         .ft-cta svg {
           width: 15px; height: 15px;
