@@ -135,8 +135,7 @@ const Hero = () => {
           display: inline-flex;
           align-items: center;
           gap: var(--btn-gap);
-          /* Right side is tighter because the arrow rides in its own circle. */
-          padding: 0 7px 0 var(--btn-px);
+          padding: 0 var(--btn-px);
           min-height: var(--btn-h);
           border-radius: 9999px;
           background: var(--btn-gloss);
@@ -159,18 +158,15 @@ const Hero = () => {
           transform: translateY(-1px);
         }
         .hero3-primary:active { transform: scale(0.98); }
+        /* Bare arrow — no disc behind it. The pill is already the shape; a
+           second circle inside it was one container too many. */
         .hero3-primary-icon {
-          width: 34px;
-          height: 34px;
-          border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.16);
           display: inline-flex;
           align-items: center;
-          justify-content: center;
           transition: transform 260ms cubic-bezier(0.32, 0.72, 0, 1);
           flex-shrink: 0;
         }
-        .hero3-primary-icon svg { width: 15px; height: 15px; }
+        .hero3-primary-icon svg { width: 16px; height: 16px; }
         .hero3-primary:hover .hero3-primary-icon { transform: translate(2px, -2px); }
         .hero3-secondary {
           font-family: var(--font-sans);
@@ -225,7 +221,9 @@ const Hero = () => {
 
         @media (max-width: 640px) {
           .hero3-cta { flex-direction: column; align-items: stretch; gap: 12px; }
-          .hero3-primary { width: 100%; justify-content: space-between; }
+          /* Full width on phones, but the label and arrow stay together in the
+             middle — space-between flung the bare arrow to the far edge. */
+          .hero3-primary { width: 100%; justify-content: center; }
           .hero3-secondary { text-align: center; padding: 10px 2px; }
           .hero3-title { max-width: 12ch; }
         }

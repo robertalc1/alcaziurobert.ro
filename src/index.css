@@ -53,14 +53,14 @@
        There used to be eight different heights (42/44/44/48/50/52/52 plus a
        40px base) and three different icon-button diameters. Nothing justified
        the spread; it just accumulated. Everything now resolves to these four
-       values, including on phones — 48px already clears the 44px touch-target
+       values, including on phones — 44px sits exactly on the touch-target
        floor, so there is no separate mobile size to drift out of sync.
        Icon-only buttons are square at the same 48px, so a round button and a
        pill button sit on the same baseline. */
-    --btn-h: 48px;
-    --btn-px: 26px;
-    --btn-font: 15px;
-    --btn-gap: 10px;
+    --btn-h: 44px;
+    --btn-px: 24px;
+    --btn-font: 14.5px;
+    --btn-gap: 9px;
 
     /* ── Button finish — single source of truth for every CTA on the site ──
        Two families, nothing else:
