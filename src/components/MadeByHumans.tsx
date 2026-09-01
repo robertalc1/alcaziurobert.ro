@@ -84,9 +84,9 @@ const MadeByHumans = () => {
         .ft-cta {
           display: inline-flex;
           align-items: center;
-          gap: 12px;
-          padding: 14px 30px;
-          min-height: 50px;
+          gap: var(--btn-gap);
+          padding: 0 var(--btn-px);
+          min-height: var(--btn-h);
           border-radius: 9999px;
           border: none;
           background: var(--btn-gloss);
@@ -94,7 +94,7 @@ const MadeByHumans = () => {
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
-          font-size: 15px;
+          font-size: var(--btn-font);
           letter-spacing: -0.005em;
           cursor: pointer;
           transition: filter 240ms cubic-bezier(.23,1,.32,1),

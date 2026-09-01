@@ -134,15 +134,16 @@ const Hero = () => {
         .hero3-primary {
           display: inline-flex;
           align-items: center;
-          gap: 12px;
-          padding: 8px 8px 8px 26px;
-          min-height: 52px;
+          gap: var(--btn-gap);
+          /* Right side is tighter because the arrow rides in its own circle. */
+          padding: 0 7px 0 var(--btn-px);
+          min-height: var(--btn-h);
           border-radius: 9999px;
           background: var(--btn-gloss);
           box-shadow: var(--btn-gloss-shadow);
           color: #ffffff;
           font-family: var(--font-sans);
-          font-size: 15px;
+          font-size: var(--btn-font);
           font-weight: 500;
           letter-spacing: -0.005em;
           white-space: nowrap;
@@ -159,8 +160,8 @@ const Hero = () => {
         }
         .hero3-primary:active { transform: scale(0.98); }
         .hero3-primary-icon {
-          width: 36px;
-          height: 36px;
+          width: 34px;
+          height: 34px;
           border-radius: 9999px;
           background: rgba(255, 255, 255, 0.16);
           display: inline-flex;

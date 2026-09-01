@@ -343,15 +343,16 @@ const Navbar = () => {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 10px 22px;
-          min-height: 42px;
+          gap: var(--btn-gap);
+          padding: 0 var(--btn-px);
+          min-height: var(--btn-h);
           border-radius: 9999px;
           background: var(--btn-gloss);
           box-shadow: var(--btn-gloss-shadow-sm);
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
-          font-size: 14px;
+          font-size: var(--btn-font);
           letter-spacing: -0.005em;
           white-space: nowrap;
           border: none;
@@ -368,7 +369,6 @@ const Navbar = () => {
         .nav-cta:active { transform: scale(0.97); }
         @media (max-width: 767px) {
           /* 44px minimum touch targets — most of the traffic is phones */
-          .nav-cta { padding: 11px 18px; font-size: 13.5px; min-height: 44px; }
           .nav-menu-trigger { padding: 11px 6px; min-height: 44px; min-width: 44px; justify-content: center; }
           .nav-logo { padding: 7px 2px; }
         }
@@ -418,7 +418,7 @@ const Navbar = () => {
           top: clamp(18px, 3.2vh, 34px);
           right: clamp(18px, 3.4vw, 44px);
           z-index: 2;
-          width: 54px; height: 54px;
+          width: var(--btn-h); height: var(--btn-h);
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -447,7 +447,6 @@ const Navbar = () => {
           transform: rotate(90deg);
         }
         @media (max-width: 640px) {
-          .nav-close { width: 46px; height: 46px; }
           .nav-close svg { width: 18px; height: 18px; }
         }
 
@@ -526,8 +525,9 @@ const Navbar = () => {
         .nav-ov-cta {
           display: inline-flex;
           align-items: center;
-          gap: 12px;
-          padding: 15px 30px;
+          gap: var(--btn-gap);
+          min-height: var(--btn-h);
+          padding: 0 var(--btn-px);
           border-radius: 9999px;
           border: none;
           background: var(--btn-gloss);
@@ -535,7 +535,7 @@ const Navbar = () => {
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
-          font-size: 15.5px;
+          font-size: var(--btn-font);
           letter-spacing: -0.005em;
           cursor: pointer;
           transition: filter .25s ease, box-shadow .25s ease,

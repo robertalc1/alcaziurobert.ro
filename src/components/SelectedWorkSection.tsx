@@ -356,7 +356,7 @@ const SelectedWorkSection: React.FC = () => {
           border: 0;
         }
         .pw-link-icon {
-          width: 42px; height: 42px;
+          width: var(--btn-h); height: var(--btn-h);
           border-radius: 9999px;
           border: 1px solid var(--btn-steel-border);
           background: var(--btn-steel);
@@ -442,11 +442,11 @@ const SelectedWorkSection: React.FC = () => {
           display: none;
           align-items: center;
           justify-content: center;
-          gap: 10px;
+          gap: var(--btn-gap);
           width: 100%;
-          min-height: 52px;
+          min-height: var(--btn-h);
           margin-top: 18px;
-          padding: 15px 24px;
+          padding: 0 var(--btn-px);
           border: none;
           border-radius: 9999px;
           background: var(--btn-gloss);
@@ -454,7 +454,7 @@ const SelectedWorkSection: React.FC = () => {
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
-          font-size: 15.5px;
+          font-size: var(--btn-font);
           cursor: pointer;
           transition: filter 220ms cubic-bezier(.23,1,.32,1),
                       box-shadow 220ms cubic-bezier(.23,1,.32,1),
@@ -523,7 +523,6 @@ const SelectedWorkSection: React.FC = () => {
           .pw-cat { font-size: 12px; margin-bottom: 8px; }
           .bf-domain { font-size: 12px; }
           .pw-name { font-size: 1.25rem; -webkit-text-stroke-width: 1px; }
-          .pw-link-icon { width: 44px; height: 44px; }
           .pw-hint { display: block; }
         }
         @media (prefers-reduced-motion: reduce) {

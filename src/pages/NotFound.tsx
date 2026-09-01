@@ -54,16 +54,16 @@ const NotFound = () => {
         .nf-link {
           display: inline-flex;
           align-items: center;
-          gap: 10px;
-          padding: 13px 28px;
-          min-height: 48px;
+          gap: var(--btn-gap);
+          padding: 0 var(--btn-px);
+          min-height: var(--btn-h);
           border-radius: 9999px;
           background: var(--btn-gloss);
           box-shadow: var(--btn-gloss-shadow);
           color: #ffffff;
           font-family: var(--font-sans);
           font-weight: 500;
-          font-size: 15px;
+          font-size: var(--btn-font);
           text-decoration: none;
           transition: filter 220ms cubic-bezier(.23,1,.32,1),
                       box-shadow 220ms cubic-bezier(.23,1,.32,1),

@@ -49,6 +49,19 @@
     --bg-elevated: #1A1A1A;
     --btn-radius: 10px;
 
+    /* ── Button size — ONE size for every CTA on the site ──
+       There used to be eight different heights (42/44/44/48/50/52/52 plus a
+       40px base) and three different icon-button diameters. Nothing justified
+       the spread; it just accumulated. Everything now resolves to these four
+       values, including on phones — 48px already clears the 44px touch-target
+       floor, so there is no separate mobile size to drift out of sync.
+       Icon-only buttons are square at the same 48px, so a round button and a
+       pill button sit on the same baseline. */
+    --btn-h: 48px;
+    --btn-px: 26px;
+    --btn-font: 15px;
+    --btn-gap: 10px;
+
     /* ── Button finish — single source of truth for every CTA on the site ──
        Two families, nothing else:
          gloss → primary / conversion actions (orange pill)
@@ -291,12 +304,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 10px 24px;
+    gap: var(--btn-gap);
+    min-height: var(--btn-h);
+    padding: 0 var(--btn-px);
     border-radius: 9999px;
     font-family: var(--font-sans);
     font-weight: 500;
-    font-size: 14.5px;
+    font-size: var(--btn-font);
     line-height: 1;
     letter-spacing: -0.005em;
     text-decoration: none;
@@ -409,12 +423,8 @@
     }
   }
 
-  @media (max-width: 640px) {
-    .btn {
-      padding: 10px 16px;
-      font-size: 13.5px;
-    }
-  }
+  /* No mobile size override on purpose: --btn-h is already a comfortable
+     touch target, and a second size is how the drift started last time. */
 
 }
 

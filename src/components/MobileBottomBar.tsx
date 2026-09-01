@@ -103,8 +103,8 @@ const MobileBottomBar: React.FC = () => {
         }
 
         .mbb-fab {
-          width: 56px;
-          height: 56px;
+          width: var(--btn-h);
+          height: var(--btn-h);
           border-radius: 9999px;
           background: var(--btn-gloss);
           box-shadow: var(--btn-gloss-shadow-sm);
