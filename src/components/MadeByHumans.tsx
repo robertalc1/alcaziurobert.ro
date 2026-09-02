@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import ContactCTA from "@/components/ContactCTA";
+import Reveal from "@/components/Reveal";
 
 const PHONE_DISPLAY = "+40 773 858 164";
 const PHONE_TEL = "+40773858164";
@@ -274,7 +275,10 @@ const MadeByHumans = () => {
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             text-align: left;
           }
-          .ft-row:last-child { border-bottom: none; }
+          /* Each row is wrapped in a <Reveal> div, so :last-child has to
+             match the wrapper — on .ft-row it would match every row (each is
+             the only child of its own wrapper) and wipe every divider. */
+          .ft-contact > :last-child .ft-row { border-bottom: none; }
           .ft-legal { gap: 4px 18px; }
           .ft-legal a, .ft-legal-btn { font-size: 13.5px; padding: 12px 2px; }
           .ft-copy { font-size: 12.5px; }
@@ -317,16 +321,18 @@ const MadeByHumans = () => {
         <div className="ft-main">
           {/* Pitch + CTA */}
           <div className="ft-pitch">
-            <h2 className="ft-title">{t("footer.cta_title")}</h2>
-            <p className="ft-body">{t("footer.cta_body")}</p>
-            <ContactCTA>
-              <button type="button" className="ft-cta">
-                {t("footer.cta_button")}
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 17L17 7M9 7h8v8" />
-                </svg>
-              </button>
-            </ContactCTA>
+            <Reveal>
+              <h2 className="ft-title">{t("footer.cta_title")}</h2>
+              <p className="ft-body">{t("footer.cta_body")}</p>
+              <ContactCTA>
+                <button type="button" className="ft-cta">
+                  {t("footer.cta_button")}
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 17L17 7M9 7h8v8" />
+                  </svg>
+                </button>
+              </ContactCTA>
+            </Reveal>
           </div>
 
           {/* Brand mark */}
@@ -336,53 +342,60 @@ const MadeByHumans = () => {
 
           {/* Direct contact */}
           <div className="ft-contact">
-            <a className="ft-row" href={`mailto:${EMAIL}`}>
-              <span className="ft-icon">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <rect x="3" y="5" width="18" height="14" rx="2" />
-                  <polyline points="3,7 12,13 21,7" />
-                </svg>
-              </span>
-              <span>
-                <span className="ft-row-label">{t("footer.email_label")}</span>
-                <span className="ft-row-value">{EMAIL}</span>
-              </span>
-            </a>
+            <Reveal>
+              <a className="ft-row" href={`mailto:${EMAIL}`}>
+                <span className="ft-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <polyline points="3,7 12,13 21,7" />
+                  </svg>
+                </span>
+                <span>
+                  <span className="ft-row-label">{t("footer.email_label")}</span>
+                  <span className="ft-row-value">{EMAIL}</span>
+                </span>
+              </a>
+            </Reveal>
 
-            <a className="ft-row" href={`tel:${PHONE_TEL}`}>
-              <span className="ft-icon">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M22 16.92v2.1a2 2 0 0 1-2.18 2 19.6 19.6 0 0 1-8.58-3.06 19.3 19.3 0 0 1-6-6 19.6 19.6 0 0 1-3.06-8.58A2 2 0 0 1 4.18 2h2.1A2 2 0 0 1 8.2 3.72l.67 2a2 2 0 0 1-.46 2.02L7.3 8.9a16.5 16.5 0 0 0 7.8 7.8l1.15-1.11a2 2 0 0 1 2.02-.46l2 .67A2 2 0 0 1 22 16.92Z" />
-                </svg>
-              </span>
-              <span>
-                <span className="ft-row-label">{t("footer.phone_label")}</span>
-                <span className="ft-row-value">{PHONE_DISPLAY}</span>
-              </span>
-            </a>
+            <Reveal delay={70}>
+              <a className="ft-row" href={`tel:${PHONE_TEL}`}>
+                <span className="ft-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M22 16.92v2.1a2 2 0 0 1-2.18 2 19.6 19.6 0 0 1-8.58-3.06 19.3 19.3 0 0 1-6-6 19.6 19.6 0 0 1-3.06-8.58A2 2 0 0 1 4.18 2h2.1A2 2 0 0 1 8.2 3.72l.67 2a2 2 0 0 1-.46 2.02L7.3 8.9a16.5 16.5 0 0 0 7.8 7.8l1.15-1.11a2 2 0 0 1 2.02-.46l2 .67A2 2 0 0 1 22 16.92Z" />
+                  </svg>
+                </span>
+                <span>
+                  <span className="ft-row-label">{t("footer.phone_label")}</span>
+                  <span className="ft-row-value">{PHONE_DISPLAY}</span>
+                </span>
+              </a>
+            </Reveal>
 
-            <a
-              className="ft-row"
-              href={`https://wa.me/${PHONE_WA}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="ft-icon">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.45L3 20.5l1.6-5.3A8.5 8.5 0 1 1 21 11.5Z" />
-                  <path d="M8.6 9.1c.2-.5.4-.5.7-.5h.5c.2 0 .4 0 .6.5l.6 1.4c.1.3 0 .5-.1.7l-.4.5c-.1.2-.2.3 0 .6a7 7 0 0 0 2.8 2.3c.3.1.5.1.6 0l.5-.6c.2-.2.4-.2.6-.1l1.4.7c.3.1.4.3.4.5 0 .6-.4 1.3-1.5 1.5-1 .2-2.6-.3-4.2-1.6a9 9 0 0 1-2.6-3.6c-.3-1-.2-1.8.1-2.3Z" />
-                </svg>
-              </span>
-              <span>
-                <span className="ft-row-label">{t("footer.whatsapp_label")}</span>
-                <span className="ft-row-value">{t("footer.whatsapp_value")}</span>
-              </span>
-            </a>
+            <Reveal delay={140}>
+              <a
+                className="ft-row"
+                href={`https://wa.me/${PHONE_WA}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="ft-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.45L3 20.5l1.6-5.3A8.5 8.5 0 1 1 21 11.5Z" />
+                    <path d="M8.6 9.1c.2-.5.4-.5.7-.5h.5c.2 0 .4 0 .6.5l.6 1.4c.1.3 0 .5-.1.7l-.4.5c-.1.2-.2.3 0 .6a7 7 0 0 0 2.8 2.3c.3.1.5.1.6 0l.5-.6c.2-.2.4-.2.6-.1l1.4.7c.3.1.4.3.4.5 0 .6-.4 1.3-1.5 1.5-1 .2-2.6-.3-4.2-1.6a9 9 0 0 1-2.6-3.6c-.3-1-.2-1.8.1-2.3Z" />
+                  </svg>
+                </span>
+                <span>
+                  <span className="ft-row-label">{t("footer.whatsapp_label")}</span>
+                  <span className="ft-row-value">{t("footer.whatsapp_value")}</span>
+                </span>
+              </a>
+            </Reveal>
           </div>
         </div>
 
         <hr className="ft-rule" />
 
+        <Reveal delay={240}>
         <div className="ft-bottom">
           <nav className="ft-legal" aria-label={t("footer.terms_link")}>
             <Link to="/termeni-si-conditii">{t("footer.terms_link")}</Link>
@@ -398,6 +411,7 @@ const MadeByHumans = () => {
             © {year} <strong>{t("footer.copyright_l")}</strong>
           </p>
         </div>
+        </Reveal>
       </div>
     </footer>
   );

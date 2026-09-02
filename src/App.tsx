@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import PixelPageViews from "@/components/PixelPageViews";
 import { CookieConsentProvider } from "@/hooks/use-cookie-consent";
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import Index from "./pages/Index";
 
 const CaseStudy = lazy(() => import("./pages/CaseStudy"));
@@ -15,6 +16,10 @@ const CookiePreferencesModal = lazy(() => import("@/components/CookiePreferences
 const Sonner = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
 
 const App = () => {
+  // One instance for the whole app. Mounted here rather than inside a route so
+  // navigating never tears the scroll layer down and rebuilds it.
+  useSmoothScroll();
+
   return (
     <CookieConsentProvider>
       <BrowserRouter>

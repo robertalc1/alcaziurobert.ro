@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Navbar from "@/components/Navbar";
 import MadeByHumans from "@/components/MadeByHumans";
+import { jumpToTop, scrollToEl } from "@/lib/scroll";
 
 const MAIL = "mailto:contact@alcaziurobert.ro";
 
@@ -41,7 +42,7 @@ const Approach: React.FC = () => {
   const [activeId, setActiveId] = useState<string>("cs-overview");
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    jumpToTop();
   }, []);
 
   // Reveal-on-scroll for any element with .cs-reveal.
@@ -92,8 +93,7 @@ const Approach: React.FC = () => {
     e.preventDefault();
     const el = document.getElementById(id);
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
-    window.scrollTo({ top, behavior: "smooth" });
+    scrollToEl(el, NAV_OFFSET);
   };
 
   return (
@@ -319,11 +319,17 @@ const Approach: React.FC = () => {
         }
 
         /* REVEAL */
+        /* Same timing as <Reveal> on the landing page, driven by the shared
+           tokens so the two reveal systems cannot drift apart. Deliberately
+           NO blur here: these wrap whole page sections, and filter() cost
+           scales with painted area — the landing page blurs paragraphs and
+           cards, not full-width sections. */
         .cs-reveal {
-          opacity: 0; transform: translateY(20px);
+          opacity: 0;
+          transform: translateY(var(--reveal-distance, 20px));
           transition:
-            opacity 700ms cubic-bezier(0.23, 1, 0.32, 1),
-            transform 700ms cubic-bezier(0.23, 1, 0.32, 1);
+            opacity var(--reveal-duration, 800ms) var(--reveal-ease, ease-out),
+            transform var(--reveal-duration, 800ms) var(--reveal-ease, ease-out);
         }
         .cs-reveal.is-in { opacity: 1; transform: none; }
         @media (prefers-reduced-motion: reduce) {

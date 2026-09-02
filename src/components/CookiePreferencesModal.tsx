@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/accordion";
 import { Switch } from "@/components/ui/switch";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
+import { startLenis, stopLenis } from "@/lib/lenis";
 
 /** One storage entry disclosed to the visitor: what it is, why, how long. */
 interface StorageRow {
@@ -90,6 +91,15 @@ const CookiePreferencesModal: React.FC = () => {
       setMarketing(consent.marketing);
     }
   }, [isPreferencesOpen, consent.performance, consent.marketing]);
+
+  // Radix locks body scroll while the dialog is open, but the smooth-scroll
+  // layer keeps advancing its own target from wheel events over the overlay —
+  // closing would then snap the page to wherever that drifted.
+  useEffect(() => {
+    if (!isPreferencesOpen) return;
+    stopLenis();
+    return () => startLenis();
+  }, [isPreferencesOpen]);
 
   const linkLabel = t("cookieConsent.modal.see_cookies_link");
   const titleClass = "flex-1 text-sm font-medium text-[#F5F5F5]";

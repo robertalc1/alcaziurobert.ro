@@ -62,6 +62,22 @@
     --btn-font: 14.5px;
     --btn-gap: 9px;
 
+    /* ── Scroll motion ──
+       Drives <Reveal /> and the glass navbar. Same idea as the button tokens:
+       one place to tune, every consumer reads from here.
+       The reveal is fade + rise + DEFOCUS — the blur is what separates it from
+       a stock fade. Blur is capped below what looks "correct" at a glance
+       because `filter: blur()` re-rasterises the whole subtree every frame of
+       the transition; past ~8px big headings read as out-of-focus rather than
+       arriving, and the cost climbs with painted area. */
+    --reveal-distance: 20px;
+    --reveal-blur: 8px;
+    --reveal-duration: 800ms;
+    --reveal-ease: var(--ease-out-quart);
+
+    --nav-glass-bg: rgba(13, 13, 14, 0.55);
+    --nav-glass-blur: 40px;
+
     /* ── Button finish — single source of truth for every CTA on the site ──
        Two families, nothing else:
          gloss → primary / conversion actions (orange pill)
@@ -132,6 +148,17 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Phones pay more for both of these than they gain. A backdrop-filter blur
+     radius is the single most expensive thing on a mid-range Android, and the
+     nav bar spans the full width — and that hardware is where the ad traffic
+     lands. Same reasoning for the reveal blur. */
+  @media (max-width: 767px) {
+    :root {
+      --reveal-blur: 5px;
+      --nav-glass-blur: 24px;
+    }
   }
 
   .dark {
@@ -231,9 +258,30 @@
     max-width: 100%;
   }
 
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
+  /* Smooth scrolling is owned by the Lenis layer (src/hooks/use-smooth-scroll),
+     not by CSS. `scroll-behavior: smooth` used to live here; it has to go,
+     because Lenis loads lazily and for that window both would be easing the
+     same anchor jump against each other. lib/scroll.ts falls back to native
+     smooth behaviour per-call when Lenis is absent. */
+
+  /* Lenis CSS contract — inlined rather than importing lenis/dist/lenis.css,
+     so all global CSS stays in one file and nothing extra rides the async
+     chunk. Classes are put on <html> by the library itself. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
   }
 
   /* Custom scrollbar */
@@ -428,93 +476,63 @@
 
 }
 
-.image-scale-in {
-  animation: scaleIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-@keyframes scaleIn {
-  0% {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.fadeIn {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.8s ease forwards;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.stagger-1 {
-  animation-delay: 0.1s;
-}
-
-.stagger-2 {
-  animation-delay: 0.2s;
-}
-
-.stagger-3 {
-  animation-delay: 0.3s;
-}
-
-.stagger-4 {
-  animation-delay: 0.4s;
-}
-
-.hover-lift {
-  transition: transform 0.3s ease;
-  will-change: transform;
-}
-
-.hover-lift:hover {
-  transform: translateY(-5px);
-}
-
-/* Parallax effect */
-.parallax {
-  transform: translateY(var(--parallax-y, 0));
-  transition: transform 0.1s ease-out;
-}
-
-@media (max-width: 1024px) {
-  .parallax {
-    transform: none;
-    transition: none;
-  }
-}
-
 /* ===== Scroll reveal (used by <Reveal /> in src/components/Reveal.tsx) =====
-   Transition-based (not keyframes) so the resting state is `transform: none`
-   — never leaves a stale transform that would break position: sticky/fixed
-   in descendants. */
+
+   Content arrives by fading UP and INTO FOCUS. The defocus is the half that
+   makes it read as expensive; without it this is a stock fade.
+
+   Transition-based, not keyframes, so the resting state can be `none` rather
+   than a computed value. That matters twice over:
+
+     transform: none  — a live transform breaks position: sticky/fixed in
+                        descendants (this was already the rule here).
+     filter: none     — SAME hazard. A non-`none` filter creates a containing
+                        block for fixed/absolute descendants and a new stacking
+                        context. `blur(0px)` IS a non-none filter, so it is NOT
+                        a safe resting value however harmless it looks. Do not
+                        "fix" this to blur(0).
+
+   `will-change: filter` has the same containing-block effect, which is why it
+   is dropped to `auto` the moment the element settles.
+
+   Text under a filter loses subpixel antialiasing on Windows and Android and
+   renders greyscale. Normally that causes a visible snap when the filter is
+   removed — this site is immune because `body` is already `antialiased`
+   (see @layer base), so text is greyscale everywhere. If that ever changes,
+   this transition will start snapping. */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.7s var(--ease-out-quart, ease-out),
-              transform 0.7s var(--ease-out-quart, ease-out);
+  transform: translateY(var(--reveal-distance, 20px));
+  filter: blur(var(--reveal-blur, 8px));
+  transition: opacity var(--reveal-duration, 800ms) var(--reveal-ease, ease-out),
+              transform var(--reveal-duration, 800ms) var(--reveal-ease, ease-out),
+              filter var(--reveal-duration, 800ms) var(--reveal-ease, ease-out);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+  will-change: opacity, transform, filter;
 }
 .reveal-on-scroll.is-revealed {
   opacity: 1;
   transform: none;
+  filter: none;
   will-change: auto;
 }
+
+/* Opt out of the blur only (<Reveal blur={0}>). For subtrees where the filter
+   is too expensive or visually wrong: anything image-bearing, form controls,
+   and the portfolio carousel. Never sets blur(0) — see the note above. */
+.reveal-on-scroll.reveal-no-blur,
+.reveal-on-scroll.reveal-no-blur.is-revealed {
+  filter: none;
+}
+.reveal-on-scroll.reveal-no-blur {
+  will-change: opacity, transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal-on-scroll {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
   }
 }

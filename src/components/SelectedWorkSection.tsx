@@ -541,6 +541,12 @@ const SelectedWorkSection: React.FC = () => {
       {/* Same cards everywhere. On desktop the track drifts on its own and can be
           dragged; on touch it is a snap carousel the visitor swipes — the list is
           rendered once there, since there is no auto-loop to feed. */}
+      {/* blur={0}: the viewport is a live scroll container with a mask and a
+          rAF loop writing scrollLeft — a filter would re-rasterise all of it
+          every frame of the transition, and a live filter creates a containing
+          block the carousel's offset measurements should never have to think
+          about. The rise still applies; it settles to transform: none. */}
+      <Reveal delay={90} blur={0}>
       <div
         className="pw-viewport"
         ref={viewportRef}
@@ -561,6 +567,7 @@ const SelectedWorkSection: React.FC = () => {
           {!isMobile && PROJECTS.map((p, i) => renderItem(p, i, 1))}
         </div>
       </div>
+      </Reveal>
 
       {isMobile && (
         <div className="work-inner">

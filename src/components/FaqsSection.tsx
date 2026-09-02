@@ -132,6 +132,10 @@ const FaqsSection: React.FC = () => {
           </header>
         </Reveal>
 
+        {/* One reveal for the list, not per item — Radix animates each item's
+            height on open, and a blur transition stacked on a height animation
+            reads as muddy. */}
+        <Reveal delay={100}>
         <Accordion type="single" collapsible className="faq-list">
           {FAQ_KEYS.map((key) => (
             <AccordionItem key={key} value={key} className="faq-item">
@@ -149,6 +153,7 @@ const FaqsSection: React.FC = () => {
             </AccordionItem>
           ))}
         </Accordion>
+        </Reveal>
 
         <div className="faq-cta-row">
           {/* Straight to WhatsApp — fastest reply channel */}

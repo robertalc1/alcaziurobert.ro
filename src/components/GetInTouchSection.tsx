@@ -1,6 +1,7 @@
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import ContactForm from "@/components/ContactForm";
+import Reveal from "@/components/Reveal";
 
 // Same orange highlight pill used across the site (compounding/testimonials).
 const pillComponents = { pill: <span className="touch-pill" /> };
@@ -16,16 +17,6 @@ const GetInTouchSection = () => {
           --ink: #F5F5F5;
         }
 
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-
         .touch-section {
           position: relative;
           padding: clamp(56px, 7.5vh, 96px) 0 clamp(48px, 6vh, 80px);
@@ -39,7 +30,6 @@ const GetInTouchSection = () => {
           letter-spacing: -0.028em;
           color: var(--ink);
           margin: 0 0 clamp(32px, 4vh, 56px);
-          animation: fadeInUp 0.6s ease-out;
         }
 
         .touch-description {
@@ -51,10 +41,6 @@ const GetInTouchSection = () => {
           font-weight: 400;
           font-size: clamp(1.05rem, 1.5vw, 1.3rem);
           text-wrap: balance;
-          animation: fadeInUp 0.8s ease-out;
-          animation-delay: 0.2s;
-          opacity: 0;
-          animation-fill-mode: forwards;
         }
 
         .touch-pill {
@@ -83,7 +69,6 @@ const GetInTouchSection = () => {
           border: none;
           box-shadow: none;
           backdrop-filter: none;
-          animation: fadeIn 0.8s ease-out;
           margin: 0 auto;
         }
 
@@ -114,10 +99,6 @@ const GetInTouchSection = () => {
           border-radius: 27px;
           padding: 7px;
           box-shadow: 0 40px 90px -48px rgba(0, 0, 0, 0.7);
-          animation: fadeInUp 1s ease-out;
-          animation-delay: 0.4s;
-          opacity: 0;
-          animation-fill-mode: forwards;
         }
         .touch-form {
           text-align: left;
@@ -168,20 +149,32 @@ const GetInTouchSection = () => {
               height={1000}
               className="touch-plane"
             />
-            <h2 className="touch-title">{t("contact.title")}</h2>
-            <p className="touch-description">
-              <Trans i18nKey="contact.description_l1" components={pillComponents} />
-              <br />
-              <Trans i18nKey="contact.description_l2" components={pillComponents} />
-            </p>
+            {/* Scroll-gated, not mount-gated. These used to be CSS keyframes
+                firing on mount — but the section is lazy-loaded, so the chunk
+                mounts on scroll PROXIMITY and the animation regularly played
+                out entirely off-screen, leaving a dead section on arrival. */}
+            <Reveal>
+              <h2 className="touch-title">{t("contact.title")}</h2>
+            </Reveal>
+            <Reveal delay={80}>
+              <p className="touch-description">
+                <Trans i18nKey="contact.description_l1" components={pillComponents} />
+                <br />
+                <Trans i18nKey="contact.description_l2" components={pillComponents} />
+              </p>
+            </Reveal>
 
-            <div className="touch-form-shell">
-              <div className="touch-form">
-                <h3 className="touch-form-title">{t("hero_v3.form_title")}</h3>
-                <p className="touch-form-note">{t("hero_v3.form_note")}</p>
-                <ContactForm />
+            {/* blur={0}: form controls under a filter rasterise badly and the
+                shell is a large painted area. */}
+            <Reveal delay={160} blur={0}>
+              <div className="touch-form-shell">
+                <div className="touch-form">
+                  <h3 className="touch-form-title">{t("hero_v3.form_title")}</h3>
+                  <p className="touch-form-note">{t("hero_v3.form_note")}</p>
+                  <ContactForm />
+                </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@ import React, { Suspense, lazy, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import { navOffset } from "@/lib/scroll";
+import { scrollToEl } from "@/lib/scroll";
 
 // Below-the-fold sections — lazy-loaded so the initial bundle stays small.
 // Each Suspense fallback reserves enough vertical space to keep CLS = 0.
@@ -34,7 +34,7 @@ const Index = () => {
     const timer = window.setTimeout(() => {
       const el = document.getElementById(id);
       if (el) {
-        window.scrollTo({ top: el.offsetTop - navOffset(), behavior: "smooth" });
+        scrollToEl(el);
       }
       window.history.replaceState({}, document.title);
     }, 80);

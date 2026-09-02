@@ -6,6 +6,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
+import { scrollToEl } from "@/lib/scroll";
 
 const PHONE_NUMBER = "+40773858164";
 const PHONE_DISPLAY = "+40 773 858 164";
@@ -77,9 +78,8 @@ const MobileBottomBar: React.FC = () => {
     setOpen(false);
     const target = document.getElementById("contact");
     if (!target) return;
-    const offset = 100;
-    const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
-    window.scrollTo({ top: y, behavior: "smooth" });
+    // 100 regardless of viewport: this only ever runs from the mobile bar.
+    scrollToEl(target, 100);
   };
 
   return (

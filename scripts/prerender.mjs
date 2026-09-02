@@ -88,6 +88,17 @@ async function main() {
         // snapshot it is a spinner frozen over the content, so it goes.
         document.getElementById("app-loader")?.remove();
 
+        // Smooth scroll should never have started here — the hook bails on
+        // navigator.webdriver, which Playwright sets. This is the second lock:
+        // the library marks <html> with its own classes, and one of them turns
+        // off scroll-behavior for every visitor served the static file.
+        document.documentElement.classList.remove(
+          "lenis",
+          "lenis-smooth",
+          "lenis-scrolling",
+          "lenis-stopped"
+        );
+
         // react-helmet appends its tags (marked data-rh) instead of replacing
         // the static ones from index.html, which is invisible in a live app
         // because helmet's copy wins at runtime — but a snapshot keeps both.

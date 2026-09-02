@@ -216,6 +216,12 @@ const TestimonialsSection: React.FC = () => {
             <h2 className="ts-title">{t("testimonials.title")}</h2>
           </div>
         </Reveal>
+        {/* One reveal for the whole grid, not per card: the cards live inside
+            a perpetually running marquee, so per-card observers would fire as
+            the track carried them past the mask — chaotic, and fighting the
+            animation. blur={0} for the same reason: 800ms of re-rasterising a
+            640px masked area that is already animating every frame. */}
+        <Reveal delay={100} blur={0}>
         <div className="ts-grid">
           <TestimonialsColumn testimonials={first} duration={26} />
           <TestimonialsColumn
@@ -229,6 +235,7 @@ const TestimonialsSection: React.FC = () => {
             className="hidden lg:block"
           />
         </div>
+        </Reveal>
 
         <div className="ts-cta">
           <ContactCTA>

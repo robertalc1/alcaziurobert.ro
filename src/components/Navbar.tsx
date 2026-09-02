@@ -6,7 +6,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { useScroll } from "@/hooks/use-scroll";
-import { scrollToId } from "@/lib/scroll";
+import { scrollToId, scrollToTop } from "@/lib/scroll";
+import { startLenis, stopLenis } from "@/lib/lenis";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ContactCTA from "@/components/ContactCTA";
 
@@ -80,10 +81,15 @@ const Navbar = () => {
     const gap = window.innerWidth - document.documentElement.clientWidth;
     body.style.overflow = "hidden";
     if (gap > 0) body.style.paddingRight = `${gap}px`;
+    // The overlay owns the screen, so the smooth-scroll layer has to let go.
+    // Left running, the wheel keeps advancing its internal target behind the
+    // overlay and closing the menu snaps the page to wherever that drifted.
+    stopLenis();
     window.addEventListener("keydown", onKey);
     return () => {
       body.style.overflow = prevOverflow;
       body.style.paddingRight = prevPad;
+      startLenis();
       window.removeEventListener("keydown", onKey);
       trigger?.focus({ preventScroll: true });
     };
@@ -95,7 +101,7 @@ const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  // scrollToTop imported from lib/scroll — routed through the smooth layer.
 
   // Logo: scroll to top on the homepage, otherwise navigate home.
   const handleLogo = (e: React.MouseEvent) => {
@@ -222,17 +228,26 @@ const Navbar = () => {
           align-items: center;
           background: transparent;
           border-bottom: 1px solid transparent;
-          transition: height .3s cubic-bezier(.23,1,.32,1),
+          transition: height .24s cubic-bezier(.23,1,.32,1),
                       background-color .3s ease,
                       border-color .3s ease,
                       opacity .25s ease;
         }
+        /* Glass, not a tinted panel. The old values were 0.82 alpha over a 14px
+           blur — at that opacity the blur is doing almost nothing, so we were
+           paying for an expensive filter and getting a flat bar. Dropping the
+           fill to ~0.55 is what lets the blur read. Saturate stays low: at this
+           alpha, 140% makes the orange CTA behind the bar bloom. */
         .site-nav.is-scrolled {
           height: 66px;
-          background: rgba(12, 12, 12, 0.82);
-          -webkit-backdrop-filter: saturate(140%) blur(14px);
-          backdrop-filter: saturate(140%) blur(14px);
+          background: var(--nav-glass-bg);
+          -webkit-backdrop-filter: saturate(130%) blur(var(--nav-glass-blur));
+          backdrop-filter: saturate(130%) blur(var(--nav-glass-blur));
           border-bottom-color: rgba(255, 255, 255, 0.09);
+        }
+        /* Without the filter, a 0.55 fill is unreadable — fall back to opaque. */
+        @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+          .site-nav.is-scrolled { background: rgba(12, 12, 12, 0.94); }
         }
         /* The fullscreen menu owns the screen — the bar steps out of the way. */
         .site-nav.is-menu-open { opacity: 0; pointer-events: none; }

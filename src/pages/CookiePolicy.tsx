@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import Navbar from "@/components/Navbar";
 import MadeByHumans from "@/components/MadeByHumans";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
+import { jumpToTop, scrollToEl } from "@/lib/scroll";
 
 const SECTIONS = [
   "intro",
@@ -26,7 +27,7 @@ const CookiePolicy: React.FC = () => {
   const [activeId, setActiveId] = useState<string>(TOC_IDS[0]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    jumpToTop();
   }, []);
 
   useEffect(() => {
@@ -75,8 +76,7 @@ const CookiePolicy: React.FC = () => {
     e.preventDefault();
     const el = document.getElementById(id);
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
-    window.scrollTo({ top, behavior: "smooth" });
+    scrollToEl(el, NAV_OFFSET);
   };
 
   return (
@@ -175,12 +175,15 @@ const CookiePolicy: React.FC = () => {
           max-width: 64ch;
         }
 
+        /* Shared tokens, same as <Reveal> on the landing page, so the two
+           reveal systems cannot drift apart. No blur here on purpose: these
+           wrap whole page sections and filter() cost scales with painted area. */
         .cs-reveal {
           opacity: 0;
-          transform: translateY(18px);
+          transform: translateY(var(--reveal-distance, 20px));
           transition:
-            opacity 700ms cubic-bezier(0.23, 1, 0.32, 1),
-            transform 700ms cubic-bezier(0.23, 1, 0.32, 1);
+            opacity var(--reveal-duration, 800ms) var(--reveal-ease, ease-out),
+            transform var(--reveal-duration, 800ms) var(--reveal-ease, ease-out);
         }
         .cs-reveal.is-in {
           opacity: 1;

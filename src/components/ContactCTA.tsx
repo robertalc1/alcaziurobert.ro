@@ -10,6 +10,8 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { scrollToEl } from "@/lib/scroll";
+import { startLenis, stopLenis } from "@/lib/lenis";
 
 // Lazy: the drawer's form chunk (react-hook-form + zod) loads only when the
 // drawer actually opens — keeps it out of the eager Navbar/Hero graph.
@@ -33,6 +35,15 @@ const ContactCTA: React.FC<Props> = ({ children }) => {
   const [open, setOpen] = React.useState(false);
 
   const close = React.useCallback(() => setOpen(false), []);
+
+  // The drawer is mobile-first, but a narrow desktop window (<768px with a
+  // mouse) gets both the drawer AND the smooth-scroll layer — so the layer has
+  // to be paused for the same reason the cookie dialog pauses it.
+  React.useEffect(() => {
+    if (!open) return;
+    stopLenis();
+    return () => startLenis();
+  }, [open]);
 
   if (isMobile) {
     const openDrawer = (e: React.MouseEvent) => {
@@ -70,9 +81,7 @@ const ContactCTA: React.FC<Props> = ({ children }) => {
       return;
     }
     e.preventDefault();
-    const offset = window.innerWidth < 768 ? 100 : 80;
-    const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
-    window.scrollTo({ top: y, behavior: "smooth" });
+    scrollToEl(target);
   };
 
   return <Slot onClick={scrollToContact}>{children}</Slot>;
