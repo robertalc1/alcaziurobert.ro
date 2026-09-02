@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import ContactCTA from "@/components/ContactCTA";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { scrollToId } from "@/lib/scroll";
+import ShaderBackground from "@/components/ShaderBackground";
 
 // Lazy: keeps react-hook-form/zod out of the critical bundle; never fetched
 // below 1024px because the component simply isn't mounted there.
@@ -80,6 +81,24 @@ const Hero = () => {
           position: relative;
           width: 100%;
           background: #0F0F0F;
+          overflow: hidden;
+        }
+        .hero3-bg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+          pointer-events: none;
+          /* No z-index needed: .hero3-inner already sits at 1, so the canvas
+             stays behind it without adding another stacking context.
+
+             The mask answers the seam complaint. The section below is opaque
+             #0F0F0F, so fading the shader out before the bottom edge turns
+             the boundary into a gradient instead of a cut. The top edge stays
+             at full strength, so the field starts right under the navbar. */
+          -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 94%);
+                  mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 94%);
         }
         .hero3-inner {
           position: relative;
@@ -232,6 +251,8 @@ const Hero = () => {
           .hero3-reveal-1, .hero3-reveal-3, .hero3-reveal-4 { animation: none; }
         }
       `}</style>
+
+      <ShaderBackground className="hero3-bg" />
 
       <div className="hero3-inner">
         <div className="hero3-copy">
