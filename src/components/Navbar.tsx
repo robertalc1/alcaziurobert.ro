@@ -275,6 +275,45 @@ const Navbar = () => {
           height: 30px;
           width: auto;
           user-select: none;
+          /* Warm halo tied to the hero shader behind the bar. drop-shadow (not
+             box-shadow) so the glow follows the mark's alpha, not its box.
+             Two stops: a tight core that keeps the edges crisp against the
+             glass, and a wide soft one that reads as light, not as a border. */
+          filter: drop-shadow(0 0 3px rgba(237, 92, 27, 0.34))
+                  drop-shadow(0 0 14px rgba(237, 92, 27, 0.20));
+          animation: nav-logo-glow 7s ease-in-out infinite;
+          transition: filter 320ms cubic-bezier(0.23, 1, 0.32, 1),
+                      transform 320ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        /* Slow breathe — under one cycle per 7s it registers as the mark being
+           lit rather than as an animation asking for attention. */
+        @keyframes nav-logo-glow {
+          0%, 100% {
+            filter: drop-shadow(0 0 3px rgba(237, 92, 27, 0.30))
+                    drop-shadow(0 0 12px rgba(237, 92, 27, 0.16));
+          }
+          50% {
+            filter: drop-shadow(0 0 4px rgba(237, 92, 27, 0.42))
+                    drop-shadow(0 0 20px rgba(237, 92, 27, 0.26));
+          }
+        }
+        .nav-logo:hover img {
+          animation: none;
+          filter: drop-shadow(0 0 5px rgba(237, 92, 27, 0.55))
+                  drop-shadow(0 0 24px rgba(237, 92, 27, 0.38));
+          transform: translateY(-1px);
+        }
+        .nav-logo:active img { transform: scale(0.97); }
+        /* On the scrolled glass bar the backdrop is darker and the halo blooms;
+           pull it back so the bar stays a surface, not a light source. */
+        .site-nav.is-scrolled .nav-logo img {
+          filter: drop-shadow(0 0 3px rgba(237, 92, 27, 0.26))
+                  drop-shadow(0 0 12px rgba(237, 92, 27, 0.14));
+          animation: none;
+        }
+        .site-nav.is-scrolled .nav-logo:hover img {
+          filter: drop-shadow(0 0 5px rgba(237, 92, 27, 0.48))
+                  drop-shadow(0 0 20px rgba(237, 92, 27, 0.30));
         }
 
         .nav-actions {
@@ -641,6 +680,10 @@ const Navbar = () => {
           .nav-ov-aside,
           .nav-overlay-foot { animation: none; }
           .nav-close:hover { transform: none; }
+          /* Glow stays — it is colour, not motion. Only the breathe stops. */
+          .nav-logo img { animation: none; }
+          .nav-logo:hover img,
+          .nav-logo:active img { transform: none; }
         }
       `}</style>
 
