@@ -52,6 +52,9 @@ async function main() {
   // project carousel — measured 6251 characters of text against 3683 at a
   // phone width.
   const ctx = await browser.newContext({
+    // Pin the locale so the snapshot's language is a decision, not a default
+    // inherited from whatever machine runs the build.
+    locale: "ro-RO",
     viewport: { width: 1440, height: 1000 },
     userAgent:
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",

@@ -500,10 +500,14 @@ app.use(
  * The copy comes from route-meta.json, the same file the client imports, so
  * the two halves cannot drift apart.
  *
- * English is served here on purpose. It is the site's default language, it is
- * what Googlebot requests, and the alternative — varying the HTML by
+ * Romanian is served here on purpose. It is the site's language and the one
+ * its market searches in. The alternative — varying the HTML by
  * Accept-Language — would need a Vary header and would make every shared
  * cache serve the wrong language to someone.
+ *
+ * English still exists as a switcher for the visitor, but it is deliberately
+ * not indexed: language lives in localStorage, not in the URL, so there is no
+ * distinct English address for a crawler to point at.
  */
 const SITE_URL = "https://alcaziurobert.ro";
 const DIST_DIR = join(__dirname, "dist");
@@ -604,8 +608,8 @@ function renderIndexFor(pathname, forCrawler) {
     };
   }
 
-  const title = meta.title.en;
-  const description = meta.description.en;
+  const title = meta.title.ro;
+  const description = meta.description.ro;
   const canonical = `${SITE_URL}${pathname === "/" ? "/" : pathname}`;
 
   const html = indexHtmlTemplate

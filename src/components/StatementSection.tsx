@@ -24,10 +24,11 @@ const StatementSection: React.FC = () => {
           max-width: 1180px;
           margin: 0 auto;
         }
-        /* Same treatment as the summary block in CompoundingSection */
+        /* No card behind the statement — the line sits straight on the page.
+           The padding stays: with no background it is invisible, but it keeps
+           the section the same height, so the Suspense placeholder in
+           Index.tsx stays calibrated and nothing shifts on mount. */
         .st-card {
-          background: #1A1A1A;
-          border-radius: clamp(16px, 2vw, 22px);
           padding: clamp(24px, 3vw, 40px) clamp(22px, 3vw, 44px);
           max-width: 720px;
           margin: 0 auto;

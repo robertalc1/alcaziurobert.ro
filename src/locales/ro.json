@@ -191,7 +191,7 @@
     "pain_title": "Majoritatea site-urilor sunt rupte.",
     "pain_1": "Core Web Vitals lente. Google te penalizează. Clienții pleacă.",
     "pain_2": "Pixeli doar client-side. Reclamele plătite nu scalează.",
-    "pain_3": "Fără NIS2 compliance. Expunere legală directă din 2024.",
+    "pain_3": "Fără conformare NIS2. Expunere legală directă din 2024.",
     "road_eyebrow": "Cum construim",
     "road_title": "Cinci etape. Un singur standard.",
     "road_lead": "Același standard pentru site-uri, ecommerce, aplicații.",
@@ -215,7 +215,7 @@
         "t2": "NIS2 ready"
       },
       "tracking": {
-        "title": "Tracking & ads",
+        "title": "Tracking și reclame",
         "lead": "Pixeli Facebook și Google, server-side. Cele două care scalează.",
         "t1": "FB Conversions API",
         "t2": "GA4 + Google Ads"
@@ -229,15 +229,15 @@
     },
     "channels_eyebrow": "Canalele pe care le rulăm",
     "channels_title": "Marketing pentru high-ticket.",
-    "channels_p1": "Audiențe COLD întâi. Retargetare precisă apoi. Obiectiv Purchase mereu. Fără metrici de vanitate.",
+    "channels_p1": "Mai întâi audiențe reci. Apoi retargetare precisă. Obiectiv Purchase mereu. Fără metrici de vanitate.",
     "channel_meta": "Facebook Ads",
     "channel_google": "Google Ads",
     "addon_eyebrow": "Infrastructură custom",
-    "addon_title": "VPS Linux & Windows — fully managed.",
-    "addon_body": "Puțini o fac corect. Arhitectăm, deploy-uim și mentenăm instanțe Linux sau Windows dedicate.",
+    "addon_title": "VPS Linux și Windows — administrate integral.",
+    "addon_body": "Puțini o fac corect. Le arhitectez, le pun în producție și le întrețin — instanțe Linux sau Windows dedicate.",
     "addon_cta": "Cere o ofertă",
     "cta_title": "Pregătit?",
-    "cta_body": "Apel de scoping 30 min. Fără pălăvrăgeală.",
+    "cta_body": "Discuție de 30 de minute în care definim proiectul. Fără pălăvrăgeală.",
     "cta_button": "Hai să vorbim",
     "toc": {
       "title": "Pe această pagină",
@@ -251,7 +251,7 @@
   },
   "whatwedo": {
     "badge": "Oferta",
-    "clients_eyebrow": "Aceștia ne-au ales",
+    "clients_eyebrow": "Au lucrat cu mine",
     "cf_partner_body": "Infrastructură enterprise. Sub 2 secunde global. DDoS, SSL, backup-uri incluse.",
     "cta_primary": "Începe să convertești",
     "cta_secondary": "Studii de caz",
@@ -261,7 +261,7 @@
     },
     "security": {
       "title": "NIS2 + securitate",
-      "body": "WAF, DDoS, backup-uri. Compliance enterprise."
+      "body": "WAF, DDoS, backup-uri. Conformare de nivel enterprise."
     }
   },
   "testimonials": {
@@ -349,7 +349,7 @@
     "cta_title": "Hai să discutăm.",
     "cta_body": "Spune-mi ce construiești. Îți zic direct dacă te pot ajuta — și ce ar presupune.",
     "cta_button": "Programează o discuție",
-    "email_label": "Adresă de mail",
+    "email_label": "Email",
     "phone_label": "Telefon · răspund în 24h",
     "whatsapp_label": "WhatsApp",
     "whatsapp_value": "Scrie-mi direct",
@@ -452,11 +452,11 @@
     },
     "modal": {
       "title": "Centrul de preferințe pentru confidențialitate",
-      "intro": "Ce este un cookie? Un cookie este un fișier care se salvează pe calculatorul tău atunci când vizitezi un website. Acest fișier permite memorarea setărilor și a preferințelor tale când vizitezi din nou site-ul respectiv, pentru a-ți oferi o mai bună experiență online. Ai posibilitatea de a permite sau nu utilizarea de cookie-uri, dar dacă nu vrei să permiți lansarea acestora, va trebui să faci setările adecvate. Cookie-urile nu pot fi folosite pentru a rula programe sau a transmite viruși informatici în dispozitivul tău. De asemenea, poți selecta cookie-urile pe care vrei să le accepți din secțiunea dedicată: cookie-uri strict necesare, cookie-uri de performanță și cookie-uri de marketing și targetare.",
+      "intro": "Ce este un cookie? Un cookie este un fișier care se salvează pe calculatorul tău atunci când vizitezi un site. Acest fișier permite memorarea setărilor și a preferințelor tale când vizitezi din nou site-ul respectiv, pentru a-ți oferi o mai bună experiență online. Ai posibilitatea de a permite sau nu utilizarea de cookie-uri, dar dacă nu vrei să permiți lansarea acestora, va trebui să faci setările adecvate. Cookie-urile nu pot fi folosite pentru a rula programe sau a transmite viruși informatici în dispozitivul tău. De asemenea, poți selecta cookie-urile pe care vrei să le accepți din secțiunea dedicată: cookie-uri strict necesare, cookie-uri de performanță și cookie-uri de marketing și targetare.",
       "necessary": {
         "title": "Cookie-uri Strict Necesare",
         "always_active": "Întotdeauna activate",
-        "description": "Aceste cookie-uri sunt necesare pentru funcționarea website-ului. Ele sunt, de obicei, făcute pentru a răspunde numai acțiunilor făcute de tine: alegerea setărilor de confidențialitate, intrarea în cont sau completarea unor formulare. Poți alege să setezi ca browserul tău să blocheze sau să te alerteze în legătură cu aceste cookie-uri, dar asta va însemna că anumite secțiuni ale website-ului nu vor funcționa. Aceste cookie-uri nu vor stoca informații care te pot identifica personal.",
+        "description": "Aceste cookie-uri sunt necesare pentru funcționarea site-ului. Ele sunt, de obicei, făcute pentru a răspunde numai acțiunilor făcute de tine: alegerea setărilor de confidențialitate, intrarea în cont sau completarea unor formulare. Poți alege să setezi ca browserul tău să blocheze sau să te alerteze în legătură cu aceste cookie-uri, dar asta va însemna că anumite secțiuni ale site-ului nu vor funcționa. Aceste cookie-uri nu vor stoca informații care te pot identifica personal.",
         "row_consent_purpose": "Reține alegerea ta din acest panou, ca să nu fii întrebat la fiecare vizită. Salvat local, nu pleacă nicăieri.",
         "row_lang_purpose": "Reține limba selectată (română sau engleză). Salvat local."
       },

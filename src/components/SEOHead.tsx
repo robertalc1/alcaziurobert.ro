@@ -33,8 +33,8 @@ const ROUTE_COPY = routeMeta as Record<string, RouteCopy>;
 const SEOHead: React.FC = () => {
   const { i18n } = useTranslation();
   const { pathname } = useLocation();
-  const lang = i18n.language?.startsWith("ro") ? "ro" : "en";
-  const ogLocale = lang === "ro" ? "ro_RO" : "en_US";
+  const lang = i18n.language?.startsWith("en") ? "en" : "ro";
+  const ogLocale = lang === "en" ? "en_US" : "ro_RO";
 
   const copy = ROUTE_COPY[pathname];
   const isKnownRoute = Boolean(copy);

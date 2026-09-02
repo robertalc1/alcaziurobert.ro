@@ -16,19 +16,22 @@ const STORAGE_KEY = "lang";
  * meta tags the server renders.
  */
 function detectLanguage(): "en" | "ro" {
-  if (typeof window === "undefined") return "en";
+  // Romanian is the site's language. Every client is Romanian, the ads run in
+  // Romania, and the domain is .ro — so browser sniffing is not just
+  // unnecessary, it is wrong: a Romanian running Windows in English would be
+  // handed the wrong language on his own market's site.
+  //
+  // The only thing that overrides this is the visitor asking for English.
+  if (typeof window === "undefined") return "ro";
 
   try {
     const saved = window.localStorage.getItem(STORAGE_KEY);
     if (saved === "ro" || saved === "en") return saved;
   } catch {
-    // Storage blocked (private mode) — fall through to the browser's setting.
+    // Storage blocked (private mode) — fall through to the default.
   }
 
-  const languages = navigator.languages?.length
-    ? navigator.languages
-    : [navigator.language];
-  return languages.some((l) => l?.toLowerCase().startsWith("ro")) ? "ro" : "en";
+  return "ro";
 }
 
 const initialLng = detectLanguage();
@@ -41,7 +44,7 @@ i18n
       ro: { translation: ro },
     },
     lng: initialLng,
-    fallbackLng: "en",
+    fallbackLng: "ro",
     interpolation: { escapeValue: false },
     returnNull: false,
   });

@@ -21,7 +21,7 @@ Ad click → landing → qualification form (name → contact → project type +
 - Named solo operator, not an agency. Scarcity is real: "Solo. Max 4 clients at a time."
 - Senior, direct, concrete. Numbers over adjectives (1.4%→3.8% conversion, 6s→1.1s load, -38% bounce, €8K+ government build).
 - Offer formula: specific premium outcome + risk-reversal + ~4-week timeframe + scarcity + real proof.
-- Bilingual EN (default) / RO. Global ambition (.ro → .com planned).
+- Romanian is the site language and the only one indexed; English stays as a visitor switcher, not a URL. Global ambition (.ro → .com) unchanged — the English copy stays in the codebase, ready for that domain.
 
 ## Anti-references (hard bans)
 
