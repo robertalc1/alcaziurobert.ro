@@ -118,6 +118,9 @@
     "section_title": "Proiecte de succes",
     "swipe_hint": "Trage lateral pentru toate proiectele"
   },
+  "clients": {
+    "depth_line": "Unsprezece proiecte, fiecare cu o cifră în spate — nu un perete de logo-uri. Asta cumperi când lucrez cu maxim patru clienți odată."
+  },
   "portfolio": {
     "badge": "Portofoliu",
     "title": "Munca mea vorbește de la sine.",
@@ -128,6 +131,19 @@
     },
     "subtitles": {
       "sgc": "Platformă custom pentru OCPI — proiect de stat"
+    },
+    "short": {
+      "sgc": "OCPI",
+      "bacde10": "Bac de 10",
+      "picaps": "Picaps",
+      "rdraw": "R-Draw",
+      "everun": "Everun",
+      "everati": "Everati",
+      "kickout": "Kickout",
+      "alma": "Alma",
+      "lukton": "Lukton",
+      "ecartop": "Ecartop",
+      "traveltwin": "TravelTwin"
     },
     "labels": {
       "sgc": "SGC — Sistem Gestionare Contestații (OCPI)",

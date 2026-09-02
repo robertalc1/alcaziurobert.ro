@@ -11,7 +11,7 @@ import { startLenis, stopLenis } from "@/lib/lenis";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ContactCTA from "@/components/ContactCTA";
 
-const ANCHOR_IDS = ["work", "results", "faq"] as const;
+const ANCHOR_IDS = ["work", "process", "results", "faq"] as const;
 
 // How long the overlay's exit animation runs — keep in sync with `navOverlayOut`.
 const CLOSE_MS = 300;

@@ -118,6 +118,9 @@
     "section_title": "Successful projects",
     "swipe_hint": "Swipe to see every project"
   },
+  "clients": {
+    "depth_line": "Eleven projects, every one with a number attached — not a wall of logos. That is what four clients at a time buys you."
+  },
   "portfolio": {
     "badge": "Portfolio",
     "title": "My work speaks for itself.",
@@ -128,6 +131,19 @@
     },
     "subtitles": {
       "sgc": "Custom platform for OCPI — government-grade build"
+    },
+    "short": {
+      "sgc": "OCPI",
+      "bacde10": "Bac de 10",
+      "picaps": "Picaps",
+      "rdraw": "R-Draw",
+      "everun": "Everun",
+      "everati": "Everati",
+      "kickout": "Kickout",
+      "alma": "Alma",
+      "lukton": "Lukton",
+      "ecartop": "Ecartop",
+      "traveltwin": "TravelTwin"
     },
     "labels": {
       "sgc": "SGC — Sistem Gestionare Contestații (OCPI)",

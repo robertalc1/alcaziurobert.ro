@@ -7,8 +7,10 @@ import { scrollToEl } from "@/lib/scroll";
 // Below-the-fold sections — lazy-loaded so the initial bundle stays small.
 // Each Suspense fallback reserves enough vertical space to keep CLS = 0.
 const StatementSection = lazy(() => import("@/components/StatementSection"));
+const ClientMarqueeSection = lazy(() => import("@/components/ClientMarqueeSection"));
 const SelectedWorkSection = lazy(() => import("@/components/SelectedWorkSection"));
 const CompoundingSection = lazy(() => import("@/components/CompoundingSection"));
+const ProcessSection = lazy(() => import("@/components/ProcessSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
 const GetInTouchSection = lazy(() => import("@/components/GetInTouchSection"));
 const FaqsSection = lazy(() => import("@/components/FaqsSection"));
@@ -53,11 +55,17 @@ const Index = () => {
         <Suspense fallback={<Placeholder minHeight={300} />}>
           <StatementSection />
         </Suspense>
+        <Suspense fallback={<Placeholder minHeight={300} />}>
+          <ClientMarqueeSection />
+        </Suspense>
         <Suspense fallback={<Placeholder minHeight={1600} />}>
           <SelectedWorkSection />
         </Suspense>
         <Suspense fallback={<Placeholder minHeight={760} />}>
           <CompoundingSection />
+        </Suspense>
+        <Suspense fallback={<Placeholder minHeight={960} />}>
+          <ProcessSection />
         </Suspense>
         <Suspense fallback={<Placeholder minHeight={520} />}>
           <TestimonialsSection />

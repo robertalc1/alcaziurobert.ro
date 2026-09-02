@@ -126,7 +126,7 @@ const ProcessSection: React.FC = () => {
         <ol className="proc-list">
           {STEPS.map((n, i) => (
             <li key={n}>
-              <Reveal delay={i * 70}>
+              <Reveal delay={Math.min(i, 3) * 70}>
                 <div className="proc-row">
                   <span className="proc-num">0{n}</span>
                   <div className="proc-head">
