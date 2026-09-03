@@ -5,55 +5,44 @@ import { useTranslation } from "react-i18next";
 import Reveal from "@/components/Reveal";
 
 /**
- * Client proof band.
+ * Client proof band — a static 6 x 2 grid of client logos, nothing else.
  *
- * Competitors in this niche run volume logo walls (250-590 clients). We cannot
- * win that comparison and should not enter it: the positioning here is "max 4
- * clients at a time", which a volume wall would contradict outright.
+ * There is deliberately no sizing logic in this file. scripts/optimize-logos.mjs
+ * measures each source logo's ink coverage, scales it toward a constant optical
+ * weight and centres it on one shared 400x165 frame, so every file that lands in
+ * public/logos/opt is the same size with the artwork already balanced. That is
+ * why a single `width: 100%` gives twelve cells that line up: the frames are
+ * identical, so the rows cannot go ragged and swapping a logo cannot break the
+ * layout. Run `npm run optimize-logos` after adding or replacing a source file
+ * and read that script before changing how big anything looks here.
  *
- * So this is the inverse — a short row of names where each one carries the
- * number it produced. Their walls have many logos and no figures; this has
- * eleven names and eleven figures. That is the whole argument, and it is why
- * the metric line is not decoration and must never be dropped to save space.
- *
- * Names come from portfolio.short (wordmark-length) and figures from
- * portfolio.metrics, both already translated. Two of these slugs have no entry
- * in the portfolio carousel because they have no screenshot — irrelevant here,
- * since a wordmark needs no image.
+ * Twelfth cell: there are eleven logo files and the grid wants twelve, so the
+ * last cell carries Alma — a real client from the portfolio that has no logo
+ * artwork — set as a wordmark in the site's own type. Swap it for an image the
+ * day one arrives; do not fill the slot with a partner or platform mark, this
+ * row is clients only.
  */
-const SLUGS = [
-  "sgc",
-  "picaps",
-  "kickout",
-  "rdraw",
-  "everun",
-  "everati",
-  "alma",
-  "lukton",
-  "ecartop",
-  "bacde10",
-  "traveltwin",
-] as const;
+type Cell =
+  | { kind: "logo"; file: string; name: string }
+  | { kind: "word"; name: string };
 
-/**
- * Metrics are written as "lead · trail" (e.g. "LCP 1.1s · Bounce -38%"), where
- * the leading half is nearly always the number. Split so the figure can carry
- * more weight than its qualifier. Strings without a separator render as lead
- * only — no stray dot.
- */
-const splitMetric = (metric: string): [string, string | null] => {
-  const i = metric.indexOf("·");
-  if (i === -1) return [metric.trim(), null];
-  return [metric.slice(0, i).trim(), metric.slice(i + 1).trim()];
-};
+const CELLS: ReadonlyArray<Cell> = [
+  { kind: "logo", file: "lukton", name: "Lukton" },
+  { kind: "logo", file: "picaps", name: "Picaps" },
+  { kind: "logo", file: "rdraw", name: "R-Draw Engineering" },
+  { kind: "logo", file: "everun", name: "Everun" },
+  { kind: "logo", file: "ancpi", name: "ANCPI" },
+  { kind: "logo", file: "kickout", name: "Kickout" },
+  { kind: "logo", file: "calitate-culori", name: "Calitate & Culori" },
+  { kind: "logo", file: "ecartop", name: "Ecartop" },
+  { kind: "logo", file: "smart-securitate", name: "Smart Securitate" },
+  { kind: "logo", file: "everati", name: "Everati" },
+  { kind: "logo", file: "traveltwin", name: "Travel Twin" },
+  { kind: "word", name: "Alma" },
+];
 
 const ClientMarqueeSection: React.FC = () => {
   const { t } = useTranslation();
-
-  const items = SLUGS.map((slug) => {
-    const [lead, trail] = splitMetric(t(`portfolio.metrics.${slug}`));
-    return { slug, name: t(`portfolio.short.${slug}`), lead, trail };
-  });
 
   return (
     <section className="cm-section" aria-label={t("whatwedo.clients_eyebrow")}>
@@ -62,172 +51,90 @@ const ClientMarqueeSection: React.FC = () => {
           position: relative;
           width: 100%;
           background: #0F0F0F;
-          padding: clamp(40px, 6vh, 72px) 0;
-          border-top: 1px solid rgba(255, 255, 255, 0.07);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-          /* The track is wider than the document on purpose. Without this the
-             page gains a horizontal scrollbar and phones zoom out. */
-          overflow: hidden;
+          padding: clamp(56px, 8vh, 104px) 0;
         }
-        .cm-head {
-          max-width: 1180px;
+        .cm-grid {
+          max-width: 1280px;
           margin: 0 auto;
-          padding: 0 clamp(18px, 3vw, 32px) clamp(24px, 3.5vh, 36px);
-        }
-        .cm-eyebrow {
-          display: block;
-          font-family: var(--font-sans);
-          font-size: 10.5px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.18em;
-          color: #ED5C1B;
-        }
-
-        .cm-wrap {
-          overflow: hidden;
-          -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
-                  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
-        }
-        .cm-track {
-          display: flex;
-          flex-direction: row;
-          align-items: stretch;
-          width: max-content;
-          margin: 0;
-          padding: 0;
+          padding: 0 clamp(20px, 3vw, 40px);
           list-style: none;
-          animation-name: cm-marquee;
-          animation-duration: 58s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          will-change: transform;
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          column-gap: clamp(16px, 2.2vw, 36px);
+          row-gap: clamp(26px, 4vh, 48px);
+          justify-items: center;
+          align-items: center;
         }
-        @keyframes cm-marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        .cm-cell {
+          width: 100%;
+          /* Matches the frame every logo file is built on, so the text cell is
+             exactly as tall as the image cells and both rows sit level. */
+          aspect-ratio: 400 / 165;
+          display: grid;
+          place-items: center;
         }
-
-        .cm-item {
-          flex: 0 0 auto;
-          width: clamp(200px, 21vw, 290px);
-          padding: 2px clamp(20px, 2.4vw, 38px);
-          border-left: 1px solid rgba(255, 255, 255, 0.09);
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          gap: 8px;
+        .cm-logo {
+          display: block;
+          width: 100%;
+          height: auto;
+          opacity: 0.88;
+          transition: opacity 0.3s ease;
         }
-        .cm-name {
+        .cm-word {
           font-family: var(--font-sans);
           font-weight: 600;
-          font-size: clamp(1.3rem, 2.1vw, 1.8rem);
-          line-height: 1.05;
+          font-size: clamp(1.3rem, 2.2vw, 1.85rem);
+          line-height: 1;
           letter-spacing: -0.03em;
-          color: #F5F5F5;
+          color: #FFFFFF;
+          opacity: 0.88;
+          transition: opacity 0.3s ease;
           white-space: nowrap;
         }
-        .cm-metric {
-          font-family: var(--font-sans);
-          font-size: 12.5px;
-          line-height: 1.4;
-          font-variant-numeric: tabular-nums;
-          /* Two lines reserved so cells do not jitter in height as they pass. */
-          min-height: 2.8em;
-        }
-        .cm-lead {
-          color: #ED5C1B;
-          font-weight: 500;
-        }
-        .cm-trail {
-          color: rgba(255, 255, 255, 0.48);
-        }
+        .cm-cell:hover .cm-logo,
+        .cm-cell:hover .cm-word { opacity: 1; }
 
-        .cm-foot {
-          max-width: 1180px;
-          margin: 0 auto;
-          padding: clamp(24px, 3.5vh, 36px) clamp(18px, 3vw, 32px) 0;
+        @media (max-width: 900px) {
+          .cm-grid { grid-template-columns: repeat(3, 1fr); }
         }
-        .cm-depth {
-          margin: 0;
-          font-family: var(--font-sans);
-          font-size: clamp(0.95rem, 1.25vw, 1.1rem);
-          line-height: 1.6;
-          color: rgba(255, 255, 255, 0.62);
-          max-width: 62ch;
-          text-wrap: pretty;
-        }
-
-        @media (max-width: 767px) {
-          .cm-track { animation-duration: 34s; }
-          .cm-item {
-            width: clamp(164px, 44vw, 210px);
-            padding: 2px 18px;
+        @media (max-width: 520px) {
+          .cm-grid {
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 18px;
           }
-          .cm-name { font-size: 1.22rem; }
-          .cm-metric { font-size: 12px; }
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-          .cm-wrap:hover .cm-track { animation-play-state: paused; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .cm-wrap {
-            overflow: visible;
-            -webkit-mask-image: none;
-                    mask-image: none;
-          }
-          .cm-track {
-            animation: none !important;
-            width: auto;
-            flex-wrap: wrap;
-            justify-content: center;
-            row-gap: 24px;
-          }
-          /* Hide the duplicate half. Left visible, a reader would see each of
-             the eleven names twice, which reads as padding out a thin list —
-             the exact impression this section exists to avoid. */
-          .cm-item[data-copy="1"] { display: none; }
+          .cm-logo, .cm-word { transition: none; }
         }
       `}</style>
 
-      <div className="cm-head">
-        <Reveal>
-          <span className="cm-eyebrow">{t("whatwedo.clients_eyebrow")}</span>
-        </Reveal>
-      </div>
-
-      {/* blur={0}: the track animates every frame, and a filter would force the
-          whole strip to re-rasterise for the full 800ms of the reveal. */}
-      <Reveal delay={80} blur={0}>
-        <div className="cm-wrap">
-          <ul className="cm-track">
-            {[...Array(2)].flatMap((_, copy) =>
-              items.map((it) => (
-                <li
-                  key={`${copy}-${it.slug}`}
-                  className="cm-item"
-                  data-copy={copy}
-                  aria-hidden={copy === 1 ? true : undefined}
-                >
-                  <span className="cm-name">{it.name}</span>
-                  <span className="cm-metric">
-                    <span className="cm-lead">{it.lead}</span>
-                    {it.trail && <span className="cm-trail"> · {it.trail}</span>}
-                  </span>
-                </li>
-              ))
-            )}
-          </ul>
-        </div>
+      {/* blur={0}: the subtree holds twelve images and blur() re-rasterises all
+          of it on every frame of the reveal. */}
+      <Reveal blur={0}>
+        <ul className="cm-grid">
+          {CELLS.map((cell) => (
+            <li className="cm-cell" key={cell.kind === "logo" ? cell.file : cell.name}>
+              {cell.kind === "logo" ? (
+                <img
+                  className="cm-logo"
+                  src={`/logos/opt/${cell.file}.webp`}
+                  alt={cell.name}
+                  width={400}
+                  height={165}
+                  /* Deliberately not lazy: the whole set is ~63KB and the
+                     section is already code-split behind Suspense, so nothing
+                     downloads until the band is reached anyway. */
+                  decoding="async"
+                  draggable={false}
+                />
+              ) : (
+                <span className="cm-word">{cell.name}</span>
+              )}
+            </li>
+          ))}
+        </ul>
       </Reveal>
-
-      <div className="cm-foot">
-        <Reveal delay={160}>
-          <p className="cm-depth">{t("clients.depth_line")}</p>
-        </Reveal>
-      </div>
     </section>
   );
 };

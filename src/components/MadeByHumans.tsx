@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
+import ShaderBackground from "@/components/ShaderBackground";
 
 const PHONE_DISPLAY = "+40 773 858 164";
 const PHONE_TEL = "+40773858164";
@@ -24,17 +25,29 @@ const MadeByHumans = () => {
           position: relative;
           width: 100%;
           background: #0F0F0F;
-          border-top: 1px solid rgba(255, 255, 255, 0.07);
           overflow: hidden;
         }
-        /* Warm ember glow bleeding up from the bottom edge, like the reference */
-        .ft::before {
-          content: '';
+        /* Same animated field as the hero, mirrored: the hero fades out at its
+           bottom edge, this one fades in at its top, so the page opens and
+           closes on the same surface and neither boundary is a hard cut.
+           It is held well below full strength — the footer carries the closing
+           CTA and the contact rows, and those have to stay the brightest thing
+           in the frame. */
+        .ft-bg {
           position: absolute;
           inset: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
           pointer-events: none;
-          background: radial-gradient(64% 50% at 50% 112%, rgba(237, 92, 27, 0.16), transparent 74%);
+          opacity: 0.55;
+          -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 46%, #000 100%);
+                  mask-image: linear-gradient(to bottom, transparent 0%, #000 46%, #000 100%);
         }
+        /* The canvas is absolutely positioned, so it paints over any in-flow
+           sibling. The wordmark has to be lifted out of flow to stay in front
+           of it. */
+        .ft-wordmark { position: relative; z-index: 1; }
         .ft-inner {
           position: relative;
           z-index: 1;
@@ -288,6 +301,8 @@ const MadeByHumans = () => {
           .ft-cta:hover svg { transform: none; }
         }
       `}</style>
+
+      <ShaderBackground className="ft-bg" />
 
       {/* Ghost wordmark — SVG so it spans the full width at any viewport */}
       <svg

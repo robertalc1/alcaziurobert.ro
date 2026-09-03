@@ -267,26 +267,97 @@ void main() {
 `;
 
 /**
- * Palettes run dark to light, four stops, matching the shader's colour count.
+ * A recipe is one complete setting of the shader: the colour ramp plus every
+ * packed uniform vector it needs. They live together because they were tuned
+ * together — lifting a palette onto another recipe's warp, drift and blur gives
+ * you neither of the two looks. Colours run dark to light in four stops, which
+ * is what the shader's colour count is fixed at.
  *
- * SUPPLIED is the recipe as it came from the builder. BRAND is the same
- * luminance ramp rebuilt around #ED5C1B, because the supplied one is green and
- * every button, accent word and metric on this site is orange — the two
- * together read as two brands stacked, not as one premium surface.
+ * `brand` is the ramp rebuilt around #ED5C1B. `supplied` is the builder's
+ * original green. `cobalt` is the "Mesh drift" preset that replaced the orange
+ * hero: a deeper field, slower and running backwards, with the domain warp and
+ * the soft blur switched on and the pointer rotating the field under itself.
+ *
+ * Note that `cobalt` is the only one with cursor input. Orange never had it, so
+ * do not read its absence elsewhere as an oversight.
  */
-export const PALETTES = {
-  supplied: [
-    [0.012, 0.071, 0.055], // #03120E
-    [0.055, 0.486, 0.353], // #0E7C5A
-    [0.486, 0.898, 0.467], // #7CE577
-    [0.957, 1.0, 0.78], // #F4FFC7
-  ],
-  brand: [
-    [0.059, 0.031, 0.024], // #0F0806 warm near-black
-    [0.541, 0.204, 0.063], // #8A3410 deep burnt orange
-    [0.929, 0.361, 0.106], // #ED5C1B the brand orange itself
-    [1.0, 0.851, 0.659], // #FFD9A8 warm highlight
-  ],
+export type MeshDriftRecipe = {
+  /** Four stops, dark to light. */
+  colors: readonly (readonly [number, number, number])[];
+  /** scale, intensity, paramA, warp */
+  shape: readonly [number, number, number, number];
+  /** detail, contrast, brightness, saturation */
+  surface: readonly [number, number, number, number];
+  /** hue, vignette, blur, grain */
+  finish: readonly [number, number, number, number];
+  /** seed, rotate, drift, oklab */
+  transform: readonly [number, number, number, number];
+  /** Field pan. The pointer occupies the other half of u_space. */
+  offset: readonly [number, number];
+  /**
+   * effect, strength, radius — or null to skip pointer tracking entirely, in
+   * which case no listeners are attached at all.
+   * Effects: 0 push · 1 pull · 2 rotate · 3 ripple · 4 glow.
+   */
+  cursor: readonly [number, number, number] | null;
+  /** Multiplier on elapsed seconds. Negative runs the field backwards. */
+  timeScale: number;
+};
+
+const RAW = {
+  supplied: {
+    colors: [
+      [0.012, 0.071, 0.055], // #03120E
+      [0.055, 0.486, 0.353], // #0E7C5A
+      [0.486, 0.898, 0.467], // #7CE577
+      [0.957, 1.0, 0.78], // #F4FFC7
+    ],
+    shape: [1.16, 0.34, 0.5, 0.0],
+    surface: [2.4, 1.16, 0.0, 1.0],
+    finish: [0.0, 0.0, 0.0, 0.09],
+    transform: [1453.0, 0.0, 0.0, 0.0],
+    offset: [0.0, 0.0],
+    cursor: null,
+    timeScale: 0.73,
+  },
+  brand: {
+    colors: [
+      [0.059, 0.031, 0.024], // #0F0806 warm near-black
+      [0.541, 0.204, 0.063], // #8A3410 deep burnt orange
+      [0.929, 0.361, 0.106], // #ED5C1B the brand orange itself
+      [1.0, 0.851, 0.659], // #FFD9A8 warm highlight
+    ],
+    shape: [1.16, 0.34, 0.5, 0.0],
+    surface: [2.4, 1.16, 0.0, 1.0],
+    finish: [0.0, 0.0, 0.0, 0.09],
+    transform: [1453.0, 0.0, 0.0, 0.0],
+    offset: [0.0, 0.0],
+    cursor: null,
+    timeScale: 0.73,
+  },
+  cobalt: {
+    colors: [
+      [0.011764705882352941, 0.10980392156862745, 0.14901960784313725], // #031C26
+      [0.10588235294117647, 0.4235294117647059, 0.6588235294117647], // #1B6CA8
+      [0.35294117647058826, 0.8235294117647058, 0.9568627450980393], // #5AD2F4
+      [0.9176470588235294, 0.9764705882352941, 1.0], // #EAF9FF
+    ],
+    shape: [1.3, 0.56, 0.67, 0.192],
+    surface: [2.016, 1.167, 0.0, 1.0],
+    finish: [0.0, 0.15, 0.0072, 0.098],
+    transform: [5069.0, 2.7227, 0.148, 0.0],
+    offset: [0.09, 0.15],
+    cursor: [2.0, 0.73, 0.365],
+    timeScale: -1.373,
+  },
 } as const;
 
-export type PaletteName = keyof typeof PALETTES;
+export type RecipeName = keyof typeof RAW;
+
+/**
+ * Widened on purpose. RAW keeps the literal keys so RecipeName stays a union,
+ * but the values must land on the shared type: indexing a literal-typed object
+ * with a union key yields a union of tuples, which cannot be spread into
+ * gl.uniform4f.
+ */
+export const RECIPES: Record<RecipeName, MeshDriftRecipe> = RAW;

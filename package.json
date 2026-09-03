@@ -16,6 +16,7 @@
     "start": "node server.js",
     "dev:api": "node --env-file=.env.local server.js",
     "og-image": "node scripts/make-og-image.mjs",
+    "optimize-logos": "node scripts/optimize-logos.mjs",
     "prerender": "node scripts/prerender.mjs"
   },
   "dependencies": {
