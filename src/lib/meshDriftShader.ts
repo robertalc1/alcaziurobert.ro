@@ -273,13 +273,15 @@ void main() {
  * you neither of the two looks. Colours run dark to light in four stops, which
  * is what the shader's colour count is fixed at.
  *
- * `brand` is the ramp rebuilt around #ED5C1B. `supplied` is the builder's
- * original green. `cobalt` is the "Mesh drift" preset that replaced the orange
- * hero: a deeper field, slower and running backwards, with the domain warp and
+ * `ember` is what actually ships: cobalt's tuning carrying the brand ramp.
+ * `brand` is that ramp on the older flat settings, `supplied` is the builder's
+ * original green, and `cobalt` is the blue "Mesh drift" preset ember was built
+ * from — a deeper field, slower and running backwards, with the domain warp and
  * the soft blur switched on and the pointer rotating the field under itself.
+ * All three are kept for reference; only ember is wired up.
  *
- * Note that `cobalt` is the only one with cursor input. Orange never had it, so
- * do not read its absence elsewhere as an oversight.
+ * Note that only cobalt and ember take cursor input. The flat presets never had
+ * it, so do not read its absence there as an oversight.
  */
 export type MeshDriftRecipe = {
   /** Four stops, dark to light. */
@@ -345,6 +347,35 @@ const RAW = {
     shape: [1.3, 0.56, 0.67, 0.192],
     surface: [2.016, 1.167, 0.0, 1.0],
     finish: [0.0, 0.15, 0.0072, 0.098],
+    transform: [5069.0, 2.7227, 0.148, 0.0],
+    offset: [0.09, 0.15],
+    cursor: [2.0, 0.73, 0.365],
+    timeScale: -1.373,
+  },
+  ember: {
+    // `brand`'s ramp on `cobalt`'s tuning. The site is orange everywhere else
+    // and a blue field behind the hero read as a second brand; this is the same
+    // motion, recoloured. Every non-colour vector below is copied from cobalt
+    // verbatim on purpose — the warp, the backwards drift, the soft blur and
+    // the pointer rotation are what the look is, and they were tuned together.
+    //
+    // The two deliberate departures are `surface` and the vignette in `finish`,
+    // and both exist for the same reason: the h1's accent word is #ED5C1B, and
+    // once the field behind it is also orange that word stops being an accent.
+    // Against cobalt's blue it separated for free. So brightness comes down and
+    // the vignette roughly doubles — the field keeps its shape and its motion,
+    // but sinks away from the copy instead of competing with it. Saturation is
+    // pulled a little under 1 for the same reason, and it also stops the hot
+    // mid stop blooming into the white part of the headline.
+    colors: [
+      [0.059, 0.031, 0.024], // #0F0806 warm near-black
+      [0.541, 0.204, 0.063], // #8A3410 deep burnt orange
+      [0.929, 0.361, 0.106], // #ED5C1B the brand orange itself
+      [1.0, 0.851, 0.659], // #FFD9A8 warm highlight
+    ],
+    shape: [1.3, 0.56, 0.67, 0.192],
+    surface: [2.016, 1.167, -0.06, 0.92],
+    finish: [0.0, 0.32, 0.0072, 0.098],
     transform: [5069.0, 2.7227, 0.148, 0.0],
     offset: [0.09, 0.15],
     cursor: [2.0, 0.73, 0.365],

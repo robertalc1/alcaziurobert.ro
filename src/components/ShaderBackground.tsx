@@ -40,7 +40,7 @@ const MAX_PIXELS_BLURRED = 2_000_000;
  * own after the pointer leaves, so there is no snap. Under reduced-motion the
  * component paints one static frame and never attaches a pointer listener.
  */
-const ShaderBackground: React.FC<Props> = ({ recipe = "cobalt", className }) => {
+const ShaderBackground: React.FC<Props> = ({ recipe = "ember", className }) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {
