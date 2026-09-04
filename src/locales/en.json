@@ -9,7 +9,8 @@
     "results": "Results",
     "faq": "FAQ",
     "menu": "Menu",
-    "close": "Close"
+    "close": "Close",
+    "offer": "Offer"
   },
   "compounding": {
     "title": "Why does this work?",
@@ -25,49 +26,35 @@
     "summary_l2": "Same visitors, same budget. The only difference is <pill>who built the site</pill>.",
     "takeaway": "<pill>One new client</pill> from the system covers the whole build. Everything it brings after that is pure profit."
   },
-  "frictionless": {
-    "title": "I don't build websites. I build growth.",
-    "subtitle": "Most developers hand you a good-looking site and move on. I build the machine that <pill>turns visitors into customers</pill> — and keep it running.",
-    "badge": "Done for you, start to finish."
-  },
-  "difference": {
-    "title": "Most projects stop at launch. Yours keeps growing.",
-    "subtitle": "Most freelancers and agencies ship the site and walk away. No commissions, no TikTok circus — I stay behind your numbers, month after month.",
-    "badge": "At alcaziurobert.ro, it's different.",
-    "item1": "Week 1 — Find the leaks",
-    "item2": "Week 2 — Build to convert",
-    "item3": "Week 3 — Launch",
-    "item4": "Week 4+ — Scale what works",
-    "item5": "Ongoing — Compound growth"
-  },
   "faq": {
     "eyebrow": "Frequently asked",
     "title": "Quick answers to your questions.",
     "lead": "The most common questions about how I work, project timelines, and what happens after launch.",
     "cta": "Have a different question? Message me on WhatsApp",
-    "why1": {
-      "q": "What I recommend is tested, not guessed.",
-      "a": "Every design and copy decision goes through real testing, not assumptions. I've taken conversion rates from 1.4% to 3.8% on live projects, same traffic — that's how I know what actually works, not just what sounds good in theory."
+    "o1": {
+      "q": "What does it cost?",
+      "a": "It depends on what we build — a brochure site and a full funnel with server-side tracking are not the same project. You get the number on the first call, once I understand what you need. I do not publish list prices because I do not ship list packages."
     },
-    "why2": {
-      "q": "One person, accountable for the whole chain: design, code, tracking, ads.",
-      "a": "You're not working with an agency that farms pieces of the project out to different freelancers. Everything runs through the same person, from the first wireframe to the last tracking event, so nothing gets lost in translation."
+    "o2": {
+      "q": "How long does it take?",
+      "a": "Roughly 4 weeks from kickoff to live. You get the exact date before we start, not along the way. The only variable is how fast your content arrives."
     },
-    "why3": {
-      "q": "I stay involved end to end, with direct communication and results you can check.",
-      "a": "I don't disappear after launch. You get clear monthly reports on what's working, replies within 24 hours to any question, and the first 30 days after launch are covered for free — so you always know exactly where every euro goes."
+    "o3": {
+      "q": "Why you and not an agency?",
+      "a": "At an agency the project passes through four people who do not talk to each other, and you pay for the coordination between them. Here design, code, tracking and ads all run through the same person — nothing is lost at the handover and there is nobody to blame. The trade-off is that I take four clients at a time, maximum."
+    },
+    "o4": {
+      "q": "What if I do not like it?",
+      "a": "You see the visual direction before a single line of code is written, and we adjust it until it is right. You never meet a finished site for the first time at delivery — that is the most expensive way to work, for both of us."
+    },
+    "o5": {
+      "q": "What happens after launch?",
+      "a": "The first 30 days are included: adjustments, fixes, whatever the real data turns up. After that you get monthly reports on what is working and what is not, and an answer within 24 hours. The code, the hosting and the data stay yours — you are not tied to me."
+    },
+    "o6": {
+      "q": "How is the results guarantee measured?",
+      "a": "We set the baseline at kickoff: your current conversion rate if you already have analytics, or a target we agree together if we start from zero. It is measured 90 days after launch, on the same traffic sources. If it has not passed the baseline, I keep working at no cost until it does."
     }
-  },
-  "hero_v2": {
-    "rating_count": "Solo. Max 4 clients at a time.",
-    "headline_pre": "Built to <i>convert</i>",
-    "headline_accent": "<i>Leads</i> with a simple <i>formula</i>.",
-    "headline_post": "",
-    "bio": "I'm Robert. Solo builder of systems that convert cold traffic into real customers. No teams, no commissions, no wasted time.",
-    "subtitle": "Site, funnel, tracking and ads — built end-to-end by one senior partner. Live in about 4 weeks.",
-    "scarcity": "Limited monthly intake — accepting applications",
-    "cta_primary": "Apply now",
-    "cta_secondary": "See our work"
   },
   "hero_v3": {
     "headline_pre": "Websites built",
@@ -75,7 +62,11 @@
     "subtitle": "Site, funnel, tracking and ads — one senior partner, end to end. Live in about 4 weeks.",
     "cta_secondary": "See the work",
     "form_title": "Tell me about your project",
-    "form_note": "I reply personally within 24 hours."
+    "form_note": "I reply personally within 24 hours.",
+    "eyebrow": "Solo · four clients at a time, maximum",
+    "trust_1": "I reply personally within 24h",
+    "trust_2": "Live in ~4 weeks",
+    "trust_3": "Guaranteed on results"
   },
   "stats": {
     "kicker": "Proof, not promises",
@@ -106,7 +97,9 @@
     "step4_body": "Ads and SEO pointed at the pages that already convert.",
     "step5_meta": "Ongoing",
     "step5_title": "Compound growth",
-    "step5_body": "I stay behind your numbers, month after month."
+    "step5_body": "I stay behind your numbers, month after month.",
+    "title": "Five stages. You always know where we are.",
+    "lead": "No status meetings, and you never have to ask what is happening. At every stage you see what shipped and what comes next."
   },
   "work": {
     "featured_name": "Oficiul de Cadastru — OCPI",
@@ -339,7 +332,7 @@
     "title": "Let's talk. No obligation.",
     "description_l1": "I'll tell you <pill>straight</pill> if I can help or not.",
     "description_l2": "If yes, you leave with <pill>a concrete plan</pill> in hand.",
-    "cta": "Request discovery call"
+    "cta": "Tell me about the project"
   },
   "footer": {
     "copyright_l": "Alcaziu Robert",
@@ -348,7 +341,7 @@
     "cookies_link": "Cookie Policy",
     "cta_title": "Let's talk.",
     "cta_body": "Tell me what you are building. I will say straight away whether I can help — and what it would take.",
-    "cta_button": "Book a discovery call",
+    "cta_button": "Send me the project",
     "email_label": "Email address",
     "phone_label": "Phone · replies within 24h",
     "whatsapp_label": "WhatsApp",
@@ -558,7 +551,13 @@
     "optional": "(optional)",
     "email_suggestion": "Did you mean <fix>{{suggestion}}</fix>?",
     "v_email_required": "Email is required.",
-    "v_name_long": "Name can be at most 80 characters."
+    "v_name_long": "Name can be at most 80 characters.",
+    "success_title": "Got it. I will reply personally within 24 hours.",
+    "success_body": "No autoresponder, no assistant calling you back. Before I write, I open your current site and the ads running right now — so the first message already carries concrete observations, not warm-up questions.",
+    "success_guarantee": "If we work together: if conversion has not passed the baseline we set at kickoff within 90 days, I keep working at no cost until it does.",
+    "success_proof": "Most recent project: 1.4% → 3.8% conversion rate, on the same traffic.",
+    "success_whatsapp": "Do not want to wait? Message me on WhatsApp",
+    "success_close": "Close"
   },
   "fab": {
     "aria": "Open contact options",
@@ -566,5 +565,31 @@
     "call": "Call me",
     "email": "Email me",
     "message": "Send a message"
+  },
+  "statement": {
+    "line": "Most websites collect compliments and no enquiries. Not because they look bad — because <pill>nobody built the route</pill> from visitor to client."
+  },
+  "offer": {
+    "kicker": "What you get",
+    "title": "The whole chain, from the first wireframe to the first client the ads bring in.",
+    "lead": "A website that looks good is half the job. The other half — funnel, tracking, ads — is usually split between three suppliers who blame each other. Here it is one pair of hands.",
+    "d1_title": "Built from scratch",
+    "d1_body": "No template, no page builder. Code written for how fast it loads and for the route the visitor takes, not for my portfolio.",
+    "d2_title": "A funnel, not a stack of pages",
+    "d2_body": "Every section has one job: to carry you into the next one. The form is the destination, not a footnote in the footer.",
+    "d3_title": "Tracking that holds up",
+    "d3_body": "Server-side, not just a pixel in the browser. You see where the money comes from even after ad blockers cut the rest.",
+    "d4_title": "Ads on your own infrastructure",
+    "d4_body": "Meta and Google, wired straight into what I built. One pair of hands across the chain, so there is nobody left to blame.",
+    "fact1_label": "Timeline",
+    "fact1_value": "~4 weeks to live",
+    "fact2_label": "Included",
+    "fact2_value": "First 30 days after launch",
+    "fact3_label": "Availability",
+    "fact3_value": "Four clients at a time, maximum",
+    "guarantee_label": "Guarantee",
+    "guarantee_title": "Guaranteed on results",
+    "guarantee_body": "If conversion has not passed the baseline we set at kickoff within 90 days of launch, on the same traffic sources, I keep working at no cost until it does.",
+    "cta": "Tell me about the project"
   }
 }

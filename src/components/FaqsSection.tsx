@@ -10,7 +10,11 @@ import {
 } from "@/components/ui/accordion";
 import Reveal from "@/components/Reveal";
 
-const FAQ_KEYS = ["why1", "why2", "why3"] as const;
+// Objection-shaped, in the order they come up on a real call: price, time,
+// why not an agency, what if I hate it, what happens after, how the guarantee
+// is measured. The old why1-3 were statements dressed as questions, which is
+// also why the page had no FAQPage schema worth emitting.
+const FAQ_KEYS = ["o1", "o2", "o3", "o4", "o5", "o6"] as const;
 
 const FaqsSection: React.FC = () => {
   const { t } = useTranslation();

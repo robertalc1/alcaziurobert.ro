@@ -121,6 +121,21 @@ const Hero = () => {
         }
 
         /* ── Copy column ── */
+        .hero3-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          align-self: flex-start;
+          margin: 0;
+          padding: 6px 13px;
+          border-radius: 9999px;
+          border: 1px solid rgba(237, 92, 27, 0.34);
+          background: rgba(237, 92, 27, 0.10);
+          font-family: var(--font-sans);
+          font-size: 12.5px;
+          font-weight: 500;
+          letter-spacing: 0.005em;
+          color: #F7A97C;
+        }
         .hero3-title {
           font-family: var(--font-sans);
           font-size: clamp(2.55rem, 6.2vw, 4.9rem);
@@ -238,13 +253,56 @@ const Hero = () => {
           }
         }
 
+        /* ── Trust strip ── */
+        .hero3-trust {
+          list-style: none;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 8px 20px;
+          margin: clamp(22px, 3vh, 30px) 0 0;
+          padding: 0;
+        }
+        .hero3-trust li {
+          position: relative;
+          font-family: var(--font-sans);
+          font-size: 13.5px;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 0.72);
+          padding-left: 18px;
+        }
+        /* Tick drawn in CSS rather than an icon: three of them would otherwise
+           pull an icon set into the eager hero chunk. */
+        .hero3-trust li::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0.42em;
+          width: 9px;
+          height: 5px;
+          border-left: 1.6px solid #ED5C1B;
+          border-bottom: 1.6px solid #ED5C1B;
+          transform: rotate(-45deg);
+        }
+
         @media (max-width: 640px) {
           .hero3-cta { flex-direction: column; align-items: stretch; gap: 12px; }
+          .hero3-trust { gap: 6px 16px; margin-top: 20px; }
+          .hero3-trust li { font-size: 12.5px; }
           /* Full width on phones, but the label and arrow stay together in the
              middle — space-between flung the bare arrow to the far edge. */
           .hero3-primary { width: 100%; justify-content: center; }
           .hero3-secondary { text-align: center; padding: 10px 2px; }
           .hero3-title { max-width: 12ch; }
+        }
+        /* Shortest phones: PRODUCT.md requires the message to land above the
+           fold, and on a 360x640 screen the eyebrow plus a three-item trust
+           strip pushes the CTA under it. The guarantee is the one worth
+           keeping, so the other two step aside here and return in the offer
+           section a screen later. */
+        @media (max-width: 380px), (max-height: 680px) {
+          .hero3-trust li:nth-child(1),
+          .hero3-trust li:nth-child(2) { display: none; }
         }
         @media (prefers-reduced-motion: reduce) {
           .hero3-card-shell.is-attn { animation: none; }
@@ -256,6 +314,11 @@ const Hero = () => {
 
       <div className="hero3-inner">
         <div className="hero3-copy">
+
+          {/* Scarcity, stated before the claim rather than buried in an FAQ.
+              Deliberately not animated: it sits above the h1, and anything that
+              reflows up there moves the LCP element. */}
+          <p className="hero3-eyebrow">{t("hero_v3.eyebrow")}</p>
 
           {/* No entrance animation on the h1: it's the LCP element, and Chrome
               discounts elements that start at opacity:0 when timing LCP —
@@ -286,6 +349,16 @@ const Hero = () => {
               {t("hero_v3.cta_secondary")} ↓
             </a>
           </div>
+
+          {/* Three things a visitor wants to know before they will type their
+              phone number. The third one is dropped on the shortest screens —
+              see the 380px rule — because the CTA staying above the fold on a
+              360x640 phone outranks it. */}
+          <ul className="hero3-trust hero3-reveal-3">
+            <li>{t("hero_v3.trust_1")}</li>
+            <li>{t("hero_v3.trust_2")}</li>
+            <li>{t("hero_v3.trust_3")}</li>
+          </ul>
         </div>
 
         {isLg && (

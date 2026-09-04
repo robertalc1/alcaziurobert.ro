@@ -34,6 +34,7 @@ const ContactCTA: React.FC<Props> = ({ children }) => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
 
+  const [sent, setSent] = React.useState(false);
   const close = React.useCallback(() => setOpen(false), []);
 
   // Vaul only locks the page on Safari: `usePositionFixed` returns early when
@@ -49,6 +50,7 @@ const ContactCTA: React.FC<Props> = ({ children }) => {
     const openDrawer = (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
+      setSent(false);
       setOpen(true);
     };
     return (
@@ -56,13 +58,17 @@ const ContactCTA: React.FC<Props> = ({ children }) => {
         <Slot onClick={openDrawer}>{children}</Slot>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerContent className="h-[92dvh] max-h-[92dvh] flex flex-col">
+            {/* Radix requires a title for the dialog's accessible name, so once
+                the form is sent the header is swapped rather than removed. */}
             <DrawerHeader className="text-left flex-shrink-0">
-              <DrawerTitle>{t("form.title")}</DrawerTitle>
-              <DrawerDescription>{t("form.subtitle")}</DrawerDescription>
+              <DrawerTitle className={sent ? "sr-only" : undefined}>
+                {sent ? t("form.success_title") : t("form.title")}
+              </DrawerTitle>
+              {!sent && <DrawerDescription>{t("form.subtitle")}</DrawerDescription>}
             </DrawerHeader>
             <div className="px-4 pb-8 overflow-y-auto flex-1 min-h-0">
               <React.Suspense fallback={<div style={{ minHeight: 200 }} aria-hidden="true" />}>
-                <ContactForm onClose={close} />
+                <ContactForm onClose={close} onSent={() => setSent(true)} />
               </React.Suspense>
             </div>
           </DrawerContent>

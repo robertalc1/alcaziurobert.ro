@@ -61,7 +61,7 @@ const StatementSection: React.FC = () => {
         <Reveal>
           <div className="st-card">
           <p className="st-body">
-            <Trans i18nKey="frictionless.subtitle" components={accentComponents} />
+            <Trans i18nKey="statement.line" components={accentComponents} />
           </p>
           </div>
         </Reveal>

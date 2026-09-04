@@ -117,10 +117,10 @@ const ProcessSection: React.FC = () => {
           <span className="proc-kicker">{t("process.kicker")}</span>
         </Reveal>
         <Reveal delay={80}>
-          <h2 className="proc-title-main">{t("difference.title")}</h2>
+          <h2 className="proc-title-main">{t("process.title")}</h2>
         </Reveal>
         <Reveal delay={140}>
-          <p className="proc-lead">{t("difference.subtitle")}</p>
+          <p className="proc-lead">{t("process.lead")}</p>
         </Reveal>
 
         <ol className="proc-list">

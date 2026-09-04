@@ -11,7 +11,9 @@ import { useScrollLock } from "@/hooks/use-scroll-lock";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ContactCTA from "@/components/ContactCTA";
 
-const ANCHOR_IDS = ["work", "process", "results", "faq"] as const;
+// Order mirrors the page. A menu that lists sections in a different order than
+// the visitor meets them feels broken the first time it is used.
+const ANCHOR_IDS = ["offer", "work", "results", "process", "faq"] as const;
 
 // How long the overlay's exit animation runs — keep in sync with `navOverlayOut`.
 const CLOSE_MS = 300;

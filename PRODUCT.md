@@ -14,7 +14,13 @@ Business owners arriving from paid Meta/Instagram ads, mostly on mobile, mid-scr
 
 ## Funnel
 
-Ad click → landing → qualification form (name → contact → project type + budget €1500–5000+) → discovery call → close. Primary conversion: form submit ("Lead"). Secondary: tel/mailto. The visitor should reach a form within one intent, from anywhere on the page.
+Ad click → landing → form (name, phone, email, project type) → reply within 24h → discovery call → close. Primary conversion: form submit ("Lead"). Secondary: tel/WhatsApp. The visitor should reach a form within one intent, from anywhere on the page.
+
+**No price and no budget field, by decision (2026-09-04).** Qualification happens on the call, not on the page. Earlier drafts of this file described a €1500–5000+ budget selector; it was never in the shipped form and is not coming back — do not reintroduce it from this doc.
+
+Page order is the funnel, and it is deliberate: hero (promise + scarcity + risk reversal) → proof band (three measured numbers, client marks, "max four at a time") → statement (the problem) → **offer** (what you get, ~4 weeks, 30 days included, results guarantee) → work → testimonials → process → compounding → FAQ (six objections, in call order) → contact form → footer. Every CTA on the site opens the same form; nothing promises a calendar, because there is no scheduler.
+
+After a successful submit the form is replaced by a success screen — the drawer stays open, the visitor closes it. That screen is the close: what happens next, the guarantee restated, one proof number, WhatsApp as the impatient path.
 
 ## Brand & tone
 

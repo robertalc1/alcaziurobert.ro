@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Navbar from "@/components/Navbar";
 import MadeByHumans from "@/components/MadeByHumans";
+import ContactCTA from "@/components/ContactCTA";
 import { jumpToTop, scrollToEl } from "@/lib/scroll";
-
-const MAIL = "mailto:contact@alcaziurobert.ro";
 
 const STAGES = [
   "discovery",
@@ -377,10 +376,15 @@ const Approach: React.FC = () => {
             <section id="cs-addon" className="cs-addon cs-reveal">
               <h2 className="cs-h2">{t("approach.addon_title")}</h2>
               <p className="cs-lead">{t("approach.addon_body")}</p>
-              <a href={MAIL} className="btn btn-primary cs-addon-cta">
-                {t("approach.addon_cta")}
-                {ArrowIcon}
-              </a>
+              {/* Was a raw mailto, which dropped the visitor into their mail
+                  client and out of the funnel — the form never saw them and
+                  neither did the lead backup. */}
+              <ContactCTA>
+                <button type="button" className="btn btn-primary cs-addon-cta">
+                  {t("approach.addon_cta")}
+                  {ArrowIcon}
+                </button>
+              </ContactCTA>
             </section>
 
             {/* 4. ROADMAP */}
@@ -425,10 +429,12 @@ const Approach: React.FC = () => {
             <section id="cs-cta" className="cs-cta cs-reveal">
               <h2 className="cs-cta-title">{t("approach.cta_title")}</h2>
               <p className="cs-cta-body">{t("approach.cta_body")}</p>
-              <a href={MAIL} className="btn btn-primary">
-                {t("approach.cta_button")}
-                {ArrowIcon}
-              </a>
+              <ContactCTA>
+                <button type="button" className="btn btn-primary">
+                  {t("approach.cta_button")}
+                  {ArrowIcon}
+                </button>
+              </ContactCTA>
             </section>
 
           </article>

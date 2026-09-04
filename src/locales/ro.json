@@ -9,7 +9,8 @@
     "results": "Rezultate",
     "faq": "FAQ",
     "menu": "Meniu",
-    "close": "Închide"
+    "close": "Închide",
+    "offer": "Ofertă"
   },
   "compounding": {
     "title": "De ce funcționează?",
@@ -25,49 +26,35 @@
     "summary_l2": "Aceiași vizitatori, același buget. Singura diferență e <pill>cine a construit site-ul</pill>.",
     "takeaway": "<pill>Un singur client nou</pill> din sistem acoperă tot build-ul. Tot ce aduce după aceea e profit curat."
   },
-  "frictionless": {
-    "title": "Nu construiesc site-uri. Construiesc creștere.",
-    "subtitle": "Majoritatea developerilor îți dau un site arătos și pleacă. Eu construiesc mașinăria care <pill>transformă vizitatorii în clienți</pill> — și o țin în funcțiune.",
-    "badge": "Făcut pentru tine, de la cap la coadă."
-  },
-  "difference": {
-    "title": "Majoritatea proiectelor se opresc la lansare. Al tău continuă să crească.",
-    "subtitle": "Majoritatea freelancerilor și agențiilor livrează site-ul și pleacă. Fără comisioane, fără circ pe TikTok — rămân în spatele cifrelor tale, lună de lună.",
-    "badge": "La alcaziurobert.ro, e altfel.",
-    "item1": "Săptămâna 1 — Unde pierzi bani",
-    "item2": "Săptămâna 2 — Construim să convertească",
-    "item3": "Săptămâna 3 — Lansare",
-    "item4": "Săptămâna 4+ — Scalăm ce merge",
-    "item5": "Continuu — Creștere compusă"
-  },
   "faq": {
     "eyebrow": "Întrebări frecvente",
     "title": "Răspunsuri rapide la întrebările tale.",
     "lead": "Cele mai frecvente întrebări despre cum lucrez, durata proiectelor și ce se întâmplă după livrare.",
     "cta": "Ai altă întrebare? Scrie-mi pe WhatsApp",
-    "why1": {
-      "q": "Ceea ce recomand e testat, nu ghicit.",
-      "a": "Fiecare decizie de design sau copywriting trece prin teste reale, nu presupuneri. Am dus rata de conversie de la 1,4% la 3,8% pe proiecte reale, cu același trafic — de-asta știu ce funcționează, nu doar ce sună bine în teorie."
+    "o1": {
+      "q": "Cât costă?",
+      "a": "Depinde de ce construim — un site de prezentare și un funnel complet cu tracking server-side nu sunt același proiect. Îți dau cifra pe primul apel, după ce înțeleg ce ai nevoie. Nu public tarife de listă pentru că nu livrez pachete de listă."
     },
-    "why2": {
-      "q": "Un singur om, responsabil de tot lanțul: design, cod, tracking, reclame.",
-      "a": "Nu lucrezi cu o agenție care externalizează bucăți din proiect la freelanceri diferiți. Totul trece prin aceeași persoană, de la primul wireframe până la ultima linie de tracking, ca nimic să nu se piardă pe drum."
+    "o2": {
+      "q": "Cât durează?",
+      "a": "Aproximativ 4 săptămâni de la kickoff până live. Îți spun termenul exact înainte să începem, nu pe parcurs. Singura variabilă e cât de repede vine conținutul de la tine."
     },
-    "why3": {
-      "q": "Rămân implicat pe tot parcursul, cu comunicare directă și rezultate verificabile.",
-      "a": "Nu dispar după livrare. Primești rapoarte lunare clare despre ce funcționează, răspuns în 24 de ore la orice întrebare, iar primele 30 de zile după lansare sunt incluse gratuit — ca să știi mereu exact unde se duce fiecare investiție."
+    "o3": {
+      "q": "De ce tu și nu o agenție?",
+      "a": "Într-o agenție proiectul trece prin patru oameni care nu vorbesc între ei, iar tu plătești coordonarea dintre ei. Aici design, cod, tracking și reclame trec prin aceeași persoană — nimic nu se pierde la predare și nu are cine să dea vina pe altcineva. Compromisul e că lucrez cu maximum patru clienți odată."
+    },
+    "o4": {
+      "q": "Ce se întâmplă dacă nu îmi place?",
+      "a": "Vezi direcția vizuală înainte să se scrie prima linie de cod și o ajustăm până e bine. Nu te trezești cu un site terminat pe care îl vezi prima dată la livrare — e cel mai scump mod de a lucra, pentru amândoi."
+    },
+    "o5": {
+      "q": "Ce se întâmplă după lansare?",
+      "a": "Primele 30 de zile sunt incluse: reglaje, corecturi, tot ce iese la iveală din datele reale. După aceea primești rapoarte lunare cu ce funcționează și ce nu, și răspuns în 24 de ore. Codul, hostingul și datele rămân ale tale — nu te leg de mine."
+    },
+    "o6": {
+      "q": "Cum se măsoară garanția pe rezultat?",
+      "a": "Stabilim reperul la start: rata de conversie de acum, dacă ai deja analytics, sau ținta convenită împreună dacă pornim de la zero. Se măsoară la 90 de zile de la lansare, pe aceleași surse de trafic. Dacă nu a trecut peste reper, continui fără costuri până trece."
     }
-  },
-  "hero_v2": {
-    "rating_count": "Solo. Maxim 4 clienți simultan.",
-    "headline_pre": "Construit pentru a <i>converti</i>",
-    "headline_accent": "<i>Lead-uri</i> cu o <i>formulă</i> simplă.",
-    "headline_post": "",
-    "bio": "Sunt Robert. Construiesc singur sisteme care convertesc cold traffic în clienți reali. Fără echipe, fără comisioane, fără pierdere de timp.",
-    "subtitle": "Site, funnel, tracking și reclame — construite cap-coadă de un singur partener senior. Live în ~4 săptămâni.",
-    "scarcity": "Sloturi limitate lunar — accept aplicații acum",
-    "cta_primary": "Aplică acum",
-    "cta_secondary": "Vezi proiectele"
   },
   "hero_v3": {
     "headline_pre": "Site-uri construite",
@@ -75,7 +62,11 @@
     "subtitle": "Site, funnel, tracking și reclame — un singur partener senior, cap-coadă. Live în ~4 săptămâni.",
     "cta_secondary": "Vezi proiectele",
     "form_title": "Spune-mi despre proiectul tău",
-    "form_note": "Răspund personal în maxim 24 de ore."
+    "form_note": "Răspund personal în maxim 24 de ore.",
+    "eyebrow": "Solo · maximum 4 clienți simultan",
+    "trust_1": "Răspund personal în 24h",
+    "trust_2": "Live în ~4 săptămâni",
+    "trust_3": "Garanție pe rezultat"
   },
   "stats": {
     "kicker": "Dovezi, nu promisiuni",
@@ -106,7 +97,9 @@
     "step4_body": "Reclame și SEO îndreptate spre paginile care deja convertesc.",
     "step5_meta": "Continuu",
     "step5_title": "Creștere compusă",
-    "step5_body": "Rămân în spatele cifrelor tale, lună de lună."
+    "step5_body": "Rămân în spatele cifrelor tale, lună de lună.",
+    "title": "Cinci etape. Știi tot timpul unde suntem.",
+    "lead": "Fără ședințe de status și fără să întrebi tu ce se întâmplă. La fiecare etapă vezi ce s-a livrat și ce urmează."
   },
   "work": {
     "featured_name": "Oficiul de Cadastru — OCPI",
@@ -339,7 +332,7 @@
     "title": "Hai să vorbim. Fără obligație.",
     "description_l1": "Îți spun <pill>direct</pill> dacă te pot ajuta sau nu.",
     "description_l2": "Dacă da, pleci cu <pill>un plan concret</pill> în mână.",
-    "cta": "Cere discovery call"
+    "cta": "Spune-mi despre proiect"
   },
   "footer": {
     "copyright_l": "Alcaziu Robert",
@@ -348,7 +341,7 @@
     "cookies_link": "Politica de Cookie-uri",
     "cta_title": "Hai să discutăm.",
     "cta_body": "Spune-mi ce construiești. Îți zic direct dacă te pot ajuta — și ce ar presupune.",
-    "cta_button": "Programează o discuție",
+    "cta_button": "Trimite-mi proiectul",
     "email_label": "Email",
     "phone_label": "Telefon · răspund în 24h",
     "whatsapp_label": "WhatsApp",
@@ -558,7 +551,13 @@
     "optional": "(opțional)",
     "email_suggestion": "Ai vrut să scrii <fix>{{suggestion}}</fix>?",
     "v_email_required": "Emailul este obligatoriu.",
-    "v_name_long": "Numele poate avea maximum 80 de caractere."
+    "v_name_long": "Numele poate avea maximum 80 de caractere.",
+    "success_title": "Am primit. Îți răspund personal în 24 de ore.",
+    "success_body": "Nu primești un autoresponder și nu te sună un asistent. Până îți scriu, îmi deschid site-ul tău și reclamele care rulează acum — ca la primul mesaj să ai deja observații concrete, nu întrebări de încălzire.",
+    "success_guarantee": "Dacă lucrăm împreună: dacă la 90 de zile conversia nu a trecut peste reperul stabilit la start, continui fără costuri până trece.",
+    "success_proof": "Ultimul proiect: 1,4% → 3,8% rată de conversie, pe același trafic.",
+    "success_whatsapp": "Nu vrei să aștepți? Scrie-mi pe WhatsApp",
+    "success_close": "Închide"
   },
   "fab": {
     "aria": "Deschide opțiuni de contact",
@@ -566,5 +565,31 @@
     "call": "Sună-mă",
     "email": "Trimite email",
     "message": "Scrie-mi un mesaj"
+  },
+  "statement": {
+    "line": "Majoritatea site-urilor primesc complimente și nu aduc cereri de ofertă. Nu pentru că arată prost — ci pentru că <pill>nimeni nu a construit drumul</pill> de la vizitator la client."
+  },
+  "offer": {
+    "kicker": "Ce primești",
+    "title": "Tot lanțul, de la primul wireframe până la primul client venit din reclame.",
+    "lead": "Un site care arată bine e jumătate de treabă. Cealaltă jumătate — funnel, tracking, reclame — e de obicei împărțită între trei furnizori care dau vina unul pe altul. Aici e o singură mână.",
+    "d1_title": "Site construit de la zero",
+    "d1_body": "Fără template, fără page builder. Cod scris pentru viteza cu care se încarcă și pentru drumul pe care îl face vizitatorul, nu pentru portofoliul meu.",
+    "d2_title": "Funnel, nu un teanc de pagini",
+    "d2_body": "Fiecare secțiune are o singură treabă: să te ducă la următoarea. Formularul e destinația, nu o notă de subsol în footer.",
+    "d3_title": "Tracking care rezistă",
+    "d3_body": "Server-side, nu doar un pixel în browser. Vezi de unde vin banii și după ce blocantele de reclame taie restul.",
+    "d4_title": "Reclame pe infrastructura ta",
+    "d4_body": "Meta și Google, conectate direct la ce am construit. Aceeași mână pe tot lanțul, deci nu are cine să dea vina pe altcineva.",
+    "fact1_label": "Termen",
+    "fact1_value": "~4 săptămâni până live",
+    "fact2_label": "Inclus",
+    "fact2_value": "Primele 30 de zile după lansare",
+    "fact3_label": "Disponibilitate",
+    "fact3_value": "Maximum 4 clienți simultan",
+    "guarantee_label": "Garanție",
+    "guarantee_title": "Garanție pe rezultat",
+    "guarantee_body": "Dacă la 90 de zile de la lansare conversia nu a trecut peste reperul stabilit la start, pe aceleași surse de trafic, continui fără costuri până trece.",
+    "cta": "Spune-mi despre proiect"
   }
 }

@@ -252,6 +252,19 @@ const MobileBottomBar: React.FC = () => {
           >
             <div className="mbb-heading">{t("fab.heading")}</div>
 
+            <button
+              type="button"
+              className="mbb-action"
+              onClick={scrollToContact}
+            >
+              <span className="mbb-icon">
+                <MessageSquare size={18} strokeWidth={2} aria-hidden="true" />
+              </span>
+              <span className="mbb-text">
+                <span className="mbb-label">{t("fab.message")}</span>
+              </span>
+            </button>
+
             <a
               href={`tel:${PHONE_NUMBER}`}
               className="mbb-action"
@@ -279,19 +292,6 @@ const MobileBottomBar: React.FC = () => {
                 <span className="mbb-detail">{EMAIL_ADDRESS}</span>
               </span>
             </a>
-
-            <button
-              type="button"
-              className="mbb-action"
-              onClick={scrollToContact}
-            >
-              <span className="mbb-icon">
-                <MessageSquare size={18} strokeWidth={2} aria-hidden="true" />
-              </span>
-              <span className="mbb-text">
-                <span className="mbb-label">{t("fab.message")}</span>
-              </span>
-            </button>
           </PopoverContent>
         </Popover>
       </div>

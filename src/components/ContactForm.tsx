@@ -31,6 +31,9 @@ import {
 
 type Props = {
   onClose?: () => void;
+  /** Fired once the lead is away, so a surrounding drawer can drop its header —
+      "Tell me about the project" sitting above "Got it" reads as a mistake. */
+  onSent?: () => void;
 };
 
 const PROJECT_VALUES = ["website", "webapp", "other"] as const;
@@ -54,7 +57,7 @@ const ValidTick: React.FC = () => (
   </svg>
 );
 
-const ContactForm: React.FC<Props> = ({ onClose }) => {
+const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
   const { t, i18n } = useTranslation();
   const { consent } = useCookieConsent();
 
@@ -112,6 +115,7 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
   });
 
   const [submitting, setSubmitting] = React.useState(false);
+  const [sent, setSent] = React.useState(false);
   const [emailSuggestion, setEmailSuggestion] = React.useState<string | null>(null);
 
   const { isSubmitted, touchedFields, errors } = form.formState;
@@ -177,16 +181,19 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
       trackLead(values.projectType, locale);
       if (consent.marketing === true) trackPixelLead(eventId);
 
-      toast.success(t("form.toast_ok_title"), {
-        description: t("form.toast_ok_body"),
-      });
+      // No success toast. This is the single most important moment on the site
+      // and it used to be a notification that vanished in three seconds while
+      // the drawer shut itself — the visitor was returned to the page they had
+      // already decided to leave. The form hands over to a success screen
+      // instead, and the visitor closes it themselves.
+      setSent(true);
+      onSent?.();
       form.reset();
       setEmailSuggestion(null);
       // `startedRef` deliberately stays true. Clearing it here re-armed the
       // event, and the field changes that reset() itself produces then bubbled
       // into onChangeCapture — every successful lead was followed by a phantom
       // FormStart. One start per mounted form is what the metric means anyway.
-      onClose?.();
     } catch {
       toast.error(t("form.toast_err_title"), {
         description: t("form.toast_err_body"),
@@ -237,6 +244,132 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
       *
     </span>
   );
+
+  if (sent) {
+    return (
+      <div className="cf-sent" role="status" aria-live="polite">
+        <style>{`
+          .cf-sent {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            font-family: var(--font-sans);
+            animation: cfSentIn .4s cubic-bezier(.16,1,.3,1) both;
+          }
+          @keyframes cfSentIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: none; }
+          }
+          .cf-sent-tick {
+            width: 40px; height: 40px;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--btn-gloss);
+            box-shadow: var(--btn-gloss-shadow-sm);
+            color: #fff;
+          }
+          .cf-sent-tick svg {
+            width: 19px; height: 19px;
+            fill: none; stroke: currentColor; stroke-width: 2.4;
+            stroke-linecap: round; stroke-linejoin: round;
+          }
+          .cf-sent-title {
+            margin: 0;
+            font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+            font-weight: 500;
+            letter-spacing: -0.022em;
+            line-height: 1.25;
+            color: #F5F5F5;
+          }
+          .cf-sent-body {
+            margin: 0;
+            font-size: 14.5px;
+            line-height: 1.62;
+            color: rgba(245, 245, 245, 0.72);
+          }
+          .cf-sent-guarantee {
+            margin: 0;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(237, 92, 27, 0.28);
+            background: rgba(237, 92, 27, 0.08);
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: rgba(245, 245, 245, 0.82);
+          }
+          .cf-sent-proof {
+            margin: 0;
+            font-size: 13px;
+            color: rgba(245, 245, 245, 0.55);
+          }
+          .cf-sent-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px 18px;
+            margin-top: 4px;
+          }
+          .cf-sent-wa {
+            display: inline-flex;
+            align-items: center;
+            min-height: var(--btn-h);
+            padding: 0 var(--btn-px);
+            border-radius: 9999px;
+            border: 1px solid var(--btn-steel-border-hover);
+            background: var(--btn-steel);
+            color: #F5F5F5;
+            font-size: var(--btn-font);
+            font-weight: 500;
+            text-decoration: none;
+          }
+          .cf-sent-wa:hover { background: var(--btn-steel-hover); color: #fff; }
+          .cf-sent-close {
+            min-height: var(--btn-h);
+            padding: 0 8px;
+            background: none;
+            border: 0;
+            color: rgba(245, 245, 245, 0.62);
+            font-family: var(--font-sans);
+            font-size: var(--btn-font);
+            cursor: pointer;
+          }
+          .cf-sent-close:hover { color: #F5F5F5; }
+          @media (prefers-reduced-motion: reduce) {
+            .cf-sent { animation: none; }
+          }
+        `}</style>
+
+        <span className="cf-sent-tick" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 12.5l5.2 5.2L20 7" />
+          </svg>
+        </span>
+
+        <h3 className="cf-sent-title">{t("form.success_title")}</h3>
+        <p className="cf-sent-body">{t("form.success_body")}</p>
+        <p className="cf-sent-guarantee">{t("form.success_guarantee")}</p>
+        <p className="cf-sent-proof">{t("form.success_proof")}</p>
+
+        <div className="cf-sent-actions">
+          <a
+            className="cf-sent-wa"
+            href="https://wa.me/40773858164"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t("form.success_whatsapp")}
+          </a>
+          {onClose && (
+            <button type="button" className="cf-sent-close" onClick={onClose}>
+              {t("form.success_close")}
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Form {...form}>

@@ -45,7 +45,10 @@
     <!-- Preload the small logo used by the boot loader + navbar (9KB, not the favicon) -->
     <link rel="preload" href="/logo-mark.webp" as="image" />
 
-    <!-- Structured data: Person + ProfessionalService + WebSite (parsed as one JSON-LD array) -->
+    <!-- Structured data: Person + ProfessionalService + FAQPage + WebSite (one JSON-LD array).
+         The FAQPage entries are copied verbatim from faq.o1-o6 in src/locales/ro.json,
+         which is what FaqsSection renders — keep the two in step, a schema that
+         disagrees with the visible page is worse than no schema. -->
     <script type="application/ld+json">
     [
       {
@@ -122,6 +125,61 @@
         }
       },
       {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "inLanguage": "ro",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Cât costă?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Depinde de ce construim — un site de prezentare și un funnel complet cu tracking server-side nu sunt același proiect. Îți dau cifra pe primul apel, după ce înțeleg ce ai nevoie. Nu public tarife de listă pentru că nu livrez pachete de listă."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Cât durează?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Aproximativ 4 săptămâni de la kickoff până live. Îți spun termenul exact înainte să începem, nu pe parcurs. Singura variabilă e cât de repede vine conținutul de la tine."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "De ce tu și nu o agenție?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Într-o agenție proiectul trece prin patru oameni care nu vorbesc între ei, iar tu plătești coordonarea dintre ei. Aici design, cod, tracking și reclame trec prin aceeași persoană — nimic nu se pierde la predare și nu are cine să dea vina pe altcineva. Compromisul e că lucrez cu maximum patru clienți odată."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Ce se întâmplă dacă nu îmi place?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vezi direcția vizuală înainte să se scrie prima linie de cod și o ajustăm până e bine. Nu te trezești cu un site terminat pe care îl vezi prima dată la livrare — e cel mai scump mod de a lucra, pentru amândoi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Ce se întâmplă după lansare?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Primele 30 de zile sunt incluse: reglaje, corecturi, tot ce iese la iveală din datele reale. După aceea primești rapoarte lunare cu ce funcționează și ce nu, și răspuns în 24 de ore. Codul, hostingul și datele rămân ale tale — nu te leg de mine."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Cum se măsoară garanția pe rezultat?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Stabilim reperul la start: rata de conversie de acum, dacă ai deja analytics, sau ținta convenită împreună dacă pornim de la zero. Se măsoară la 90 de zile de la lansare, pe aceleași surse de trafic. Dacă nu a trecut peste reper, continui fără costuri până trece."
+            }
+          }
+        ]
+      },
+{
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Alcaziu Robert",

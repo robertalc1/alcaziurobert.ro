@@ -214,6 +214,10 @@ const SelectedWorkSection: React.FC = () => {
             <span className="pw-link-icon">{ArrowUpRight}</span>
           </a>
         </div>
+        {/* The outcome, not the craft. These strings have been sitting in the
+            locale files unrendered — a carousel of pretty screenshots was
+            asking the visitor to infer that the work paid off. */}
+        <p className="pw-metric">{t(`portfolio.metrics.${p.slug}`)}</p>
       </div>
     </div>
   );
@@ -315,6 +319,13 @@ const SelectedWorkSection: React.FC = () => {
           align-items: center;
           justify-content: space-between;
           gap: 16px;
+        }
+        .pw-metric {
+          font-family: var(--font-sans);
+          font-size: 13.5px;
+          line-height: 1.5;
+          color: rgba(245, 245, 245, 0.62);
+          margin: 10px 0 0;
         }
         .pw-name {
           font-family: var(--font-sans);

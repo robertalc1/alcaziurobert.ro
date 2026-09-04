@@ -6,20 +6,23 @@ import { scrollToEl } from "@/lib/scroll";
 
 // Below-the-fold sections — lazy-loaded so the initial bundle stays small.
 // Each Suspense fallback reserves enough vertical space to keep CLS = 0.
-const StatementSection = lazy(() => import("@/components/StatementSection"));
 const ClientMarqueeSection = lazy(() => import("@/components/ClientMarqueeSection"));
+const StatementSection = lazy(() => import("@/components/StatementSection"));
+const OfferSection = lazy(() => import("@/components/OfferSection"));
 const SelectedWorkSection = lazy(() => import("@/components/SelectedWorkSection"));
-const CompoundingSection = lazy(() => import("@/components/CompoundingSection"));
-const ProcessSection = lazy(() => import("@/components/ProcessSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
-const GetInTouchSection = lazy(() => import("@/components/GetInTouchSection"));
+const ProcessSection = lazy(() => import("@/components/ProcessSection"));
+const CompoundingSection = lazy(() => import("@/components/CompoundingSection"));
 const FaqsSection = lazy(() => import("@/components/FaqsSection"));
+const GetInTouchSection = lazy(() => import("@/components/GetInTouchSection"));
 const MadeByHumans = lazy(() => import("@/components/MadeByHumans"));
 const MobileBottomBar = lazy(() => import("@/components/MobileBottomBar"));
 
 // Section-shaped placeholders so the page height matches its eventual content.
-// Min-heights are conservative averages from observed layout — preventing layout
-// shift when the chunk arrives. They never flash visibly: each section streams
+// Min-heights are measured in a real browser at 390x844 and 1440x900, then set
+// to roughly the midpoint of the two — one number has to serve both viewports.
+// Re-measure after changing any section's content; a stale reservation is a
+// visible jump on arrival. They never flash visibly: each section streams
 // in within ~50–150ms once its bundle is fetched.
 const Placeholder: React.FC<{ minHeight: number }> = ({ minHeight }) => (
   <div aria-hidden="true" style={{ minHeight }} />
@@ -52,28 +55,38 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        {/* Credibility before anything else: the hero makes a claim, this pays
+            for it with three measured numbers and eleven client marks. */}
+        <Suspense fallback={<Placeholder minHeight={900} />}>
+          <ClientMarqueeSection />
+        </Suspense>
+        {/* The problem, named. */}
         <Suspense fallback={<Placeholder minHeight={300} />}>
           <StatementSection />
         </Suspense>
-        <Suspense fallback={<Placeholder minHeight={300} />}>
-          <ClientMarqueeSection />
+        {/* The answer, stated: what you get, by when, and what is guaranteed. */}
+        <Suspense fallback={<Placeholder minHeight={1450} />}>
+          <OfferSection />
         </Suspense>
-        <Suspense fallback={<Placeholder minHeight={1600} />}>
+        {/* Proof, stacked — the work itself, then the people it was for. */}
+        <Suspense fallback={<Placeholder minHeight={730} />}>
           <SelectedWorkSection />
         </Suspense>
-        <Suspense fallback={<Placeholder minHeight={760} />}>
-          <CompoundingSection />
-        </Suspense>
-        <Suspense fallback={<Placeholder minHeight={960} />}>
-          <ProcessSection />
-        </Suspense>
-        <Suspense fallback={<Placeholder minHeight={520} />}>
+        <Suspense fallback={<Placeholder minHeight={850} />}>
           <TestimonialsSection />
         </Suspense>
-        <Suspense fallback={<Placeholder minHeight={720} />}>
+        {/* Then how it runs, and why it keeps paying. */}
+        <Suspense fallback={<Placeholder minHeight={1050} />}>
+          <ProcessSection />
+        </Suspense>
+        <Suspense fallback={<Placeholder minHeight={660} />}>
+          <CompoundingSection />
+        </Suspense>
+        {/* Objections, in the order they come up on a call. */}
+        <Suspense fallback={<Placeholder minHeight={710} />}>
           <FaqsSection />
         </Suspense>
-        <Suspense fallback={<Placeholder minHeight={640} />}>
+        <Suspense fallback={<Placeholder minHeight={1130} />}>
           <GetInTouchSection />
         </Suspense>
         <Suspense fallback={<Placeholder minHeight={500} />}>
