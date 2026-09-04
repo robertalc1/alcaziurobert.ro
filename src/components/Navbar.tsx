@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { useScroll } from "@/hooks/use-scroll";
 import { scrollToId, scrollToTop } from "@/lib/scroll";
-import { startLenis, stopLenis } from "@/lib/lenis";
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ContactCTA from "@/components/ContactCTA";
 
@@ -49,8 +49,13 @@ const Navbar = () => {
     []
   );
 
-  // Escape closes the fullscreen menu, Tab stays trapped inside it, and body
-  // scroll is locked while it is open. Focus returns to the trigger on close.
+  // Page scroll is locked on the root element while the menu is open — see
+  // use-scroll-lock for why `body { overflow: hidden }`, which is what this
+  // component used to do, locked nothing at all on phones.
+  useScrollLock(open);
+
+  // Escape closes the fullscreen menu and Tab stays trapped inside it. Focus
+  // returns to the trigger on close.
   React.useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -75,21 +80,8 @@ const Navbar = () => {
       }
     };
     const trigger = triggerRef.current;
-    const { body } = document;
-    const prevOverflow = body.style.overflow;
-    const prevPad = body.style.paddingRight;
-    const gap = window.innerWidth - document.documentElement.clientWidth;
-    body.style.overflow = "hidden";
-    if (gap > 0) body.style.paddingRight = `${gap}px`;
-    // The overlay owns the screen, so the smooth-scroll layer has to let go.
-    // Left running, the wheel keeps advancing its internal target behind the
-    // overlay and closing the menu snaps the page to wherever that drifted.
-    stopLenis();
     window.addEventListener("keydown", onKey);
     return () => {
-      body.style.overflow = prevOverflow;
-      body.style.paddingRight = prevPad;
-      startLenis();
       window.removeEventListener("keydown", onKey);
       trigger?.focus({ preventScroll: true });
     };
@@ -425,6 +417,10 @@ const Navbar = () => {
           /* 44px minimum touch targets — most of the traffic is phones */
           .nav-menu-trigger { padding: 11px 6px; min-height: 44px; min-width: 44px; justify-content: center; }
           .nav-logo { padding: 7px 2px; }
+          /* The .site-nav .lang-btn rule above is more specific than the
+             component's own mobile rule, so without this the language buttons
+             stayed at 32px on phones while everything else moved to 44px. */
+          .site-nav .lang-btn { min-height: 44px; min-width: 44px; }
         }
 
         /* ─────────────────────── FULLSCREEN MENU ─────────────────────── */
@@ -439,6 +435,16 @@ const Navbar = () => {
           overscroll-behavior: contain;
           padding: clamp(20px, 4vh, 40px) clamp(20px, 5vw, 96px) clamp(24px, 4vh, 44px);
           animation: navOverlayIn .42s cubic-bezier(.16,1,.3,1) both;
+          /* inset:0 alone sizes the box from the layout viewport, which on a
+             phone lags behind the visible area while the browser toolbar slides
+             in and out — that lag is the strip of page that shows through at
+             the bottom. dvh tracks the toolbar; vh stays as the fallback. */
+          height: 100vh;
+          height: 100dvh;
+          /* Home indicator and notch: without this the legal row and the
+             language switcher sit underneath the phone's own chrome. */
+          padding-bottom: calc(clamp(24px, 4vh, 44px) + env(safe-area-inset-bottom, 0px));
+          padding-top: calc(clamp(20px, 4vh, 40px) + env(safe-area-inset-top, 0px));
         }
         .nav-overlay.is-closing {
           animation: navOverlayOut ${CLOSE_MS}ms cubic-bezier(.4,0,1,1) both;
@@ -469,7 +475,7 @@ const Navbar = () => {
 
         .nav-close {
           position: absolute;
-          top: clamp(18px, 3.2vh, 34px);
+          top: calc(clamp(18px, 3.2vh, 34px) + env(safe-area-inset-top, 0px));
           right: clamp(18px, 3.4vw, 44px);
           z-index: 2;
           width: var(--btn-h); height: var(--btn-h);
@@ -549,7 +555,10 @@ const Navbar = () => {
           font-size: clamp(11px, 0.9vw, 13px);
           font-weight: 500;
           letter-spacing: 0.1em;
-          color: rgba(255, 255, 255, 0.42);
+          /* 0.42 composited to ~4.12:1 on #121212 — under the 4.5:1 floor for
+             text this size. 0.55 clears it without brightening the numerals
+             into competing with the link text. */
+          color: rgba(255, 255, 255, 0.55);
           transition: color .3s ease;
         }
         .nav-ov-text {
@@ -710,6 +719,10 @@ const Navbar = () => {
               aria-expanded={open}
               aria-controls="site-menu"
               aria-haspopup="dialog"
+              // Below 400px `.nav-menu-label` is display:none and the burger is
+              // aria-hidden, which left the button with no accessible name at
+              // all on exactly the widths most of the traffic arrives on.
+              aria-label={t("nav.menu")}
             >
               <span className="nav-menu-label">{t("nav.menu")}</span>
               <span className="nav-burger" aria-hidden="true">

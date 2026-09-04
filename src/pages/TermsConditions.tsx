@@ -81,7 +81,7 @@ const TermsConditions: React.FC = () => {
   return (
     <div className="cs-root">
       <style>{`
-        .cs-root { padding-top: 78px; min-height: 100vh; background: #0F0F0F; color: #F5F5F5; }
+        .cs-root { padding-top: 78px; min-height: 100vh; min-height: 100dvh; background: #0F0F0F; color: #F5F5F5; }
         .cs-page { padding: clamp(28px, 4vh, 52px) 20px clamp(36px, 5.5vh, 60px); }
 
         .cs-layout {

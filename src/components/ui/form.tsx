@@ -50,7 +50,7 @@ const useFormField = () => {
     throw new Error("useFormField should be used within <FormField>")
   }
 
-  const { id } = itemContext
+  const { id, hasDescription, registerDescription } = itemContext
 
   return {
     id,
@@ -58,12 +58,17 @@ const useFormField = () => {
     formItemId: `${id}-form-item`,
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
+    hasDescription,
+    registerDescription,
     ...fieldState,
   }
 }
 
 type FormItemContextValue = {
   id: string
+  /** Whether this item actually renders a <FormDescription>. */
+  hasDescription: boolean
+  registerDescription: (present: boolean) => void
 }
 
 const FormItemContext = React.createContext<FormItemContextValue>(
@@ -75,9 +80,18 @@ const FormItem = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const id = React.useId()
+  // FormControl points aria-describedby at the description's id. Nothing
+  // guaranteed that description existed, so every field in the app shipped a
+  // reference to an id that was never in the document. The description tells
+  // the item it is there instead.
+  const [hasDescription, setHasDescription] = React.useState(false)
+  const value = React.useMemo(
+    () => ({ id, hasDescription, registerDescription: setHasDescription }),
+    [id, hasDescription]
+  )
 
   return (
-    <FormItemContext.Provider value={{ id }}>
+    <FormItemContext.Provider value={value}>
       <div ref={ref} className={cn("space-y-2", className)} {...props} />
     </FormItemContext.Provider>
   )
@@ -105,17 +119,20 @@ const FormControl = React.forwardRef<
   React.ElementRef<typeof Slot>,
   React.ComponentPropsWithoutRef<typeof Slot>
 >(({ ...props }, ref) => {
-  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+  const { error, formItemId, formDescriptionId, formMessageId, hasDescription } =
+    useFormField()
+
+  // Reference only ids that are actually in the document.
+  const describedBy =
+    [hasDescription ? formDescriptionId : null, error ? formMessageId : null]
+      .filter(Boolean)
+      .join(" ") || undefined
 
   return (
     <Slot
       ref={ref}
       id={formItemId}
-      aria-describedby={
-        !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
+      aria-describedby={describedBy}
       aria-invalid={!!error}
       {...props}
     />
@@ -127,7 +144,14 @@ const FormDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => {
-  const { formDescriptionId } = useFormField()
+  const { formDescriptionId, registerDescription } = useFormField()
+
+  // Tells the surrounding FormItem this id exists, so FormControl can describe
+  // itself with it. Unmounting withdraws the claim.
+  React.useEffect(() => {
+    registerDescription(true)
+    return () => registerDescription(false)
+  }, [registerDescription])
 
   return (
     <p

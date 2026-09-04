@@ -11,7 +11,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { scrollToEl } from "@/lib/scroll";
-import { startLenis, stopLenis } from "@/lib/lenis";
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 
 // Lazy: the drawer's form chunk (react-hook-form + zod) loads only when the
 // drawer actually opens — keeps it out of the eager Navbar/Hero graph.
@@ -36,14 +36,14 @@ const ContactCTA: React.FC<Props> = ({ children }) => {
 
   const close = React.useCallback(() => setOpen(false), []);
 
-  // The drawer is mobile-first, but a narrow desktop window (<768px with a
-  // mouse) gets both the drawer AND the smooth-scroll layer — so the layer has
-  // to be paused for the same reason the cookie dialog pauses it.
-  React.useEffect(() => {
-    if (!open) return;
-    stopLenis();
-    return () => startLenis();
-  }, [open]);
+  // Vaul only locks the page on Safari: `usePositionFixed` returns early when
+  // `!isSafari()`, and its mobile path runs `if (isIOS())`. On Android Chrome
+  // the drawer opened over a page that was still free to scroll — the same
+  // defect that was reported on the fullscreen menu, in the one component that
+  // brings in leads. This lock is on the root element, Vaul's is on <body>, so
+  // the two can hold at once without fighting. It also pauses Lenis, which a
+  // narrow desktop window (<768px with a mouse) still has running.
+  useScrollLock(open);
 
   if (isMobile) {
     const openDrawer = (e: React.MouseEvent) => {
@@ -55,7 +55,7 @@ const ContactCTA: React.FC<Props> = ({ children }) => {
       <>
         <Slot onClick={openDrawer}>{children}</Slot>
         <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerContent className="h-[92vh] max-h-[92vh] flex flex-col">
+          <DrawerContent className="h-[92dvh] max-h-[92dvh] flex flex-col">
             <DrawerHeader className="text-left flex-shrink-0">
               <DrawerTitle>{t("form.title")}</DrawerTitle>
               <DrawerDescription>{t("form.subtitle")}</DrawerDescription>

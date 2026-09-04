@@ -282,6 +282,9 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
                 <div className="relative">
                   <Input
                     autoComplete="name"
+                    autoCapitalize="words"
+                    enterKeyHint="next"
+                    aria-required="true"
                     placeholder={t("form.name_placeholder")}
                     className={fieldClass + (isGood("name") ? " pr-10" : "")}
                     {...field}
@@ -311,6 +314,8 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
                       type="tel"
                       inputMode="tel"
                       autoComplete="tel"
+                      enterKeyHint="next"
+                      aria-required="true"
                       maxLength={22}
                       placeholder={t("form.phone_placeholder")}
                       className={fieldClass + (isGood("phone") ? " pr-10" : "")}
@@ -358,7 +363,12 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
                   <div className="relative">
                     <Input
                       type="email"
+                      inputMode="email"
                       autoComplete="email"
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      enterKeyHint="next"
+                      aria-required="true"
                       spellCheck={false}
                       placeholder={t("form.email_placeholder")}
                       className={fieldClass + (isGood("email") ? " pr-10" : "")}
@@ -424,6 +434,7 @@ const ContactForm: React.FC<Props> = ({ onClose }) => {
               >
                 <FormControl>
                   <SelectTrigger
+                    aria-required="true"
                     data-field="projectType"
                     className={fieldClass + " [&>span]:truncate"}
                     onBlur={field.onBlur}

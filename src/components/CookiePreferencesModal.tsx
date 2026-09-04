@@ -107,7 +107,7 @@ const CookiePreferencesModal: React.FC = () => {
 
   return (
     <Dialog open={isPreferencesOpen} onOpenChange={(open) => !open && closePreferences()}>
-      <DialogContent className="max-h-[90vh] w-[95vw] max-w-2xl overflow-y-auto rounded-2xl p-0 sm:p-0">
+      <DialogContent className="max-h-[90dvh] w-[95vw] max-w-2xl overflow-y-auto rounded-2xl p-0 sm:p-0">
         <div className="p-6 sm:p-7">
           <DialogHeader className="text-left">
             <DialogTitle className="text-[1.15rem] font-medium tracking-[-0.01em] text-[#F5F5F5]">

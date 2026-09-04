@@ -19,6 +19,7 @@ const NotFound = () => {
       <style>{`
         .nf-root {
           min-height: 100vh;
+          min-height: 100dvh;
           background: #0F0F0F;
           color: #F5F5F5;
           display: flex;
