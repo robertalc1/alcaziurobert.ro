@@ -105,3 +105,17 @@ export function trackPixelFormStart(): void {
   if (!granted || !window.fbq) return;
   window.fbq("trackCustom", "FormStart");
 }
+
+/**
+ * Custom "Call" for the Meta pixel. Same reasoning as FormStart: on a
+ * high-ticket funnel the raw lead count is too small to optimise on, and a tap
+ * on the phone number is about as strong an intent signal as this page
+ * produces. Custom rather than a standard event because Meta has no standard
+ * event for a call placed off-platform, and mislabelling it as a Lead would
+ * poison the number the campaigns are actually optimised against.
+ * No-ops without Marketing consent.
+ */
+export function trackPixelCall(): void {
+  if (!granted || !window.fbq) return;
+  window.fbq("trackCustom", "Call");
+}

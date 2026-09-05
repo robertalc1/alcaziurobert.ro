@@ -10,10 +10,24 @@ import { scrollToId, scrollToTop } from "@/lib/scroll";
 import { useScrollLock } from "@/hooks/use-scroll-lock";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ContactCTA from "@/components/ContactCTA";
+import { PHONE_TEL, PHONE_DISPLAY, EMAIL_ADDRESS } from "@/lib/contact";
+import { trackCall } from "@/lib/analytics";
+import { trackPixelCall } from "@/lib/marketingPixels";
 
 // Order mirrors the page. A menu that lists sections in a different order than
 // the visitor meets them feels broken the first time it is used.
-const ANCHOR_IDS = ["offer", "work", "results", "process", "faq"] as const;
+// "results" is gone with the testimonials section — it owned that anchor, and
+// a menu entry pointing at a missing id is a dead link, not a missing section.
+const ANCHOR_IDS = ["offer", "work", "process", "faq"] as const;
+
+// Same path as the footer's phone row (MadeByHumans). One glyph for the number
+// wherever it appears, rather than a second phone icon drawn slightly
+// differently on the same page.
+const PhoneGlyph = (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M22 16.92v2.1a2 2 0 0 1-2.18 2 19.6 19.6 0 0 1-8.58-3.06 19.3 19.3 0 0 1-6-6 19.6 19.6 0 0 1-3.06-8.58A2 2 0 0 1 4.18 2h2.1A2 2 0 0 1 8.2 3.72l.67 2a2 2 0 0 1-.46 2.02L7.3 8.9a16.5 16.5 0 0 0 7.8 7.8l1.15-1.11a2 2 0 0 1 2.02-.46l2 .67A2 2 0 0 1 22 16.92Z" />
+  </svg>
+);
 
 // How long the overlay's exit animation runs — keep in sync with `navOverlayOut`.
 const CLOSE_MS = 300;
@@ -98,6 +112,14 @@ const Navbar = () => {
   // scrollToTop imported from lib/scroll — routed through the smooth layer.
 
   // Logo: scroll to top on the homepage, otherwise navigate home.
+  // Both call entry points in this component report the same event with a
+  // different source, so the two can be told apart in GA without a second
+  // event name. Consent gating lives inside the two helpers.
+  const handleCall = (source: string) => () => {
+    trackCall(source);
+    trackPixelCall();
+  };
+
   const handleLogo = (e: React.MouseEvent) => {
     e.preventDefault();
     closeMenu();
@@ -157,7 +179,6 @@ const Navbar = () => {
                 className="nav-ov-link"
                 onClick={handleAnchor(id, true)}
               >
-                <span className="nav-ov-index">0{i + 1}</span>
                 <span className="nav-ov-text">{t(`nav.${id}`)}</span>
               </a>
             </li>
@@ -167,14 +188,13 @@ const Navbar = () => {
             style={{ ["--i" as string]: ANCHOR_IDS.length } as React.CSSProperties}
           >
             <Link to="/studii-de-caz" className="nav-ov-link" onClick={closeMenu}>
-              <span className="nav-ov-index">0{ANCHOR_IDS.length + 1}</span>
               <span className="nav-ov-text">{t("nav.casestudy")}</span>
             </Link>
           </li>
         </ul>
 
         <div className="nav-ov-aside">
-          <ContactCTA>
+          <ContactCTA mode="modal">
             <button type="button" className="nav-ov-cta" onClick={closeMenu}>
               {t("nav.cta")}
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -184,8 +204,10 @@ const Navbar = () => {
           </ContactCTA>
 
           <div className="nav-ov-contact">
-            <a href="tel:+40773858164">+40 773 858 164</a>
-            <a href="mailto:contact@alcaziurobert.ro">contact@alcaziurobert.ro</a>
+            <a href={`tel:${PHONE_TEL}`} onClick={handleCall("menu")}>
+              {PHONE_DISPLAY}
+            </a>
+            <a href={`mailto:${EMAIL_ADDRESS}`}>{EMAIL_ADDRESS}</a>
           </div>
         </div>
       </nav>
@@ -310,60 +332,60 @@ const Navbar = () => {
                   drop-shadow(0 0 20px rgba(237, 92, 27, 0.30));
         }
 
+        /* Tighter than before: three items where there were four, and two of
+           them are now icon buttons carrying their own 44px padding, so the
+           old gap left the cluster looking scattered. */
         .nav-actions {
           display: flex;
           align-items: center;
-          gap: clamp(14px, 2vw, 26px);
+          gap: clamp(4px, 1vw, 12px);
         }
+        /* The CTA is the one thing in the row that is not a bare icon; it gets
+           the separation the uniform gap no longer provides. */
+        .nav-actions .nav-cta { margin-left: clamp(6px, 1vw, 14px); }
 
-        /* Discreet inline language toggle — no boxed pill in the bar */
-        .site-nav .lang-switch {
-          background: transparent;
-          border: none;
-          -webkit-backdrop-filter: none;
-          backdrop-filter: none;
-          margin-right: 0;
-          padding: 0;
-          gap: 4px;
-        }
-        .site-nav .lang-btn {
-          padding: 6px 8px;
-          min-height: 32px;
-          font-size: 12.5px;
-          border-radius: 8px;
-          color: rgba(255, 255, 255, 0.58);
-        }
-        .site-nav .lang-btn:hover { color: #FFFFFF; }
-        .site-nav .lang-btn.active { color: #FFFFFF; background: transparent; }
-        .site-nav .lang-btn.active::after {
-          content: '';
-          display: block;
-          height: 1.5px;
-          margin-top: 3px;
-          background: #ED5C1B;
-          border-radius: 2px;
-        }
-        @media (max-width: 520px) {
-          .site-nav .lang-switch { display: none; }
-        }
 
-        /* Menu trigger — label + burger, matching the reference bar */
+        /* Call and menu are one pair of icon-only buttons: same 44x44 target
+           at every width, same resting colour, same hover. The trigger used to
+           be a text label plus a burger at padding 8px 2px, which on a
+           pointer device was a 20px-tall target — under the 44px floor the rest
+           of the site's buttons hold (--btn-h in index.css). */
+        .nav-phone,
         .nav-menu-trigger {
           display: inline-flex;
           align-items: center;
-          gap: 11px;
-          padding: 8px 2px;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          padding: 0;
           background: transparent;
           border: none;
+          border-radius: 10px;
           cursor: pointer;
           color: rgba(255, 255, 255, 0.92);
-          font-family: var(--font-sans);
-          font-weight: 500;
-          font-size: 15px;
-          letter-spacing: -0.005em;
-          transition: color .25s ease;
+          transition: color .25s ease, background-color .25s ease;
         }
-        .nav-menu-trigger:hover { color: #FFFFFF; }
+        .nav-phone:hover,
+        .nav-menu-trigger:hover {
+          color: #FFFFFF;
+          background: rgba(255, 255, 255, 0.06);
+        }
+        .nav-phone:focus-visible,
+        .nav-menu-trigger:focus-visible {
+          outline: 2px solid #ED5C1B;
+          outline-offset: 2px;
+        }
+        .nav-phone:active,
+        .nav-menu-trigger:active { transform: scale(0.94); }
+        .nav-phone svg {
+          width: 19px;
+          height: 19px;
+          fill: none;
+          stroke: currentColor;
+          stroke-width: 1.7;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
         .nav-burger {
           display: inline-flex;
           flex-direction: column;
@@ -382,9 +404,6 @@ const Navbar = () => {
         }
         .nav-menu-trigger:hover .nav-burger span:nth-child(1) { width: 86%; }
         .nav-menu-trigger:hover .nav-burger span:nth-child(3) { width: 70%; }
-        @media (max-width: 400px) {
-          .nav-menu-label { display: none; }
-        }
 
         /* NAV CTA — compact orange pill, mirrors the hero primary button */
         .nav-cta {
@@ -417,12 +436,11 @@ const Navbar = () => {
         .nav-cta:active { transform: scale(0.97); }
         @media (max-width: 767px) {
           /* 44px minimum touch targets — most of the traffic is phones */
-          .nav-menu-trigger { padding: 11px 6px; min-height: 44px; min-width: 44px; justify-content: center; }
+          /* .nav-phone / .nav-menu-trigger are already 44x44 at every width. */
           .nav-logo { padding: 7px 2px; }
           /* The .site-nav .lang-btn rule above is more specific than the
              component's own mobile rule, so without this the language buttons
              stayed at 32px on phones while everything else moved to 44px. */
-          .site-nav .lang-btn { min-height: 44px; min-width: 44px; }
         }
 
         /* ─────────────────────── FULLSCREEN MENU ─────────────────────── */
@@ -543,7 +561,6 @@ const Navbar = () => {
         .nav-ov-link {
           display: inline-flex;
           align-items: baseline;
-          gap: clamp(14px, 1.6vw, 26px);
           text-decoration: none;
           color: #F5F5F5;
           font-family: var(--font-sans);
@@ -552,16 +569,6 @@ const Navbar = () => {
           line-height: 1.12;
           letter-spacing: -0.035em;
           transition: color .3s cubic-bezier(.23,1,.32,1);
-        }
-        .nav-ov-index {
-          font-size: clamp(11px, 0.9vw, 13px);
-          font-weight: 500;
-          letter-spacing: 0.1em;
-          /* 0.42 composited to ~4.12:1 on #121212 — under the 4.5:1 floor for
-             text this size. 0.55 clears it without brightening the numerals
-             into competing with the link text. */
-          color: rgba(255, 255, 255, 0.55);
-          transition: color .3s ease;
         }
         .nav-ov-text {
           position: relative;
@@ -576,7 +583,6 @@ const Navbar = () => {
           transition: width .35s cubic-bezier(.23,1,.32,1);
         }
         .nav-ov-link:hover { color: #ED5C1B; }
-        .nav-ov-link:hover .nav-ov-index { color: rgba(237, 92, 27, 0.85); }
         .nav-ov-link:hover .nav-ov-text::after { width: 100%; }
 
         .nav-ov-aside {
@@ -709,9 +715,24 @@ const Navbar = () => {
             <img src="/logo-mark.webp" alt="" width={52} height={30} />
           </a>
 
-          {/* LANGUAGE + MENU TRIGGER + CTA */}
+          {/* CALL + MENU TRIGGER + CTA.
+              The EN/RO switcher used to open this row. It now lives in the menu
+              overlay's footer, where it already had a second instance: nothing
+              in the bar should cost a tap without moving someone toward the
+              form or the phone, and a language toggle is the one control here
+              that no buying visitor uses. */}
           <div className="nav-actions">
-            <LanguageSwitcher />
+            <a
+              className="nav-phone"
+              href={`tel:${PHONE_TEL}`}
+              onClick={handleCall("navbar")}
+              // Icon-only, so the number carries the accessible name — "call"
+              // alone would leave a screen-reader user with no idea what they
+              // are about to dial.
+              aria-label={`${t("nav.call")} ${PHONE_DISPLAY}`}
+            >
+              {PhoneGlyph}
+            </a>
 
             <button
               type="button"
@@ -721,12 +742,10 @@ const Navbar = () => {
               aria-expanded={open}
               aria-controls="site-menu"
               aria-haspopup="dialog"
-              // Below 400px `.nav-menu-label` is display:none and the burger is
-              // aria-hidden, which left the button with no accessible name at
-              // all on exactly the widths most of the traffic arrives on.
+              // The burger is aria-hidden and the word "Meniu" is gone, so this
+              // label is the button's only accessible name.
               aria-label={t("nav.menu")}
             >
-              <span className="nav-menu-label">{t("nav.menu")}</span>
               <span className="nav-burger" aria-hidden="true">
                 <span />
                 <span />
@@ -734,7 +753,7 @@ const Navbar = () => {
               </span>
             </button>
 
-            <ContactCTA>
+            <ContactCTA mode="modal">
               <button type="button" className="nav-cta">
                 {t("nav.cta")}
               </button>

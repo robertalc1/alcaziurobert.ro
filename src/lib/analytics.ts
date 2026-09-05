@@ -101,3 +101,16 @@ export function trackFormStart(): void {
   if (!granted || !GA_MEASUREMENT_ID || !window.gtag) return;
   window.gtag("event", "form_start", { form_name: "contact" });
 }
+
+/**
+ * GA4 event for a tap on any `tel:` link. The phone is the funnel's secondary
+ * conversion (PRODUCT.md) and until now it was the only one nobody measured:
+ * a visitor who called instead of filling the form was indistinguishable from
+ * one who bounced. `source` says which of the four call entry points it was —
+ * navbar, menu, bottom bar or footer — so a button that earns nothing can be
+ * removed on evidence. No-ops until Performance consent is granted.
+ */
+export function trackCall(source: string): void {
+  if (!granted || !GA_MEASUREMENT_ID || !window.gtag) return;
+  window.gtag("event", "phone_click", { source });
+}

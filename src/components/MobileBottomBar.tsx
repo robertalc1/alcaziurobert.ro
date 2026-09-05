@@ -7,10 +7,11 @@ import {
   PopoverContent,
 } from "@/components/ui/popover";
 import { scrollToEl } from "@/lib/scroll";
+import { PHONE_TEL, PHONE_DISPLAY, EMAIL_ADDRESS } from "@/lib/contact";
+import { trackCall } from "@/lib/analytics";
+import { trackPixelCall } from "@/lib/marketingPixels";
 
-const PHONE_NUMBER = "+40773858164";
-const PHONE_DISPLAY = "+40 773 858 164";
-const EMAIL_ADDRESS = "contact@alcaziurobert.ro";
+const PHONE_NUMBER = PHONE_TEL;
 
 /**
  * Floating Action Button (mobile only, <md).
@@ -268,7 +269,11 @@ const MobileBottomBar: React.FC = () => {
             <a
               href={`tel:${PHONE_NUMBER}`}
               className="mbb-action"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                trackCall("bottom_bar");
+                trackPixelCall();
+                setOpen(false);
+              }}
             >
               <span className="mbb-icon">
                 <Phone size={18} strokeWidth={2} aria-hidden="true" />

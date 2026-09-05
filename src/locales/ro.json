@@ -6,8 +6,8 @@
     "cta": "Contactează-mă",
     "work": "Proiecte",
     "process": "Proces",
-    "results": "Rezultate",
     "faq": "FAQ",
+    "call": "Sună-mă",
     "menu": "Meniu",
     "close": "Închide",
     "offer": "Ofertă"
@@ -30,7 +30,6 @@
     "eyebrow": "Întrebări frecvente",
     "title": "Răspunsuri rapide la întrebările tale.",
     "lead": "Cele mai frecvente întrebări despre cum lucrez, durata proiectelor și ce se întâmplă după livrare.",
-    "cta": "Ai altă întrebare? Scrie-mi pe WhatsApp",
     "o1": {
       "q": "Cât costă?",
       "a": "Depinde de ce construim — un site de prezentare și un funnel complet cu tracking server-side nu sunt același proiect. Îți dau cifra pe primul apel, după ce înțeleg ce ai nevoie. Nu public tarife de listă pentru că nu livrez pachete de listă."
@@ -60,46 +59,25 @@
     "headline_pre": "Site-uri construite",
     "headline_accent": "să convertească.",
     "subtitle": "Site, funnel, tracking și reclame — un singur partener senior, cap-coadă. Live în ~4 săptămâni.",
-    "cta_secondary": "Vezi proiectele",
     "form_title": "Spune-mi despre proiectul tău",
     "form_note": "Răspund personal în maxim 24 de ore.",
-    "eyebrow": "Solo · maximum 4 clienți simultan",
     "trust_1": "Răspund personal în 24h",
     "trust_2": "Live în ~4 săptămâni",
     "trust_3": "Garanție pe rezultat"
   },
-  "stats": {
-    "kicker": "Dovezi, nu promisiuni",
-    "s1_value": "3.8%",
-    "s1_label": "rată de conversie",
-    "s1_note": "de la 1.4% — aceleași reclame, același trafic",
-    "s2_value": "1.1s",
-    "s2_label": "timp de încărcare",
-    "s2_note": "de la 6 secunde",
-    "s3_value": "−38%",
-    "s3_label": "bounce rate",
-    "s3_note": "la 30 de zile după relansare",
-    "clients_label": "Clienți selectați"
-  },
   "process": {
-    "kicker": "Sistemul",
-    "step1_meta": "Săptămâna 1",
     "step1_title": "Unde pierzi bani",
     "step1_body": "Audit, analytics și harta funnel-ului. Știm exact pe unde curg banii afară înainte să scriem o linie de cod.",
-    "step2_meta": "Săptămâna 2",
     "step2_title": "Construim să convertească",
     "step2_body": "Design și build, în jurul singurei metrici care contează: lead-uri calificate.",
-    "step3_meta": "Săptămâna 3",
     "step3_title": "Lansare",
     "step3_body": "Tracking server-side inclus, încărcare sub 2 secunde, zero capete lăsate libere.",
-    "step4_meta": "Săptămâna 4+",
     "step4_title": "Scalăm ce merge",
     "step4_body": "Reclame și SEO îndreptate spre paginile care deja convertesc.",
-    "step5_meta": "Continuu",
     "step5_title": "Creștere compusă",
     "step5_body": "Rămân în spatele cifrelor tale, lună de lună.",
     "title": "Cinci etape. Știi tot timpul unde suntem.",
-    "lead": "Fără ședințe de status și fără să întrebi tu ce se întâmplă. La fiecare etapă vezi ce s-a livrat și ce urmează."
+    "lead": "Fără ședințe de status și fără să întrebi tu ce se întâmplă. La fiecare etapă <pill>vezi ce s-a livrat</pill> și ce urmează."
   },
   "work": {
     "featured_name": "Oficiul de Cadastru — OCPI",
@@ -107,12 +85,11 @@
     "featured_chip2": "Live de 12 luni",
     "featured_chip3": "Standard guvernamental",
     "visit": "Vezi live",
+    "prev": "Proiectul anterior",
+    "next": "Proiectul următor",
     "drag": "Trage pentru a explora",
     "section_title": "Proiecte de succes",
     "swipe_hint": "Trage lateral pentru toate proiectele"
-  },
-  "clients": {
-    "depth_line": "Unsprezece clienți, de la o instituție de stat la magazine online. Lucrez cu maxim patru odată — de asta lista crește încet."
   },
   "portfolio": {
     "badge": "Portofoliu",
@@ -256,76 +233,6 @@
       "title": "NIS2 + securitate",
       "body": "WAF, DDoS, backup-uri. Conformare de nivel enterprise."
     }
-  },
-  "testimonials": {
-    "badge": "Testimoniale",
-    "title": "Ce zic oamenii care lucrează cu mine.",
-    "subtitle": "Vezi ce au de spus clienții despre noi",
-    "items": [
-      {
-        "text": "Am comparat 4 agenții pentru proiectul OCPI. Robert a venit solo, a livrat în 6 săptămâni și a construit ceva pe care echipa de audit l-a numit <hl>indestructibil</hl>.",
-        "name": "SGC OCPI",
-        "role": "Instituție publică",
-        "initials": "SG",
-        "tone": "orange"
-      },
-      {
-        "text": "Site-ul vechi se încărca în 6 secunde. Cel nou — <hl>1.1</hl>. Aceeași ofertă, bounce cu 38% mai mic, 2× cereri de demo în 30 de zile.",
-        "name": "Picaps",
-        "role": "Client industrial",
-        "initials": "PI",
-        "tone": "ink"
-      },
-      {
-        "text": "Primele 30 de zile după lansare: 7 lead-uri calificate din organic. Doi ani înainte — zero. <hl>Deblocat</hl> un canal pe care nici nu-l puteam deschide.",
-        "name": "R-Draw",
-        "role": "Engineering Studio",
-        "initials": "RD",
-        "tone": "orange"
-      },
-      {
-        "text": "Pe primul apel, Robert a pus întrebări pe care agenția anterioară nu le-a atins în 9 luni. Săptămâna 2 aveam un <hl>plan</hl> real, nu un deck.",
-        "name": "Everun România",
-        "role": "Retail sport",
-        "initials": "ER",
-        "tone": "ink"
-      },
-      {
-        "text": "Răspunde în 2 ore, la 8 luni după lansare. Nu e relație de freelancer. E un <hl>partener</hl> căruia chiar îi pasă de business-ul tău.",
-        "name": "Everati",
-        "role": "Brand tehnologic",
-        "initials": "EV",
-        "tone": "orange"
-      },
-      {
-        "text": "Conversion rate-ul a urcat de la 1.4% la <hl>3.8%</hl> în 60 de zile. Aceleași reclame, același trafic. Site-ul face acum munca grea.",
-        "name": "Kickout",
-        "role": "Brand sportiv",
-        "initials": "KO",
-        "tone": "ink"
-      },
-      {
-        "text": "Am investit 2 ore din timpul meu pe tot build-ul. Site-ul a fost livrat la termen. Acum stau <hl>zero</hl> minute pe lună cu el.",
-        "name": "Alma",
-        "role": "Servicii auto",
-        "initials": "AL",
-        "tone": "orange"
-      },
-      {
-        "text": "A eliminat 3 funcționalități pentru care aveam deja buget. A spus că nu mută acul. Onestitatea asta e <hl>rară</hl> pe piața de azi.",
-        "name": "Lukton",
-        "role": "Servicii B2B",
-        "initials": "LU",
-        "tone": "ink"
-      },
-      {
-        "text": "Robert a construit funnel-ul, apoi ne-a predat cheile. <hl>Control</hl> total — cod, hosting, date. Fără capcană lunară, fără dependență de furnizor.",
-        "name": "Ecartop",
-        "role": "Marketplace auto",
-        "initials": "EC",
-        "tone": "orange"
-      }
-    ]
   },
   "contact": {
     "badge": "Contact",
@@ -566,30 +473,27 @@
     "email": "Trimite email",
     "message": "Scrie-mi un mesaj"
   },
-  "statement": {
-    "line": "Majoritatea site-urilor primesc complimente și nu aduc cereri de ofertă. Nu pentru că arată prost — ci pentru că <pill>nimeni nu a construit drumul</pill> de la vizitator la client."
-  },
   "offer": {
+    "problem_kicker": "Problema",
+    "problem": "Majoritatea site-urilor primesc complimente și nu aduc <pill>cereri de ofertă</pill>. Nu pentru că arată prost — ci pentru că <pill>nimeni nu a construit drumul</pill> de la vizitator la client.",
     "kicker": "Ce primești",
-    "title": "Tot lanțul, de la primul wireframe până la primul client venit din reclame.",
-    "lead": "Un site care arată bine e jumătate de treabă. Cealaltă jumătate — funnel, tracking, reclame — e de obicei împărțită între trei furnizori care dau vina unul pe altul. Aici e o singură mână.",
-    "d1_title": "Site construit de la zero",
+    "title": "Tot lanțul, de la primul wireframe până la <pill>primul client venit din reclame</pill>.",
+    "lead": "Un site care arată bine e jumătate de treabă. Cealaltă jumătate — funnel, tracking, reclame — e de obicei împărțită între trei furnizori care dau vina unul pe altul. Aici e <pill>o singură mână</pill>.",
+    "d1_meta": "Site",
+    "d1_title": "Construit de la zero",
     "d1_body": "Fără template, fără page builder. Cod scris pentru viteza cu care se încarcă și pentru drumul pe care îl face vizitatorul, nu pentru portofoliul meu.",
-    "d2_title": "Funnel, nu un teanc de pagini",
+    "d2_meta": "Funnel",
+    "d2_title": "Nu un teanc de pagini",
     "d2_body": "Fiecare secțiune are o singură treabă: să te ducă la următoarea. Formularul e destinația, nu o notă de subsol în footer.",
-    "d3_title": "Tracking care rezistă",
+    "d3_meta": "Tracking",
+    "d3_title": "Cifrele rămân întregi",
     "d3_body": "Server-side, nu doar un pixel în browser. Vezi de unde vin banii și după ce blocantele de reclame taie restul.",
-    "d4_title": "Reclame pe infrastructura ta",
+    "d4_meta": "Reclame",
+    "d4_title": "Pe infrastructura ta",
     "d4_body": "Meta și Google, conectate direct la ce am construit. Aceeași mână pe tot lanțul, deci nu are cine să dea vina pe altcineva.",
-    "fact1_label": "Termen",
-    "fact1_value": "~4 săptămâni până live",
-    "fact2_label": "Inclus",
-    "fact2_value": "Primele 30 de zile după lansare",
-    "fact3_label": "Disponibilitate",
-    "fact3_value": "Maximum 4 clienți simultan",
     "guarantee_label": "Garanție",
     "guarantee_title": "Garanție pe rezultat",
-    "guarantee_body": "Dacă la 90 de zile de la lansare conversia nu a trecut peste reperul stabilit la start, pe aceleași surse de trafic, continui fără costuri până trece.",
+    "guarantee_body": "Dacă la 90 de zile de la lansare conversia nu a trecut peste reperul stabilit la start, pe aceleași surse de trafic, continui <pill>fără costuri</pill> până trece.",
     "cta": "Spune-mi despre proiect"
   }
 }

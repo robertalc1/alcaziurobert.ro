@@ -7,11 +7,11 @@ import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
 import ShaderBackground from "@/components/ShaderBackground";
+import { PHONE_TEL, PHONE_DISPLAY, WHATSAPP_URL, EMAIL_ADDRESS } from "@/lib/contact";
+import { trackCall } from "@/lib/analytics";
+import { trackPixelCall } from "@/lib/marketingPixels";
 
-const PHONE_DISPLAY = "+40 773 858 164";
-const PHONE_TEL = "+40773858164";
-const PHONE_WA = "40773858164";
-const EMAIL = "contact@alcaziurobert.ro";
+const EMAIL = EMAIL_ADDRESS;
 
 const MadeByHumans = () => {
   const { t } = useTranslation();
@@ -373,7 +373,14 @@ const MadeByHumans = () => {
             </Reveal>
 
             <Reveal delay={70}>
-              <a className="ft-row" href={`tel:${PHONE_TEL}`}>
+              <a
+                className="ft-row"
+                href={`tel:${PHONE_TEL}`}
+                onClick={() => {
+                  trackCall("footer");
+                  trackPixelCall();
+                }}
+              >
                 <span className="ft-icon">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M22 16.92v2.1a2 2 0 0 1-2.18 2 19.6 19.6 0 0 1-8.58-3.06 19.3 19.3 0 0 1-6-6 19.6 19.6 0 0 1-3.06-8.58A2 2 0 0 1 4.18 2h2.1A2 2 0 0 1 8.2 3.72l.67 2a2 2 0 0 1-.46 2.02L7.3 8.9a16.5 16.5 0 0 0 7.8 7.8l1.15-1.11a2 2 0 0 1 2.02-.46l2 .67A2 2 0 0 1 22 16.92Z" />
@@ -389,7 +396,7 @@ const MadeByHumans = () => {
             <Reveal delay={140}>
               <a
                 className="ft-row"
-                href={`https://wa.me/${PHONE_WA}`}
+                href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >

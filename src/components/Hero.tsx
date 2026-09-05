@@ -69,11 +69,6 @@ const Hero = () => {
     }
   };
 
-  const handleSeeWork = (e: React.MouseEvent) => {
-    e.preventDefault();
-    scrollToId("work");
-  };
-
   return (
     <section className="hero3" id="hero">
       <style>{`
@@ -121,21 +116,6 @@ const Hero = () => {
         }
 
         /* ── Copy column ── */
-        .hero3-eyebrow {
-          display: inline-flex;
-          align-items: center;
-          align-self: flex-start;
-          margin: 0;
-          padding: 6px 13px;
-          border-radius: 9999px;
-          border: 1px solid rgba(237, 92, 27, 0.34);
-          background: rgba(237, 92, 27, 0.10);
-          font-family: var(--font-sans);
-          font-size: 12.5px;
-          font-weight: 500;
-          letter-spacing: 0.005em;
-          color: #F7A97C;
-        }
         .hero3-title {
           font-family: var(--font-sans);
           font-size: clamp(2.55rem, 6.2vw, 4.9rem);
@@ -153,8 +133,9 @@ const Hero = () => {
         }
         .hero3-sub {
           font-family: var(--font-sans);
-          font-size: clamp(1.05rem, 1.35vw, 1.2rem);
-          line-height: 1.6;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
           color: rgba(255, 255, 255, 0.84);
           max-width: 46ch;
           margin: 0 0 clamp(28px, 3.6vh, 38px);
@@ -202,18 +183,6 @@ const Hero = () => {
         }
         .hero3-primary-icon svg { width: 16px; height: 16px; }
         .hero3-primary:hover .hero3-primary-icon { transform: translate(2px, -2px); }
-        .hero3-secondary {
-          font-family: var(--font-sans);
-          font-size: 14.5px;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.92);
-          text-decoration: underline;
-          text-underline-offset: 4px;
-          text-decoration-thickness: 1.5px;
-          transition: color 220ms cubic-bezier(0.23, 1, 0.32, 1);
-          padding: 6px 2px;
-        }
-        .hero3-secondary:hover { color: #ED5C1B; }
 
         /* ── Form column (double-bezel shell, dark) ── */
         .hero3-card-shell {
@@ -292,14 +261,13 @@ const Hero = () => {
           /* Full width on phones, but the label and arrow stay together in the
              middle — space-between flung the bare arrow to the far edge. */
           .hero3-primary { width: 100%; justify-content: center; }
-          .hero3-secondary { text-align: center; padding: 10px 2px; }
           .hero3-title { max-width: 12ch; }
         }
         /* Shortest phones: PRODUCT.md requires the message to land above the
-           fold, and on a 360x640 screen the eyebrow plus a three-item trust
-           strip pushes the CTA under it. The guarantee is the one worth
-           keeping, so the other two step aside here and return in the offer
-           section a screen later. */
+           fold, and on a 360x640 screen a three-item trust strip pushes the
+           CTA under it. The guarantee is the one worth keeping, so the other
+           two step aside here and return in the offer section a screen
+           later. */
         @media (max-width: 380px), (max-height: 680px) {
           .hero3-trust li:nth-child(1),
           .hero3-trust li:nth-child(2) { display: none; }
@@ -314,11 +282,6 @@ const Hero = () => {
 
       <div className="hero3-inner">
         <div className="hero3-copy">
-
-          {/* Scarcity, stated before the claim rather than buried in an FAQ.
-              Deliberately not animated: it sits above the h1, and anything that
-              reflows up there moves the LCP element. */}
-          <p className="hero3-eyebrow">{t("hero_v3.eyebrow")}</p>
 
           {/* No entrance animation on the h1: it's the LCP element, and Chrome
               discounts elements that start at opacity:0 when timing LCP —
@@ -345,9 +308,6 @@ const Hero = () => {
                 </button>
               </ContactCTA>
             )}
-            <a href="#work" className="hero3-secondary" onClick={handleSeeWork}>
-              {t("hero_v3.cta_secondary")} ↓
-            </a>
           </div>
 
           {/* Three things a visitor wants to know before they will type their

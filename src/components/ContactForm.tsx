@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Trans, useTranslation } from "react-i18next";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import { trackFormStart, trackLead } from "@/lib/analytics";
+import { WHATSAPP_URL } from "@/lib/contact";
 import { trackPixelFormStart, trackPixelLead } from "@/lib/marketingPixels";
 import { caretAfterFormat, formatPhone, isValidPhone, toE164 } from "@/lib/phone";
 import { suggestEmail } from "@/lib/emailTypo";
@@ -355,7 +356,7 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
         <div className="cf-sent-actions">
           <a
             className="cf-sent-wa"
-            href="https://wa.me/40773858164"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
           >

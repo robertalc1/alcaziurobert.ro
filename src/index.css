@@ -49,6 +49,35 @@
     --bg-elevated: #1A1A1A;
     --btn-radius: 10px;
 
+    /* ── Text scale — ONE size per role, for the whole site ──
+       Same story as the button block below. The running copy had drifted to
+       six different scales (0.95 / 1.1 / 1.2 / 1.3 / 1.7rem and change), so no
+       two sections read at the same size and the page had no typographic
+       continuity at all. Every lead, paragraph, card body and FAQ answer now
+       resolves to these values.
+
+       The ladder is body → card title → section title: 17 / 24 / 34px at
+       1440px, about a ×1.4 step each. Section titles used to run at 48px,
+       which put body at 0.35 of the heading — editorial, but it forced the
+       offer section's problem line three whole sizes below the heading that
+       answers it, so the page's two most important blocks could never read as
+       a pair. Headings now sit at 34px and body lands at 0.51 of them: a
+       calmer, tighter page. If you raise the body size, check that ratio
+       before anything else.
+
+       Deliberately NOT on these tokens: micro-labels (kickers, meta rows,
+       field labels), buttons (--btn-font) and form controls. Those are
+       different kinds of text, not scaled versions of this one. */
+    --text-body: clamp(1rem, 1.2vw, 1.0625rem);         /* 16px → 17px */
+    --text-body-lh: 1.55;
+    --text-body-ls: -0.015em;
+    /* Card titles — one step above body, one step below a section title. */
+    --text-card-title: clamp(1.25rem, 1.7vw, 1.5rem);   /* 20px → 24px */
+    /* Section titles — every section heading on the page, and the offer
+       section's problem line, which has to match the heading it sets up.
+       Six sections hardcoded this identical clamp before it moved here. */
+    --text-section-title: clamp(1.5rem, 3.4vw, 2.1rem); /* 24px → 34px */
+
     /* ── Button size — ONE size for every CTA on the site ──
        There used to be eight different heights (42/44/44/48/50/52/52 plus a
        40px base) and three different icon-button diameters. Nothing justified

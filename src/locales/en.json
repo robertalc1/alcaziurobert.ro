@@ -6,8 +6,8 @@
     "cta": "Get In Touch",
     "work": "Work",
     "process": "Process",
-    "results": "Results",
     "faq": "FAQ",
+    "call": "Call",
     "menu": "Menu",
     "close": "Close",
     "offer": "Offer"
@@ -30,7 +30,6 @@
     "eyebrow": "Frequently asked",
     "title": "Quick answers to your questions.",
     "lead": "The most common questions about how I work, project timelines, and what happens after launch.",
-    "cta": "Have a different question? Message me on WhatsApp",
     "o1": {
       "q": "What does it cost?",
       "a": "It depends on what we build — a brochure site and a full funnel with server-side tracking are not the same project. You get the number on the first call, once I understand what you need. I do not publish list prices because I do not ship list packages."
@@ -60,46 +59,25 @@
     "headline_pre": "Websites built",
     "headline_accent": "to convert.",
     "subtitle": "Site, funnel, tracking and ads — one senior partner, end to end. Live in about 4 weeks.",
-    "cta_secondary": "See the work",
     "form_title": "Tell me about your project",
     "form_note": "I reply personally within 24 hours.",
-    "eyebrow": "Solo · four clients at a time, maximum",
     "trust_1": "I reply personally within 24h",
     "trust_2": "Live in ~4 weeks",
     "trust_3": "Guaranteed on results"
   },
-  "stats": {
-    "kicker": "Proof, not promises",
-    "s1_value": "3.8%",
-    "s1_label": "conversion rate",
-    "s1_note": "up from 1.4% — same ads, same traffic",
-    "s2_value": "1.1s",
-    "s2_label": "load time",
-    "s2_note": "down from 6 seconds",
-    "s3_value": "−38%",
-    "s3_label": "bounce rate",
-    "s3_note": "30 days after relaunch",
-    "clients_label": "Selected clients"
-  },
   "process": {
-    "kicker": "The system",
-    "step1_meta": "Week 1",
     "step1_title": "Find the leaks",
     "step1_body": "Audit, analytics and a funnel map. We know exactly where money is lost before writing a line of code.",
-    "step2_meta": "Week 2",
     "step2_title": "Build to convert",
     "step2_body": "Design and build, engineered around the one metric that matters: qualified leads.",
-    "step3_meta": "Week 3",
     "step3_title": "Launch",
     "step3_body": "Server-side tracking wired in, sub-2s loads, zero loose ends.",
-    "step4_meta": "Week 4+",
     "step4_title": "Scale what works",
     "step4_body": "Ads and SEO pointed at the pages that already convert.",
-    "step5_meta": "Ongoing",
     "step5_title": "Compound growth",
     "step5_body": "I stay behind your numbers, month after month.",
     "title": "Five stages. You always know where we are.",
-    "lead": "No status meetings, and you never have to ask what is happening. At every stage you see what shipped and what comes next."
+    "lead": "No status meetings, and you never have to ask what is happening. At every stage you <pill>see what shipped</pill> and what comes next."
   },
   "work": {
     "featured_name": "Oficiul de Cadastru — OCPI",
@@ -107,12 +85,11 @@
     "featured_chip2": "Live 12 months",
     "featured_chip3": "Government-grade",
     "visit": "View live",
+    "prev": "Previous project",
+    "next": "Next project",
     "drag": "Drag to explore",
     "section_title": "Successful projects",
     "swipe_hint": "Swipe to see every project"
-  },
-  "clients": {
-    "depth_line": "Eleven clients, from a state agency to online stores. I work with four at a time — which is why this list grows slowly."
   },
   "portfolio": {
     "badge": "Portfolio",
@@ -256,76 +233,6 @@
       "title": "NIS2 + security",
       "body": "WAF, DDoS, backups. Enterprise compliance."
     }
-  },
-  "testimonials": {
-    "badge": "Testimonials",
-    "title": "What people who work with me say.",
-    "subtitle": "See what our customers have to say about us",
-    "items": [
-      {
-        "text": "We compared 4 agencies for the OCPI rebuild. Robert came in solo, delivered in 6 weeks, and built something the audit team called <hl>bulletproof</hl>.",
-        "name": "SGC OCPI",
-        "role": "Public Institution",
-        "initials": "SG",
-        "tone": "orange"
-      },
-      {
-        "text": "Our old site loaded in 6 seconds. The new one — <hl>1.1</hl>. Same offer, 38% lower bounce, 2× demo requests in 30 days.",
-        "name": "Picaps",
-        "role": "Industrial Client",
-        "initials": "PI",
-        "tone": "ink"
-      },
-      {
-        "text": "First 30 days after launch: 7 qualified leads from organic search. Two years prior — zero. <hl>Unlocked</hl> a channel we couldn't even open before.",
-        "name": "R-Draw",
-        "role": "Engineering Studio",
-        "initials": "RD",
-        "tone": "orange"
-      },
-      {
-        "text": "On the first call Robert asked questions our previous agency hadn't touched in 9 months. Week 2 we had a real <hl>plan</hl>, not a deck.",
-        "name": "Everun Romania",
-        "role": "Sports Retail",
-        "initials": "ER",
-        "tone": "ink"
-      },
-      {
-        "text": "He still replies within 2 hours, 8 months after launch. That's not a freelancer relationship. That's a <hl>partner</hl> who actually cares.",
-        "name": "Everati",
-        "role": "Technology Brand",
-        "initials": "EV",
-        "tone": "orange"
-      },
-      {
-        "text": "Conversion rate went from 1.4% to <hl>3.8%</hl> in 60 days. Same ads, same traffic. The site finally does the heavy lifting.",
-        "name": "Kickout",
-        "role": "Sports Brand",
-        "initials": "KO",
-        "tone": "ink"
-      },
-      {
-        "text": "I spent 2 hours of my time across the entire build. Site shipped on schedule. I now spend <hl>zero</hl> minutes per month on it.",
-        "name": "Alma",
-        "role": "Automotive Services",
-        "initials": "AL",
-        "tone": "orange"
-      },
-      {
-        "text": "He killed 3 features I'd already budgeted for. Said they wouldn't move the needle. That kind of honesty is <hl>rare</hl> in this market.",
-        "name": "Lukton",
-        "role": "B2B Services",
-        "initials": "LU",
-        "tone": "ink"
-      },
-      {
-        "text": "Robert built our funnel, then handed over the keys. Full <hl>ownership</hl> — code, hosting, data. No monthly trap, no vendor dependency.",
-        "name": "Ecartop",
-        "role": "Auto Marketplace",
-        "initials": "EC",
-        "tone": "orange"
-      }
-    ]
   },
   "contact": {
     "badge": "Contact",
@@ -566,30 +473,27 @@
     "email": "Email me",
     "message": "Send a message"
   },
-  "statement": {
-    "line": "Most websites collect compliments and no enquiries. Not because they look bad — because <pill>nobody built the route</pill> from visitor to client."
-  },
   "offer": {
+    "problem_kicker": "The problem",
+    "problem": "Most websites collect compliments and <pill>no enquiries</pill>. Not because they look bad — because <pill>nobody built the route</pill> from visitor to client.",
     "kicker": "What you get",
-    "title": "The whole chain, from the first wireframe to the first client the ads bring in.",
-    "lead": "A website that looks good is half the job. The other half — funnel, tracking, ads — is usually split between three suppliers who blame each other. Here it is one pair of hands.",
+    "title": "The whole chain, from the first wireframe to <pill>the first client the ads bring in</pill>.",
+    "lead": "A website that looks good is half the job. The other half — funnel, tracking, ads — is usually split between three suppliers who blame each other. Here it is <pill>one pair of hands</pill>.",
+    "d1_meta": "Website",
     "d1_title": "Built from scratch",
     "d1_body": "No template, no page builder. Code written for how fast it loads and for the route the visitor takes, not for my portfolio.",
-    "d2_title": "A funnel, not a stack of pages",
+    "d2_meta": "Funnel",
+    "d2_title": "Not a stack of pages",
     "d2_body": "Every section has one job: to carry you into the next one. The form is the destination, not a footnote in the footer.",
-    "d3_title": "Tracking that holds up",
+    "d3_meta": "Tracking",
+    "d3_title": "The numbers stay whole",
     "d3_body": "Server-side, not just a pixel in the browser. You see where the money comes from even after ad blockers cut the rest.",
-    "d4_title": "Ads on your own infrastructure",
+    "d4_meta": "Ads",
+    "d4_title": "On your own infrastructure",
     "d4_body": "Meta and Google, wired straight into what I built. One pair of hands across the chain, so there is nobody left to blame.",
-    "fact1_label": "Timeline",
-    "fact1_value": "~4 weeks to live",
-    "fact2_label": "Included",
-    "fact2_value": "First 30 days after launch",
-    "fact3_label": "Availability",
-    "fact3_value": "Four clients at a time, maximum",
     "guarantee_label": "Guarantee",
     "guarantee_title": "Guaranteed on results",
-    "guarantee_body": "If conversion has not passed the baseline we set at kickoff within 90 days of launch, on the same traffic sources, I keep working at no cost until it does.",
+    "guarantee_body": "If conversion has not passed the baseline we set at kickoff within 90 days of launch, on the same traffic sources, I keep working <pill>at no cost</pill> until it does.",
     "cta": "Tell me about the project"
   }
 }

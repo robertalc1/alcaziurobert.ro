@@ -3,7 +3,7 @@ import { Trans, useTranslation } from "react-i18next";
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
 
-// Same orange highlight pill used across the site (compounding/testimonials).
+// Same orange highlight pill used across the site (statement/compounding).
 const pillComponents = { pill: <span className="touch-pill" /> };
 
 const GetInTouchSection = () => {
@@ -25,9 +25,9 @@ const GetInTouchSection = () => {
         .touch-title {
           font-family: var(--font-sans);
           font-weight: 500;
-          font-size: clamp(1.8rem, 4.6vw, 3rem);
-          line-height: 1.05;
-          letter-spacing: -0.028em;
+          font-size: var(--text-section-title);
+          line-height: 1.15;
+          letter-spacing: -0.022em;
           color: var(--ink);
           margin: 0 0 clamp(32px, 4vh, 56px);
         }
@@ -35,11 +35,12 @@ const GetInTouchSection = () => {
         .touch-description {
           max-width: 56ch;
           margin: 0 auto 2rem auto;
-          line-height: 1.75;
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
           color: rgba(255, 255, 255, 0.84);
           font-family: var(--font-sans);
           font-weight: 400;
-          font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+          font-size: var(--text-body);
           text-wrap: balance;
         }
 

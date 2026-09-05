@@ -29,12 +29,12 @@ const CompoundingSection: React.FC = () => {
         .comp-title {
           font-family: var(--font-sans);
           font-weight: 500;
-          letter-spacing: -0.028em;
-          font-size: clamp(1.8rem, 4.6vw, 3rem);
-          line-height: 1.05;
+          letter-spacing: -0.022em;
+          font-size: var(--text-section-title);
+          line-height: 1.15;
           color: #F5F5F5;
           margin: 0 auto clamp(20px, 3vh, 34px);
-          max-width: 22ch;
+          max-width: 30ch;
           text-wrap: balance;
           text-align: center;
         }
@@ -56,7 +56,7 @@ const CompoundingSection: React.FC = () => {
         }
         .comp-card-title {
           font-family: var(--font-sans);
-          font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+          font-size: var(--text-card-title);
           font-weight: 700;
           color: #F5F5F5;
           letter-spacing: -0.005em;
@@ -85,12 +85,12 @@ const CompoundingSection: React.FC = () => {
           color: #C4C9D0;
           font-family: var(--font-sans);
           font-weight: 400;
-          font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-          line-height: 1.3;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
           white-space: pre-line;
           padding: 0;
           margin: 0;
-          letter-spacing: -0.005em;
+          letter-spacing: var(--text-body-ls);
           text-align: center;
         }
         .comp-card:first-child .comp-card-tag {
@@ -108,8 +108,9 @@ const CompoundingSection: React.FC = () => {
         .comp-summary p {
           font-family: var(--font-sans);
           font-weight: 400;
-          font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-          line-height: 1.6;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
           color: #F5F5F5;
           margin: 0;
           text-wrap: balance;
@@ -143,8 +144,9 @@ const CompoundingSection: React.FC = () => {
         .comp-takeaway p {
           font-family: var(--font-sans);
           font-weight: 400;
-          font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-          line-height: 1.6;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
           color: #F5F5F5;
           margin: 0;
           text-wrap: balance;
@@ -224,23 +226,24 @@ const CompoundingSection: React.FC = () => {
             margin-bottom: 12px;
           }
           .comp-card { padding: 0; gap: 7px; }
+          /* Padding only. The font-size override that used to live here
+             (1.05rem) predates --text-card-title, whose clamp floor is now
+             20px — reinstating it would drop these two chips below the 16px
+             body sitting under them. */
           .comp-card-title {
-            font-size: 1.05rem;
             padding: 6px 16px;
             border-radius: 7px;
             line-height: 1.15;
           }
-          .comp-card-tag {
-            font-size: 0.95rem;
-          }
+          /* No .comp-card-tag override: it is on --text-body now, and the
+             token's own clamp floor is the mobile size. */
 
           .comp-summary { padding: 18px 18px; margin-bottom: 9px; }
 
           .comp-takeaway { padding: 14px 18px; }
         }
         @media (max-width: 380px) {
-          .comp-card-title { font-size: 0.95rem; padding: 6px 14px; }
-          .comp-card-tag { font-size: 0.88rem; }
+          .comp-card-title { padding: 6px 14px; }
         }
 
       `}</style>

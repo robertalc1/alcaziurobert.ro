@@ -38,9 +38,9 @@ const FaqsSection: React.FC = () => {
         .faq-title {
           font-family: var(--font-sans);
           font-weight: 500;
-          letter-spacing: -0.028em;
-          font-size: clamp(1.8rem, 4.6vw, 3rem);
-          line-height: 1.05;
+          letter-spacing: -0.022em;
+          font-size: var(--text-section-title);
+          line-height: 1.15;
           color: #F5F5F5;
           margin: 0;
           text-wrap: balance;
@@ -65,7 +65,9 @@ const FaqsSection: React.FC = () => {
           justify-content: space-between;
           gap: 16px;
           font-family: var(--font-sans);
-          font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
           font-weight: 500;
           color: #F5F5F5;
           text-align: left;
@@ -103,30 +105,14 @@ const FaqsSection: React.FC = () => {
         .faq-content {
           padding: 0 4px 22px;
           font-family: var(--font-sans);
-          font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-          line-height: 1.75;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
           color: rgba(255, 255, 255, 0.78);
           max-width: 56ch;
           text-wrap: balance;
         }
 
-        .faq-cta-row {
-          text-align: center;
-          margin-top: clamp(24px, 3.5vh, 40px);
-        }
-        .faq-cta-link {
-          display: inline-block;
-          padding: 10px 6px;
-          font-family: var(--font-sans);
-          font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-          font-weight: 500;
-          color: #FFFFFF;
-          text-decoration: underline;
-          text-underline-offset: 4px;
-          text-decoration-thickness: 1.5px;
-          transition: color 220ms cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .faq-cta-link:hover { color: #ED5C1B; text-decoration-thickness: 2px; }
       `}</style>
 
       <div className="faq-inner">
@@ -158,18 +144,6 @@ const FaqsSection: React.FC = () => {
           ))}
         </Accordion>
         </Reveal>
-
-        <div className="faq-cta-row">
-          {/* Straight to WhatsApp — fastest reply channel */}
-          <a
-            href="https://wa.me/40773858164"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="faq-cta-link"
-          >
-            {t("faq.cta")}
-          </a>
-        </div>
       </div>
     </section>
   );

@@ -7,10 +7,8 @@ import { scrollToEl } from "@/lib/scroll";
 // Below-the-fold sections — lazy-loaded so the initial bundle stays small.
 // Each Suspense fallback reserves enough vertical space to keep CLS = 0.
 const ClientMarqueeSection = lazy(() => import("@/components/ClientMarqueeSection"));
-const StatementSection = lazy(() => import("@/components/StatementSection"));
 const OfferSection = lazy(() => import("@/components/OfferSection"));
 const SelectedWorkSection = lazy(() => import("@/components/SelectedWorkSection"));
-const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
 const ProcessSection = lazy(() => import("@/components/ProcessSection"));
 const CompoundingSection = lazy(() => import("@/components/CompoundingSection"));
 const FaqsSection = lazy(() => import("@/components/FaqsSection"));
@@ -56,40 +54,34 @@ const Index = () => {
       <main>
         <Hero />
         {/* Credibility before anything else: the hero makes a claim, this pays
-            for it with three measured numbers and eleven client marks. */}
-        <Suspense fallback={<Placeholder minHeight={900} />}>
+            for it with the twelve client marks. */}
+        <Suspense fallback={<Placeholder minHeight={520} />}>
           <ClientMarqueeSection />
         </Suspense>
-        {/* The problem, named. */}
-        <Suspense fallback={<Placeholder minHeight={300} />}>
-          <StatementSection />
-        </Suspense>
-        {/* The answer, stated: what you get, by when, and what is guaranteed. */}
-        <Suspense fallback={<Placeholder minHeight={1450} />}>
+        {/* The problem, named — then the answer, in the same block: what you
+            get, by when, and what is guaranteed. */}
+        <Suspense fallback={<Placeholder minHeight={1780} />}>
           <OfferSection />
         </Suspense>
-        {/* Proof, stacked — the work itself, then the people it was for. */}
-        <Suspense fallback={<Placeholder minHeight={730} />}>
+        {/* Proof: the work itself. */}
+        <Suspense fallback={<Placeholder minHeight={725} />}>
           <SelectedWorkSection />
         </Suspense>
-        <Suspense fallback={<Placeholder minHeight={850} />}>
-          <TestimonialsSection />
-        </Suspense>
         {/* Then how it runs, and why it keeps paying. */}
-        <Suspense fallback={<Placeholder minHeight={1050} />}>
+        <Suspense fallback={<Placeholder minHeight={1000} />}>
           <ProcessSection />
         </Suspense>
-        <Suspense fallback={<Placeholder minHeight={660} />}>
+        <Suspense fallback={<Placeholder minHeight={605} />}>
           <CompoundingSection />
         </Suspense>
         {/* Objections, in the order they come up on a call. */}
-        <Suspense fallback={<Placeholder minHeight={710} />}>
+        <Suspense fallback={<Placeholder minHeight={634} />}>
           <FaqsSection />
         </Suspense>
-        <Suspense fallback={<Placeholder minHeight={1130} />}>
+        <Suspense fallback={<Placeholder minHeight={1105} />}>
           <GetInTouchSection />
         </Suspense>
-        <Suspense fallback={<Placeholder minHeight={500} />}>
+        <Suspense fallback={<Placeholder minHeight={710} />}>
           <MadeByHumans />
         </Suspense>
       </main>

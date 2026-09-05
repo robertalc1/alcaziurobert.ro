@@ -27,26 +27,49 @@ const PROJECTS: Project[] = [
   { slug: "ecartop", name: "Ecartop", url: "https://ecartop.com/", img: "/ecartop.webp", domain: "ecartop.com" },
 ];
 
-// px per second the track drifts on its own.
-const AUTO_SPEED = 42;
+const AUTOPLAY_MS = 5200;
+
+/* Depth ladder for the coverflow. Two of them: phones have no room for a
+   second ring of cards, so the far slots collapse onto the near ones and
+   fade out instead of piling up at the edge of a 390px screen.
+   translateX is a percentage of the card's own width, so the whole stage
+   stays fluid — the reference implementation used fixed pixel offsets and
+   broke below ~1100px. */
+const DEPTH = {
+  desktop: [
+    { x: 0, scale: 1, rotate: 0, opacity: 1, z: 30 },
+    { x: 58, scale: 0.84, rotate: 22, opacity: 0.78, z: 20 },
+    { x: 104, scale: 0.7, rotate: 32, opacity: 0.4, z: 10 },
+  ],
+  mobile: [
+    { x: 0, scale: 1, rotate: 0, opacity: 1, z: 30 },
+    { x: 66, scale: 0.8, rotate: 20, opacity: 0.45, z: 20 },
+    { x: 96, scale: 0.7, rotate: 28, opacity: 0, z: 10 },
+  ],
+} as const;
 
 const ArrowUpRight = (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M5 19L19 5" />
     <path d="M9 5h10v10" />
   </svg>
 );
 
+const ChevronLeft = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M15 19l-7-7 7-7" />
+  </svg>
+);
+
+const ChevronRight = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M9 5l7 7-7 7" />
+  </svg>
+);
+
 // CSS browser chrome around a screenshot — double-bezel: dark outer tray,
-// white inner core with concentric radii.
+// darker inner core with concentric radii. Screenshots never ship raw here;
+// the chrome is what makes them read as a live site rather than a mockup.
 const BrowserFrame: React.FC<{ src: string; alt: string; domain?: string; eager?: boolean }> = ({
   src,
   alt,
@@ -77,161 +100,81 @@ const BrowserFrame: React.FC<{ src: string; alt: string; domain?: string; eager?
   </figure>
 );
 
+/**
+ * The work, as a 3D coverflow. It used to be a horizontally drifting track of
+ * nine equal cards, which made every project look equally weighted and asked
+ * the visitor to scan rather than to look. A coverflow has one hero at a time:
+ * the centre card is the argument, the flanking cards only say "there are
+ * more". Same nine projects, same browser chrome, same buttons.
+ *
+ * Autoplay pauses on hover, focus and touch, and never runs under
+ * prefers-reduced-motion.
+ */
 const SelectedWorkSection: React.FC = () => {
   const { t } = useTranslation();
   const isMobile = useIsMobile();
+  const total = PROJECTS.length;
 
-  const viewportRef = React.useRef<HTMLDivElement>(null);
-  // Auto-drift only on pointer devices; on touch the visitor swipes.
-  // Auto-scroll bookkeeping: `pos` is the float position we own, `paused`
-  // covers hover/drag, `selfScroll` tells our own writes apart from the
-  // user's native (touch / trackpad) scrolling.
-  const pos = React.useRef(0);
-  const paused = React.useRef(false);
-  const selfScroll = React.useRef(false);
+  const [index, setIndex] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
+  const touchX = React.useRef<number | null>(null);
 
-  // Infinite drift. The track renders the project list twice, so wrapping by
-  // one list's width lands on an identical frame — seamless in both directions.
-  React.useEffect(() => {
-    const el = viewportRef.current;
-    if (!el) return;
-    if (isMobile) {
-      el.scrollLeft = 0;
-      return;
-    }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let raf = 0;
-    let last = performance.now();
-    pos.current = el.scrollLeft;
-
-    // Exact distance between an item and its duplicate — derived from layout,
-    // so track padding and gaps can change without leaving a seam.
-    let loopWidth = 0;
-    const measure = () => {
-      const items = el.firstElementChild?.children;
-      if (!items || items.length <= PROJECTS.length) return;
-      loopWidth =
-        (items[PROJECTS.length] as HTMLElement).offsetLeft -
-        (items[0] as HTMLElement).offsetLeft;
-    };
-    measure();
-    window.addEventListener("resize", measure);
-
-    const onScroll = () => {
-      // A scroll we did not cause (drag, wheel, swipe) becomes the new truth.
-      if (selfScroll.current) selfScroll.current = false;
-      else pos.current = el.scrollLeft;
-    };
-    el.addEventListener("scroll", onScroll, { passive: true });
-
-    const step = (now: number) => {
-      const dt = Math.min((now - last) / 1000, 0.05);
-      last = now;
-      if (!loopWidth) measure();
-      if (loopWidth > 0) {
-        if (!paused.current) pos.current += AUTO_SPEED * dt;
-        if (pos.current >= loopWidth) pos.current -= loopWidth;
-        else if (pos.current < 0) pos.current += loopWidth;
-        selfScroll.current = true;
-        el.scrollLeft = pos.current;
-      }
-      raf = requestAnimationFrame(step);
-    };
-    raf = requestAnimationFrame(step);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", measure);
-      el.removeEventListener("scroll", onScroll);
-    };
-  }, [isMobile]);
-
-  // Mouse drag-to-scroll. Touch keeps native momentum scrolling.
-  const drag = React.useRef({ active: false, startX: 0, startScroll: 0, moved: false });
-
-  const onPointerDown = (e: React.PointerEvent) => {
-    paused.current = true;
-    if (e.pointerType !== "mouse") return;
-    const el = viewportRef.current;
-    if (!el) return;
-    drag.current = { active: true, startX: e.clientX, startScroll: el.scrollLeft, moved: false };
-    el.setPointerCapture(e.pointerId);
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    const el = viewportRef.current;
-    if (!el || !drag.current.active) return;
-    const dx = e.clientX - drag.current.startX;
-    if (Math.abs(dx) > 4) drag.current.moved = true;
-    selfScroll.current = true;
-    el.scrollLeft = drag.current.startScroll - dx;
-    pos.current = el.scrollLeft;
-  };
-
-  const endDrag = (e: React.PointerEvent) => {
-    const el = viewportRef.current;
-    paused.current = false;
-    if (!el || !drag.current.active) return;
-    drag.current.active = false;
-    if (el.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
-  };
-
-  // A drag that moved must not open the project it ended on.
-  const onClickCapture = (e: React.MouseEvent) => {
-    if (drag.current.moved) {
-      e.preventDefault();
-      e.stopPropagation();
-      drag.current.moved = false;
-    }
-  };
-
-  const renderItem = (p: Project, i: number, copy: number) => (
-    <div className="pw-item" key={`${copy}-${p.slug}`} aria-hidden={copy === 1 ? true : undefined}>
-      <a
-        className="pw-shot"
-        href={p.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        tabIndex={copy === 1 ? -1 : undefined}
-        aria-label={`${p.name} — ${t("work.visit")}`}
-      >
-        <BrowserFrame src={p.img} alt={p.name} domain={p.domain} eager={copy === 0 && i < 2} />
-      </a>
-      <div className="pw-meta">
-        <span className="pw-cat">{t(`portfolio.categories.${p.slug}`)}</span>
-        <div className="pw-meta-row">
-          <h3 className="pw-name">{p.name}</h3>
-          <a
-            className="pw-link"
-            href={p.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            tabIndex={copy === 1 ? -1 : undefined}
-            aria-label={`${p.name} — ${t("work.visit")}`}
-          >
-            <span className="pw-link-label">{t("work.visit")}</span>
-            <span className="pw-link-icon">{ArrowUpRight}</span>
-          </a>
-        </div>
-        {/* The outcome, not the craft. These strings have been sitting in the
-            locale files unrendered — a carousel of pretty screenshots was
-            asking the visitor to infer that the work paid off. */}
-        <p className="pw-metric">{t(`portfolio.metrics.${p.slug}`)}</p>
-      </div>
-    </div>
+  const go = React.useCallback(
+    (delta: number) => setIndex((i) => (i + delta + total) % total),
+    [total],
   );
+  const goTo = React.useCallback((i: number) => setIndex(((i % total) + total) % total), [total]);
+
+  // Autoplay. Reduced motion turns it off entirely rather than shortening it:
+  // the whole point of the setting is that nothing moves unasked.
+  React.useEffect(() => {
+    if (paused || total <= 1) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => go(1), AUTOPLAY_MS);
+    return () => window.clearInterval(id);
+  }, [paused, go, total]);
+
+  // Arrow keys are bound to the stage, not to window. A landing page has one
+  // job below this section (the form); stealing the arrow keys page-wide to
+  // drive a carousel would break scrolling for keyboard visitors.
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      go(-1);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      go(1);
+    }
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchX.current = e.touches[0].clientX;
+    setPaused(true);
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const start = touchX.current;
+    touchX.current = null;
+    setPaused(false);
+    if (start === null) return;
+    const dx = e.changedTouches[0].clientX - start;
+    if (Math.abs(dx) > 45) go(dx < 0 ? 1 : -1);
+  };
+
+  const ladder = isMobile ? DEPTH.mobile : DEPTH.desktop;
 
   return (
     <section className="work-section" id="work" aria-label={t("portfolio.title")}>
       <style>{`
         .work-section {
+          position: relative;
           width: 100%;
           background: #0F0F0F;
-          padding: clamp(64px, 9vh, 112px) 0;
+          padding: clamp(64px, 9vh, 112px) 0 clamp(48px, 7vh, 88px);
           overflow: hidden;
         }
         .work-inner {
+          position: relative;
+          z-index: 1;
           max-width: 1180px;
           margin: 0 auto;
           padding: 0 clamp(18px, 3vw, 32px);
@@ -241,68 +184,68 @@ const SelectedWorkSection: React.FC = () => {
         .work-title {
           font-family: var(--font-sans);
           font-weight: 500;
-          letter-spacing: -0.028em;
-          font-size: clamp(1.8rem, 4.6vw, 3rem);
-          line-height: 1.05;
+          letter-spacing: -0.022em;
+          font-size: var(--text-section-title);
+          line-height: 1.15;
           color: #F5F5F5;
-          margin: 0 auto clamp(36px, 5vh, 60px);
-          max-width: 22ch;
+          margin: 0 auto;
+          max-width: 30ch;
           text-align: center;
           text-wrap: balance;
         }
 
-        /* ── Carousel ── */
-        .pw-viewport {
+        /* ── Coverflow stage ──────────────────────────────────────────────
+           --cf-w is declared once and reused by the card width and by the
+           centring margin, so there is only ever one number to change. */
+        .cf-stage {
+          --cf-w: clamp(290px, 36vw, 520px);
+          position: relative;
+          z-index: 1;
           width: 100%;
-          overflow-x: auto;
-          overflow-y: hidden;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-          cursor: grab;
-          -webkit-overflow-scrolling: touch;
-          overscroll-behavior-x: contain;
-          /* Edges fade into the page so the loop has no visible seam */
-          -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
-          mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+          height: clamp(360px, 40vw, 500px);
+          margin: clamp(30px, 4.5vh, 54px) auto 0;
+          perspective: 1600px;
+          touch-action: pan-y;
+          outline: none;
         }
-        .pw-viewport::-webkit-scrollbar { display: none; }
-        .pw-viewport:active { cursor: grabbing; }
+        .cf-stage:focus-visible { outline: 2px solid #ED5C1B; outline-offset: 8px; border-radius: 12px; }
 
-        .pw-track {
-          display: flex;
-          align-items: center;
-          width: max-content;
-          gap: clamp(40px, 5vw, 80px);
-          padding: 6px clamp(18px, 3vw, 32px);
+        .cf-card {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          width: var(--cf-w);
+          margin-left: calc(var(--cf-w) / -2);
+          transform-origin: center center;
+          transition: transform 760ms cubic-bezier(.23,1,.32,1),
+                      opacity 520ms ease,
+                      filter 520ms ease;
+          will-change: transform, opacity;
         }
+        /* Only the flanking cards are clickable, and only to bring themselves
+           forward. The centre card's own links do the rest. */
+        .cf-card[data-side="true"] { cursor: pointer; }
 
-        .pw-item {
-          display: flex;
-          flex-direction: column;
-          width: clamp(300px, 32vw, 460px);
-          flex-shrink: 0;
-          padding: 10px 10px 18px;
-          border-radius: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          background: rgba(255, 255, 255, 0.02);
-          transition: border-color .35s ease, background-color .35s ease,
-                      transform .45s cubic-bezier(.23,1,.32,1);
-        }
-        .pw-item:hover {
-          border-color: rgba(255, 255, 255, 0.16);
-          background: rgba(255, 255, 255, 0.04);
-          transform: translateY(-4px);
-        }
-        .pw-shot {
+        .cf-shot {
           display: block;
           width: 100%;
           text-decoration: none;
         }
 
-        .pw-meta {
+        /* ── Meta under the frame ── */
+        .cf-meta {
           display: flex;
           flex-direction: column;
-          padding: 18px 10px 0;
+          padding: 16px 4px 0;
+          transition: opacity 420ms ease, transform 420ms ease;
+        }
+        /* Off-centre cards keep the screenshot and drop the words: three sets
+           of project names fighting for the same strip of page was the reason
+           the old track read as a wall rather than as a portfolio. */
+        .cf-card[data-side="true"] .cf-meta {
+          opacity: 0;
+          transform: translateY(10px);
+          pointer-events: none;
         }
         .pw-cat {
           display: inline-block;
@@ -312,7 +255,7 @@ const SelectedWorkSection: React.FC = () => {
           font-weight: 600;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          margin-bottom: 12px;
+          margin-bottom: 10px;
         }
         .pw-meta-row {
           display: flex;
@@ -325,7 +268,7 @@ const SelectedWorkSection: React.FC = () => {
           font-size: 13.5px;
           line-height: 1.5;
           color: rgba(245, 245, 245, 0.62);
-          margin: 10px 0 0;
+          margin: 8px 0 0;
         }
         .pw-name {
           font-family: var(--font-sans);
@@ -375,7 +318,8 @@ const SelectedWorkSection: React.FC = () => {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          transition: border-color .25s ease, transform .25s cubic-bezier(.23,1,.32,1);
+          transition: border-color .25s ease, background-color .25s ease,
+                      transform .25s cubic-bezier(.23,1,.32,1);
         }
         .pw-link-icon svg { width: 12px; height: 12px; }
         .pw-link:hover { color: #ED5C1B; }
@@ -394,6 +338,15 @@ const SelectedWorkSection: React.FC = () => {
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.10);
           box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.8);
+          transition: box-shadow 520ms ease, border-color 520ms ease;
+        }
+        /* The centre card is lifted, not tinted. It briefly carried an orange
+           rim and halo, which put a warm cast over a section whose whole job is
+           to show nine screenshots truthfully — the colour was competing with
+           the work. Depth alone separates it: it is the only card at full
+           opacity and scale 1, and it is the only one with its own text. */
+        .cf-card[data-side="false"] .bf {
+          box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.95);
         }
         .bf-core {
           border-radius: 9px;
@@ -409,11 +362,15 @@ const SelectedWorkSection: React.FC = () => {
           background: #191919;
           border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         }
+        /* Brand orange rather than the usual grey or traffic-light dots. It is
+           the one spot of colour inside the chrome, so the frame reads as ours
+           instead of as a generic browser mockup. */
         .bf-dot {
           width: 8px; height: 8px;
           border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.22);
+          background: #ED5C1B;
         }
+
         .bf-domain {
           margin-left: 10px;
           font-family: var(--font-sans);
@@ -438,9 +395,69 @@ const SelectedWorkSection: React.FC = () => {
           transition: transform .6s cubic-bezier(.23,1,.32,1);
           user-select: none;
         }
-        .pw-shot:hover .bf-img { transform: scale(1.03); }
+        .cf-shot:hover .bf-img { transform: scale(1.03); }
 
-        /* ── Mobile: swipe hint + section CTA (funnel: most traffic is phones) ── */
+        /* ── Navigation — the site's own steel button, not a glass disc ── */
+        .cf-nav {
+          position: absolute;
+          top: 50%;
+          z-index: 40;
+          width: var(--btn-h);
+          height: var(--btn-h);
+          margin-top: calc(var(--btn-h) / -2);
+          border-radius: 9999px;
+          border: 1px solid var(--btn-steel-border);
+          background: var(--btn-steel);
+          box-shadow: var(--btn-steel-shadow);
+          color: #F5F5F5;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background-color .25s ease, border-color .25s ease,
+                      transform .25s cubic-bezier(.23,1,.32,1);
+        }
+        .cf-nav svg { width: 17px; height: 17px; }
+        .cf-nav:hover {
+          background: var(--btn-steel-hover);
+          border-color: var(--btn-steel-border-hover);
+          color: #ffffff;
+        }
+        .cf-nav:active { transform: scale(0.94); }
+        .cf-prev { left: clamp(10px, 4vw, 56px); }
+        .cf-next { right: clamp(10px, 4vw, 56px); }
+        .cf-prev:hover { transform: translateX(-2px); }
+        .cf-next:hover { transform: translateX(2px); }
+
+        /* ── Dots ── */
+        .cf-dots {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          margin-top: clamp(22px, 3vh, 34px);
+        }
+        .cf-dot {
+          height: 7px;
+          width: 7px;
+          padding: 0;
+          border: none;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.22);
+          cursor: pointer;
+          transition: width .35s cubic-bezier(.23,1,.32,1),
+                      background-color .3s ease;
+        }
+        .cf-dot[aria-current="true"] {
+          width: 26px;
+          background: #ED5C1B;
+        }
+        .cf-dot:hover { background: rgba(255, 255, 255, 0.42); }
+        .cf-dot[aria-current="true"]:hover { background: #ED5C1B; }
+
+        /* ── Section CTA (funnel: every section ends at the form) ── */
         .pw-hint {
           display: none;
           font-family: var(--font-sans);
@@ -450,13 +467,12 @@ const SelectedWorkSection: React.FC = () => {
           margin: 18px 0 0;
         }
         .pw-cta {
-          display: none;
+          display: inline-flex;
           align-items: center;
           justify-content: center;
           gap: var(--btn-gap);
-          width: 100%;
           min-height: var(--btn-h);
-          margin-top: 18px;
+          margin-top: clamp(26px, 3.5vh, 40px);
           padding: 0 var(--btn-px);
           border: none;
           border-radius: 9999px;
@@ -478,68 +494,28 @@ const SelectedWorkSection: React.FC = () => {
         }
         .pw-cta:active { transform: scale(0.98); }
         .pw-cta svg { width: 15px; height: 15px; }
-        @media (max-width: 767px) {
-          .pw-cta { display: inline-flex; }
-        }
-
-        /* ── Legacy wordmark grid (unused since the cards work on phones too) ── */
-        .pw-marks {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          border-top: 1px solid rgba(255, 255, 255, 0.10);
-          border-left: 1px solid rgba(255, 255, 255, 0.10);
-        }
-        .pw-marks li {
-          border-right: 1px solid rgba(255, 255, 255, 0.10);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-        }
-        /* Odd project count: the last one fills the row instead of leaving a hole */
-        .pw-marks li:last-child:nth-child(odd) { grid-column: 1 / -1; }
-        .pw-mark {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-height: 104px;
-          padding: 18px 12px;
-          text-align: center;
-          text-decoration: none;
-          color: #F5F5F5;
-          font-family: var(--font-sans);
-          font-weight: 600;
-          font-size: clamp(15px, 4.4vw, 19px);
-          letter-spacing: -0.02em;
-          line-height: 1.2;
-          text-wrap: balance;
-          transition: color .25s ease, background-color .25s ease;
-        }
-        .pw-mark:active { background: rgba(255, 255, 255, 0.04); color: #ED5C1B; }
+        .cf-cta-row { text-align: center; }
 
         @media (max-width: 767px) {
           .work-title { max-width: 100%; }
-          .pw-viewport {
-            scroll-snap-type: x mandatory;
-            -webkit-mask-image: none;
-            mask-image: none;
-          }
-          .pw-track { gap: 14px; padding: 6px 16px; }
-          .pw-item {
-            width: min(84vw, 340px);
-            scroll-snap-align: center;
-            padding: 8px 8px 14px;
-          }
-          .pw-meta { padding: 14px 6px 0; }
+          /* The arrows would sit on top of the flanking cards on a 390px
+             screen. Touch has the swipe and the dots; the arrows are a
+             pointer-device affordance. */
+          .cf-nav { display: none; }
+          .cf-meta { padding: 14px 2px 0; }
           .pw-cat { font-size: 12px; margin-bottom: 8px; }
           .bf-domain { font-size: 12px; }
           .pw-name { font-size: 1.25rem; -webkit-text-stroke-width: 1px; }
           .pw-hint { display: block; }
+          .pw-cta { width: 100%; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .pw-shot, .bf-img, .pw-link-icon { transition: none; }
-          .pw-shot:hover { transform: none; }
-          .pw-shot:hover .bf-img { transform: none; }
+          .cf-card, .cf-meta, .bf-img, .pw-link-icon, .cf-nav, .cf-dot {
+            transition: none;
+          }
+          .cf-shot:hover .bf-img,
+          .cf-nav:hover,
+          .pw-cta:hover { transform: none; }
         }
       `}</style>
 
@@ -549,48 +525,115 @@ const SelectedWorkSection: React.FC = () => {
         </Reveal>
       </div>
 
-      {/* Same cards everywhere. On desktop the track drifts on its own and can be
-          dragged; on touch it is a snap carousel the visitor swipes — the list is
-          rendered once there, since there is no auto-loop to feed. */}
-      {/* blur={0}: the viewport is a live scroll container with a mask and a
-          rAF loop writing scrollLeft — a filter would re-rasterise all of it
-          every frame of the transition, and a live filter creates a containing
-          block the carousel's offset measurements should never have to think
-          about. The rise still applies; it settles to transform: none. */}
+      {/* blur={0}: the stage runs nine cards through a 3D transform on every
+          index change. A live filter on the wrapper would force the browser to
+          re-rasterise all of it each frame, and it would create a containing
+          block the perspective should never have to reason about. */}
       <Reveal delay={90} blur={0}>
-      <div
-        className="pw-viewport"
-        ref={viewportRef}
-        role="region"
-        aria-label={t("portfolio.title")}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
-        onClickCapture={onClickCapture}
-        onMouseEnter={() => (paused.current = true)}
-        onMouseLeave={() => (paused.current = false)}
-        onFocusCapture={() => (paused.current = true)}
-        onBlurCapture={() => (paused.current = false)}
-      >
-        <div className="pw-track">
-          {PROJECTS.map((p, i) => renderItem(p, i, 0))}
-          {!isMobile && PROJECTS.map((p, i) => renderItem(p, i, 1))}
+        <div
+          className="cf-stage"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={t("portfolio.title")}
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          {PROJECTS.map((p, i) => {
+            // Shortest signed distance, so wrapping from the last card to the
+            // first animates forward instead of rewinding through the deck.
+            let d = i - index;
+            if (d > total / 2) d -= total;
+            if (d < -total / 2) d += total;
+
+            const depth = ladder[Math.min(Math.abs(d), ladder.length - 1)];
+            const beyond = Math.abs(d) >= ladder.length;
+            const dir = Math.sign(d);
+            const isCentre = d === 0;
+
+            return (
+              <div
+                key={p.slug}
+                className="cf-card"
+                data-side={!isCentre}
+                aria-hidden={isCentre ? undefined : true}
+                onClick={isCentre ? undefined : () => goTo(i)}
+                style={{
+                  transform: `translateX(${dir * depth.x}%) scale(${depth.scale}) rotateY(${-dir * depth.rotate}deg)`,
+                  opacity: beyond ? 0 : depth.opacity,
+                  zIndex: beyond ? 0 : depth.z,
+                  pointerEvents: beyond || depth.opacity === 0 ? "none" : undefined,
+                }}
+              >
+                <a
+                  className="cf-shot"
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  tabIndex={isCentre ? undefined : -1}
+                  aria-label={`${p.name} — ${t("work.visit")}`}
+                >
+                  <BrowserFrame src={p.img} alt={p.name} domain={p.domain} eager={i < 2} />
+                </a>
+                <div className="cf-meta">
+                  <span className="pw-cat">{t(`portfolio.categories.${p.slug}`)}</span>
+                  <div className="pw-meta-row">
+                    <h3 className="pw-name">{p.name}</h3>
+                    <a
+                      className="pw-link"
+                      href={p.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      tabIndex={isCentre ? undefined : -1}
+                      aria-label={`${p.name} — ${t("work.visit")}`}
+                    >
+                      <span className="pw-link-label">{t("work.visit")}</span>
+                      <span className="pw-link-icon">{ArrowUpRight}</span>
+                    </a>
+                  </div>
+                  {/* The outcome, not the craft. */}
+                  <p className="pw-metric">{t(`portfolio.metrics.${p.slug}`)}</p>
+                </div>
+              </div>
+            );
+          })}
+
+          <button type="button" className="cf-nav cf-prev" onClick={() => go(-1)} aria-label={t("work.prev")}>
+            {ChevronLeft}
+          </button>
+          <button type="button" className="cf-nav cf-next" onClick={() => go(1)} aria-label={t("work.next")}>
+            {ChevronRight}
+          </button>
         </div>
-      </div>
       </Reveal>
 
-      {isMobile && (
-        <div className="work-inner">
-          <p className="pw-hint">{t("work.swipe_hint")}</p>
-          <ContactCTA>
-            <button type="button" className="pw-cta">
-              {t("nav.cta")}
-              {ArrowUpRight}
-            </button>
-          </ContactCTA>
-        </div>
-      )}
+      <div className="cf-dots">
+        {PROJECTS.map((p, i) => (
+          <button
+            key={p.slug}
+            type="button"
+            className="cf-dot"
+            aria-current={i === index}
+            aria-label={p.name}
+            onClick={() => goTo(i)}
+          />
+        ))}
+      </div>
+
+      <div className="work-inner cf-cta-row">
+        {isMobile && <p className="pw-hint">{t("work.swipe_hint")}</p>}
+        <ContactCTA>
+          <button type="button" className="pw-cta">
+            {t("nav.cta")}
+            {ArrowUpRight}
+          </button>
+        </ContactCTA>
+      </div>
     </section>
   );
 };
