@@ -1,25 +1,23 @@
 {
   "nav": {
-    "portfolio": "Portofoliu",
-    "about": "Despre",
     "casestudy": "Abordarea noastră",
-    "cta": "Contactează-mă",
+    "cta": "Solicitați o ofertă",
     "work": "Proiecte",
     "process": "Proces",
     "faq": "FAQ",
-    "call": "Sună-mă",
+    "call": "Sunați-ne",
     "menu": "Meniu",
-    "close": "Închide",
+    "close": "Închideți",
     "offer": "Ofertă"
   },
   "compounding": {
     "title": "De ce funcționează?",
     "s1": {
-      "what": "Cu mine",
+      "what": "Cu noi",
       "tag": "Transformă vizitatorii\nîn clienți"
     },
     "s2": {
-      "what": "Fără mine",
+      "what": "Fără noi",
       "tag": "Îi pierde\nîn câteva secunde"
     },
     "summary_l1": "Funcționează pentru că site-ul e construit să <pill>convertească</pill>, nu doar să arate bine.",
@@ -27,47 +25,45 @@
     "takeaway": "<pill>Un singur client nou</pill> din sistem acoperă tot build-ul. Tot ce aduce după aceea e profit curat."
   },
   "faq": {
-    "eyebrow": "Întrebări frecvente",
-    "title": "Răspunsuri rapide la întrebările tale.",
-    "lead": "Cele mai frecvente întrebări despre cum lucrez, durata proiectelor și ce se întâmplă după livrare.",
+    "title": "Răspunsuri la întrebările frecvente.",
     "o1": {
       "q": "Cât costă?",
-      "a": "Depinde de ce construim — un site de prezentare și un funnel complet cu tracking server-side nu sunt același proiect. Îți dau cifra pe primul apel, după ce înțeleg ce ai nevoie. Nu public tarife de listă pentru că nu livrez pachete de listă."
+      "a": "Depinde de perimetru. Un site de prezentare și un funnel complet cu tracking server-side nu sunt același proiect. Vă dăm cifra pe primul apel, după ce înțelegem ce aveți nevoie. Nu publicăm tarife de listă pentru că nu livrăm pachete de listă."
     },
     "o2": {
       "q": "Cât durează?",
-      "a": "Aproximativ 4 săptămâni de la kickoff până live. Îți spun termenul exact înainte să începem, nu pe parcurs. Singura variabilă e cât de repede vine conținutul de la tine."
+      "a": "Aproximativ patru săptămâni de la kickoff până live. Termenul exact se fixează înainte de începere, nu pe parcurs. Singura variabilă este viteza cu care primim conținutul de la dumneavoastră."
     },
     "o3": {
-      "q": "De ce tu și nu o agenție?",
-      "a": "Într-o agenție proiectul trece prin patru oameni care nu vorbesc între ei, iar tu plătești coordonarea dintre ei. Aici design, cod, tracking și reclame trec prin aceeași persoană — nimic nu se pierde la predare și nu are cine să dea vina pe altcineva. Compromisul e că lucrez cu maximum patru clienți odată."
+      "q": "De ce noi și nu o agenție de marketing?",
+      "a": "Într-o agenție, site-ul, tracking-ul și reclamele sunt trei furnizori diferiți care dau vina unul pe altul când cifrele nu vin. Aici tot lanțul stă sub un singur contract și un singur responsabil. Compromisul este capacitatea: lucrăm cu maximum patru clienți simultan."
     },
     "o4": {
-      "q": "Ce se întâmplă dacă nu îmi place?",
-      "a": "Vezi direcția vizuală înainte să se scrie prima linie de cod și o ajustăm până e bine. Nu te trezești cu un site terminat pe care îl vezi prima dată la livrare — e cel mai scump mod de a lucra, pentru amândoi."
+      "q": "Ce se întâmplă dacă nu vă place?",
+      "a": "Vedeți direcția vizuală înainte să se scrie prima linie de cod și o ajustăm până este bine. Nu vă treziți cu un site terminat pe care îl vedeți prima dată la livrare — este cel mai scump mod de a lucra, pentru amândouă părțile."
     },
     "o5": {
       "q": "Ce se întâmplă după lansare?",
-      "a": "Primele 30 de zile sunt incluse: reglaje, corecturi, tot ce iese la iveală din datele reale. După aceea primești rapoarte lunare cu ce funcționează și ce nu, și răspuns în 24 de ore. Codul, hostingul și datele rămân ale tale — nu te leg de mine."
+      "a": "Primele 30 de zile sunt incluse: reglaje, corecturi, tot ce iese la iveală din datele reale. După aceea primiți rapoarte lunare și răspuns în 24 de ore. Codul, hostingul și datele rămân ale dumneavoastră — fără dependență de noi."
     },
     "o6": {
       "q": "Cum se măsoară garanția pe rezultat?",
-      "a": "Stabilim reperul la start: rata de conversie de acum, dacă ai deja analytics, sau ținta convenită împreună dacă pornim de la zero. Se măsoară la 90 de zile de la lansare, pe aceleași surse de trafic. Dacă nu a trecut peste reper, continui fără costuri până trece."
+      "a": "Reperul se stabilește la start: rata de conversie de acum, dacă aveți deja analytics, sau ținta convenită împreună dacă pornim de la zero. Se măsoară la 90 de zile de la lansare, pe aceleași surse de trafic. Dacă nu a trecut peste reper, continuăm fără costuri până trece."
     }
   },
   "hero_v3": {
     "headline_pre": "Site-uri construite",
     "headline_accent": "să convertească.",
-    "subtitle": "Site, funnel, tracking și reclame — un singur partener senior, cap-coadă. Live în ~4 săptămâni.",
-    "form_title": "Spune-mi despre proiectul tău",
-    "form_note": "Răspund personal în maxim 24 de ore.",
-    "trust_1": "Răspund personal în 24h",
-    "trust_2": "Live în ~4 săptămâni",
-    "trust_3": "Garanție pe rezultat"
+    "subtitle": "Site, funnel, tracking și reclame — tot lanțul sub un singur contract. Termen fixat înainte de start.",
+    "form_title": "Descrieți-ne proiectul",
+    "form_note": "Răspundem în maximum 24 de ore.",
+    "trust_1": "Răspuns în 24 de ore, garantat",
+    "trust_2": "Livrare estimată în 4 săptămâni",
+    "trust_3": "Garanție pe rezultat la 90 de zile"
   },
   "process": {
-    "step1_title": "Unde pierzi bani",
-    "step1_body": "Audit, analytics și harta funnel-ului. Știm exact pe unde curg banii afară înainte să scriem o linie de cod.",
+    "step1_title": "Unde se pierd banii",
+    "step1_body": "Audit, analytics și harta funnel-ului. Știm exact pe unde se pierde traficul înainte să scriem o linie de cod.",
     "step2_title": "Construim să convertească",
     "step2_body": "Design și build, în jurul singurei metrici care contează: lead-uri calificate.",
     "step3_title": "Lansare",
@@ -75,62 +71,26 @@
     "step4_title": "Scalăm ce merge",
     "step4_body": "Reclame și SEO îndreptate spre paginile care deja convertesc.",
     "step5_title": "Creștere compusă",
-    "step5_body": "Rămân în spatele cifrelor tale, lună de lună.",
-    "title": "Cinci etape. Știi tot timpul unde suntem.",
-    "lead": "Fără ședințe de status și fără să întrebi tu ce se întâmplă. La fiecare etapă <pill>vezi ce s-a livrat</pill> și ce urmează."
+    "step5_body": "Rămânem în spatele cifrelor dumneavoastră, lună de lună. Raport lunar, fără să îl cereți.",
+    "title": "Cinci etape. Știți tot timpul unde suntem.",
+    "lead": "Fără ședințe de status și fără să întrebați ce se întâmplă. La fiecare etapă <pill>vedeți ce s-a livrat</pill> și ce urmează.",
+    "step1_days": "Zilele 1–5",
+    "step2_days": "Zilele 5–15",
+    "step3_days": "Zilele 15–25",
+    "step4_days": "Zilele 25–30",
+    "step5_days": "Lunar, după lansare"
   },
   "work": {
-    "featured_name": "Oficiul de Cadastru — OCPI",
-    "featured_chip1": "Proiect pentru instituție publică",
-    "featured_chip2": "Live de 12 luni",
-    "featured_chip3": "Standard guvernamental",
-    "visit": "Vezi live",
+    "visit": "Vedeți live",
     "prev": "Proiectul anterior",
     "next": "Proiectul următor",
-    "drag": "Trage pentru a explora",
     "section_title": "Proiecte de succes",
-    "swipe_hint": "Trage lateral pentru toate proiectele"
+    "swipe_hint": "Trageți lateral pentru toate proiectele"
   },
   "portfolio": {
-    "badge": "Portofoliu",
-    "title": "Munca mea vorbește de la sine.",
-    "card_label": "PROIECT",
-    "card_link": "Vezi proiectul",
-    "badges": {
-      "public_institution": "INSTITUȚIE PUBLICĂ"
-    },
-    "subtitles": {
-      "sgc": "Platformă custom pentru OCPI — proiect de stat"
-    },
-    "short": {
-      "sgc": "OCPI",
-      "bacde10": "Bac de 10",
-      "picaps": "Picaps",
-      "rdraw": "R-Draw",
-      "everun": "Everun",
-      "everati": "Everati",
-      "kickout": "Kickout",
-      "alma": "Alma",
-      "lukton": "Lukton",
-      "ecartop": "Ecartop",
-      "traveltwin": "TravelTwin"
-    },
-    "labels": {
-      "sgc": "SGC — Sistem Gestionare Contestații (OCPI)",
-      "bacde10": "Un Bac de 10 — Pregătire bacalaureat informatică",
-      "picaps": "Picaps",
-      "rdraw": "R-Draw Engineering",
-      "everun": "Everun România",
-      "everati": "Everati",
-      "kickout": "Kickout",
-      "alma": "Alma",
-      "lukton": "Lukton",
-      "ecartop": "Ecartop",
-      "traveltwin": "TravelTwin — Travel Companion"
-    },
+    "title": "Munca noastră vorbește de la sine.",
     "metrics": {
       "sgc": "Proiect de stat · live de 12 luni",
-      "bacde10": "Lead-uri organice ×4 în 90 zile",
       "picaps": "LCP 1.1s · Bounce -38%",
       "rdraw": "Sub 1.5s global · CWV: 100/100/100/100",
       "everun": "Conversion rate 4.2% · Industry avg: 1.8%",
@@ -138,8 +98,7 @@
       "kickout": "Mobile-first · 70% trafic mobil convertit",
       "alma": "Lead pipeline automatizat 24/7",
       "lukton": "Tracking server-side · attribution 97%",
-      "ecartop": "B2B sales funnel · cycle redus cu 40%",
-      "traveltwin": "MVP în 3 săptămâni · validation pas"
+      "ecartop": "B2B sales funnel · cycle redus cu 40%"
     },
     "categories": {
       "sgc": "INSTITUȚIE PUBLICĂ",
@@ -154,15 +113,12 @@
     }
   },
   "approach": {
-    "eyebrow": "Abordarea noastră",
     "h1": "Site-uri premium care chiar funcționează.",
     "lead": "Majoritatea site-urilor sunt template. Ale noastre convertesc. Iată cum.",
-    "pain_eyebrow": "Problema",
     "pain_title": "Majoritatea site-urilor sunt rupte.",
-    "pain_1": "Core Web Vitals lente. Google te penalizează. Clienții pleacă.",
+    "pain_1": "Core Web Vitals lente. Google vă penalizează. Clienții pleacă.",
     "pain_2": "Pixeli doar client-side. Reclamele plătite nu scalează.",
     "pain_3": "Fără conformare NIS2. Expunere legală directă din 2024.",
-    "road_eyebrow": "Cum construim",
     "road_title": "Cinci etape. Un singur standard.",
     "road_lead": "Același standard pentru site-uri, ecommerce, aplicații.",
     "stage": {
@@ -197,18 +153,16 @@
         "t2": "Schema + sitemap"
       }
     },
-    "channels_eyebrow": "Canalele pe care le rulăm",
     "channels_title": "Marketing pentru high-ticket.",
     "channels_p1": "Mai întâi audiențe reci. Apoi retargetare precisă. Obiectiv Purchase mereu. Fără metrici de vanitate.",
     "channel_meta": "Facebook Ads",
     "channel_google": "Google Ads",
-    "addon_eyebrow": "Infrastructură custom",
     "addon_title": "VPS Linux și Windows — administrate integral.",
-    "addon_body": "Puțini o fac corect. Le arhitectez, le pun în producție și le întrețin — instanțe Linux sau Windows dedicate.",
-    "addon_cta": "Cere o ofertă",
-    "cta_title": "Pregătit?",
-    "cta_body": "Discuție de 30 de minute în care definim proiectul. Fără pălăvrăgeală.",
-    "cta_button": "Hai să vorbim",
+    "addon_body": "Puțini o fac corect. Le arhitectăm, le punem în producție și le întreținem — instanțe Linux sau Windows dedicate.",
+    "addon_cta": "Solicitați o ofertă",
+    "cta_title": "Începem?",
+    "cta_body": "Discuție de 30 de minute în care definim proiectul. Fără introduceri lungi.",
+    "cta_button": "Solicitați o ofertă",
     "toc": {
       "title": "Pe această pagină",
       "overview": "Prezentare",
@@ -216,30 +170,17 @@
       "roadmap": "Cum construim",
       "channels": "Canale",
       "addon": "VPS custom",
-      "cta": "Hai să vorbim"
+      "cta": "Contact"
     }
   },
   "whatwedo": {
-    "badge": "Oferta",
-    "clients_eyebrow": "Au lucrat cu mine",
-    "cf_partner_body": "Infrastructură enterprise. Sub 2 secunde global. DDoS, SSL, backup-uri incluse.",
-    "cta_primary": "Începe să convertești",
-    "cta_secondary": "Studii de caz",
-    "tracking": {
-      "title": "Tracking server-side",
-      "body": "Facebook Conversions API + GA4. Reclamele scalează."
-    },
-    "security": {
-      "title": "NIS2 + securitate",
-      "body": "WAF, DDoS, backup-uri. Conformare de nivel enterprise."
-    }
+    "clients_eyebrow": "Au lucrat cu noi",
+    "cta_primary": "Solicitați o ofertă"
   },
   "contact": {
-    "badge": "Contact",
-    "title": "Hai să vorbim. Fără obligație.",
-    "description_l1": "Îți spun <pill>direct</pill> dacă te pot ajuta sau nu.",
-    "description_l2": "Dacă da, pleci cu <pill>un plan concret</pill> în mână.",
-    "cta": "Spune-mi despre proiect"
+    "title": "O discuție, fără obligație.",
+    "description_l1": "Vă spunem <pill>direct</pill> dacă vă putem ajuta sau nu.",
+    "description_l2": "Dacă da, plecați cu <pill>un plan concret</pill>."
   },
   "footer": {
     "copyright_l": "Alcaziu Robert",
@@ -247,19 +188,18 @@
     "privacy_link": "Politica de confidențialitate",
     "cookies_link": "Politica de Cookie-uri",
     "cta_title": "Hai să discutăm.",
-    "cta_body": "Spune-mi ce construiești. Îți zic direct dacă te pot ajuta — și ce ar presupune.",
-    "cta_button": "Trimite-mi proiectul",
+    "cta_body": "Spuneți-ne ce construiți. Vă răspundem direct dacă vă putem ajuta — și ce ar presupune.",
+    "cta_button": "Solicitați o ofertă",
     "email_label": "Email",
-    "phone_label": "Telefon · răspund în 24h",
+    "phone_label": "Telefon · răspundem în 24h",
     "whatsapp_label": "WhatsApp",
-    "whatsapp_value": "Scrie-mi direct",
+    "whatsapp_value": "Scrieți-ne direct",
     "wordmark": "ALCAZIU ROBERT",
     "cookie_settings": "Setări cookie-uri"
   },
   "legal": {
     "back_home": "← Înapoi la pagina principală",
     "last_updated": "Ultima actualizare: mai 2026",
-    "disclaimer": "Acest document este un punct de plecare; pentru contracte cu clienți consultă un avocat.",
     "notfound_title": "Pagina nu a fost găsită",
     "notfound_body": "Pagina pe care o cauți nu există sau a fost mutată.",
     "notfound_cta": "Înapoi la pagina principală"
@@ -422,78 +362,74 @@
     "switch_to": "Schimbă limba"
   },
   "form": {
-    "title": "Spune-mi despre proiect",
-    "subtitle": "Răspund în 24 de ore.",
+    "title": "Descrieți-ne proiectul",
+    "subtitle": "Răspundem în 24 de ore.",
     "name_label": "Nume",
     "name_placeholder": "Ion Popescu",
     "email_label": "Email",
-    "email_placeholder": "tu@firma.ro",
+    "email_placeholder": "nume@firma.ro",
     "phone_label": "Telefon",
     "phone_placeholder": "+40 712 345 678",
     "project_label": "Tip proiect",
-    "project_placeholder": "Alege tipul",
+    "project_placeholder": "Alegeți tipul",
     "project_website": "Site web",
     "project_webapp": "Aplicație web",
     "project_other": "Altceva",
-    "submit": "Trimite cererea",
+    "submit": "Trimiteți cererea",
     "submitting": "Se trimite…",
-    "cancel": "Renunță",
-    "step2_title": "Cum te pot contacta?",
-    "step3_title": "Spune-mi despre proiect",
-    "v_name": "Scrie-mi numele tău — minimum 2 caractere.",
-    "v_email": "Introdu un email valid, de forma nume@firma.ro.",
-    "v_phone_required": "Telefonul este obligatoriu — te sun în 24 de ore.",
-    "v_phone": "Introdu un număr valid: 0712 345 678 sau +40 712 345 678.",
-    "v_project": "Alege tipul de proiect.",
-    "toast_ok_title": "Mesaj trimis",
-    "toast_ok_body": "Mulțumesc — revin în 24 de ore.",
+    "cancel": "Anulați",
+    "v_name": "Completați numele — minimum 2 caractere.",
+    "v_email": "Introduceți un email valid, de forma nume@firma.ro.",
+    "v_phone_required": "Telefonul este obligatoriu — vă sunăm în 24 de ore.",
+    "v_phone": "Introduceți un număr valid: 0712 345 678 sau +40 712 345 678.",
+    "v_project": "Alegeți tipul de proiect.",
     "toast_err_title": "Trimitere eșuată",
-    "toast_err_body": "Ceva n-a mers. Încearcă din nou sau scrie-mi direct la contact@alcaziurobert.ro.",
+    "toast_err_body": "Ceva nu a mers. Încercați din nou sau scrieți-ne direct la contact@alcaziurobert.ro.",
     "toast_rate_title": "Prea multe încercări",
-    "toast_rate_body": "Ai trimis deja câteva mesaje. Așteaptă câteva minute sau scrie-mi direct la contact@alcaziurobert.ro.",
-    "privacy_note": "Prin trimitere ești de acord ca datele tale să fie folosite pentru a-ți răspunde. Detalii în <privacy>Politica de confidențialitate</privacy>.",
+    "toast_rate_body": "Ați trimis deja câteva mesaje. Așteptați câteva minute sau scrieți-ne direct la contact@alcaziurobert.ro.",
+    "privacy_note": "Prin trimitere sunteți de acord ca datele dumneavoastră să fie folosite pentru a vă răspunde. Detalii în <privacy>Politica de confidențialitate</privacy>.",
     "message_label": "Mesaj",
-    "message_placeholder": "Spune-mi pe scurt ce ai în minte.",
+    "message_placeholder": "Descrieți pe scurt ce aveți în minte.",
     "v_message": "Mesajul poate avea maximum 1000 de caractere.",
     "optional": "(opțional)",
-    "email_suggestion": "Ai vrut să scrii <fix>{{suggestion}}</fix>?",
+    "email_suggestion": "Ați vrut să scrieți <fix>{{suggestion}}</fix>?",
     "v_email_required": "Emailul este obligatoriu.",
     "v_name_long": "Numele poate avea maximum 80 de caractere.",
-    "success_title": "Am primit. Îți răspund personal în 24 de ore.",
-    "success_body": "Nu primești un autoresponder și nu te sună un asistent. Până îți scriu, îmi deschid site-ul tău și reclamele care rulează acum — ca la primul mesaj să ai deja observații concrete, nu întrebări de încălzire.",
-    "success_guarantee": "Dacă lucrăm împreună: dacă la 90 de zile conversia nu a trecut peste reperul stabilit la start, continui fără costuri până trece.",
+    "success_title": "Am primit cererea. Vă răspundem în 24 de ore.",
+    "success_body": "Nu primiți un autoresponder. Până vă scriem, deschidem site-ul dumneavoastră și reclamele care rulează acum — ca la primul mesaj să aveți deja observații concrete, nu întrebări de încălzire.",
+    "success_guarantee": "Dacă lucrăm împreună: dacă la 90 de zile conversia nu a trecut peste reperul stabilit la start, continuăm fără costuri până trece.",
     "success_proof": "Ultimul proiect: 1,4% → 3,8% rată de conversie, pe același trafic.",
-    "success_whatsapp": "Nu vrei să aștepți? Scrie-mi pe WhatsApp",
-    "success_close": "Închide"
+    "success_whatsapp": "Nu doriți să așteptați? Scrieți-ne pe WhatsApp",
+    "success_close": "Închideți"
   },
   "fab": {
     "aria": "Deschide opțiuni de contact",
-    "heading": "Hai în contact",
-    "call": "Sună-mă",
-    "email": "Trimite email",
-    "message": "Scrie-mi un mesaj"
+    "heading": "Contact",
+    "call": "Sunați-ne",
+    "email": "Trimiteți email",
+    "message": "Trimiteți un mesaj"
   },
   "offer": {
     "problem_kicker": "Problema",
     "problem": "Majoritatea site-urilor primesc complimente și nu aduc <pill>cereri de ofertă</pill>. Nu pentru că arată prost — ci pentru că <pill>nimeni nu a construit drumul</pill> de la vizitator la client.",
-    "kicker": "Ce primești",
+    "kicker": "Ce primiți",
     "title": "Tot lanțul, de la primul wireframe până la <pill>primul client venit din reclame</pill>.",
-    "lead": "Un site care arată bine e jumătate de treabă. Cealaltă jumătate — funnel, tracking, reclame — e de obicei împărțită între trei furnizori care dau vina unul pe altul. Aici e <pill>o singură mână</pill>.",
+    "lead": "Un site care arată bine e jumătate de treabă. Cealaltă jumătate — funnel, tracking, reclame — e de obicei împărțită între trei furnizori care dau vina unul pe altul. Aici e <pill>un singur contract</pill>.",
     "d1_meta": "Site",
     "d1_title": "Construit de la zero",
-    "d1_body": "Fără template, fără page builder. Cod scris pentru viteza cu care se încarcă și pentru drumul pe care îl face vizitatorul, nu pentru portofoliul meu.",
+    "d1_body": "Cod scris de la zero și măsurat pe Core Web Vitals. Fără template, fără page builder, fără pluginuri care adaugă secunde la încărcare.",
     "d2_meta": "Funnel",
     "d2_title": "Nu un teanc de pagini",
-    "d2_body": "Fiecare secțiune are o singură treabă: să te ducă la următoarea. Formularul e destinația, nu o notă de subsol în footer.",
+    "d2_body": "Fiecare secțiune are o singură sarcină: să vă ducă la următoarea. Formularul este destinația. Fără pagini care există doar ca să existe.",
     "d3_meta": "Tracking",
     "d3_title": "Cifrele rămân întregi",
-    "d3_body": "Server-side, nu doar un pixel în browser. Vezi de unde vin banii și după ce blocantele de reclame taie restul.",
+    "d3_body": "Tracking server-side prin Meta Conversions API și GA4, implementat conform GDPR. Fără pixel lăsat singur în browser, fără date pierdute la blocantele de reclame.",
     "d4_meta": "Reclame",
-    "d4_title": "Pe infrastructura ta",
-    "d4_body": "Meta și Google, conectate direct la ce am construit. Aceeași mână pe tot lanțul, deci nu are cine să dea vina pe altcineva.",
+    "d4_title": "Pe infrastructura dumneavoastră",
+    "d4_body": "Meta și Google, conectate direct la ce am construit. Conturile rămân pe numele dumneavoastră. Fără agenție intermediară care păstrează accesul la propriile campanii.",
     "guarantee_label": "Garanție",
-    "guarantee_title": "Garanție pe rezultat",
-    "guarantee_body": "Dacă la 90 de zile de la lansare conversia nu a trecut peste reperul stabilit la start, pe aceleași surse de trafic, continui <pill>fără costuri</pill> până trece.",
-    "cta": "Spune-mi despre proiect"
+    "guarantee_title": "Garanție pe rezultat, la 90 de zile",
+    "guarantee_body": "Dacă la 90 de zile de la lansare conversia nu a trecut peste reperul stabilit la start, pe aceleași surse de trafic, continuăm <pill>fără costuri</pill> până trece.",
+    "cta": "Solicitați o ofertă"
   }
 }

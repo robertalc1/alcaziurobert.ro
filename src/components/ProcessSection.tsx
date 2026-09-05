@@ -112,6 +112,29 @@ const ProcessSection: React.FC = () => {
            above and below it, so the 9px card gap read as 14px on one side.
            .offer-num carries this identical spec — the two card grids are the
            same component in two sections, and they must not drift. */
+        /* The card header is one baseline-aligned row: step number, then the
+           day range it covers. Byte-identical to .offer-eyebrow in
+           OfferSection — the two sections run the same card grid.
+
+           The range is what turns five stage names into a schedule the
+           visitor can hold us to. Relative, not absolute: the delivery term
+           is an estimate fixed at contracting, so nothing here promises a
+           finish date. */
+        .proc-eyebrow {
+          display: flex;
+          align-items: baseline;
+          justify-content: center;
+          gap: 9px;
+        }
+        .proc-meta {
+          font-family: var(--font-sans);
+          font-size: 10.5px;
+          font-weight: 600;
+          line-height: 1;
+          text-transform: uppercase;
+          letter-spacing: 0.16em;
+          color: rgba(255, 255, 255, 0.62);
+        }
         .proc-num {
           font-family: var(--font-sans);
           font-size: var(--text-body);
@@ -170,7 +193,10 @@ const ProcessSection: React.FC = () => {
             <li key={n}>
               <Reveal delay={Math.min(i, 3) * 70} className="proc-card-wrap">
                 <div className="proc-card">
-                  <span className="proc-num">{n}</span>
+                  <span className="proc-eyebrow">
+                    <span className="proc-num">{n}</span>
+                    <span className="proc-meta">{t(`process.step${n}_days`)}</span>
+                  </span>
                   <h3 className="proc-step-title">{t(`process.step${n}_title`)}</h3>
                   <p className="proc-body">{t(`process.step${n}_body`)}</p>
                 </div>

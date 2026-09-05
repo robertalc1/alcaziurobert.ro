@@ -1,13 +1,11 @@
 {
   "nav": {
-    "portfolio": "Portfolio",
-    "about": "About",
     "casestudy": "Our Approach",
-    "cta": "Get In Touch",
+    "cta": "Request a quote",
     "work": "Work",
     "process": "Process",
     "faq": "FAQ",
-    "call": "Call",
+    "call": "Call us",
     "menu": "Menu",
     "close": "Close",
     "offer": "Offer"
@@ -15,11 +13,11 @@
   "compounding": {
     "title": "Why does this work?",
     "s1": {
-      "what": "With me",
+      "what": "With us",
       "tag": "Turns visitors\ninto clients"
     },
     "s2": {
-      "what": "Without me",
+      "what": "Without us",
       "tag": "Loses them\nin seconds"
     },
     "summary_l1": "It works because the site is built to <pill>convert</pill>, not just to look good.",
@@ -27,47 +25,45 @@
     "takeaway": "<pill>One new client</pill> from the system covers the whole build. Everything it brings after that is pure profit."
   },
   "faq": {
-    "eyebrow": "Frequently asked",
-    "title": "Quick answers to your questions.",
-    "lead": "The most common questions about how I work, project timelines, and what happens after launch.",
+    "title": "Answers to the questions that come up most.",
     "o1": {
       "q": "What does it cost?",
-      "a": "It depends on what we build — a brochure site and a full funnel with server-side tracking are not the same project. You get the number on the first call, once I understand what you need. I do not publish list prices because I do not ship list packages."
+      "a": "It depends on scope. A brochure site and a full funnel with server-side tracking are not the same project. We give you the number on the first call, once we understand what you need. We do not publish list prices because we do not ship list packages."
     },
     "o2": {
       "q": "How long does it take?",
-      "a": "Roughly 4 weeks from kickoff to live. You get the exact date before we start, not along the way. The only variable is how fast your content arrives."
+      "a": "About four weeks from kickoff to live. The exact term is fixed before we start, not along the way. The only variable is how fast the content reaches us."
     },
     "o3": {
-      "q": "Why you and not an agency?",
-      "a": "At an agency the project passes through four people who do not talk to each other, and you pay for the coordination between them. Here design, code, tracking and ads all run through the same person — nothing is lost at the handover and there is nobody to blame. The trade-off is that I take four clients at a time, maximum."
+      "q": "Why you and not a marketing agency?",
+      "a": "At an agency the site, the tracking and the ads are three different suppliers who blame each other when the numbers do not come. Here the whole chain sits under one contract and one owner. The trade-off is capacity: we work with four clients at a time, maximum."
     },
     "o4": {
-      "q": "What if I do not like it?",
-      "a": "You see the visual direction before a single line of code is written, and we adjust it until it is right. You never meet a finished site for the first time at delivery — that is the most expensive way to work, for both of us."
+      "q": "What if you do not like it?",
+      "a": "You see the visual direction before a line of code is written, and we adjust it until it is right. You do not end up with a finished site you see for the first time at delivery — that is the most expensive way to work, for both sides."
     },
     "o5": {
       "q": "What happens after launch?",
-      "a": "The first 30 days are included: adjustments, fixes, whatever the real data turns up. After that you get monthly reports on what is working and what is not, and an answer within 24 hours. The code, the hosting and the data stay yours — you are not tied to me."
+      "a": "The first 30 days are included: tuning, corrections, everything the real data surfaces. After that you get monthly reports and a reply within 24 hours. The code, the hosting and the data stay yours — no dependency on us."
     },
     "o6": {
       "q": "How is the results guarantee measured?",
-      "a": "We set the baseline at kickoff: your current conversion rate if you already have analytics, or a target we agree together if we start from zero. It is measured 90 days after launch, on the same traffic sources. If it has not passed the baseline, I keep working at no cost until it does."
+      "a": "The baseline is set at kickoff: your current conversion rate if you already have analytics, or a target agreed together if we start from zero. It is measured 90 days after launch, on the same traffic sources. If it has not passed the baseline, we keep working at no cost until it does."
     }
   },
   "hero_v3": {
     "headline_pre": "Websites built",
     "headline_accent": "to convert.",
-    "subtitle": "Site, funnel, tracking and ads — one senior partner, end to end. Live in about 4 weeks.",
-    "form_title": "Tell me about your project",
-    "form_note": "I reply personally within 24 hours.",
-    "trust_1": "I reply personally within 24h",
-    "trust_2": "Live in ~4 weeks",
-    "trust_3": "Guaranteed on results"
+    "subtitle": "Site, funnel, tracking and ads — the whole chain under one contract. Term fixed before we start.",
+    "form_title": "Tell us about your project",
+    "form_note": "We reply within 24 hours.",
+    "trust_1": "Reply within 24 hours, guaranteed",
+    "trust_2": "Estimated live in 4 weeks",
+    "trust_3": "Results guarantee at 90 days"
   },
   "process": {
-    "step1_title": "Find the leaks",
-    "step1_body": "Audit, analytics and a funnel map. We know exactly where money is lost before writing a line of code.",
+    "step1_title": "Where the money leaks",
+    "step1_body": "Audit, analytics and a funnel map. We know exactly where the traffic is lost before writing a line of code.",
     "step2_title": "Build to convert",
     "step2_body": "Design and build, engineered around the one metric that matters: qualified leads.",
     "step3_title": "Launch",
@@ -75,62 +71,26 @@
     "step4_title": "Scale what works",
     "step4_body": "Ads and SEO pointed at the pages that already convert.",
     "step5_title": "Compound growth",
-    "step5_body": "I stay behind your numbers, month after month.",
+    "step5_body": "We stay behind your numbers, month after month. A monthly report, without you asking for it.",
     "title": "Five stages. You always know where we are.",
-    "lead": "No status meetings, and you never have to ask what is happening. At every stage you <pill>see what shipped</pill> and what comes next."
+    "lead": "No status meetings, and you never have to ask what is happening. At every stage you <pill>see what shipped</pill> and what comes next.",
+    "step1_days": "Days 1–5",
+    "step2_days": "Days 5–15",
+    "step3_days": "Days 15–25",
+    "step4_days": "Days 25–30",
+    "step5_days": "Monthly, after launch"
   },
   "work": {
-    "featured_name": "Oficiul de Cadastru — OCPI",
-    "featured_chip1": "Public institution project",
-    "featured_chip2": "Live 12 months",
-    "featured_chip3": "Government-grade",
     "visit": "View live",
     "prev": "Previous project",
     "next": "Next project",
-    "drag": "Drag to explore",
     "section_title": "Successful projects",
     "swipe_hint": "Swipe to see every project"
   },
   "portfolio": {
-    "badge": "Portfolio",
-    "title": "My work speaks for itself.",
-    "card_label": "PROJECT",
-    "card_link": "Check it out!",
-    "badges": {
-      "public_institution": "PUBLIC INSTITUTION"
-    },
-    "subtitles": {
-      "sgc": "Custom platform for OCPI — government-grade build"
-    },
-    "short": {
-      "sgc": "OCPI",
-      "bacde10": "Bac de 10",
-      "picaps": "Picaps",
-      "rdraw": "R-Draw",
-      "everun": "Everun",
-      "everati": "Everati",
-      "kickout": "Kickout",
-      "alma": "Alma",
-      "lukton": "Lukton",
-      "ecartop": "Ecartop",
-      "traveltwin": "TravelTwin"
-    },
-    "labels": {
-      "sgc": "SGC — Sistem Gestionare Contestații (OCPI)",
-      "bacde10": "Un Bac de 10 — Informatics baccalaureate prep",
-      "picaps": "Picaps",
-      "rdraw": "R-Draw Engineering",
-      "everun": "Everun Romania",
-      "everati": "Everati",
-      "kickout": "Kickout",
-      "alma": "Alma",
-      "lukton": "Lukton",
-      "ecartop": "Ecartop",
-      "traveltwin": "TravelTwin — Travel Companion"
-    },
+    "title": "Our work speaks for itself.",
     "metrics": {
       "sgc": "Government project · live for 12 months",
-      "bacde10": "Organic leads ×4 in 90 days",
       "picaps": "LCP 1.1s · Bounce -38%",
       "rdraw": "Sub 1.5s global · CWV: 100/100/100/100",
       "everun": "Conversion rate 4.2% · Industry avg: 1.8%",
@@ -138,8 +98,7 @@
       "kickout": "Mobile-first · 70% mobile traffic converted",
       "alma": "Automated lead pipeline 24/7",
       "lukton": "Server-side tracking · 97% attribution",
-      "ecartop": "B2B sales funnel · cycle reduced by 40%",
-      "traveltwin": "MVP in 3 weeks · validation step"
+      "ecartop": "B2B sales funnel · cycle reduced by 40%"
     },
     "categories": {
       "sgc": "PUBLIC INSTITUTION",
@@ -154,15 +113,12 @@
     }
   },
   "approach": {
-    "eyebrow": "Our approach",
     "h1": "Premium websites that actually work.",
     "lead": "Most sites are templates. Ours convert. Here is how.",
-    "pain_eyebrow": "The problem",
     "pain_title": "Most websites are broken.",
     "pain_1": "Bad Core Web Vitals. Google penalizes you. Customers leave.",
     "pain_2": "Pixels client-side only. Paid ads cannot scale.",
     "pain_3": "No NIS2 compliance. Direct legal exposure since 2024.",
-    "road_eyebrow": "How we build",
     "road_title": "Five stages. One standard.",
     "road_lead": "Same standard for sites, ecommerce, apps.",
     "stage": {
@@ -197,18 +153,16 @@
         "t2": "Schema + sitemap"
       }
     },
-    "channels_eyebrow": "Channels we run",
     "channels_title": "Marketing for high-ticket.",
     "channels_p1": "Cold audiences first. Precise retargeting second. Clear Purchase objective always. No vanity metrics.",
     "channel_meta": "Facebook Ads",
     "channel_google": "Google Ads",
-    "addon_eyebrow": "Custom infrastructure",
     "addon_title": "Linux & Windows VPS — fully managed.",
-    "addon_body": "Few do it properly. I architect, deploy and maintain dedicated Linux or Windows instances.",
-    "addon_cta": "Contact for pricing",
+    "addon_body": "Few do it properly. We architect, deploy and maintain dedicated Linux or Windows instances.",
+    "addon_cta": "Request a quote",
     "cta_title": "Ready?",
     "cta_body": "30-minute scoping call. No fluff.",
-    "cta_button": "Let's talk",
+    "cta_button": "Request a quote",
     "toc": {
       "title": "On this page",
       "overview": "Overview",
@@ -216,30 +170,17 @@
       "roadmap": "How we build",
       "channels": "Channels",
       "addon": "Custom VPS",
-      "cta": "Get in touch"
+      "cta": "Contact"
     }
   },
   "whatwedo": {
-    "badge": "The offer",
     "clients_eyebrow": "Trusted by",
-    "cf_partner_body": "Enterprise infrastructure. Sub-2s loads globally. DDoS, SSL, backups included.",
-    "cta_primary": "Start converting",
-    "cta_secondary": "Case Studies",
-    "tracking": {
-      "title": "Server-side tracking",
-      "body": "Facebook Conversions API + GA4. Ads that scale."
-    },
-    "security": {
-      "title": "NIS2 + security",
-      "body": "WAF, DDoS, backups. Enterprise compliance."
-    }
+    "cta_primary": "Request a quote"
   },
   "contact": {
-    "badge": "Contact",
-    "title": "Let's talk. No obligation.",
-    "description_l1": "I'll tell you <pill>straight</pill> if I can help or not.",
-    "description_l2": "If yes, you leave with <pill>a concrete plan</pill> in hand.",
-    "cta": "Tell me about the project"
+    "title": "A conversation, no obligation.",
+    "description_l1": "We tell you <pill>straight</pill> whether we can help or not.",
+    "description_l2": "If yes, you leave with <pill>a concrete plan</pill>."
   },
   "footer": {
     "copyright_l": "Alcaziu Robert",
@@ -247,19 +188,18 @@
     "privacy_link": "Privacy Policy",
     "cookies_link": "Cookie Policy",
     "cta_title": "Let's talk.",
-    "cta_body": "Tell me what you are building. I will say straight away whether I can help — and what it would take.",
-    "cta_button": "Send me the project",
+    "cta_body": "Tell us what you are building. We say straight away whether we can help — and what it would take.",
+    "cta_button": "Request a quote",
     "email_label": "Email address",
-    "phone_label": "Phone · replies within 24h",
+    "phone_label": "Phone · we reply within 24h",
     "whatsapp_label": "WhatsApp",
-    "whatsapp_value": "Message me directly",
+    "whatsapp_value": "Message us directly",
     "wordmark": "ALCAZIU ROBERT",
     "cookie_settings": "Cookie settings"
   },
   "legal": {
     "back_home": "← Back to home",
     "last_updated": "Last updated: May 2026",
-    "disclaimer": "This document is a starting point; for client contracts please consult a lawyer.",
     "notfound_title": "Page not found",
     "notfound_body": "The page you are looking for does not exist or has been moved.",
     "notfound_cta": "Back to home"
@@ -422,8 +362,8 @@
     "switch_to": "Switch language"
   },
   "form": {
-    "title": "Tell me about your project",
-    "subtitle": "Reply within 24 hours.",
+    "title": "Tell us about your project",
+    "subtitle": "We reply within 24 hours.",
     "name_label": "Name",
     "name_placeholder": "John Doe",
     "email_label": "Email",
@@ -438,39 +378,35 @@
     "submit": "Send request",
     "submitting": "Sending…",
     "cancel": "Cancel",
-    "step2_title": "How can I reach you?",
-    "step3_title": "Tell me about the project",
-    "v_name": "Tell me your name — at least 2 characters.",
+    "v_name": "Enter your name — at least 2 characters.",
     "v_email": "Enter a valid email, like name@company.com.",
-    "v_phone_required": "Phone is required — I call back within 24 hours.",
+    "v_phone_required": "Phone is required — we call you within 24 hours.",
     "v_phone": "Enter a valid number: 0712 345 678 or +40 712 345 678.",
     "v_project": "Pick a project type.",
-    "toast_ok_title": "Message sent",
-    "toast_ok_body": "Thanks — I'll be in touch within 24 hours.",
     "toast_err_title": "Could not send",
     "toast_err_body": "Something went wrong. Please try again or email contact@alcaziurobert.ro directly.",
     "toast_rate_title": "Too many attempts",
     "toast_rate_body": "You have already sent a few messages. Please wait a few minutes, or email contact@alcaziurobert.ro directly.",
-    "privacy_note": "By submitting, you agree that your details will be used to reply to you. Details in the <privacy>Privacy Policy</privacy>.",
+    "privacy_note": "By submitting you agree that your data will be used to reply to you. Details in the <privacy>Privacy Policy</privacy>.",
     "message_label": "Message",
-    "message_placeholder": "Tell me briefly what you have in mind.",
+    "message_placeholder": "Briefly describe what you have in mind.",
     "v_message": "The message can be at most 1000 characters.",
     "optional": "(optional)",
     "email_suggestion": "Did you mean <fix>{{suggestion}}</fix>?",
     "v_email_required": "Email is required.",
     "v_name_long": "Name can be at most 80 characters.",
-    "success_title": "Got it. I will reply personally within 24 hours.",
-    "success_body": "No autoresponder, no assistant calling you back. Before I write, I open your current site and the ads running right now — so the first message already carries concrete observations, not warm-up questions.",
-    "success_guarantee": "If we work together: if conversion has not passed the baseline we set at kickoff within 90 days, I keep working at no cost until it does.",
+    "success_title": "Request received. We reply within 24 hours.",
+    "success_body": "You will not get an autoresponder. Before we write, we open your site and the ads running right now — so the first message already carries concrete observations, not warm-up questions.",
+    "success_guarantee": "If we work together: if conversion has not passed the baseline set at kickoff within 90 days, we keep working at no cost until it does.",
     "success_proof": "Most recent project: 1.4% → 3.8% conversion rate, on the same traffic.",
-    "success_whatsapp": "Do not want to wait? Message me on WhatsApp",
+    "success_whatsapp": "Do not want to wait? Message us on WhatsApp",
     "success_close": "Close"
   },
   "fab": {
     "aria": "Open contact options",
-    "heading": "Get in touch",
-    "call": "Call me",
-    "email": "Email me",
+    "heading": "Contact",
+    "call": "Call us",
+    "email": "Email us",
     "message": "Send a message"
   },
   "offer": {
@@ -478,22 +414,22 @@
     "problem": "Most websites collect compliments and <pill>no enquiries</pill>. Not because they look bad — because <pill>nobody built the route</pill> from visitor to client.",
     "kicker": "What you get",
     "title": "The whole chain, from the first wireframe to <pill>the first client the ads bring in</pill>.",
-    "lead": "A website that looks good is half the job. The other half — funnel, tracking, ads — is usually split between three suppliers who blame each other. Here it is <pill>one pair of hands</pill>.",
+    "lead": "A website that looks good is half the job. The other half — funnel, tracking, ads — is usually split between three suppliers who blame each other. Here it is <pill>one contract</pill>.",
     "d1_meta": "Website",
     "d1_title": "Built from scratch",
-    "d1_body": "No template, no page builder. Code written for how fast it loads and for the route the visitor takes, not for my portfolio.",
+    "d1_body": "Written from scratch and measured against Core Web Vitals. No template, no page builder, no plugins adding seconds to the load.",
     "d2_meta": "Funnel",
     "d2_title": "Not a stack of pages",
-    "d2_body": "Every section has one job: to carry you into the next one. The form is the destination, not a footnote in the footer.",
+    "d2_body": "Every section has one job: to carry you into the next one. The form is the destination. No pages that exist only to exist.",
     "d3_meta": "Tracking",
     "d3_title": "The numbers stay whole",
-    "d3_body": "Server-side, not just a pixel in the browser. You see where the money comes from even after ad blockers cut the rest.",
+    "d3_body": "Server-side tracking through the Meta Conversions API and GA4, implemented under GDPR. No pixel left alone in the browser, no data lost to ad blockers.",
     "d4_meta": "Ads",
     "d4_title": "On your own infrastructure",
-    "d4_body": "Meta and Google, wired straight into what I built. One pair of hands across the chain, so there is nobody left to blame.",
+    "d4_body": "Meta and Google wired straight into what we built. The accounts stay in your name. No middleman agency holding the keys to your own campaigns.",
     "guarantee_label": "Guarantee",
-    "guarantee_title": "Guaranteed on results",
-    "guarantee_body": "If conversion has not passed the baseline we set at kickoff within 90 days of launch, on the same traffic sources, I keep working <pill>at no cost</pill> until it does.",
-    "cta": "Tell me about the project"
+    "guarantee_title": "Results guarantee, at 90 days",
+    "guarantee_body": "If conversion has not passed the baseline we set at kickoff within 90 days of launch, on the same traffic sources, we keep working <pill>at no cost</pill> until it does.",
+    "cta": "Request a quote"
   }
 }

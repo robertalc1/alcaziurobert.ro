@@ -24,9 +24,16 @@ After a successful submit the form is replaced by a success screen — the drawe
 
 ## Brand & tone
 
-- Named solo operator, not an agency. Scarcity is real: "Solo. Max 4 clients at a time."
+**Voice changed on 2026-09-06, by decision.** The site now speaks in an institutional register: the reader is addressed formally (`dumneavoastră`, imperative plural), and the business speaks in the first person plural (`noi`). The reference was institutia.ro. Earlier copy used `tu` and a first-person-singular named operator — that is gone from the shipped site. Do not restore it from an older draft of this file or from git history.
+
+- Formal supplier voice, first person plural. Scarcity survives as a capacity statement, not as a personal limit: "maximum patru clienți simultan."
 - Senior, direct, concrete. Numbers over adjectives (1.4%→3.8% conversion, 6s→1.1s load, -38% bounce, €8K+ government build).
-- Offer formula: specific premium outcome + risk-reversal + ~4-week timeframe + scarcity + real proof.
+- **Every number carries the obligation next to it.** Not "răspund în 24h" but "răspuns în 24 de ore, garantat". Commitments authorised as firm: 24-hour reply, 90-day results guarantee, 30 days of included support after launch.
+- **The ~4-week delivery term is deliberately NOT contractual.** It stays an estimate whose exact value is fixed before kickoff. Nothing on the site may phrase it as an assumed contractual term without Robert re-authorising it.
+- **Every deliverable carries a negative guarantee** that names the pain removed: "fără template, fără page builder", "fără pixel lăsat singur în browser", "fără agenție intermediară care păstrează accesul la propriile campanii".
+- **FAQ answers open with the verdict**, then the reason.
+- The process is a dated table, not a narrative: each of the five stages carries a relative day range (Zilele 1–5 … Lunar, după lansare). Relative, never absolute, for the same reason the delivery term is not contractual.
+- Offer formula: specific premium outcome + risk-reversal + ~4-week estimate + scarcity + real proof.
 - Romanian is the site language and the only one indexed; English stays as a visitor switcher, not a URL. Global ambition (.ro → .com) unchanged — the English copy stays in the codebase, ready for that domain.
 
 ## Anti-references (hard bans)
