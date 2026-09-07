@@ -1,439 +1,263 @@
 "use client";
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
-import ShaderBackground from "@/components/ShaderBackground";
+import { scrollToId } from "@/lib/scroll";
 import { PHONE_TEL, PHONE_DISPLAY, WHATSAPP_URL, EMAIL_ADDRESS } from "@/lib/contact";
 import { trackCall } from "@/lib/analytics";
 import { trackPixelCall } from "@/lib/marketingPixels";
 
 const EMAIL = EMAIL_ADDRESS;
 
+// Same order as the navbar and the page. A footer that lists sections in a
+// different order than the visitor met them is a small lie about the page.
+const SECTION_IDS = ["offer", "work", "process", "faq"] as const;
+
+/**
+ * Footer, rebuilt on instantly.ai's measured geometry.
+ *
+ * What it used to be: a giant ghost wordmark, a two-column pitch/contact split,
+ * and a hairline welded to the section above it. All three are gone.
+ *
+ * What instantly actually does, measured off the live page: 80px of air above
+ * the content, NO border at the top (the whitespace is the separation), a logo
+ * block on the left, then link columns of exactly 189px on a 32px gutter, then
+ * a hairline and a copyright line at the very bottom.
+ *
+ * Theirs has five columns because they have five columns of content. This has
+ * three, because that is how much real content exists — inventing two more
+ * columns of links that go nowhere would match the screenshot and fail the
+ * visitor. The column width and gutter are theirs; the count is honest.
+ *
+ * `id="made-by-humans"` is load-bearing: MobileBottomBar watches it with an
+ * IntersectionObserver to hide the floating button once the footer is in view.
+ */
 const MadeByHumans = () => {
   const { t } = useTranslation();
   const { openPreferences } = useCookieConsent();
+  const navigate = useNavigate();
+  const location = useLocation();
   const year = new Date().getFullYear();
+  const isHome = location.pathname === "/";
+
+  // Section links work from any route: scroll on home, navigate + scroll from
+  // anywhere else. Same contract as the navbar's anchors.
+  const goToSection = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isHome) scrollToId(id);
+    else navigate("/", { state: { scrollTo: id } });
+  };
+
+  const handleCall = () => {
+    trackCall("footer");
+    trackPixelCall();
+  };
 
   return (
     <footer className="ft" id="made-by-humans">
       <style>{`
+        /* No border-top. instantly separates its footer from the panel above
+           with nothing but 80px of page, and the rule that used to be here is
+           what made this footer read as bolted onto the gradient. */
         .ft {
           position: relative;
           width: 100%;
-          background: #0F0F0F;
-          overflow: hidden;
+          background: var(--page);
+          padding: var(--sp-80) 0 var(--sp-32);
         }
-        /* Same animated field as the hero, mirrored: the hero fades out at its
-           bottom edge, this one fades in at its top, so the page opens and
-           closes on the same surface and neither boundary is a hard cut.
-           It is held well below full strength — the footer carries the closing
-           CTA and the contact rows, and those have to stay the brightest thing
-           in the frame. */
-        .ft-bg {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          display: block;
-          pointer-events: none;
-          opacity: 0.55;
-          -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 46%, #000 100%);
-                  mask-image: linear-gradient(to bottom, transparent 0%, #000 46%, #000 100%);
-        }
-        /* The canvas is absolutely positioned, so it paints over any in-flow
-           sibling. The wordmark has to be lifted out of flow to stay in front
-           of it. */
-        .ft-wordmark { position: relative; z-index: 1; }
         .ft-inner {
-          position: relative;
-          z-index: 1;
-          max-width: 1280px;
+          max-width: var(--w-page);
           margin: 0 auto;
-          padding: 0 clamp(18px, 3.4vw, 44px) clamp(28px, 4vh, 44px);
+          padding: 0 var(--page-gutter);
         }
 
-        /* ── Giant ghost wordmark ───────────────────────────────────────── */
-        .ft-wordmark {
-          display: block;
-          width: 100%;
-          margin: 0 0 clamp(-18px, -1.8vw, -8px);
-          padding: clamp(30px, 5vh, 60px) clamp(14px, 1.6vw, 26px) 0;
-        }
-        .ft-wordmark text {
-          font-family: var(--font-sans);
-          font-weight: 700;
-          letter-spacing: -0.01em;
-        }
-
-        /* ── Main row: pitch · logo · contact ───────────────────────────── */
-        .ft-main {
+        /* Logo block absorbs the slack on the left; the link columns are
+           exactly instantly's 189px on a 32px gutter. */
+        .ft-grid {
           display: grid;
-          grid-template-columns: minmax(280px, 1fr) auto minmax(280px, 1fr);
-          align-items: center;
-          gap: clamp(28px, 4vw, 64px);
-          padding: clamp(28px, 4vh, 44px) 0 clamp(32px, 4.5vh, 52px);
+          grid-template-columns: 1fr repeat(3, 189px);
+          gap: var(--sp-32);
+          align-items: start;
         }
 
-        .ft-title {
-          font-family: var(--font-sans);
-          font-weight: 600;
-          font-size: clamp(1.7rem, 3vw, 2.5rem);
-          line-height: 1.08;
-          letter-spacing: -0.035em;
-          color: #F5F5F5;
-          margin: 0 0 14px;
-        }
-        .ft-body {
-          font-family: var(--font-sans);
-          font-size: 15px;
-          line-height: 1.62;
-          color: rgba(255, 255, 255, 0.72);
-          max-width: 40ch;
-          margin: 0 0 clamp(20px, 2.6vh, 28px);
-        }
-        .ft-cta {
-          display: inline-flex;
-          align-items: center;
-          gap: var(--btn-gap);
-          padding: 0 var(--btn-px);
-          min-height: var(--btn-h);
-          border-radius: 9999px;
-          border: none;
-          background: var(--btn-gloss);
-          box-shadow: var(--btn-gloss-shadow);
-          color: #ffffff;
-          font-family: var(--font-sans);
-          font-weight: 500;
-          font-size: var(--btn-font);
-          letter-spacing: -0.005em;
-          cursor: pointer;
-          transition: filter 240ms cubic-bezier(.23,1,.32,1),
-                      box-shadow 240ms cubic-bezier(.23,1,.32,1),
-                      transform 180ms cubic-bezier(.23,1,.32,1);
-        }
-        .ft-cta:hover {
-          filter: brightness(var(--btn-gloss-brightness, 1.06));
-          box-shadow: var(--btn-gloss-shadow-hover);
-          transform: translateY(-1px);
-        }
-        .ft-cta:active { transform: scale(0.98); }
-        .ft-cta svg {
-          width: 15px; height: 15px;
-          fill: none; stroke: currentColor; stroke-width: 2;
-          stroke-linecap: round; stroke-linejoin: round;
-          transition: transform 240ms cubic-bezier(.23,1,.32,1);
-        }
-        .ft-cta:hover svg { transform: translate(2px, -2px); }
-
+        .ft-brand { max-width: 320px; }
         .ft-logo {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          display: inline-block;
+          line-height: 1;
         }
         .ft-logo img {
-          height: clamp(64px, 7vw, 104px);
+          height: 30px;
           width: auto;
-          opacity: 0.96;
+          display: block;
+        }
+        .ft-pitch {
+          font-family: var(--font-sans);
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          color: var(--text-muted);
+          margin: var(--sp-16) 0 var(--sp-24);
         }
 
-        /* ── Contact list ───────────────────────────────────────────────── */
-        .ft-contact {
+        /* ── Link columns ── */
+        .ft-col-head {
+          font-family: var(--font-sans);
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          color: var(--ink);
+          margin: 0 0 var(--sp-16);
+        }
+        .ft-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
           display: flex;
           flex-direction: column;
-          gap: clamp(16px, 2.2vh, 24px);
-          justify-self: end;
+          gap: 8px;
         }
-        .ft-row {
-          display: flex;
-          align-items: flex-start;
-          gap: 14px;
+        .ft-list a,
+        .ft-list button {
+          font-family: var(--font-sans);
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 24px;
+          color: var(--text-muted);
           text-decoration: none;
+          background: none;
+          border: 0;
+          padding: 0;
+          text-align: left;
+          cursor: pointer;
+          transition: color .2s ease;
         }
-        .ft-icon {
-          flex-shrink: 0;
-          width: 22px; height: 22px;
-          margin-top: 2px;
-          color: rgba(255, 255, 255, 0.55);
-          transition: color .25s ease;
-        }
-        .ft-icon svg {
-          width: 100%; height: 100%;
-          fill: none; stroke: currentColor; stroke-width: 1.6;
-          stroke-linecap: round; stroke-linejoin: round;
-        }
-        .ft-row-label {
+        .ft-list a:hover,
+        .ft-list button:hover { color: var(--ink); }
+        /* Contact rows carry a label and a value on two lines. */
+        .ft-list a strong {
           display: block;
-          font-family: var(--font-sans);
-          font-size: 12px;
-          font-weight: 500;
-          letter-spacing: 0.02em;
-          color: rgba(255, 255, 255, 0.52);
-          margin-bottom: 3px;
+          font-weight: 400;
         }
-        .ft-row-value {
+        .ft-val {
           display: block;
-          font-family: var(--font-sans);
-          font-size: 15.5px;
-          font-weight: 500;
-          letter-spacing: -0.01em;
-          color: #F5F5F5;
-          transition: color .25s ease;
+          font-size: 13px;
+          line-height: 18px;
+          color: var(--text-muted);
         }
-        .ft-row:hover .ft-row-value { color: #ED5C1B; }
-        .ft-row:hover .ft-icon { color: #ED5C1B; }
+        .ft-list a:hover .ft-val { color: var(--ink); }
 
-        /* ── Bottom bar ─────────────────────────────────────────────────── */
+        /* ── Bottom row ── */
         .ft-rule {
+          border: 0;
           height: 1px;
-          background: rgba(255, 255, 255, 0.10);
-          border: none;
-          margin: 0;
+          background: var(--line);
+          margin: var(--sp-64) 0 var(--sp-24);
         }
         .ft-bottom {
           display: flex;
-          flex-direction: column;
           align-items: center;
-          gap: 16px;
-          padding-top: clamp(22px, 3vh, 32px);
-        }
-        .ft-legal {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          justify-content: space-between;
+          gap: var(--sp-16);
           flex-wrap: wrap;
-          gap: clamp(18px, 3vw, 38px);
         }
-        .ft-legal a {
-          font-family: var(--font-sans);
-          font-size: 14px;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.72);
-          text-decoration: none;
-          transition: color .25s ease;
-        }
-        .ft-legal a:hover { color: #ED5C1B; }
-        .ft-legal-btn {
-          font-family: var(--font-sans);
-          font-size: 14px;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.72);
-          background: none;
-          border: none;
-          padding: 0;
-          cursor: pointer;
-          transition: color .25s ease;
-        }
-        .ft-legal-btn:hover { color: #ED5C1B; }
         .ft-copy {
           font-family: var(--font-sans);
-          font-size: 13px;
-          color: rgba(255, 255, 255, 0.52);
+          font-size: 14px;
+          line-height: 24px;
+          color: var(--text-muted);
           margin: 0;
-          text-align: center;
         }
-        .ft-copy strong {
-          color: rgba(255, 255, 255, 0.78);
-          font-weight: 600;
-        }
+        .ft-copy strong { font-weight: 600; color: var(--ink); }
 
-        /* ── Tablet ─────────────────────────────────────────────────────── */
-        @media (max-width: 1024px) {
-          .ft-main {
-            grid-template-columns: 1fr auto;
-            gap: clamp(24px, 4vw, 40px);
-          }
-          .ft-logo { grid-row: 1; grid-column: 2; }
-          .ft-contact {
-            grid-column: 1 / -1;
-            justify-self: start;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 28px 44px;
-          }
+        @media (max-width: 991px) {
+          .ft-inner { padding: 0 var(--sp-32); }
+          .ft-grid { grid-template-columns: repeat(3, 1fr); }
+          .ft-brand { grid-column: 1 / -1; max-width: none; margin-bottom: var(--sp-16); }
         }
-
-        /* ── Phone ──────────────────────────────────────────────────────── */
-        @media (max-width: 700px) {
-          /* Clear the floating mobile action bar so the copyright is never under it */
-          .ft-inner { padding-bottom: 92px; }
-          .ft-wordmark { padding-top: 26px; margin-bottom: -4px; }
-          .ft-main {
-            grid-template-columns: 1fr;
-            justify-items: center;
-            text-align: center;
-            gap: 26px;
-            padding: 26px 0 30px;
-          }
-          .ft-logo { grid-row: auto; grid-column: auto; order: -1; }
-          .ft-logo img { height: 58px; }
-          .ft-body { margin-left: auto; margin-right: auto; }
-          .ft-cta { width: 100%; max-width: 340px; justify-content: center; }
-          .ft-contact {
-            grid-column: auto;
-            justify-self: stretch;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 0;
-            width: 100%;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-          }
-          /* Full-width tap rows on phones — 56px+ targets, hairline separated */
-          .ft-row {
-            align-items: center;
-            padding: 15px 2px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: left;
-          }
-          /* Each row is wrapped in a <Reveal> div, so :last-child has to
-             match the wrapper — on .ft-row it would match every row (each is
-             the only child of its own wrapper) and wipe every divider. */
-          .ft-contact > :last-child .ft-row { border-bottom: none; }
-          .ft-legal { gap: 4px 18px; }
-          .ft-legal a, .ft-legal-btn { font-size: 13.5px; padding: 12px 2px; }
-          .ft-copy { font-size: 12.5px; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .ft-cta, .ft-cta svg, .ft-row-value, .ft-icon { transition: none; }
-          .ft-cta:hover svg { transform: none; }
+        @media (max-width: 767px) {
+          .ft { padding-top: var(--sp-64); }
+          .ft-inner { padding: 0 var(--sp-24); }
+          .ft-grid { grid-template-columns: 1fr 1fr; }
         }
       `}</style>
 
-      <ShaderBackground className="ft-bg" />
-
-      {/* Ghost wordmark — SVG so it spans the full width at any viewport */}
-      <svg
-        className="ft-wordmark"
-        viewBox="0 0 1000 116"
-        preserveAspectRatio="xMidYMid meet"
-        role="img"
-        aria-label={t("footer.copyright_l")}
-      >
-        <defs>
-          <linearGradient id="ft-wordmark-fill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.22" />
-            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.02" />
-          </linearGradient>
-        </defs>
-        <text
-          x="500"
-          y="92"
-          textAnchor="middle"
-          textLength="920"
-          lengthAdjust="spacing"
-          fontSize="104"
-          fill="url(#ft-wordmark-fill)"
-        >
-          {t("footer.wordmark")}
-        </text>
-      </svg>
-
       <div className="ft-inner">
-
-        <div className="ft-main">
-          {/* Pitch + CTA */}
-          <div className="ft-pitch">
-            <Reveal>
-              <h2 className="ft-title">{t("footer.cta_title")}</h2>
-              <p className="ft-body">{t("footer.cta_body")}</p>
-              <ContactCTA>
-                <button type="button" className="ft-cta">
+        <Reveal blur={0}>
+          <div className="ft-grid">
+            <div className="ft-brand">
+              <Link to="/" className="ft-logo" aria-label={t("footer.copyright_l")}>
+                <img src="/logo-mark.webp" alt="" width={52} height={30} />
+              </Link>
+              <p className="ft-pitch">{t("footer.cta_body")}</p>
+              <ContactCTA mode="modal">
+                <button type="button" className="btn btn-primary">
                   {t("footer.cta_button")}
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M7 17L17 7M9 7h8v8" />
-                  </svg>
                 </button>
               </ContactCTA>
-            </Reveal>
+            </div>
+
+            <div>
+              <h2 className="ft-col-head">{t("footer.col_sections")}</h2>
+              <ul className="ft-list">
+                {SECTION_IDS.map((id) => (
+                  <li key={id}>
+                    <a href={`#${id}`} onClick={goToSection(id)}>{t(`nav.${id}`)}</a>
+                  </li>
+                ))}
+                <li><Link to="/studii-de-caz">{t("nav.casestudy")}</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="ft-col-head">{t("footer.col_legal")}</h2>
+              <ul className="ft-list">
+                <li><Link to="/termeni-si-conditii">{t("footer.terms_link")}</Link></li>
+                <li><Link to="/politica-de-confidentialitate">{t("footer.privacy_link")}</Link></li>
+                <li><Link to="/politica-de-cookie-uri">{t("footer.cookies_link")}</Link></li>
+                <li>
+                  <button type="button" onClick={openPreferences}>
+                    {t("footer.cookie_settings")}
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="ft-col-head">{t("footer.col_contact")}</h2>
+              <ul className="ft-list">
+                <li>
+                  <a href={`mailto:${EMAIL}`}>
+                    <strong>{t("footer.email_label")}</strong>
+                    <span className="ft-val">{EMAIL}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href={`tel:${PHONE_TEL}`} onClick={handleCall}>
+                    <strong>{t("footer.phone_label")}</strong>
+                    <span className="ft-val">{PHONE_DISPLAY}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                    <strong>{t("footer.whatsapp_label")}</strong>
+                    <span className="ft-val">{t("footer.whatsapp_value")}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-
-          {/* Brand mark */}
-          <div className="ft-logo">
-            <img src="/logo-mark.webp" alt="" width={222} height={128} loading="lazy" />
-          </div>
-
-          {/* Direct contact */}
-          <div className="ft-contact">
-            <Reveal>
-              <a className="ft-row" href={`mailto:${EMAIL}`}>
-                <span className="ft-icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="3" y="5" width="18" height="14" rx="2" />
-                    <polyline points="3,7 12,13 21,7" />
-                  </svg>
-                </span>
-                <span>
-                  <span className="ft-row-label">{t("footer.email_label")}</span>
-                  <span className="ft-row-value">{EMAIL}</span>
-                </span>
-              </a>
-            </Reveal>
-
-            <Reveal delay={70}>
-              <a
-                className="ft-row"
-                href={`tel:${PHONE_TEL}`}
-                onClick={() => {
-                  trackCall("footer");
-                  trackPixelCall();
-                }}
-              >
-                <span className="ft-icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M22 16.92v2.1a2 2 0 0 1-2.18 2 19.6 19.6 0 0 1-8.58-3.06 19.3 19.3 0 0 1-6-6 19.6 19.6 0 0 1-3.06-8.58A2 2 0 0 1 4.18 2h2.1A2 2 0 0 1 8.2 3.72l.67 2a2 2 0 0 1-.46 2.02L7.3 8.9a16.5 16.5 0 0 0 7.8 7.8l1.15-1.11a2 2 0 0 1 2.02-.46l2 .67A2 2 0 0 1 22 16.92Z" />
-                  </svg>
-                </span>
-                <span>
-                  <span className="ft-row-label">{t("footer.phone_label")}</span>
-                  <span className="ft-row-value">{PHONE_DISPLAY}</span>
-                </span>
-              </a>
-            </Reveal>
-
-            <Reveal delay={140}>
-              <a
-                className="ft-row"
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="ft-icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.45L3 20.5l1.6-5.3A8.5 8.5 0 1 1 21 11.5Z" />
-                    <path d="M8.6 9.1c.2-.5.4-.5.7-.5h.5c.2 0 .4 0 .6.5l.6 1.4c.1.3 0 .5-.1.7l-.4.5c-.1.2-.2.3 0 .6a7 7 0 0 0 2.8 2.3c.3.1.5.1.6 0l.5-.6c.2-.2.4-.2.6-.1l1.4.7c.3.1.4.3.4.5 0 .6-.4 1.3-1.5 1.5-1 .2-2.6-.3-4.2-1.6a9 9 0 0 1-2.6-3.6c-.3-1-.2-1.8.1-2.3Z" />
-                  </svg>
-                </span>
-                <span>
-                  <span className="ft-row-label">{t("footer.whatsapp_label")}</span>
-                  <span className="ft-row-value">{t("footer.whatsapp_value")}</span>
-                </span>
-              </a>
-            </Reveal>
-          </div>
-        </div>
+        </Reveal>
 
         <hr className="ft-rule" />
 
-        <Reveal delay={240}>
         <div className="ft-bottom">
-          <nav className="ft-legal" aria-label={t("footer.terms_link")}>
-            <Link to="/termeni-si-conditii">{t("footer.terms_link")}</Link>
-            <Link to="/politica-de-confidentialitate">{t("footer.privacy_link")}</Link>
-            <Link to="/politica-de-cookie-uri">{t("footer.cookies_link")}</Link>
-            {/* Withdrawing consent must be as easy as giving it (GDPR art. 7(3)) */}
-            <button type="button" className="ft-legal-btn" onClick={openPreferences}>
-              {t("footer.cookie_settings")}
-            </button>
-          </nav>
-
           <p className="ft-copy">
             © {year} <strong>{t("footer.copyright_l")}</strong>
           </p>
         </div>
-        </Reveal>
       </div>
     </footer>
   );

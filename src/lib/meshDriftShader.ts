@@ -326,7 +326,7 @@ const RAW = {
     colors: [
       [0.059, 0.031, 0.024], // #0F0806 warm near-black
       [0.541, 0.204, 0.063], // #8A3410 deep burnt orange
-      [0.929, 0.361, 0.106], // #ED5C1B the brand orange itself
+      [0.929, 0.361, 0.106], // var(--brand) the brand orange itself
       [1.0, 0.851, 0.659], // #FFD9A8 warm highlight
     ],
     shape: [1.16, 0.34, 0.5, 0.0],
@@ -353,31 +353,48 @@ const RAW = {
     timeScale: -1.373,
   },
   ember: {
-    // `brand`'s ramp on `cobalt`'s tuning. The site is orange everywhere else
-    // and a blue field behind the hero read as a second brand; this is the same
-    // motion, recoloured. Every non-colour vector below is copied from cobalt
-    // verbatim on purpose — the warp, the backwards drift, the soft blur and
-    // the pointer rotation are what the look is, and they were tuned together.
+    // The field behind the hero panel and the closing CTA panel — the only two
+    // WebGL surfaces on the site.
     //
-    // The two deliberate departures are `surface` and the vignette in `finish`,
-    // and both exist for the same reason: the h1's accent word is #ED5C1B, and
-    // once the field behind it is also orange that word stops being an accent.
-    // Against cobalt's blue it separated for free. So brightness comes down and
-    // the vignette roughly doubles — the field keeps its shape and its motion,
-    // but sinks away from the copy instead of competing with it. Saturation is
-    // pulled a little under 1 for the same reason, and it also stops the hot
-    // mid stop blooming into the white part of the headline.
+    // COLOURS. This ramp has been through three states and the reasoning is
+    // worth keeping, because two of them were wrong for the same reason.
+    //   1. Orange stops with a warm NEAR-BLACK at the dark end. Fine on a black
+    //      page, where the dark end simply dissolved into the background.
+    //   2. Same orange stops inside a panel on a LIGHT page. Broken: the panel
+    //      is now an object you look AT, and shade() averages the stops, so
+    //      near-black mixed with orange produced brown. The panel read as mud.
+    //   3. This one. instantly.ai's blue, sampled off the live site
+    //      (rgb(69,128,247) is stop 2), with a deep SATURATED navy at the dark
+    //      end rather than a near-black — which is exactly what instantly does,
+    //      and why its panel reads as one colour with depth rather than as a
+    //      gradient fading to nothing.
+    //
+    // The lesson that outlives the colours: on a light page the dark end of the
+    // ramp must stay saturated. If you ever re-ramp this, keep stop 0 in the
+    // same hue family as stop 2.
     colors: [
-      [0.059, 0.031, 0.024], // #0F0806 warm near-black
-      [0.541, 0.204, 0.063], // #8A3410 deep burnt orange
-      [0.929, 0.361, 0.106], // #ED5C1B the brand orange itself
-      [1.0, 0.851, 0.659], // #FFD9A8 warm highlight
+      [0.043, 0.165, 0.361], // #0B2A5C deep navy — saturated, never black
+      [0.071, 0.341, 0.769], // #1257C4 strong blue
+      [0.271, 0.502, 0.969], // #4580F7 instantly's accent, measured
+      [0.686, 0.776, 0.969], // #AFC6F7 pale periwinkle
     ],
-    shape: [1.3, 0.56, 0.67, 0.192],
-    surface: [2.016, 1.167, -0.06, 0.92],
-    finish: [0.0, 0.32, 0.0072, 0.098],
+    // SCALE. Counter-intuitive and worth stating: shade() weights each colour
+    // blob by exp(-|p-c|^2 * 6), and `p` is multiplied by u_scale before that.
+    // So a HIGHER scale pushes the sample point away from every blob centre,
+    // the weights collapse, and the result converges on u_colors[0] — i.e.
+    // raising the scale makes the field DARKER and flatter, not busier. 1.3 was
+    // tuned against a wide hero; the panels are nearly square, so it drops to
+    // 0.8 to keep the bright stops in frame.
+    //
+    // VIGNETTE is low because each panel also carries its own scrim over the
+    // copy (.hero-scrim / .touch-scrim) — the two were stacking and the field
+    // was being darkened twice. The scrim owns text legibility; the vignette's
+    // only job is keeping the field off the panel's rounded corners.
+    shape: [0.8, 0.7, 0.67, 0.2],
+    surface: [2.016, 1.167, 0.09, 0.95],
+    finish: [0.0, 0.14, 0.0072, 0.098],
     transform: [5069.0, 2.7227, 0.148, 0.0],
-    offset: [0.09, 0.15],
+    offset: [0.0, 0.0],
     cursor: [2.0, 0.73, 0.365],
     timeScale: -1.373,
   },

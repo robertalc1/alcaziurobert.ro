@@ -122,7 +122,7 @@ const MobileBottomBar: React.FC = () => {
           -webkit-tap-highlight-color: transparent;
         }
         .mbb-fab:hover {
-          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          background: var(--btn-gloss-hover);
           box-shadow: var(--btn-gloss-shadow-sm-hover);
         }
         .mbb-fab:active {
@@ -164,7 +164,7 @@ const MobileBottomBar: React.FC = () => {
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: #5b6470;
+          color: var(--text-muted);
         }
 
         .mbb-action {
@@ -176,7 +176,7 @@ const MobileBottomBar: React.FC = () => {
           border-radius: 10px;
           background: transparent;
           border: 0;
-          color: #262626;
+          color: var(--ink);
           font-family: var(--font-sans);
           text-align: left;
           text-decoration: none;
@@ -185,18 +185,18 @@ const MobileBottomBar: React.FC = () => {
           -webkit-tap-highlight-color: transparent;
         }
         .mbb-action:hover {
-          background: #FAFAFA;
+          background: var(--page);
         }
         .mbb-action:active {
-          background: #F5F5F5;
+          background: var(--line);
         }
 
         .mbb-icon {
           width: 36px;
           height: 36px;
           border-radius: 10px;
-          background: rgba(237, 92, 27, 0.10);
-          color: var(--orange, #ED5C1B);
+          background: rgba(69, 128, 247, 0.10);
+          color: var(--orange, var(--brand));
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -212,12 +212,12 @@ const MobileBottomBar: React.FC = () => {
         .mbb-label {
           font-size: 14px;
           font-weight: 500;
-          color: #262626;
+          color: var(--ink);
           line-height: 1.2;
         }
         .mbb-detail {
           font-size: 12px;
-          color: #6B7280;
+          color: var(--text-muted);
           line-height: 1.2;
           overflow: hidden;
           text-overflow: ellipsis;

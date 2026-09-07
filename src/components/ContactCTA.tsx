@@ -112,13 +112,13 @@ const ContactCTA: React.FC<Props> = ({ children, mode = "auto" }) => {
       <>
         <Slot onClick={openOverlay}>{children}</Slot>
         <Dialog open={open} onOpenChange={setOpen}>
-          {/* The shadcn default is max-w-lg on `bg-background`, which is a light
-              surface — every colour here is stated rather than inherited so the
-              modal cannot drift away from the dark system around it. p-0 + an
-              inner scroller keeps a long form scrolling inside the modal
+          {/* Colours are inherited now: --background / --border / --foreground
+              are the light system (see the shadcn token bridge in index.css),
+              so the modal tracks the page instead of pinning its own hex. p-0
+              + an inner scroller keeps a long form scrolling inside the modal
               instead of growing it past the viewport. */}
           <DialogContent
-            className="max-w-[560px] max-h-[88dvh] gap-0 overflow-hidden border-white/10 bg-[#141414] p-0 text-[#F5F5F5] sm:rounded-2xl"
+            className="max-w-[560px] max-h-[88dvh] gap-0 overflow-hidden p-0 sm:rounded-2xl"
             onCloseAutoFocus={(e) => {
               e.preventDefault();
               restoreRef.current?.focus();
@@ -129,9 +129,7 @@ const ContactCTA: React.FC<Props> = ({ children, mode = "auto" }) => {
                 {sent ? t("form.success_title") : t("form.title")}
               </DialogTitle>
               {!sent && (
-                <DialogDescription className="text-[rgba(245,245,245,0.62)]">
-                  {t("form.subtitle")}
-                </DialogDescription>
+                <DialogDescription>{t("form.subtitle")}</DialogDescription>
               )}
             </DialogHeader>
             <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-6 pt-4">{form}</div>

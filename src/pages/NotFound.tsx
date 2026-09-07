@@ -20,8 +20,8 @@ const NotFound = () => {
         .nf-root {
           min-height: 100vh;
           min-height: 100dvh;
-          background: #0F0F0F;
-          color: #F5F5F5;
+          background: var(--page);
+          color: var(--ink);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -34,7 +34,7 @@ const NotFound = () => {
           font-size: clamp(3.5rem, 12vw, 7rem);
           line-height: 1;
           letter-spacing: -0.04em;
-          color: #ED5C1B;
+          color: var(--brand);
           margin: 0 0 12px;
         }
         .nf-title {
@@ -48,7 +48,7 @@ const NotFound = () => {
           font-family: var(--font-sans);
           font-size: 15px;
           line-height: 1.6;
-          color: rgba(255, 255, 255, 0.72);
+          color: var(--text-muted);
           margin: 0 0 28px;
           max-width: 44ch;
         }
@@ -71,7 +71,7 @@ const NotFound = () => {
                       transform 160ms cubic-bezier(.23,1,.32,1);
         }
         .nf-link:hover {
-          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          background: var(--btn-gloss-hover);
           box-shadow: var(--btn-gloss-shadow-hover);
           transform: translateY(-1px);
         }

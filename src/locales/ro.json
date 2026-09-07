@@ -1,4 +1,9 @@
 {
+  "bar": {
+    "text": "Lucrăm cu maximum patru clienți simultan.",
+    "cta": "Vedeți dacă mai este loc",
+    "close": "Închideți anunțul"
+  },
   "nav": {
     "casestudy": "Abordarea noastră",
     "cta": "Solicitați o ofertă",
@@ -26,6 +31,7 @@
   },
   "faq": {
     "title": "Răspunsuri la întrebările frecvente.",
+    "lead": "Șase obiecții, în ordinea în care apar la telefon.",
     "o1": {
       "q": "Cât costă?",
       "a": "Depinde de perimetru. Un site de prezentare și un funnel complet cu tracking server-side nu sunt același proiect. Vă dăm cifra pe primul apel, după ce înțelegem ce aveți nevoie. Nu publicăm tarife de listă pentru că nu livrăm pachete de listă."
@@ -195,7 +201,10 @@
     "whatsapp_label": "WhatsApp",
     "whatsapp_value": "Scrieți-ne direct",
     "wordmark": "ALCAZIU ROBERT",
-    "cookie_settings": "Setări cookie-uri"
+    "cookie_settings": "Setări cookie-uri",
+    "col_sections": "Secțiuni",
+    "col_legal": "Legal",
+    "col_contact": "Contact"
   },
   "legal": {
     "back_home": "← Înapoi la pagina principală",
@@ -411,6 +420,7 @@
   },
   "offer": {
     "problem_kicker": "Problema",
+    "problem_title": "Complimente multe, cereri de ofertă puține.",
     "problem": "Majoritatea site-urilor primesc complimente și nu aduc <pill>cereri de ofertă</pill>. Nu pentru că arată prost — ci pentru că <pill>nimeni nu a construit drumul</pill> de la vizitator la client.",
     "kicker": "Ce primiți",
     "title": "Tot lanțul, de la primul wireframe până la <pill>primul client venit din reclame</pill>.",

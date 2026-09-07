@@ -31,10 +31,10 @@ const StorageTable: React.FC<{ rows: StorageRow[]; linkLabel: string }> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className="mt-3 overflow-x-auto rounded-lg border border-white/10">
+    <div className="mt-3 overflow-x-auto rounded-lg border border-[#EDEDEF]">
       <table className="w-full min-w-[460px] border-collapse text-left text-xs">
         <thead>
-          <tr className="bg-white/[0.06] text-white/60">
+          <tr className="bg-[#F7F8FB] text-[#6D727E]">
             <th className="px-3 py-2 font-medium">{t("cookieConsent.modal.table_name")}</th>
             <th className="px-3 py-2 font-medium">{t("cookieConsent.modal.table_purpose")}</th>
             <th className="px-3 py-2 font-medium">{t("cookieConsent.modal.table_duration")}</th>
@@ -42,11 +42,11 @@ const StorageTable: React.FC<{ rows: StorageRow[]; linkLabel: string }> = ({
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.name} className="border-t border-white/10 align-top">
-              <td className="px-3 py-2 font-medium text-[#F5F5F5] whitespace-nowrap">
+            <tr key={row.name} className="border-t border-[#EDEDEF] align-top">
+              <td className="px-3 py-2 font-medium text-[#0A0A0A] whitespace-nowrap">
                 {row.name}
               </td>
-              <td className="px-3 py-2 text-white/70">
+              <td className="px-3 py-2 text-[#6D727E]">
                 {row.purpose}
                 {row.url && (
                   <>
@@ -55,14 +55,14 @@ const StorageTable: React.FC<{ rows: StorageRow[]; linkLabel: string }> = ({
                       href={row.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#ED5C1B] hover:underline whitespace-nowrap"
+                      className="text-[var(--brand)] hover:underline whitespace-nowrap"
                     >
                       {linkLabel}
                     </a>
                   </>
                 )}
               </td>
-              <td className="px-3 py-2 text-white/70 whitespace-nowrap">{row.duration}</td>
+              <td className="px-3 py-2 text-[#6D727E] whitespace-nowrap">{row.duration}</td>
             </tr>
           ))}
         </tbody>
@@ -102,30 +102,30 @@ const CookiePreferencesModal: React.FC = () => {
   }, [isPreferencesOpen]);
 
   const linkLabel = t("cookieConsent.modal.see_cookies_link");
-  const titleClass = "flex-1 text-sm font-medium text-[#F5F5F5]";
-  const bodyClass = "text-sm leading-relaxed text-white/70";
+  const titleClass = "flex-1 text-sm font-medium text-[#0A0A0A]";
+  const bodyClass = "text-sm leading-relaxed text-[#6D727E]";
 
   return (
     <Dialog open={isPreferencesOpen} onOpenChange={(open) => !open && closePreferences()}>
       <DialogContent className="max-h-[90dvh] w-[95vw] max-w-2xl overflow-y-auto rounded-2xl p-0 sm:p-0">
         <div className="p-6 sm:p-7">
           <DialogHeader className="text-left">
-            <DialogTitle className="text-[1.15rem] font-medium tracking-[-0.01em] text-[#F5F5F5]">
+            <DialogTitle className="text-[1.15rem] font-medium tracking-[-0.01em] text-[#0A0A0A]">
               {t("cookieConsent.modal.title")}
             </DialogTitle>
           </DialogHeader>
 
-          <p className="mt-2 text-sm leading-relaxed text-white/70">
+          <p className="mt-2 text-sm leading-relaxed text-[#6D727E]">
             {t("cookieConsent.modal.intro")}
           </p>
 
           <Accordion type="single" collapsible defaultValue="performance" className="mt-4">
-            <AccordionItem value="necessary" className="border-white/10">
+            <AccordionItem value="necessary" className="border-[#EDEDEF]">
               <div className="flex items-center gap-3">
                 <AccordionTrigger className={titleClass}>
                   {t("cookieConsent.modal.necessary.title")}
                 </AccordionTrigger>
-                <span className="flex shrink-0 items-center gap-2 text-[11px] font-medium uppercase tracking-wide text-white/55">
+                <span className="flex shrink-0 items-center gap-2 text-[11px] font-medium uppercase tracking-wide text-[#6D727E]">
                   {t("cookieConsent.modal.necessary.always_active")}
                   <Switch checked disabled aria-label={t("cookieConsent.modal.necessary.title")} />
                 </span>
@@ -150,7 +150,7 @@ const CookiePreferencesModal: React.FC = () => {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="performance" className="border-white/10">
+            <AccordionItem value="performance" className="border-[#EDEDEF]">
               <div className="flex items-center gap-3">
                 <AccordionTrigger className={titleClass}>
                   {t("cookieConsent.modal.performance.title")}
@@ -205,7 +205,7 @@ const CookiePreferencesModal: React.FC = () => {
             </AccordionItem>
           </Accordion>
 
-          <div className="mt-6 flex flex-col gap-2.5 border-t border-white/10 pt-5 sm:flex-row sm:flex-wrap">
+          <div className="mt-6 flex flex-col gap-2.5 border-t border-[#EDEDEF] pt-5 sm:flex-row sm:flex-wrap">
             <button
               type="button"
               className="btn btn-secondary btn-block sm:w-auto"

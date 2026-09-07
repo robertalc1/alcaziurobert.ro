@@ -14,15 +14,15 @@ const CookieConsentBanner: React.FC = () => {
     <div
       role="dialog"
       aria-label={t("cookieConsent.banner.heading")}
-      className="fixed inset-x-4 bottom-4 z-[60] mx-auto max-w-2xl rounded-2xl border border-white/10 bg-[#161616] p-6 shadow-[0_16px_48px_rgba(0,0,0,0.6)] sm:p-7"
+      className="fixed inset-x-4 bottom-4 z-[60] mx-auto max-w-2xl rounded-2xl border border-[#EDEDEF] bg-white p-6 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.18)] sm:p-7"
     >
-      <h2 className="text-[1.05rem] font-medium tracking-[-0.01em] text-[#F5F5F5]">
+      <h2 className="text-[1.05rem] font-medium tracking-[-0.01em] text-[#0A0A0A]">
         {t("cookieConsent.banner.heading")}
       </h2>
-      <p className="mt-3 text-sm leading-relaxed text-white/70">
+      <p className="mt-3 text-sm leading-relaxed text-[#6D727E]">
         {t("cookieConsent.banner.body1")}
       </p>
-      <p className="mt-2 text-sm leading-relaxed text-white/70">
+      <p className="mt-2 text-sm leading-relaxed text-[#6D727E]">
         {t("cookieConsent.banner.body2")}
       </p>
 
@@ -42,11 +42,11 @@ const CookieConsentBanner: React.FC = () => {
         </button>
       </div>
 
-      <div className="mt-4 flex gap-4 border-t border-white/10 pt-3 text-[11px] text-white/55">
-        <Link to="/politica-de-confidentialitate" className="hover:text-[#ED5C1B]">
+      <div className="mt-4 flex gap-4 border-t border-[#EDEDEF] pt-3 text-[11px] text-[#6D727E]">
+        <Link to="/politica-de-confidentialitate" className="hover:text-[var(--brand)]">
           {t("cookieConsent.banner.privacy_link")}
         </Link>
-        <Link to="/politica-de-cookie-uri" className="hover:text-[#ED5C1B]">
+        <Link to="/politica-de-cookie-uri" className="hover:text-[var(--brand)]">
           {t("cookieConsent.banner.cookie_policy_link")}
         </Link>
       </div>

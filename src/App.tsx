@@ -11,6 +11,10 @@ const TermsConditions = lazy(() => import("./pages/TermsConditions"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+// Above the navbar on every route, like instantly.ai's. Lazy because it is not
+// part of the first paint and it owns nothing the page needs to lay out — it
+// publishes --bar-h, which defaults to 0px until it mounts.
+const AnnouncementBar = lazy(() => import("@/components/AnnouncementBar"));
 const CookieConsentBanner = lazy(() => import("@/components/CookieConsentBanner"));
 const CookiePreferencesModal = lazy(() => import("@/components/CookiePreferencesModal"));
 const Sonner = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
@@ -25,6 +29,11 @@ const App = () => {
       <BrowserRouter>
         <SEOHead />
         <PixelPageViews />
+
+        {/* Inside the router: its CTA opens the contact modal, which navigates. */}
+        <Suspense fallback={null}>
+          <AnnouncementBar />
+        </Suspense>
 
         <Suspense fallback={null}>
           <Routes>

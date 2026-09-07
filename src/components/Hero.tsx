@@ -4,12 +4,16 @@ import React, { Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";
 import ContactCTA from "@/components/ContactCTA";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { scrollToId } from "@/lib/scroll";
 import ShaderBackground from "@/components/ShaderBackground";
 
 // Lazy: keeps react-hook-form/zod out of the critical bundle; never fetched
-// below 1024px because the component simply isn't mounted there.
+// below 768px because the component simply isn't mounted there.
 const HeroContactCard = lazy(() => import("@/components/HeroContactCard"));
+
+// The client logo band sits INSIDE the hero panel (instantly.ai puts its own
+// logo wall there too), but it is twelve images and the hero is the LCP
+// screen, so it stays in its own chunk behind a height-reserving fallback.
+const ClientMarqueeSection = lazy(() => import("@/components/ClientMarqueeSection"));
 
 const ArrowUpRight = (
   <svg
@@ -28,8 +32,10 @@ const ArrowUpRight = (
 
 const Hero = () => {
   const { t } = useTranslation();
-  const isLg = useMediaQuery("(min-width: 1024px)");
-  const shellRef = React.useRef<HTMLDivElement>(null);
+  // 768, not 1024. The form is centred now rather than in a side column, so it
+  // fits a tablet comfortably; below this the inline form is longer than the
+  // screen and the drawer is the better answer.
+  const isWide = useMediaQuery("(min-width: 768px)");
 
   // Signal the boot loader (in index.html) that the real above-the-fold
   // content is mounted and painted — not just that App.tsx committed an
@@ -50,284 +56,272 @@ const Hero = () => {
     };
   }, []);
 
-  // Desktop primary CTA drives the adjacent form: focus the name input and
-  // pulse the card so the visitor's eye lands exactly where the action is.
-  const focusHeroForm = () => {
-    const input = document.querySelector<HTMLInputElement>(
-      '#hero-form input[name="name"]'
-    );
-    if (input) {
-      input.focus();
-      const shell = shellRef.current;
-      if (shell) {
-        shell.classList.remove("is-attn");
-        void shell.offsetWidth; // restart the one-shot animation
-        shell.classList.add("is-attn");
-      }
-    } else {
-      scrollToId("contact");
-    }
-  };
-
   return (
-    <section className="hero3" id="hero">
+    <section className="hero" id="hero">
       <style>{`
-        .hero3 {
+        /* ── Hero panel ──
+           The page is light; the hero is a dark rounded object sitting on it.
+           That inversion is the whole move — it is what instantly.ai does with
+           its blue panel, and it is why the orange shader still reads as
+           premium on a white page instead of as a loud banner. */
+        .hero {
           position: relative;
           width: 100%;
-          background: #0F0F0F;
-          overflow: hidden;
+          background: var(--page);
+          /* Clears both pieces of fixed chrome above it. Neither number is
+             written here: the announcement bar publishes --bar-h (0px when
+             dismissed) and the navbar is --nav-h, so closing the bar pulls the
+             hero up with it and nothing needs to be told twice. */
+          padding: calc(var(--bar-h) + var(--nav-h) + var(--panel-gutter)) 0 0;
         }
-        .hero3-bg {
+        .hero-panel {
+          position: relative;
+          isolation: isolate;
+          width: calc(100vw - var(--panel-gutter) * 2);
+          max-width: var(--w-panel);
+          margin-inline: auto;
+          border-radius: var(--r-panel);
+          /* Load-bearing: this is what clips the WebGL canvas to the radius. */
+          overflow: hidden;
+          /* The shader's own first colour stop, so a panel whose WebGL never
+             starts is still the right colour rather than black. */
+          background: var(--panel-ink);
+          box-shadow: var(--shadow-panel);
+        }
+        .hero-bg {
           position: absolute;
           inset: 0;
           width: 100%;
           height: 100%;
           display: block;
           pointer-events: none;
-          /* No z-index needed: .hero3-inner already sits at 1, so the canvas
-             stays behind it without adding another stacking context.
-
-             The mask answers the seam complaint. The section below is opaque
-             #0F0F0F, so fading the shader out before the bottom edge turns
-             the boundary into a gradient instead of a cut. The top edge stays
-             at full strength, so the field starts right under the navbar. */
-          -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 94%);
-                  mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 94%);
+          /* No mask. The old hero faded the shader out at the bottom because it
+             had to dissolve into an opaque dark section; the panel has a hard
+             rounded edge of its own now, so a fade would just look like the
+             effect running out of steam before the border. */
         }
-        .hero3-inner {
+        /* Darkens the field under the copy without touching the shader's own
+           brightness. The h1 is white and the field's hot mid stop is #4580F7;
+           without this the two fight in the middle of the panel. */
+        .hero-scrim {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background:
+            linear-gradient(180deg, rgba(4, 14, 34, 0.34) 0%, rgba(4, 14, 34, 0.10) 34%, rgba(4, 14, 34, 0) 58%),
+            radial-gradient(90% 52% at 50% 30%, rgba(4, 14, 34, 0.30) 0%, rgba(4, 14, 34, 0) 72%);
+        }
+        /* instantly's hero, measured:
+             padding-global              72px side gutters
+               padding-section_home_hero 96px top AND bottom
+                 container-small         768  <- the claim and the form
+                 ab-test_logo-section    1123 <- the used-by band, 96px below
+
+           The text column is 768, NOT the 1040 the body uses. That narrower
+           measure is the whole reason their hero reads as a statement rather
+           than as a page header: at 1040 a two-line headline spreads wide
+           enough that the eye tracks it left-to-right instead of taking it in
+           at once. The used-by band deliberately runs wider than the column
+           it sits under. */
+        .hero-stage {
           position: relative;
           z-index: 1;
-          max-width: 1240px;
+          max-width: var(--w-page);
           margin: 0 auto;
-          padding: clamp(118px, 16vh, 168px) clamp(18px, 3vw, 32px) clamp(64px, 9vh, 108px);
+          padding: var(--sp-96) var(--page-gutter);
+        }
+        .hero-inner {
+          max-width: 768px;
+          margin: 0 auto;
           display: flex;
           flex-direction: column;
-        }
-        @media (min-width: 1024px) {
-          .hero3-inner {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) 450px;
-            gap: clamp(48px, 5vw, 88px);
-            align-items: center;
-            min-height: min(92vh, 880px);
-            min-height: min(92svh, 880px);
-          }
+          align-items: center;
+          text-align: center;
         }
 
-        /* ── Copy column ── */
-        .hero3-title {
+        /* ── Copy ── */
+        /* One heading scale for the whole page. instantly's h1 is 40/600 —
+           the same size as every h2 under it — at -1.5px of tracking rather
+           than the h2's -2px. The hero headline used to climb to 64px, which
+           made it the only type on the page with no sibling anywhere else and
+           left a three-step gap down to the first section heading. */
+        .hero-title {
           font-family: var(--font-sans);
-          font-size: clamp(2.55rem, 6.2vw, 4.9rem);
-          font-weight: 500;
-          letter-spacing: -0.04em;
-          line-height: 1.03;
-          color: #F5F5F5;
-          margin: clamp(22px, 3vh, 30px) 0 clamp(18px, 2.4vh, 24px);
-          max-width: 14ch;
+          font-size: var(--text-section-title);
+          font-weight: var(--text-heading-weight);
+          letter-spacing: -0.0375em;   /* -1.5px at 40px, theirs exactly */
+          line-height: var(--text-heading-lh);
+          color: #FFFFFF;
+          margin: 0 0 var(--sp-12);    /* spacer-xxsmall is-0-75rem */
+          max-width: 22ch;
           text-wrap: balance;
         }
-        .hero3-accent {
-          color: #ED5C1B;
+        .hero-accent {
+          color: #C7D9FF;
           font-style: italic;
         }
-        .hero3-sub {
+        /* Semibold, not regular: instantly's hero standfirst is 16/600 while
+           every other paragraph on their page is 16/400. It is the one line
+           that has to survive being read over a moving field. */
+        .hero-sub {
           font-family: var(--font-sans);
           font-size: var(--text-body);
+          font-weight: 600;
           line-height: var(--text-body-lh);
           letter-spacing: var(--text-body-ls);
-          color: rgba(255, 255, 255, 0.84);
-          max-width: 46ch;
-          margin: 0 0 clamp(28px, 3.6vh, 38px);
+          color: #FFFFFF;
+          max-width: 48ch;
+          margin: 0 0 var(--sp-32);    /* spacer-medium */
+          text-wrap: balance;
         }
-        .hero3-cta {
-          display: flex;
-          align-items: center;
-          gap: 20px;
-          flex-wrap: wrap;
-        }
-        .hero3-primary {
-          display: inline-flex;
-          align-items: center;
-          gap: var(--btn-gap);
-          padding: 0 var(--btn-px);
-          min-height: var(--btn-h);
-          border-radius: 9999px;
-          background: var(--btn-gloss);
-          box-shadow: var(--btn-gloss-shadow);
-          color: #ffffff;
-          font-family: var(--font-sans);
-          font-size: var(--btn-font);
-          font-weight: 500;
-          letter-spacing: -0.005em;
-          white-space: nowrap;
-          border: none;
-          cursor: pointer;
-          transition: filter 260ms cubic-bezier(0.32, 0.72, 0, 1),
-                      box-shadow 260ms cubic-bezier(0.32, 0.72, 0, 1),
-                      transform 200ms cubic-bezier(0.32, 0.72, 0, 1);
-        }
-        .hero3-primary:hover {
-          filter: brightness(var(--btn-gloss-brightness, 1.06));
-          box-shadow: var(--btn-gloss-shadow-hover);
-          transform: translateY(-1px);
-        }
-        .hero3-primary:active { transform: scale(0.98); }
-        /* Bare arrow — no disc behind it. The pill is already the shape; a
-           second circle inside it was one container too many. */
-        .hero3-primary-icon {
-          display: inline-flex;
-          align-items: center;
-          transition: transform 260ms cubic-bezier(0.32, 0.72, 0, 1);
-          flex-shrink: 0;
-        }
-        .hero3-primary-icon svg { width: 16px; height: 16px; }
-        .hero3-primary:hover .hero3-primary-icon { transform: translate(2px, -2px); }
 
-        /* ── Form column (double-bezel shell, dark) ── */
-        .hero3-card-shell {
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.10);
-          border-radius: 27px;
+        /* ── Form card ──
+           White card on the dark panel. Same anatomy as every other card on
+           the page (r16, hairline) so the hero does not invent a second card. */
+        .hero-card-shell {
+          width: 100%;
+          max-width: 620px;
+          border-radius: calc(var(--r-card) + 7px);
           padding: 7px;
-          box-shadow: 0 40px 90px -48px rgba(0, 0, 0, 0.7);
+          background: rgba(255, 255, 255, 0.12);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.55);
         }
-        .hero3-card-ph {
-          min-height: 520px;
-          border-radius: 20px;
-          background: rgba(255, 255, 255, 0.04);
-        }
-
-        /* ── Load-in stagger ── */
-        @keyframes hero3-fade {
-          from { opacity: 0; transform: translateY(12px); }
-          to   { opacity: 1; transform: none; }
-        }
-        .hero3-reveal-1 { animation: hero3-fade 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.05s both; }
-        .hero3-reveal-3 { animation: hero3-fade 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.34s both; }
-        .hero3-reveal-4 { animation: hero3-fade 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.38s both; }
-
-        /* One-shot attention pulse on the form card (triggered by the CTA) */
-        .hero3-card-shell.is-attn {
-          animation: hero3-attn 900ms cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        @keyframes hero3-attn {
-          0% {
-            box-shadow: 0 40px 90px -48px rgba(0, 0, 0, 0.7),
-                        0 0 0 0 rgba(237, 92, 27, 0.55);
-          }
-          100% {
-            box-shadow: 0 40px 90px -48px rgba(0, 0, 0, 0.7),
-                        0 0 0 20px rgba(237, 92, 27, 0);
-          }
+        .hero-card-ph {
+          min-height: 470px;
+          border-radius: var(--r-card);
+          background: rgba(255, 255, 255, 0.10);
         }
 
         /* ── Trust strip ── */
-        .hero3-trust {
+        .hero-trust {
           list-style: none;
           display: flex;
           flex-wrap: wrap;
+          justify-content: center;
           align-items: center;
-          gap: 8px 20px;
+          gap: 8px 22px;
           margin: clamp(22px, 3vh, 30px) 0 0;
           padding: 0;
         }
-        .hero3-trust li {
+        .hero-trust li {
           position: relative;
           font-family: var(--font-sans);
           font-size: 13.5px;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.72);
+          color: rgba(255, 255, 255, 0.82);
           padding-left: 18px;
         }
         /* Tick drawn in CSS rather than an icon: three of them would otherwise
-           pull an icon set into the eager hero chunk. */
-        .hero3-trust li::before {
+           pull an icon set into the eager hero chunk. White, not orange — the
+           field behind is already orange, so an orange tick disappears. */
+        .hero-trust li::before {
           content: '';
           position: absolute;
           left: 0;
           top: 0.42em;
           width: 9px;
           height: 5px;
-          border-left: 1.6px solid #ED5C1B;
-          border-bottom: 1.6px solid #ED5C1B;
+          border-left: 1.6px solid #FFFFFF;
+          border-bottom: 1.6px solid #FFFFFF;
           transform: rotate(-45deg);
         }
 
-        @media (max-width: 640px) {
-          .hero3-cta { flex-direction: column; align-items: stretch; gap: 12px; }
-          .hero3-trust { gap: 6px 16px; margin-top: 20px; }
-          .hero3-trust li { font-size: 12.5px; }
-          /* Full width on phones, but the label and arrow stay together in the
-             middle — space-between flung the bare arrow to the far edge. */
-          .hero3-primary { width: 100%; justify-content: center; }
-          .hero3-title { max-width: 12ch; }
+        /* ── Client band inside the panel ── */
+        /* 96px under the form block, and wider than the 768 column above it —
+           it is a sibling of .hero-inner inside .hero-stage, not a child, so
+           the marks run the full 1123 the way theirs do. */
+        .hero-clients {
+          margin-top: var(--sp-96);
+        }
+        .hero-clients-ph {
+          min-height: 132px;
+        }
+
+        /* ── Load-in stagger ── */
+        @keyframes hero-fade {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: none; }
+        }
+        .hero-reveal-1 { animation: hero-fade 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.06s both; }
+        .hero-reveal-2 { animation: hero-fade 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.16s both; }
+        .hero-reveal-3 { animation: hero-fade 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.26s both; }
+
+        @media (max-width: 767px) {
+          .hero { padding-top: calc(var(--bar-h) + var(--nav-h) + var(--panel-gutter)); }
+          .hero-panel { border-radius: 18px; }
+          .hero-stage { padding: var(--sp-64) var(--sp-24); }
+          .hero-clients { margin-top: var(--sp-48); }
+          .hero-title { max-width: 18ch; }
+          .hero-cta-mobile { width: 100%; justify-content: center; }
+          .hero-trust { gap: 6px 16px; margin-top: 20px; }
+          .hero-trust li { font-size: 12.5px; }
         }
         /* Shortest phones: PRODUCT.md requires the message to land above the
            fold, and on a 360x640 screen a three-item trust strip pushes the
            CTA under it. The guarantee is the one worth keeping, so the other
-           two step aside here and return in the offer section a screen
-           later. */
+           two step aside here and return in the offer section a screen later. */
         @media (max-width: 380px), (max-height: 680px) {
-          .hero3-trust li:nth-child(1),
-          .hero3-trust li:nth-child(2) { display: none; }
+          .hero-trust li:nth-child(1),
+          .hero-trust li:nth-child(2) { display: none; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .hero3-card-shell.is-attn { animation: none; }
-          .hero3-reveal-1, .hero3-reveal-3, .hero3-reveal-4 { animation: none; }
+          .hero-reveal-1, .hero-reveal-2, .hero-reveal-3 { animation: none; }
         }
       `}</style>
 
-      <ShaderBackground className="hero3-bg" />
+      <div className="hero-panel">
+        <ShaderBackground className="hero-bg" />
+        <div className="hero-scrim" aria-hidden="true" />
 
-      <div className="hero3-inner">
-        <div className="hero3-copy">
-
+        <div className="hero-stage">
+        <div className="hero-inner">
           {/* No entrance animation on the h1: it's the LCP element, and Chrome
               discounts elements that start at opacity:0 when timing LCP —
               it must be visible immediately, not faded/blurred in. */}
-          <h1 className="hero3-title">
+          <h1 className="hero-title">
             {t("hero_v3.headline_pre")}
             <br />
-            <span className="hero3-accent">{t("hero_v3.headline_accent")}</span>
+            <span className="hero-accent">{t("hero_v3.headline_accent")}</span>
           </h1>
 
-          <p className="hero3-sub hero3-reveal-3">{t("hero_v3.subtitle")}</p>
+          <p className="hero-sub hero-reveal-1">{t("hero_v3.subtitle")}</p>
 
-          <div className="hero3-cta hero3-reveal-3">
-            {isLg ? (
-              <button type="button" className="hero3-primary" onClick={focusHeroForm}>
+          {isWide ? (
+            <div className="hero-card-shell hero-reveal-3">
+              <Suspense fallback={<div className="hero-card-ph" aria-hidden="true" />}>
+                <HeroContactCard />
+              </Suspense>
+            </div>
+          ) : (
+            <ContactCTA>
+              <button type="button" className="btn btn-primary btn-block hero-cta-mobile hero-reveal-2">
                 {t("whatwedo.cta_primary")}
-                <span className="hero3-primary-icon">{ArrowUpRight}</span>
+                {ArrowUpRight}
               </button>
-            ) : (
-              <ContactCTA>
-                <button type="button" className="hero3-primary">
-                  {t("whatwedo.cta_primary")}
-                  <span className="hero3-primary-icon">{ArrowUpRight}</span>
-                </button>
-              </ContactCTA>
-            )}
-          </div>
+            </ContactCTA>
+          )}
 
           {/* Three things a visitor wants to know before they will type their
-              phone number. The third one is dropped on the shortest screens —
-              see the 380px rule — because the CTA staying above the fold on a
+              phone number. The third is dropped on the shortest screens — see
+              the 380px rule — because the CTA staying above the fold on a
               360x640 phone outranks it. */}
-          <ul className="hero3-trust hero3-reveal-3">
+          <ul className="hero-trust hero-reveal-2">
             <li>{t("hero_v3.trust_1")}</li>
             <li>{t("hero_v3.trust_2")}</li>
             <li>{t("hero_v3.trust_3")}</li>
           </ul>
         </div>
 
-        {isLg && (
-          <div ref={shellRef} className="hero3-card-shell hero3-reveal-4">
-            <Suspense fallback={<div className="hero3-card-ph" aria-hidden="true" />}>
-              <HeroContactCard />
-            </Suspense>
-          </div>
-        )}
+        {/* Credibility inside the same frame as the claim: the headline makes
+            a promise, the twelve client marks under it pay for it without the
+            visitor having to scroll to a second section for the answer. */}
+        <div className="hero-clients">
+          <Suspense fallback={<div className="hero-clients-ph" aria-hidden="true" />}>
+            <ClientMarqueeSection />
+          </Suspense>
+        </div>
+        </div>
       </div>
     </section>
   );

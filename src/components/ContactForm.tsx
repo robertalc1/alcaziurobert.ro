@@ -227,21 +227,21 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
 
   // Shared input styling (premium hairline / brand orange focus).
   const fieldClass =
-    "h-11 rounded-lg border border-white/20 bg-white/[0.04] px-4 text-[15px] text-[#F5F5F5] " +
-    "placeholder:text-white/50 shadow-none " +
+    "h-11 rounded-xl border border-[#E4E4E7] bg-white px-4 text-[15px] text-[#0A0A0A] " +
+    "placeholder:text-[#6D727E] shadow-none " +
     "transition-[border-color,box-shadow] duration-150 ease-out " +
-    "hover:border-white/30 " +
-    "focus-visible:border-[#ED5C1B] focus-visible:ring-[3px] focus-visible:ring-[#ED5C1B]/15 focus-visible:ring-offset-0 " +
+    "hover:border-[#C8CAD1] " +
+    "focus-visible:border-[var(--brand)] focus-visible:ring-[3px] focus-visible:ring-[var(--brand)]/15 focus-visible:ring-offset-0 " +
     "aria-[invalid=true]:border-[#EF4444] aria-[invalid=true]:hover:border-[#EF4444] " +
     "aria-[invalid=true]:focus-visible:border-[#EF4444] aria-[invalid=true]:focus-visible:ring-[#EF4444]/15";
 
   const labelClass =
-    "flex items-center gap-1.5 text-[#F5F5F5] text-[13px] font-medium tracking-[0.01em]";
+    "flex items-center gap-1.5 text-[#0A0A0A] text-[13px] font-medium tracking-[0.01em]";
   const messageClass = "text-[12.5px] font-normal text-[#EF4444]";
-  const optionalClass = "text-[11.5px] font-normal text-[#8A9099]";
+  const optionalClass = "text-[11.5px] font-normal text-[#6D727E]";
 
   const required = (
-    <span className="text-[#ED5C1B]" aria-hidden="true">
+    <span className="text-[var(--brand)]" aria-hidden="true">
       *
     </span>
   );
@@ -282,28 +282,28 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
             font-weight: 500;
             letter-spacing: -0.022em;
             line-height: 1.25;
-            color: #F5F5F5;
+            color: var(--ink);
           }
           .cf-sent-body {
             margin: 0;
             font-size: 14.5px;
             line-height: 1.62;
-            color: rgba(245, 245, 245, 0.72);
+            color: var(--text-muted);
           }
           .cf-sent-guarantee {
             margin: 0;
             padding: 14px 16px;
             border-radius: 12px;
-            border: 1px solid rgba(237, 92, 27, 0.28);
-            background: rgba(237, 92, 27, 0.08);
+            border: 1px solid rgba(69, 128, 247, 0.24);
+            background: rgba(69, 128, 247, 0.06);
             font-size: 13.5px;
             line-height: 1.55;
-            color: rgba(245, 245, 245, 0.82);
+            color: var(--ink-2);
           }
           .cf-sent-proof {
             margin: 0;
             font-size: 13px;
-            color: rgba(245, 245, 245, 0.55);
+            color: var(--text-muted);
           }
           .cf-sent-actions {
             display: flex;
@@ -318,25 +318,25 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
             min-height: var(--btn-h);
             padding: 0 var(--btn-px);
             border-radius: 9999px;
-            border: 1px solid var(--btn-steel-border-hover);
-            background: var(--btn-steel);
-            color: #F5F5F5;
+            border: 1px solid var(--btn-plain-border);
+            background: var(--btn-plain-bg);
+            color: var(--btn-plain-fg);
             font-size: var(--btn-font);
             font-weight: 500;
             text-decoration: none;
           }
-          .cf-sent-wa:hover { background: var(--btn-steel-hover); color: #fff; }
+          .cf-sent-wa:hover { border-color: var(--btn-plain-border-hover); }
           .cf-sent-close {
             min-height: var(--btn-h);
             padding: 0 8px;
             background: none;
             border: 0;
-            color: rgba(245, 245, 245, 0.62);
+            color: var(--text-muted);
             font-family: var(--font-sans);
             font-size: var(--btn-font);
             cursor: pointer;
           }
-          .cf-sent-close:hover { color: #F5F5F5; }
+          .cf-sent-close:hover { color: var(--ink); }
           @media (prefers-reduced-motion: reduce) {
             .cf-sent { animation: none; }
           }
@@ -522,7 +522,7 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
                 <FormMessage className={messageClass} />
                 {/* A valid-but-probably-mistyped domain: offered, never enforced. */}
                 {emailSuggestion && !errors.email && (
-                  <p className="text-[12.5px] text-[#C4C9D0] m-0">
+                  <p className="text-[12.5px] text-[#6D727E] m-0">
                     <Trans
                       i18nKey="form.email_suggestion"
                       values={{ suggestion: emailSuggestion }}
@@ -530,7 +530,7 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
                         fix: (
                           <button
                             type="button"
-                            className="underline underline-offset-2 text-[#ED5C1B] hover:opacity-80"
+                            className="underline underline-offset-2 text-[var(--brand)] hover:opacity-80"
                             onClick={() => {
                               form.setValue("email", emailSuggestion, {
                                 shouldValidate: true,
@@ -611,7 +611,7 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
               <div className="flex items-start justify-between gap-3">
                 <FormMessage className={messageClass} />
                 {messageValue.length > MESSAGE_MAX - 200 && (
-                  <span className="ml-auto text-[11.5px] tabular-nums text-[#8A9099]">
+                  <span className="ml-auto text-[11.5px] tabular-nums text-[#6D727E]">
                     {messageValue.length}/{MESSAGE_MAX}
                   </span>
                 )}
@@ -622,7 +622,7 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
 
         {/* Submit */}
         <div className="flex flex-col-reverse sm:flex-row sm:items-center gap-3 sm:justify-end pt-1">
-          <p className="text-[12.5px] text-[#C4C9D0] text-center sm:text-left sm:mr-auto m-0">
+          <p className="text-[12.5px] text-[#6D727E] text-center sm:text-left sm:mr-auto m-0">
             {t("form.subtitle")}
           </p>
           {onClose && (
@@ -631,7 +631,7 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
               variant="ghost"
               onClick={onClose}
               disabled={submitting}
-              className="text-[#C4C9D0] hover:text-[#F5F5F5] hover:bg-transparent"
+              className="text-[#6D727E] hover:text-[#0A0A0A] hover:bg-transparent"
             >
               {t("form.cancel")}
             </Button>
@@ -662,14 +662,14 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
 
         {/* GDPR art. 13 — information notice at the point of collection, so it
             is visible from the first field, not only at the submit step. */}
-        <p className="text-[12.5px] sm:text-[11.5px] leading-relaxed text-[#C4C9D0] m-0">
+        <p className="text-[12.5px] sm:text-[11.5px] leading-relaxed text-[#6D727E] m-0">
           <Trans
             i18nKey="form.privacy_note"
             components={{
               privacy: (
                 <Link
                   to="/politica-de-confidentialitate"
-                  className="underline underline-offset-2 hover:text-[#ED5C1B]"
+                  className="underline underline-offset-2 hover:text-[var(--brand)]"
                 />
               ),
             }}

@@ -18,9 +18,8 @@ const LanguageSwitcher: React.FC = () => {
           gap: 2px;
           padding: 4px 6px;
           border-radius: var(--btn-radius, 10px);
-          border: 1px solid rgba(237, 92, 27, 0.18);
-          background: rgba(255, 255, 255, 0.9);
-          backdrop-filter: blur(10px);
+          border: 1px solid var(--line-2);
+          background: var(--surface);
           margin-right: 12px;
           font-family: var(--font-sans);
           font-size: 12px;
@@ -31,7 +30,7 @@ const LanguageSwitcher: React.FC = () => {
           padding: 6px 12px;
           min-height: 30px;
           border-radius: 7px;
-          color: #6b7280;
+          color: var(--text-muted);
           background: transparent;
           border: none;
           cursor: pointer;
@@ -39,7 +38,7 @@ const LanguageSwitcher: React.FC = () => {
                       background-color var(--duration-medium, 220ms) ease,
                       transform var(--duration-fast, 160ms) var(--ease-out-quart, cubic-bezier(0.23, 1, 0.32, 1));
         }
-        .lang-btn:hover { color: #262626; }
+        .lang-btn:hover { color: var(--ink); }
         .lang-btn:active { transform: scale(0.96); }
         .lang-btn.active {
           color: #ffffff;

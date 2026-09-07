@@ -24,6 +24,9 @@ dist-ssr
 *.sw?
 .gstack/
 
+# Vite writes these while resolving the config; they regenerate every run
+vite.config.ts.timestamp-*
+
 # Build/deploy artifacts
 build.zip
 alcaziurobert-deploy.zip

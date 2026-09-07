@@ -8,44 +8,27 @@ import Reveal from "@/components/Reveal";
 const STEPS = ["s1", "s2"] as const;
 
 // Reusing the same span across translations so React reconciles consistently.
-const pillComponents = { pill: <span className="comp-pill" /> };
+const pillComponents = { pill: <span className="hl" /> };
 
 const CompoundingSection: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="comp-section" id="compounding">
+    <>
       <style>{`
-        .comp-section {
-          width: 100%;
-          background: #0F0F0F;
-          padding: clamp(48px, 6vh, 80px) 16px;
-        }
-        .comp-inner {
-          max-width: 880px;
-          margin: 0 auto;
-          position: relative;
-        }
-        .comp-title {
-          font-family: var(--font-sans);
-          font-weight: 500;
-          letter-spacing: -0.022em;
-          font-size: var(--text-section-title);
-          line-height: 1.15;
-          color: #F5F5F5;
-          margin: 0 auto clamp(20px, 3vh, 34px);
-          max-width: 30ch;
-          text-wrap: balance;
-          text-align: center;
-        }
+        /* Section frame, page column and heading type are .leads* in
+           index.css — shared by all five units in the body. This unit adds
+           only a position:relative, which the floating accent needs as its
+           positioning parent. */
+        .leads-block#compounding { position: relative; }
 
         /* ── Cards grid ───────────────────────────── */
         .comp-grid {
           display: grid;
           grid-template-columns: repeat(2, auto);
           justify-content: center;
-          gap: clamp(18px, 2.4vw, 32px);
-          margin-bottom: clamp(16px, 2.4vh, 24px);
+          gap: var(--sp-32);
+          margin-bottom: var(--sp-24);
         }
         .comp-card {
           display: flex;
@@ -57,13 +40,17 @@ const CompoundingSection: React.FC = () => {
         .comp-card-title {
           font-family: var(--font-sans);
           font-size: var(--text-card-title);
-          font-weight: 700;
-          color: #F5F5F5;
-          letter-spacing: -0.005em;
-          line-height: 1.1;
+          font-weight: 600;
+          color: var(--ink);
+          letter-spacing: -0.025em;
+          line-height: 1.15;
           margin: 0;
           text-wrap: balance;
-          background: #1A1A1A;
+          /* A text chip, not a card — no border. box-decoration-break: clone
+             paints a box per line fragment, and a hairline on each fragment
+             reads as three stacked boxes rather than one highlighted phrase.
+             The fill is --line so it separates from --page underneath it. */
+          background: var(--line);
           padding: 7px 22px;
           border-radius: 7px;
           -webkit-box-decoration-break: clone;
@@ -71,8 +58,12 @@ const CompoundingSection: React.FC = () => {
           text-align: center;
           display: block;
         }
+        /* "With us" carries the gloss, "without us" stays a plain grey chip.
+           The pair reads as a segmented control that way — one side selected,
+           one side not — which is what it is arguing. */
         .comp-card:first-child .comp-card-title {
-          background: #ED5C1B;
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow-flat);
           color: #ffffff;
         }
         .comp-card:last-child .comp-card-title {
@@ -82,7 +73,7 @@ const CompoundingSection: React.FC = () => {
           align-self: center;
           display: inline-block;
           background: transparent;
-          color: #C4C9D0;
+          color: var(--text-muted);
           font-family: var(--font-sans);
           font-weight: 400;
           font-size: var(--text-body);
@@ -94,16 +85,17 @@ const CompoundingSection: React.FC = () => {
           text-align: center;
         }
         .comp-card:first-child .comp-card-tag {
-          color: #ED5C1B;
+          color: var(--brand);
         }
         /* ── Gray summary block ───────────────────── */
         .comp-summary {
-          background: #1A1A1A;
-          border-radius: clamp(16px, 2vw, 22px);
-          padding: clamp(18px, 2.4vw, 26px) clamp(20px, 2.6vw, 30px);
+          background: var(--surface);
+          border: 1px solid var(--line);
+          border-radius: var(--r-card);
+          padding: var(--sp-32) var(--sp-32);
           text-align: center;
           max-width: 480px;
-          margin: 0 auto clamp(12px, 1.8vh, 18px);
+          margin: 0 auto var(--sp-16);
         }
         .comp-summary p {
           font-family: var(--font-sans);
@@ -111,7 +103,7 @@ const CompoundingSection: React.FC = () => {
           font-size: var(--text-body);
           line-height: var(--text-body-lh);
           letter-spacing: var(--text-body-ls);
-          color: #F5F5F5;
+          color: var(--text-muted);
           margin: 0;
           text-wrap: balance;
           max-width: 56ch;
@@ -122,21 +114,9 @@ const CompoundingSection: React.FC = () => {
           margin-top: 0;
         }
 
-        /* ── Inline highlight pill ────────────────── */
-        .comp-pill {
-          background: #ED5C1B;
-          color: #ffffff;
-          font-weight: 700;
-          padding: 3px 11px;
-          border-radius: 7px;
-          -webkit-box-decoration-break: clone;
-          box-decoration-break: clone;
-          letter-spacing: -0.005em;
-        }
-
         /* ── Outlined takeaway card ───────────────── */
         .comp-takeaway {
-          padding: clamp(10px, 1.4vw, 16px) clamp(16px, 2.5vw, 28px);
+          padding: var(--sp-16) clamp(16px, 2.5vw, 28px);
           text-align: center;
           max-width: 480px;
           margin: 0 auto;
@@ -147,7 +127,7 @@ const CompoundingSection: React.FC = () => {
           font-size: var(--text-body);
           line-height: var(--text-body-lh);
           letter-spacing: var(--text-body-ls);
-          color: #F5F5F5;
+          color: var(--text-muted);
           margin: 0;
           text-wrap: balance;
           max-width: 56ch;
@@ -156,10 +136,6 @@ const CompoundingSection: React.FC = () => {
         }
 
         /* ── Section CTA — orange pill, mirrors the hero primary ── */
-        .comp-cta {
-          text-align: center;
-          margin-top: clamp(20px, 3vh, 32px);
-        }
         .comp-cta-btn {
           display: inline-flex;
           align-items: center;
@@ -183,7 +159,7 @@ const CompoundingSection: React.FC = () => {
                       transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
         }
         .comp-cta-btn:hover {
-          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          background: var(--btn-gloss-hover);
           box-shadow: var(--btn-gloss-shadow-hover);
           transform: translateY(-1px);
         }
@@ -218,7 +194,6 @@ const CompoundingSection: React.FC = () => {
 
         /* ── Mobile ───────────────────────────────── */
         @media (max-width: 768px) {
-          .comp-section { padding: clamp(40px, 6vh, 64px) 18px clamp(36px, 5vh, 56px); }
           .comp-accent { display: none; }
           .comp-grid {
             grid-template-columns: repeat(2, auto);
@@ -248,7 +223,7 @@ const CompoundingSection: React.FC = () => {
 
       `}</style>
 
-      <div className="comp-inner">
+      <div className="leads-block" id="compounding">
         <img
           src="/plane%20(1).webp"
           alt=""
@@ -259,9 +234,37 @@ const CompoundingSection: React.FC = () => {
           className="comp-accent"
         />
         <Reveal>
-          <h2 className="comp-title">{t("compounding.title")}</h2>
+          <header className="leads-head">
+            <h2 className="leads-title">{t("compounding.title")}</h2>
+            {/* summary_l1 used to sit below the comparison, which put the
+                answer to the section's own question three blocks under it.
+                It is the answer, so it reads as the standfirst. */}
+            <p className="leads-sub">
+              <Trans i18nKey="compounding.summary_l1" components={pillComponents} />
+            </p>
+            <div className="leads-cta">
+              <ContactCTA mode="modal">
+                <button type="button" className="comp-cta-btn">
+                  {t("whatwedo.cta_primary")}
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 19L19 5" />
+                    <path d="M9 5h10v10" />
+                  </svg>
+                </button>
+              </ContactCTA>
+            </div>
+          </header>
         </Reveal>
 
+        <div className="leads-panel is-bare">
         <Reveal delay={100}>
           <div className="comp-grid">
             {STEPS.map((key) => (
@@ -276,9 +279,6 @@ const CompoundingSection: React.FC = () => {
         <Reveal delay={160}>
           <div className="comp-summary">
             <p>
-              <Trans i18nKey="compounding.summary_l1" components={pillComponents} />
-            </p>
-            <p>
               <Trans i18nKey="compounding.summary_l2" components={pillComponents} />
             </p>
           </div>
@@ -292,27 +292,9 @@ const CompoundingSection: React.FC = () => {
           </div>
         </Reveal>
 
-        <div className="comp-cta">
-          <ContactCTA>
-            <button type="button" className="comp-cta-btn">
-              {t("whatwedo.cta_primary")}
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M5 19L19 5" />
-                <path d="M9 5h10v10" />
-              </svg>
-            </button>
-          </ContactCTA>
         </div>
       </div>
-    </section>
+    </>
   );
 };
 

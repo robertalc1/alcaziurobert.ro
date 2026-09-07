@@ -168,8 +168,15 @@ const SelectedWorkSection: React.FC = () => {
         .work-section {
           position: relative;
           width: 100%;
-          background: #0F0F0F;
-          padding: clamp(64px, 9vh, 112px) 0 clamp(48px, 7vh, 88px);
+          background: var(--page);
+          /* padding-section_testimonial: 0 top, 128 bottom. The body section
+             above already spends 128 on its own bottom edge, so a top value
+             here would double the gap to 256. */
+          padding: 0 0 var(--sp-128);
+          /* Clips the flanking coverflow cards at the viewport edge. This lived
+             on the dark panel that used to wrap the deck; the panel is gone
+             (the page carries a background field in the hero and the closing
+             CTA only), so the section owns it again. */
           overflow: hidden;
         }
         .work-inner {
@@ -180,14 +187,30 @@ const SelectedWorkSection: React.FC = () => {
           padding: 0 clamp(18px, 3vw, 32px);
         }
 
+        /* 16px under the heading — testimonial_header-wrapper's spacer-xsmall,
+           then a centred muted line at body scale. Same anatomy as .leads-head
+           in the body; restated because this band is outside the body column. */
+        .work-sub {
+          font-family: var(--font-sans);
+          font-weight: 400;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
+          color: var(--text-muted);
+          text-align: center;
+          max-width: var(--w-text);
+          margin: var(--sp-16) auto 0;
+          text-wrap: balance;
+        }
+
         /* Same spec as every other section title (see .comp-title) */
         .work-title {
           font-family: var(--font-sans);
-          font-weight: 500;
-          letter-spacing: -0.022em;
+          font-weight: var(--text-heading-weight);
+          letter-spacing: var(--text-heading-ls);
           font-size: var(--text-section-title);
-          line-height: 1.15;
-          color: #F5F5F5;
+          line-height: var(--text-heading-lh);
+          color: var(--ink);
           margin: 0 auto;
           max-width: 30ch;
           text-align: center;
@@ -203,12 +226,12 @@ const SelectedWorkSection: React.FC = () => {
           z-index: 1;
           width: 100%;
           height: clamp(360px, 40vw, 500px);
-          margin: clamp(30px, 4.5vh, 54px) auto 0;
+          margin: var(--sp-48) auto 0;
           perspective: 1600px;
           touch-action: pan-y;
           outline: none;
         }
-        .cf-stage:focus-visible { outline: 2px solid #ED5C1B; outline-offset: 8px; border-radius: 12px; }
+        .cf-stage:focus-visible { outline: 2px solid var(--brand); outline-offset: 8px; border-radius: 12px; }
 
         .cf-card {
           position: absolute;
@@ -249,7 +272,7 @@ const SelectedWorkSection: React.FC = () => {
         }
         .pw-cat {
           display: inline-block;
-          color: #ED5C1B;
+          color: var(--brand);
           font-family: var(--font-sans);
           font-size: 11.5px;
           font-weight: 600;
@@ -267,7 +290,7 @@ const SelectedWorkSection: React.FC = () => {
           font-family: var(--font-sans);
           font-size: 13.5px;
           line-height: 1.5;
-          color: rgba(245, 245, 245, 0.62);
+          color: var(--text-muted);
           margin: 8px 0 0;
         }
         .pw-name {
@@ -276,7 +299,7 @@ const SelectedWorkSection: React.FC = () => {
           font-size: clamp(1.35rem, 1.9vw, 1.8rem);
           line-height: 1.1;
           letter-spacing: -0.03em;
-          color: #F5F5F5;
+          color: var(--ink);
           margin: 0;
           text-wrap: balance;
         }
@@ -284,7 +307,7 @@ const SelectedWorkSection: React.FC = () => {
         @supports (-webkit-text-stroke: 1px #fff) {
           .pw-name {
             color: transparent;
-            -webkit-text-stroke: 1.4px #F5F5F5;
+            -webkit-text-stroke: 1.4px var(--ink);
           }
         }
         .pw-link {
@@ -292,7 +315,7 @@ const SelectedWorkSection: React.FC = () => {
           align-items: center;
           gap: 10px;
           flex-shrink: 0;
-          color: #F5F5F5;
+          color: var(--ink);
           font-family: var(--font-sans);
           font-size: 14.5px;
           font-weight: 500;
@@ -312,9 +335,9 @@ const SelectedWorkSection: React.FC = () => {
         .pw-link-icon {
           width: var(--btn-h); height: var(--btn-h);
           border-radius: 9999px;
-          border: 1px solid var(--btn-steel-border);
-          background: var(--btn-steel);
-          box-shadow: var(--btn-steel-shadow);
+          border: 1px solid var(--btn-plain-border);
+          background: var(--btn-plain-bg);
+          box-shadow: none;
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -322,11 +345,10 @@ const SelectedWorkSection: React.FC = () => {
                       transform .25s cubic-bezier(.23,1,.32,1);
         }
         .pw-link-icon svg { width: 12px; height: 12px; }
-        .pw-link:hover { color: #ED5C1B; }
+        .pw-link:hover { color: var(--brand); }
         .pw-link:hover .pw-link-icon {
-          background: var(--btn-steel-hover);
-          border-color: var(--btn-steel-border-hover);
-          color: #ffffff;
+          border-color: var(--brand);
+          color: var(--brand);
           transform: translate(2px, -2px);
         }
 
@@ -335,9 +357,9 @@ const SelectedWorkSection: React.FC = () => {
           margin: 0;
           border-radius: 14px;
           padding: 7px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.10);
-          box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.8);
+          background: var(--surface);
+          border: 1px solid var(--line);
+          box-shadow: 0 22px 44px -28px rgba(0, 0, 0, 0.30);
           transition: box-shadow 520ms ease, border-color 520ms ease;
         }
         /* The centre card is lifted, not tinted. It briefly carried an orange
@@ -346,7 +368,7 @@ const SelectedWorkSection: React.FC = () => {
            the work. Depth alone separates it: it is the only card at full
            opacity and scale 1, and it is the only one with its own text. */
         .cf-card[data-side="false"] .bf {
-          box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.95);
+          box-shadow: 0 30px 60px -26px rgba(0, 0, 0, 0.38);
         }
         .bf-core {
           border-radius: 9px;
@@ -362,13 +384,13 @@ const SelectedWorkSection: React.FC = () => {
           background: #191919;
           border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         }
-        /* Brand orange rather than the usual grey or traffic-light dots. It is
+        /* The accent rather than the usual grey or traffic-light dots. It is
            the one spot of colour inside the chrome, so the frame reads as ours
            instead of as a generic browser mockup. */
         .bf-dot {
           width: 8px; height: 8px;
           border-radius: 9999px;
-          background: #ED5C1B;
+          background: var(--brand);
         }
 
         .bf-domain {
@@ -384,7 +406,7 @@ const SelectedWorkSection: React.FC = () => {
         .bf-view {
           aspect-ratio: 16 / 10;
           overflow: hidden;
-          background: #0F0F0F;
+          background: #111111;
         }
         .bf-img {
           width: 100%;
@@ -397,35 +419,55 @@ const SelectedWorkSection: React.FC = () => {
         }
         .cf-shot:hover .bf-img { transform: scale(1.03); }
 
-        /* ── Navigation — the site's own steel button, not a glass disc ── */
+        /* ── Navigation — instantly's testimonial-swiper_arrow-wrap ──
+           Two 56px discs, centred as a pair BELOW the deck with 16px between
+           them, rather than one pinned to each edge of the stage. Theirs are
+           not a symmetric pair: prev is white and next carries the brand blue,
+           so the control that advances the story is the one that reads as a
+           button. Copying that asymmetry is most of what makes the band look
+           designed rather than defaulted.
+
+           They also stop overlapping the flanking cards, which is why the
+           edge-pinned version had to be hidden on mobile. */
+        .cf-nav-row {
+          display: flex;
+          justify-content: center;
+          gap: var(--sp-16);
+          margin-top: var(--sp-32);
+        }
         .cf-nav {
-          position: absolute;
-          top: 50%;
-          z-index: 40;
-          width: var(--btn-h);
-          height: var(--btn-h);
-          margin-top: calc(var(--btn-h) / -2);
-          border-radius: 9999px;
-          border: 1px solid var(--btn-steel-border);
-          background: var(--btn-steel);
-          box-shadow: var(--btn-steel-shadow);
-          color: #F5F5F5;
+          width: 56px;
+          height: 56px;
+          border-radius: 100%;
           display: inline-flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
+          border: 1px solid transparent;
           transition: background-color .25s ease, border-color .25s ease,
+                      filter .25s ease,
                       transform .25s cubic-bezier(.23,1,.32,1);
         }
         .cf-nav svg { width: 17px; height: 17px; }
-        .cf-nav:hover {
-          background: var(--btn-steel-hover);
-          border-color: var(--btn-steel-border-hover);
-          color: #ffffff;
-        }
         .cf-nav:active { transform: scale(0.94); }
-        .cf-prev { left: clamp(10px, 4vw, 56px); }
-        .cf-next { right: clamp(10px, 4vw, 56px); }
+        .cf-prev {
+          background: var(--btn-plain-bg);
+          border-color: var(--btn-plain-border);
+          box-shadow: var(--shadow-soft);
+          color: var(--ink);
+        }
+        .cf-prev:hover { border-color: var(--btn-plain-border-hover); }
+        /* The blue disc is the same gloss recipe as the primary pill, so the
+           two blue objects on the page are the same material. */
+        .cf-next {
+          background: var(--btn-gloss);
+          box-shadow: var(--btn-gloss-shadow-sm);
+          color: #FFFFFF;
+        }
+        .cf-next:hover {
+          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          box-shadow: var(--btn-gloss-shadow-sm-hover);
+        }
         .cf-prev:hover { transform: translateX(-2px); }
         .cf-next:hover { transform: translateX(2px); }
 
@@ -437,7 +479,7 @@ const SelectedWorkSection: React.FC = () => {
           align-items: center;
           justify-content: center;
           gap: 8px;
-          margin-top: clamp(22px, 3vh, 34px);
+          margin-top: var(--sp-24);
         }
         .cf-dot {
           height: 7px;
@@ -445,24 +487,27 @@ const SelectedWorkSection: React.FC = () => {
           padding: 0;
           border: none;
           border-radius: 9999px;
-          background: rgba(255, 255, 255, 0.22);
+          background: var(--line-2);
           cursor: pointer;
           transition: width .35s cubic-bezier(.23,1,.32,1),
                       background-color .3s ease;
         }
         .cf-dot[aria-current="true"] {
           width: 26px;
-          background: #ED5C1B;
+          background: var(--brand);
         }
-        .cf-dot:hover { background: rgba(255, 255, 255, 0.42); }
-        .cf-dot[aria-current="true"]:hover { background: #ED5C1B; }
+        .cf-dot:hover { background: #C2C5CE; }
+        .cf-dot[aria-current="true"]:hover { background: var(--brand); }
 
         /* ── Section CTA (funnel: every section ends at the form) ── */
         .pw-hint {
           display: none;
           font-family: var(--font-sans);
           font-size: 13px;
-          color: rgba(255, 255, 255, 0.55);
+          /* Sits in the CTA row BELOW the panel, i.e. on the light page — not
+             inside the dark panel with the deck. It kept the panel's white and
+             was invisible on #F7F8FB. */
+          color: var(--text-muted);
           text-align: center;
           margin: 18px 0 0;
         }
@@ -472,7 +517,7 @@ const SelectedWorkSection: React.FC = () => {
           justify-content: center;
           gap: var(--btn-gap);
           min-height: var(--btn-h);
-          margin-top: clamp(26px, 3.5vh, 40px);
+          margin-top: var(--sp-32);
           padding: 0 var(--btn-px);
           border: none;
           border-radius: 9999px;
@@ -488,20 +533,26 @@ const SelectedWorkSection: React.FC = () => {
                       transform 160ms cubic-bezier(.23,1,.32,1);
         }
         .pw-cta:hover {
-          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          background: var(--btn-gloss-hover);
           box-shadow: var(--btn-gloss-shadow-hover);
           transform: translateY(-1px);
         }
         .pw-cta:active { transform: scale(0.98); }
         .pw-cta svg { width: 15px; height: 15px; }
         .cf-cta-row { text-align: center; }
+        /* 24px under the standfirst — the same gap .leads-cta uses, so this
+           band's header scans identically to the five in the body. */
+        .work-cta { margin-top: var(--sp-24); text-align: center; }
 
         @media (max-width: 767px) {
+          /* Steps down with .leads above it — 128px of bottom padding
+             on a phone is a fifth of a screen of nothing. */
+          .work-section { padding-bottom: var(--sp-64); }
           .work-title { max-width: 100%; }
           /* The arrows would sit on top of the flanking cards on a 390px
              screen. Touch has the swipe and the dots; the arrows are a
              pointer-device affordance. */
-          .cf-nav { display: none; }
+          .cf-nav { width: 48px; height: 48px; }
           .cf-meta { padding: 14px 2px 0; }
           .pw-cat { font-size: 12px; margin-bottom: 8px; }
           .bf-domain { font-size: 12px; }
@@ -522,6 +573,15 @@ const SelectedWorkSection: React.FC = () => {
       <div className="work-inner">
         <Reveal>
           <h2 className="work-title">{t("work.section_title")}</h2>
+          <p className="work-sub">{t("portfolio.title")}</p>
+          <div className="work-cta">
+            <ContactCTA mode="modal">
+              <button type="button" className="pw-cta">
+                {t("nav.cta")}
+                {ArrowUpRight}
+              </button>
+            </ContactCTA>
+          </div>
         </Reveal>
       </div>
 
@@ -603,14 +663,17 @@ const SelectedWorkSection: React.FC = () => {
             );
           })}
 
-          <button type="button" className="cf-nav cf-prev" onClick={() => go(-1)} aria-label={t("work.prev")}>
-            {ChevronLeft}
-          </button>
-          <button type="button" className="cf-nav cf-next" onClick={() => go(1)} aria-label={t("work.next")}>
-            {ChevronRight}
-          </button>
         </div>
       </Reveal>
+
+      <div className="cf-nav-row">
+        <button type="button" className="cf-nav cf-prev" onClick={() => go(-1)} aria-label={t("work.prev")}>
+          {ChevronLeft}
+        </button>
+        <button type="button" className="cf-nav cf-next" onClick={() => go(1)} aria-label={t("work.next")}>
+          {ChevronRight}
+        </button>
+      </div>
 
       <div className="cf-dots">
         {PROJECTS.map((p, i) => (
@@ -625,15 +688,11 @@ const SelectedWorkSection: React.FC = () => {
         ))}
       </div>
 
-      <div className="work-inner cf-cta-row">
-        {isMobile && <p className="pw-hint">{t("work.swipe_hint")}</p>}
-        <ContactCTA>
-          <button type="button" className="pw-cta">
-            {t("nav.cta")}
-            {ArrowUpRight}
-          </button>
-        </ContactCTA>
-      </div>
+      {isMobile && (
+        <div className="work-inner cf-cta-row">
+          <p className="pw-hint">{t("work.swipe_hint")}</p>
+        </div>
+      )}
     </section>
   );
 };

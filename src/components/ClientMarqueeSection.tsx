@@ -5,16 +5,22 @@ import { useTranslation } from "react-i18next";
 import Reveal from "@/components/Reveal";
 
 /**
- * Client proof band — a 6 x 2 grid of client logos, nothing else. It sits
- * directly under the hero because that is where a promise has to be paid for:
- * the headline claims sites built to convert, and the next thing on the page is
- * who trusted that claim.
+ * Client proof band — logos, nothing else. It renders INSIDE the hero panel
+ * (see Hero.tsx), directly under the form: the headline claims sites built to
+ * convert, and the next thing in the same frame is who trusted that claim.
  *
- * There is deliberately no sizing logic in this file. scripts/optimize-logos.mjs
- * measures each source logo's ink coverage, scales it toward a constant optical
- * weight and centres it on one shared 400x165 frame, so every file that lands in
+ * It lives on the dark panel rather than on the light page for a hard reason,
+ * not a stylistic one: scripts/optimize-logos.mjs repaints every source logo
+ * WHITE and keeps only its alpha, so these files are invisible on #F7F8FB. If
+ * this band ever has to move onto the light page, either re-run
+ * `npm run optimize-logos` with a dark ink or add
+ * `filter: brightness(0) opacity(.55)` — do not just move the markup.
+ *
+ * There is deliberately no sizing logic in this file. The script measures each
+ * source logo's ink coverage, scales it toward a constant optical weight and
+ * centres it on one shared 400x165 frame, so every file that lands in
  * public/logos/opt is the same size with the artwork already balanced. That is
- * why a single `width: 100%` gives twelve cells that line up: the frames are
+ * why a single `width: 100%` gives cells that line up: the frames are
  * identical, so the rows cannot go ragged and swapping a logo cannot break the
  * layout. Run `npm run optimize-logos` after adding or replacing a source file
  * and read that script before changing how big anything looks here.
@@ -48,23 +54,44 @@ const ClientMarqueeSection: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="cm-section" aria-label={t("whatwedo.clients_eyebrow")}>
+    <div className="cm-band" aria-label={t("whatwedo.clients_eyebrow")}>
       <style>{`
-        .cm-section {
+        .cm-band {
           position: relative;
           width: 100%;
-          background: #0F0F0F;
-          padding: clamp(56px, 8vh, 104px) 0;
+        }
+        /* Hairline above the band, so it reads as a footer to the panel rather
+           than as a fourth stacked element. White at 14% — anything stronger
+           becomes a rule and cuts the panel in two. */
+        .cm-band::before {
+          content: '';
+          display: block;
+          height: 1px;
+          background: rgba(255, 255, 255, 0.14);
+          margin-bottom: clamp(24px, 3vw, 34px);
+        }
+        /* used-by_title: 14/400, full white, with a 20px spacer under it
+           (spacer-xsmall is-1-25rem). It ran at 12.5px in a 62%-opacity grey,
+           which read as a caption apologising for the logos below it. */
+        .cm-label {
+          font-family: var(--font-sans);
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.5;
+          letter-spacing: normal;
+          color: #FFFFFF;
+          text-align: center;
+          margin: 0 0 20px;
         }
         .cm-grid {
-          max-width: 1280px;
+          max-width: 980px;
           margin: 0 auto;
-          padding: 0 clamp(20px, 3vw, 40px);
           list-style: none;
+          padding: 0;
           display: grid;
           grid-template-columns: repeat(6, 1fr);
-          column-gap: clamp(16px, 2.2vw, 36px);
-          row-gap: clamp(26px, 4vh, 48px);
+          column-gap: clamp(14px, 2vw, 30px);
+          row-gap: clamp(14px, 2.2vw, 26px);
           justify-items: center;
           align-items: center;
         }
@@ -80,17 +107,20 @@ const ClientMarqueeSection: React.FC = () => {
           display: block;
           width: 100%;
           height: auto;
-          opacity: 0.88;
+          /* Lower than the old 0.88. On the dark page these sat alone; inside
+             the panel they share the frame with a white headline and a white
+             card, and at full strength twelve marks out-shout both. */
+          opacity: 0.68;
           transition: opacity 0.3s ease;
         }
         .cm-word {
           font-family: var(--font-sans);
           font-weight: 600;
-          font-size: clamp(1.3rem, 2.2vw, 1.85rem);
+          font-size: clamp(1.05rem, 1.8vw, 1.4rem);
           line-height: 1;
           letter-spacing: -0.03em;
           color: #FFFFFF;
-          opacity: 0.88;
+          opacity: 0.68;
           transition: opacity 0.3s ease;
           white-space: nowrap;
         }
@@ -98,12 +128,12 @@ const ClientMarqueeSection: React.FC = () => {
         .cm-cell:hover .cm-word { opacity: 1; }
 
         @media (max-width: 900px) {
-          .cm-grid { grid-template-columns: repeat(3, 1fr); }
+          .cm-grid { grid-template-columns: repeat(4, 1fr); }
         }
         @media (max-width: 520px) {
           .cm-grid {
-            grid-template-columns: repeat(2, 1fr);
-            column-gap: 18px;
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 14px;
           }
         }
 
@@ -115,6 +145,7 @@ const ClientMarqueeSection: React.FC = () => {
       {/* blur={0}: the subtree holds twelve images and blur() re-rasterises all
           of it on every frame of the reveal. */}
       <Reveal blur={0}>
+        <p className="cm-label">{t("whatwedo.clients_eyebrow")}</p>
         <ul className="cm-grid">
           {CELLS.map((cell) => (
             <li className="cm-cell" key={cell.kind === "logo" ? cell.file : cell.name}>
@@ -125,9 +156,9 @@ const ClientMarqueeSection: React.FC = () => {
                   alt={cell.name}
                   width={400}
                   height={165}
-                  /* Deliberately not lazy: the whole set is ~63KB and the
-                     section is already code-split behind Suspense, so nothing
-                     downloads until the band is reached anyway. */
+                  /* Deliberately not lazy: the whole set is ~63KB and the band
+                     is already code-split behind Suspense, so nothing
+                     downloads until the hero chunk resolves anyway. */
                   decoding="async"
                   draggable={false}
                 />
@@ -138,7 +169,7 @@ const ClientMarqueeSection: React.FC = () => {
           ))}
         </ul>
       </Reveal>
-    </section>
+    </div>
   );
 };
 

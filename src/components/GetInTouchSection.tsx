@@ -1,11 +1,41 @@
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
-import ContactForm from "@/components/ContactForm";
+import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
+import ShaderBackground from "@/components/ShaderBackground";
 
-// Same orange highlight pill used across the site (statement/compounding).
-const pillComponents = { pill: <span className="touch-pill" /> };
+// Same highlight used across the site (offer/compounding).
+const pillComponents = { pill: <span className="hl" /> };
 
+/**
+ * The closing CTA — instantly.ai's `section_cta`, measured off the live page
+ * and reproduced to the pixel:
+ *
+ *   .padding-16px            16px gutter, so the panel lands at 1408
+ *     section_cta            radius 24, animated field behind everything
+ *       padding-global       72px side gutters
+ *         padding-section-xlarge   184px top AND bottom
+ *           h2               40/600, ls -2px, white, centred
+ *           ↓12              spacer-xxsmall is-0-75rem
+ *           p                16/400/24, white, centred, short measure
+ *           ↓32              spacer-medium
+ *           button           41px pill
+ *
+ *   184 + 224 of content + 184 = 592, which is the panel height on their page.
+ *
+ * It carried the full contact form until now, which made it 958px tall and the
+ * single heaviest object on the page. The form lives in the hero, where the
+ * visitor meets it first; down here the panel does what instantly's does —
+ * makes the ask, and opens the form in place rather than sending anyone
+ * somewhere. The button is `mode="modal"` for exactly that reason: with no
+ * inline form left in this section, an "auto" CTA would smooth-scroll to a
+ * section that no longer has anywhere to land.
+ *
+ * It is deliberately the same object as the hero. The page opens on a dark
+ * panel making a promise and closes on a dark panel asking for the phone
+ * number, with the light argument in between. Those two panels are also the
+ * page's only two WebGL surfaces.
+ */
 const GetInTouchSection = () => {
   const { t } = useTranslation();
 
@@ -13,143 +43,106 @@ const GetInTouchSection = () => {
     <>
       <style>{`
         .touch-section {
-          --orange: #ED5C1B;
-          --ink: #F5F5F5;
+          position: relative;
+          padding: 0;
+          background: var(--page);
+        }
+        .touch-panel {
+          position: relative;
+          isolation: isolate;
+          width: calc(100vw - var(--panel-gutter) * 2);
+          max-width: var(--w-panel);
+          margin-inline: auto;
+          border-radius: var(--r-panel);
+          /* Clips the canvas to the radius. */
+          overflow: hidden;
+          background: var(--panel-ink);
+          box-shadow: var(--shadow-panel);
+        }
+        .touch-bg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+          pointer-events: none;
+        }
+        /* Sinks the field under the copy — same job as .hero-scrim. */
+        .touch-scrim {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background:
+            linear-gradient(180deg, rgba(4, 14, 34, 0.34) 0%, rgba(4, 14, 34, 0.10) 34%, rgba(4, 14, 34, 0) 58%),
+            radial-gradient(90% 52% at 50% 30%, rgba(4, 14, 34, 0.30) 0%, rgba(4, 14, 34, 0) 72%);
+        }
+        /* padding-global + padding-section-xlarge, theirs exactly. The 184px is
+           the largest vertical value anywhere on the page and it is what makes
+           this panel read as an ending rather than as one more section. */
+        .touch-inner {
+          position: relative;
+          z-index: 1;
+          max-width: var(--w-page);
+          margin: 0 auto;
+          text-align: center;
+          padding: 184px var(--page-gutter);
         }
 
-        .touch-section {
-          position: relative;
-          padding: clamp(56px, 7.5vh, 96px) 0 clamp(48px, 6vh, 80px);
-          background: #0F0F0F;
-        }
         .touch-title {
           font-family: var(--font-sans);
-          font-weight: 500;
+          font-weight: var(--text-heading-weight);
           font-size: var(--text-section-title);
-          line-height: 1.15;
-          letter-spacing: -0.022em;
-          color: var(--ink);
-          margin: 0 0 clamp(32px, 4vh, 56px);
+          line-height: var(--text-heading-lh);
+          letter-spacing: var(--text-heading-ls);
+          color: #FFFFFF;
+          margin: 0 auto;
+          max-width: 22ch;
+          text-wrap: balance;
         }
-
+        /* 12px under the heading — spacer-xxsmall is-0-75rem, not the 16px the
+           light sections use. Theirs is tighter on the dark panels. */
         .touch-description {
-          max-width: 56ch;
-          margin: 0 auto 2rem auto;
+          max-width: 46ch;
+          margin: var(--sp-12) auto 0;
           line-height: var(--text-body-lh);
           letter-spacing: var(--text-body-ls);
-          color: rgba(255, 255, 255, 0.84);
+          color: var(--on-panel-muted);
           font-family: var(--font-sans);
           font-weight: 400;
           font-size: var(--text-body);
           text-wrap: balance;
         }
-
-        .touch-pill {
-          background: #ED5C1B;
-          color: #ffffff;
-          font-weight: 700;
-          padding: 3px 11px;
-          border-radius: 7px;
-          -webkit-box-decoration-break: clone;
-          box-decoration-break: clone;
-          letter-spacing: -0.005em;
+        /* .hl is ink-coloured for the light page; on this panel that is
+           near-black on dark blue. White + the same 600 weight keeps the
+           emphasis doing its job. */
+        .touch-description .hl { color: #FFFFFF; }
+        /* 32px — spacer-medium. */
+        .touch-actions {
+          display: flex;
+          justify-content: center;
+          gap: var(--sp-16);
+          margin-top: var(--sp-32);
         }
 
-        @media (min-width: 640px) {
-          .touch-description { margin-bottom: 2.4rem; }
+        /* Webflow's breakpoints. 184px of padding on a phone is half a screen
+           of nothing, so it steps down twice — but the panel keeps its shape:
+           heading, one short paragraph, one button, nothing else. */
+        @media (max-width: 991px) {
+          .touch-inner { padding: 128px var(--sp-32); }
         }
-
-        .touch-content-box {
-          position: relative;
-          max-width: 1180px;
-          width: 90%;
-          text-align: center;
-          padding: 48px 40px;
-          border-radius: 28px;
-          background: transparent;
-          border: none;
-          box-shadow: none;
-          backdrop-filter: none;
-          margin: 0 auto;
-        }
-
-        /* 3D paper plane accent — reinforces the "send your message" intent */
-        .touch-plane {
-          position: absolute;
-          top: clamp(-18px, -0.8vw, -4px);
-          right: clamp(2%, 6vw, 11%);
-          width: clamp(74px, 9vw, 126px);
-          height: auto;
-          pointer-events: none;
-          filter: drop-shadow(0 22px 30px rgba(38, 38, 38, 0.20));
-          animation: plane-float 5.5s ease-in-out infinite;
-          will-change: transform;
-          z-index: 2;
-        }
-        @keyframes plane-float {
-          0%, 100% { transform: translateY(0) rotate(-5deg); }
-          50%      { transform: translateY(-16px) rotate(-2deg); }
-        }
-
-        /* Inline form — dark card in a double-bezel shell, mirroring the hero */
-        .touch-form-shell {
-          max-width: 656px;
-          margin: 0 auto;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.10);
-          border-radius: 27px;
-          padding: 7px;
-          box-shadow: 0 40px 90px -48px rgba(0, 0, 0, 0.7);
-        }
-        .touch-form {
-          text-align: left;
-          padding: 30px 40px 40px;
-          background: #161616;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 20px;
-        }
-        /* Same header pattern as the hero form card */
-        .touch-form-title {
-          font-family: var(--font-sans);
-          font-size: 1.15rem;
-          font-weight: 600;
-          letter-spacing: -0.015em;
-          color: #F5F5F5;
-          margin: 0 0 4px;
-        }
-        .touch-form-note {
-          font-family: var(--font-sans);
-          font-size: 12.5px;
-          color: rgba(255, 255, 255, 0.72);
-          margin: 0 0 18px;
-        }
-
         @media (max-width: 768px) {
-          .touch-content-box { width: 100%; padding: 28px 16px; border-radius: 16px; }
-          .touch-title { margin-bottom: 56px; }
-          .touch-description { margin-bottom: 1.4rem; }
-          .touch-form { padding: 28px 20px 32px; border-radius: 18px; }
-          .touch-plane { width: 56px; right: 5%; top: -16px; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .touch-plane { animation: none; }
+          .touch-panel { border-radius: 18px; }
+          .touch-inner { padding: var(--sp-80) var(--sp-24); }
+          .touch-actions { margin-top: var(--sp-24); }
         }
       `}</style>
 
-      {/* eliminat spațiul de jos: pb-0 */}
-      <section className="w-full touch-section" id="contact">
-        <div className="container px-4 sm:px-6 lg:px-8 mx-auto relative">
-          <div className="touch-content-box">
-            <img
-              src="/plane.webp"
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              decoding="async"
-              width={1000}
-              height={1000}
-              className="touch-plane"
-            />
+      <section className="touch-section" id="contact">
+        <div className="touch-panel">
+          <ShaderBackground className="touch-bg" />
+          <div className="touch-scrim" aria-hidden="true" />
+
+          <div className="touch-inner">
             {/* Scroll-gated, not mount-gated. These used to be CSS keyframes
                 firing on mount — but the section is lazy-loaded, so the chunk
                 mounts on scroll PROXIMITY and the animation regularly played
@@ -160,20 +153,21 @@ const GetInTouchSection = () => {
             <Reveal delay={80}>
               <p className="touch-description">
                 <Trans i18nKey="contact.description_l1" components={pillComponents} />
-                <br />
+                {" "}
                 <Trans i18nKey="contact.description_l2" components={pillComponents} />
               </p>
             </Reveal>
-
-            {/* blur={0}: form controls under a filter rasterise badly and the
-                shell is a large painted area. */}
-            <Reveal delay={160} blur={0}>
-              <div className="touch-form-shell">
-                <div className="touch-form">
-                  <h3 className="touch-form-title">{t("hero_v3.form_title")}</h3>
-                  <p className="touch-form-note">{t("hero_v3.form_note")}</p>
-                  <ContactForm />
-                </div>
+            <Reveal delay={160}>
+              <div className="touch-actions">
+                <ContactCTA mode="modal">
+                  <button type="button" className="btn btn-primary">
+                    {t("offer.cta")}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+                         strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M7 17L17 7M9 7h8v8" />
+                    </svg>
+                  </button>
+                </ContactCTA>
               </div>
             </Reveal>
           </div>

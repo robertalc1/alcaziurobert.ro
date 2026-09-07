@@ -1,33 +1,42 @@
-/* General Sans — self-hosted (public/fonts/), single typeface for the whole site.
-   Previously loaded from Fontshare's CDN via a render-blocking <link rel="stylesheet">;
-   self-hosting removes that extra DNS/connection + CSS round-trip before text can paint. */
+/* Figtree — self-hosted (public/fonts/), single typeface for the whole site.
+   SIL Open Font License 1.1, from Google Fonts.
+
+   It stands in for Averta Std, which is what instantly.ai actually uses. Averta
+   is a commercial licence served off their own Webflow CDN; copying those files
+   here would be infringement and would break the day they rotate the URLs.
+   Figtree is the closest freely-licensable match — same geometric-humanist
+   skeleton, and at the heading metric (40px / 600 / -0.05em) the difference is
+   hard to see.
+
+   TWO SUBSETS, and the second one is not optional: this is a Romanian site.
+     latin      — every base letter, plus â (U+00E2) and î (U+00EE)
+     latin-ext  — ă (U+0103), ș (U+0219), ț (U+021B) and their capitals
+   Ship only `latin` and every ă/ș/ț on the page silently falls back to a
+   system font mid-word. The unicode-range on each block is copied verbatim
+   from Google's own CSS so the browser fetches exactly what it needs.
+
+   Both files are VARIABLE (weight 300-900), so all four weights the site uses
+   come out of one request per subset — 30KB total, where the four static
+   General Sans files it replaced were 90KB. */
 @font-face {
-  font-family: 'General Sans';
-  src: url('/fonts/general-sans-400.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'Figtree';
+  src: url('/fonts/figtree-latin-ext.woff2') format('woff2');
+  font-weight: 300 900;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
-  font-family: 'General Sans';
-  src: url('/fonts/general-sans-500.woff2') format('woff2');
-  font-weight: 500;
+  font-family: 'Figtree';
+  src: url('/fonts/figtree-latin.woff2') format('woff2');
+  font-weight: 300 900;
   font-style: normal;
   font-display: swap;
-}
-@font-face {
-  font-family: 'General Sans';
-  src: url('/fonts/general-sans-600.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'General Sans';
-  src: url('/fonts/general-sans-700.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @tailwind base;
@@ -36,18 +45,133 @@
 
 @layer base {
   :root {
-    --font-sans: 'General Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     --font-mono: ui-monospace, 'JetBrains Mono', 'Geist Mono', 'SF Mono', Menlo, monospace;
     --ease-out-quart: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
     --duration-fast: 160ms;
     --duration-medium: 220ms;
-    --orange: #ED5C1B;
-    --ink: #F5F5F5;
-    --bg: #0F0F0F;
-    --bg-elevated: #1A1A1A;
+    /* ── Brand accent ──
+       instantly.ai's blue, read off the live site (rgb(69,128,247)). It
+       replaced the orange on 2026-09-06 when the brief became "identical to
+       instantly", and it is now the only accent on the site: links, icons,
+       numerals, active states, the shader ramp.
+
+       ⚠ NAME COLLISION — read before adding a token.
+       shadcn/Radix owns a set of names in this same :root block further down
+       (--background, --foreground, --card, --popover, --primary, --secondary,
+       --muted, --accent, --destructive, --border, --input, --ring). Those hold
+       bare HSL TRIPLES, consumed as hsl(var(--x)) by tailwind.config.ts — they
+       are not colours on their own.
+
+       Reusing one of those names for a real colour is silent breakage: the
+       shadcn block is declared LAST, so it wins, and every `color: var(--x)`
+       resolves to something like "225 33% 97.6%", which is not a colour, so the
+       declaration is dropped and the element quietly inherits. It cost two
+       debugging rounds here — once as --muted (now --text-muted) and once as
+       --accent (now --brand). Prefix anything new rather than risk a third.
+
+       --orange is kept as an alias, not as a colour: a dozen components still
+       name it, and repointing it here converts all of them in one place. */
+    --brand: #4580F7;
+    --brand-strong: #1257C4;
+    --brand-soft: rgba(69, 128, 247, 0.12);
+    --orange: var(--brand);
     --btn-radius: 10px;
+
+    /* ── Surface palette — light, measured off instantly.ai ──
+       The page went light on 2026-09-06. Every colour a section paints with
+       resolves to one of these; no component declares a raw hex any more.
+
+       There is exactly ONE grey for text (--muted). That is not an aesthetic
+       preference, it is the thing that makes a light page read as designed
+       rather than assembled: the moment a second grey appears, two sections
+       that should be siblings stop looking related. #6D727E is instantly's,
+       and it clears 4.56:1 on --page, so it is legal for body copy.
+
+       Note the accent's contrast: #4580F7 on white is 3.69:1. That passes
+       AA-large and UI components and FAILS AA for body text. The accent is for
+       headings, highlight chips, numerals, icons and borders — never a
+       paragraph. Body copy is --text-muted or --ink, nothing else. */
+    --page: #F7F8FB;
+    --page-alt: #FBFBFC;
+    --surface: #FFFFFF;
+    --line: #EDEDEF;        /* card borders, row dividers */
+    --line-2: #E4E4E7;      /* form fields, segmented tracks — one step darker */
+    --ink: #0A0A0A;         /* headings */
+    --ink-2: #14171F;       /* strong body */
+    --text-muted: #6D727E;  /* the only grey */
+
+    /* Inside the two showcase panels (hero and the closing CTA — the only two
+       left). Same value as the shader ramp's first stop, so a panel whose WebGL
+       fails to start is still the right colour rather than black. */
+    --panel-ink: #0B2A5C;
+    --on-panel: #FFFFFF;
+    --on-panel-muted: rgba(255, 255, 255, 0.78);
+
+    /* ── Radii — four values, from instantly's census ──
+       16 cards · 24 panels · 100 pills · 12 form fields. */
+    --r-card: 16px;
+    --r-panel: 24px;
+    --r-pill: 100px;
+    --r-field: 12px;
+
+    /* Layered and very low-alpha on purpose. A light page cannot carry a
+       single hard shadow — it reads as a drop shadow from 2012. This is
+       instantly's stack: three offsets, none above 4% black. */
+    --shadow-soft:
+      0 2.55px 4.34px rgba(0, 0, 0, 0.02),
+      0 11.23px 8.98px rgba(0, 0, 0, 0.03),
+      0 30px 24px rgba(0, 0, 0, 0.04);
+    /* For the panels that lift off the page (hero, final CTA). */
+    --shadow-panel: 0 30px 70px -20px rgba(0, 0, 0, 0.22);
+
+    /* ── Widths — measured off instantly.ai at 1440px ──
+       Their nav starts at x=72, their content column is 1040 wide (x=200) and
+       the text inside it is held to 880 (x=280). The full-bleed panels sit 16px
+       off the viewport edge, which is why they come out at 1408.
+
+       Four numbers, every section picks one; nothing invents a fifth. */
+    --w-page: 1296px;   /* 1440 − 2×72 page gutter */
+    --w-panel: 1408px;  /* 1440 − 2×16 panel gutter */
+    --w-inner: 1040px;  /* the content column */
+    --w-text: 880px;    /* the measure for centred running text */
+    --page-gutter: 72px;
+    --panel-gutter: 16px;
+
+    /* ── Fixed chrome above the page ──
+       --bar-h-base is how tall the announcement bar is when it is showing.
+       --bar-h is how much room it is actually taking RIGHT NOW: the bar
+       component rewrites it to 0px when dismissed, and the navbar and hero
+       both position off it. That indirection is the reason nothing else on the
+       page has a hardcoded offset for the bar. Default 0px so a page rendered
+       before the component mounts (prerender, JS off) is not pushed down by a
+       bar that is not there. */
+    --bar-h-base: 52px;
+    --bar-h: 0px;
+    --nav-h: 72px;
+
+    /* ── Spacing scale ──
+       instantly is built on Webflow's Client-First spacer set, and the page's
+       whole vertical rhythm is these values and nothing between them. Measured
+       from the live DOM: heading→sub is 16, sub→button is 24, button→panel is
+       48, and panel→next heading is 128.
+
+       Use these instead of inventing a clamp(). The one thing that made the old
+       page read as "assembled" was that every section had its own clamp, so no
+       two gaps in the page were ever the same number. */
+    --sp-8: 8px;
+    --sp-12: 12px;
+    --sp-16: 16px;
+    --sp-24: 24px;
+    --sp-32: 32px;
+    --sp-48: 48px;
+    --sp-64: 64px;
+    --sp-80: 80px;
+    --sp-96: 96px;
+    --sp-128: 128px;
+    --sp-160: 160px;
 
     /* ── Text scale — ONE size per role, for the whole site ──
        Same story as the button block below. The running copy had drifted to
@@ -68,15 +192,30 @@
        Deliberately NOT on these tokens: micro-labels (kickers, meta rows,
        field labels), buttons (--btn-font) and form controls. Those are
        different kinds of text, not scaled versions of this one. */
-    --text-body: clamp(1rem, 1.2vw, 1.0625rem);         /* 16px → 17px */
-    --text-body-lh: 1.55;
-    --text-body-ls: -0.015em;
+    /* Body: instantly's is a flat 16px on a 24px line with NORMAL tracking.
+       The tracking matters — this used to run at -0.015em, and negative
+       tracking on 16px copy is what makes a page feel slightly cramped without
+       anyone being able to say why. Their headings are tight; their body is
+       not. Do not put the negative tracking back. */
+    --text-body: 16px;
+    --text-body-lh: 1.5;                                /* 24px */
+    --text-body-ls: normal;
     /* Card titles — one step above body, one step below a section title. */
-    --text-card-title: clamp(1.25rem, 1.7vw, 1.5rem);   /* 20px → 24px */
+    --text-card-title: 20px;
     /* Section titles — every section heading on the page, and the offer
        section's problem line, which has to match the heading it sets up.
-       Six sections hardcoded this identical clamp before it moved here. */
-    --text-section-title: clamp(1.5rem, 3.4vw, 2.1rem); /* 24px → 34px */
+       Six sections hardcoded this identical clamp before it moved here.
+
+       Re-tared 2026-09-06 onto instantly.ai's measured metric: 40px at the
+       top end, weight 600, tracking -0.05em, leading 1.1. The tracking and
+       the leading are the half that matters — a 40px heading at normal
+       tracking and 1.35 leading is a different typeface's worth of
+       difference. --text-heading-* below travel with the size so no section
+       can take one without the others. */
+    --text-section-title: 40px;
+    --text-heading-weight: 600;
+    --text-heading-ls: -0.05em;   /* -2px at 40px, exactly theirs */
+    --text-heading-lh: 1.1;       /* 44px at 40px, exactly theirs */
 
     /* ── Button size — ONE size for every CTA on the site ──
        There used to be eight different heights (42/44/44/48/50/52/52 plus a
@@ -104,8 +243,9 @@
     --reveal-duration: 800ms;
     --reveal-ease: var(--ease-out-quart);
 
-    --nav-glass-bg: rgba(13, 13, 14, 0.55);
+    --nav-glass-bg: rgba(255, 255, 255, 0.86);
     --nav-glass-blur: 40px;
+    --nav-glass-line: var(--line);
 
     /* ── Button finish — single source of truth for every CTA on the site ──
        Two families, nothing else:
@@ -115,32 +255,56 @@
        declaring a flat colour, so the finish is tuned in ONE place. Hover
        brightens the gloss with `filter` (gradients don't interpolate, filters
        do) and swaps the steel gradient, which is subtle enough to snap. */
-    --btn-gloss: linear-gradient(180deg, #F76F30 0%, #ED5C1B 46%, #D9500F 100%);
+    /* Glossy pill — the site's own button, restored, in the brand blue.
+
+       This is the recipe the page had before the flat-black instantly pill
+       briefly replaced it: a three-stop vertical gradient, a white inset along
+       the top edge, a dark inset along the bottom, and a coloured bloom under
+       the control. It reads as a physical, pressable object, which a flat fill
+       does not, and it is the one thing on this page that is ours rather than
+       instantly's.
+
+       The stops are the ORIGINAL ORANGE RAMP transposed to blue, hue for hue:
+       the orange ran L 57.8% -> 51.8% -> 45.5% at a constant hue of 19deg, so
+       the blue runs the same +-6 points of lightness at hue 220deg, seated on
+       the brand #4580F7. Keep that shape if you retune it — the shallow
+       12-point spread is what stops the gradient reading as a 2010 web button.
+
+       Hover BRIGHTENS with `filter` rather than swapping a colour: gradients do
+       not interpolate between two background values, filters do, so that is the
+       only way the transition is smooth. --btn-gloss-hover exists for the few
+       consumers that set `background` directly on :hover. */
+    --btn-gloss: linear-gradient(180deg, #6294F8 0%, #4580F7 46%, #286CF6 100%);
+    --btn-gloss-hover: linear-gradient(180deg, #7BA5F9 0%, #5B90F8 46%, #3D7BF7 100%);
     --btn-gloss-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.34),
       inset 0 -1px 0 rgba(0, 0, 0, 0.28),
-      0 12px 30px -12px rgba(237, 92, 27, 0.62);
+      0 12px 30px -12px rgba(69, 128, 247, 0.62);
     --btn-gloss-shadow-hover:
       inset 0 1px 0 rgba(255, 255, 255, 0.42),
       inset 0 -1px 0 rgba(0, 0, 0, 0.30),
-      0 16px 38px -12px rgba(237, 92, 27, 0.78);
+      0 16px 38px -12px rgba(69, 128, 247, 0.78);
     --btn-gloss-brightness: 1.06;
     /* Same recipe, tighter bloom — for buttons under ~46px tall (nav, FAB),
        where the full-size glow spills past the control and reads as a smudge. */
     --btn-gloss-shadow-sm:
       inset 0 1px 0 rgba(255, 255, 255, 0.34),
       inset 0 -1px 0 rgba(0, 0, 0, 0.28),
-      0 6px 16px -8px rgba(237, 92, 27, 0.55);
+      0 6px 16px -8px rgba(69, 128, 247, 0.55);
     --btn-gloss-shadow-sm-hover:
       inset 0 1px 0 rgba(255, 255, 255, 0.42),
       inset 0 -1px 0 rgba(0, 0, 0, 0.30),
-      0 9px 22px -8px rgba(237, 92, 27, 0.72);
+      0 9px 22px -8px rgba(69, 128, 247, 0.72);
     /* Insets only — for chips inside a bordered track (segmented language
        switcher), where an outer bloom would leak past the track's edge. */
     --btn-gloss-shadow-flat:
       inset 0 1px 0 rgba(255, 255, 255, 0.30),
       inset 0 -1px 0 rgba(0, 0, 0, 0.26);
 
+    /* Steel — white-on-translucent. It only works ON a dark surface, so since
+       the page went light it is scoped to .btn-on-dark: the portfolio cards
+       and anything else sitting inside a dark panel. It is NOT the page's
+       secondary button any more; see --btn-plain below. */
     --btn-steel: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.07) 52%, rgba(255, 255, 255, 0.03) 100%);
     --btn-steel-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.12) 52%, rgba(255, 255, 255, 0.06) 100%);
     --btn-steel-shadow:
@@ -148,26 +312,46 @@
       inset 0 -1px 0 rgba(0, 0, 0, 0.40);
     --btn-steel-border: rgba(255, 255, 255, 0.16);
     --btn-steel-border-hover: rgba(255, 255, 255, 0.30);
-    --background: 0 0% 6%;
-    --foreground: 0 0% 96%;
-    --card: 0 0% 9%;
-    --card-foreground: 0 0% 96%;
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 96%;
-    /* Exact brand orange #ED5C1B in HSL — keeps shadcn controls on-brand */
-    --primary: 18.6 85.4% 51.8%;
+
+    /* Plain — the secondary button on the light page. Flat white, one hairline
+       border, ink label; the border darkens to full ink on hover and nothing
+       else moves. Deliberately the quietest control on the page: the orange
+       gloss pill is the only thing allowed to ask for a click. */
+    --btn-plain-bg: #FFFFFF;
+    --btn-plain-border: var(--line-2);
+    --btn-plain-border-hover: var(--ink);
+    --btn-plain-fg: var(--ink);
+    /* ── shadcn/Radix token bridge ──
+       These drive every primitive the site uses that is NOT hand-styled:
+       Dialog, Drawer, Select, Popover, Accordion, Switch, Sonner. They are the
+       same palette as the tokens above, restated in the HSL triples Tailwind's
+       theme expects — change one, change its twin.
+         --background / --card / --popover  = --surface  (#FFFFFF)
+         --foreground                       = --ink      (#0A0A0A)
+         --muted / --secondary / --accent   = --page     (#F7F8FB)
+         --muted-foreground                 = --muted    (#6D727E)
+         --border                           = --line     (#EDEDEF)
+         --input                            = --line-2   (#E4E4E7) */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 4%;
+    /* The accent #4580F7 in HSL — keeps shadcn controls on the same blue */
+    --primary: 220 92% 62%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 0 0% 14%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 0 0% 14%;
-    --muted-foreground: 0 0% 74%;
-    --accent: 0 0% 14%;
-    --accent-foreground: 0 0% 96%;
+    --secondary: 225 33% 97.6%;
+    --secondary-foreground: 0 0% 4%;
+    --muted: 225 33% 97.6%;
+    --muted-foreground: 222 7.2% 46.1%;
+    --accent: 225 33% 97.6%;
+    --accent-foreground: 0 0% 4%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 0 0% 24%;
-    --input: 0 0% 26%;
-    --ring: 18.6 85.4% 51.8%;
+    --border: 240 5.9% 93.3%;
+    --input: 240 5.9% 90%;
+    --ring: 220 92% 62%;
     --radius: 0.5rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -246,7 +430,7 @@
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     /* Canvas color for iOS rubber-band overscroll */
-    background-color: #0F0F0F;
+    background-color: var(--page);
   }
 
   /* Form controls don't inherit font-family by default — force it */
@@ -259,15 +443,15 @@
   button:focus-visible,
   [role="button"]:focus-visible,
   [tabindex]:focus-visible {
-    outline: 2px solid rgba(237, 92, 27, 0.65);
+    outline: 2px solid rgba(69, 128, 247, 0.7);
     outline-offset: 2px;
     border-radius: var(--btn-radius, 10px);
   }
 
   body {
     @apply font-sans antialiased;
-    background-color: #0F0F0F;
-    color: #F5F5F5;
+    background-color: var(--page);
+    color: var(--ink-2);
     font-family: var(--font-sans);
     letter-spacing: -0.011em;
     /* Remove the grey flash on tap — feels native/premium on mobile */
@@ -319,16 +503,16 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #1a1a1a;
+    background: var(--page);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #444;
+    background: #D4D6DC;
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #666;
+    background: #B9BCC5;
   }
 }
 
@@ -348,18 +532,315 @@
   }
 
   .section-title {
-    @apply text-[1.75rem] md:text-3xl lg:text-[2.5rem] font-display font-medium tracking-tight;
-    letter-spacing: -0.025em;
+    font-size: var(--text-section-title);
+    font-weight: var(--text-heading-weight);
+    letter-spacing: var(--text-heading-ls);
+    line-height: var(--text-heading-lh);
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
 
   .section-subtitle {
-    @apply text-lg md:text-xl text-gray-400 mt-4 max-w-3xl;
+    font-size: var(--text-body);
+    line-height: var(--text-body-lh);
+    color: var(--text-muted);
+    margin-top: 1rem;
+    max-width: var(--w-text);
   }
 
   .glass-card {
-    @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl shadow-elegant transition-all duration-300 hover:shadow-elegant-hover;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    transition: border-color var(--duration-medium) ease;
+  }
+
+  /* ============================================================
+     SECTION GRAMMAR — the shape every section on the page repeats
+     ============================================================
+     Measured off instantly.ai: centred eyebrow → centred heading →
+     centred grey sub, held to a measure → CTA → showcase panel.
+
+     It lives here rather than in each component's inline <style> for one
+     reason: the page reads as designed only while all nine sections agree
+     on this rhythm, and nine private copies of it is exactly how they stop
+     agreeing. A section that needs to differ overrides one property; it
+     does not redeclare the block. */
+
+  /* 128px above and below, which is instantly's gap between one unit's panel
+     and the next unit's heading. Not a clamp: the rhythm is the design, and a
+     clamp makes it a different number at every viewport. It steps down once,
+     below 991px (Webflow's breakpoint, which is what instantly is built on). */
+  .sec {
+    position: relative;
+    width: 100%;
+    padding: var(--sp-128) 0;
+  }
+
+  /* The page column. Panels break out of this on purpose — see .panel. */
+  .sec-wrap {
+    max-width: var(--w-page);
+    margin: 0 auto;
+    padding: 0 var(--page-gutter);
+  }
+
+  /* The header block, measured off instantly to the pixel:
+       h2  ↓16  sub  ↓24  button
+     The gaps are margins on the children rather than a flex `gap`, because the
+     two gaps are different sizes and a single gap value cannot express that. */
+  .sec-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: var(--w-text);
+    margin-inline: auto;
+  }
+
+  .sec-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin: 0 0 var(--sp-16);
+  }
+
+  .sec-title {
+    font-size: var(--text-section-title);
+    font-weight: var(--text-heading-weight);
+    letter-spacing: var(--text-heading-ls);
+    line-height: var(--text-heading-lh);
+    color: var(--ink);
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  /* 16px under the heading. instantly holds this to two lines inside an 880px
+     column — the width is what keeps it to two lines, so it is a real
+     max-width rather than a ch measure. */
+  .sec-sub {
+    font-size: var(--text-body);
+    line-height: var(--text-body-lh);
+    letter-spacing: var(--text-body-ls);
+    color: var(--text-muted);
+    margin: var(--sp-16) 0 0;
+    max-width: var(--w-text);
+    text-wrap: balance;
+  }
+
+  /* 24px under the sub. */
+  .sec-cta {
+    margin-top: var(--sp-24);
+  }
+  /* 48px from the header block to whatever it introduces. */
+  .sec-head + * {
+    margin-top: var(--sp-48);
+  }
+
+  /* ── Showcase panel ──
+     The full-bleed rounded rectangle that carries the dark/coloured content:
+     hero, portfolio carousel, final CTA. Breaks out of .sec-wrap to sit a
+     fixed gutter from the viewport edge, exactly like instantly's.
+
+     overflow: hidden is load-bearing — it is what clips the WebGL canvas to
+     the radius. isolation: isolate keeps the canvas out of the page's
+     stacking context so it cannot paint over the sticky navbar. */
+  .panel {
+    position: relative;
+    isolation: isolate;
+    width: calc(100vw - var(--panel-gutter) * 2);
+    max-width: var(--w-panel);
+    margin-inline: auto;
+    border-radius: var(--r-panel);
+    overflow: hidden;
+    background: var(--panel-ink);
+    color: var(--on-panel);
+  }
+
+  /* The content column inside a panel — instantly's 1040. */
+  .panel-inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--w-inner);
+    margin: 0 auto;
+    padding: var(--sp-80) var(--sp-32);
+  }
+
+  /* ── Card ──
+     White, one hairline, 16px, 32px of padding, no shadow. instantly's card
+     carries no elevation at all; the border does the separating. Adding a
+     shadow here is the single fastest way to make this page look generic. */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    padding: var(--sp-32);
+  }
+
+  /* ── Inline highlight ──
+     Robert's copy marks its key phrases with <pill> tags in the locale files
+     (10 of them per language). They used to render as a filled coloured chip;
+     instantly has no such device anywhere, so the tag now renders as weight
+     alone. The tags stay in ro.json/en.json untouched — this rule is the only
+     thing that decides how they look, and reverting is a one-line change. */
+  .hl {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Webflow's breakpoints, which is the grid instantly is built on.
+     The scale steps down once rather than sliding continuously. */
+  @media (max-width: 991px) {
+    :root { --text-section-title: 34px; }
+    .sec { padding: var(--sp-96) 0; }
+    .sec-wrap { padding: 0 var(--sp-32); }
+    .panel-inner { padding: var(--sp-64) var(--sp-24); }
+  }
+  @media (max-width: 767px) {
+    /* The bar's sentence and its link stop fitting on one line here. */
+    :root { --text-section-title: 28px; --bar-h-base: 60px; --nav-h: 64px; }
+    .sec { padding: var(--sp-64) 0; }
+    .sec-wrap { padding: 0 var(--sp-24); }
+    .panel { border-radius: 18px; }
+    .panel-inner { padding: var(--sp-48) var(--sp-16); }
+    .sec-head + * { margin-top: var(--sp-32); }
+  }
+
+
+  /* ============================================================
+     BODY RHYTHM — instantly.ai's, measured off the live page
+     ============================================================
+     instantly does NOT give each topic its own <section> with its own vertical
+     padding. The whole body between the hero and the testimonials is ONE
+     section, and inside it a single flex column repeats the same unit five
+     times, 80px apart. Measured at 1440:
+
+       section_home_leads
+         padding-global        72px side gutters
+         padding-section-large 128px top AND bottom  (the only vertical padding
+                                                      in the entire body)
+         container-medium      1040px               (the column everything
+                                                      lives in)
+           home_leads_tab-to-mob   display:flex, gap:80px
+             home_leads_cards-wrapper  x5, each:
+               leads_tab-header       880px, centred     (173px tall)
+                 h2   40/600, ls -2px, ink
+                 ↓16  spacer-xsmall
+                 p    16/400/24, --text-muted, centred
+                 ↓24  spacer-small
+                 pill button
+               ↓48
+               leads_tabpane-inner    1040px x 480px, radius 24px
+
+     Why this matters more than it looks: when every topic owns its own
+     `padding: 128px 0`, consecutive topics are 256px apart and each one reads
+     as a separate page. Here they are 80px apart inside one frame, so the five
+     read as five parts of ONE argument. That is the whole structural idea of
+     the page, and it is not something you can get to by tuning a section's
+     padding — the sections have to stop being sections.
+
+     .sec / .sec-wrap / .sec-head above are kept for the pages that are still
+     built the old way (case study, legal). The home page uses these. */
+
+  .leads {
+    position: relative;
+    width: 100%;
+    background: var(--page);
+    padding: var(--sp-128) 0;
+  }
+
+  .leads-wrap {
+    max-width: var(--w-page);
+    margin: 0 auto;
+    padding: 0 var(--page-gutter);
+  }
+
+  /* The 1040 column, and the 80px that separates one unit from the next.
+     The gap is on the column, never on the blocks — a block that sets its own
+     margin is how the rhythm drifts. */
+  .leads-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-80);
+    max-width: var(--w-inner);
+    margin: 0 auto;
+  }
+
+  /* One unit. Full 1040 wide; its header narrows itself, not the block. */
+  .leads-block {
+    position: relative;
+    width: 100%;
+  }
+
+  /* The centred 880 header. Same anatomy as .sec-head — h2 ↓16 sub ↓24 button
+     — restated here so the two systems can diverge without one silently
+     retuning the other. */
+  .leads-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: var(--w-text);
+    margin-inline: auto;
+  }
+
+  .leads-title {
+    font-size: var(--text-section-title);
+    font-weight: var(--text-heading-weight);
+    letter-spacing: var(--text-heading-ls);
+    line-height: var(--text-heading-lh);
+    color: var(--ink);
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .leads-sub {
+    font-size: var(--text-body);
+    line-height: var(--text-body-lh);
+    letter-spacing: var(--text-body-ls);
+    color: var(--text-muted);
+    margin: var(--sp-16) 0 0;
+    max-width: var(--w-text);
+    text-wrap: balance;
+  }
+
+  .leads-cta {
+    margin-top: var(--sp-24);
+  }
+
+  /* The visual panel under the header. instantly holds every one of theirs to
+     exactly 480px tall; ours carry real content of differing lengths, so this
+     is a MINIMUM rather than a fixed height — the alternative is either
+     clipping the FAQ or padding the compounding block with air. The 48px above
+     it and the 24px radius are theirs exactly. */
+  .leads-panel {
+    margin-top: var(--sp-48);
+    border-radius: var(--r-panel);
+    min-height: 480px;
+  }
+
+  /* A panel that is a plain content area rather than a card — no fill, no
+     border, no min-height. For blocks whose content already carries its own
+     cards (the process list, the FAQ accordion). */
+  .leads-panel.is-bare {
+    min-height: 0;
+    border-radius: 0;
+  }
+
+  /* Webflow's breakpoints — the grid instantly is built on. The 80px gap and
+     the 128px section padding step down together; if only one of them moves,
+     the five units stop reading as one block on tablets. */
+  @media (max-width: 991px) {
+    .leads { padding: var(--sp-96) 0; }
+    .leads-wrap { padding: 0 var(--sp-32); }
+    .leads-col { gap: var(--sp-64); }
+    .leads-panel { margin-top: var(--sp-32); min-height: 0; }
+  }
+  @media (max-width: 767px) {
+    .leads { padding: var(--sp-64) 0; }
+    .leads-wrap { padding: 0 var(--sp-24); }
+    .leads-col { gap: var(--sp-48); }
   }
 
   .feature-card {
@@ -423,12 +904,13 @@
     stroke: #ffffff;
   }
 
-  /* Secondary — steel pill: same anatomy, neutral finish */
+  /* Secondary — plain white pill on the light page. Same anatomy as primary
+     (same height, padding, font, radius), opposite weight. */
   .btn-secondary {
-    background: var(--btn-steel);
-    box-shadow: var(--btn-steel-shadow);
-    color: var(--ink, #F5F5F5);
-    border-color: var(--btn-steel-border);
+    background: var(--btn-plain-bg);
+    box-shadow: none;
+    color: var(--btn-plain-fg);
+    border-color: var(--btn-plain-border);
   }
 
   .btn-secondary svg path {
@@ -463,7 +945,7 @@
     position: absolute;
     width: 0;
     height: 0;
-    background: #C44E17;
+    background: var(--brand-strong);
     border-radius: 9999px;
     left: 50%;
     top: 50%;
@@ -480,6 +962,7 @@
 
   @media (hover: hover) {
     .btn-primary:hover {
+      background: var(--btn-gloss-hover);
       filter: brightness(var(--btn-gloss-brightness, 1.06));
       box-shadow: var(--btn-gloss-shadow-hover);
       transform: translateY(-1px);
@@ -488,7 +971,11 @@
       transform: translateX(2px);
     }
 
-    .btn-secondary:hover,
+    .btn-secondary:hover {
+      border-color: var(--btn-plain-border-hover);
+      transform: translateY(-1px);
+    }
+
     .btn-on-dark:hover {
       background: var(--btn-steel-hover);
       border-color: var(--btn-steel-border-hover);

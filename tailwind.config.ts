@@ -122,12 +122,12 @@ export default {
     		},
     		fontFamily: {
     			sans: [
-    				'General Sans',
+    				'Figtree',
     				'system-ui',
     				'sans-serif'
     			],
     			display: [
-    				'General Sans',
+    				'Figtree',
     				'system-ui',
     				'sans-serif'
     			]

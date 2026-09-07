@@ -234,50 +234,61 @@ const Navbar = () => {
       <header className={cn("site-nav", scrolled && "is-scrolled", open && "is-menu-open")}>
         <style>{`
         /* ─────────────────────────── TOP BAR ─────────────────────────── */
+        /* The bar is opaque from the first frame now, not a transparent overlay
+           that fills in on scroll. It has to be: the hero is a panel inset from
+           the viewport edges rather than a full-bleed background, so there is
+           light page either side of it and a transparent bar would float over
+           nothing. 72px is instantly.ai's measured height. */
         .site-nav {
           position: fixed;
-          top: 0; left: 0;
+          /* Reads the announcement bar's published height. When the bar is
+             dismissed --bar-h becomes 0px and the nav slides up on its own. */
+          top: var(--bar-h);
+          left: 0;
           z-index: 60;
           width: 100%;
-          height: 78px;
+          /* Fixed at instantly's 72px. It used to shrink to 66 on scroll; that
+             is gone, because the grid now depends on the nav being one known
+             height — the hero pads itself by --nav-h. */
+          height: var(--nav-h);
           display: flex;
           align-items: center;
-          background: transparent;
+          background: var(--page);
           border-bottom: 1px solid transparent;
-          transition: height .24s cubic-bezier(.23,1,.32,1),
+          transition: top .25s cubic-bezier(.23,1,.32,1),
                       background-color .3s ease,
                       border-color .3s ease,
                       opacity .25s ease;
         }
-        /* Glass, not a tinted panel. The old values were 0.82 alpha over a 14px
-           blur — at that opacity the blur is doing almost nothing, so we were
-           paying for an expensive filter and getting a flat bar. Dropping the
-           fill to ~0.55 is what lets the blur read. Saturate stays low: at this
-           alpha, 140% makes the orange CTA behind the bar bloom. */
+        /* Scrolled: the fill goes translucent so the blur has something to do,
+           and the hairline appears. That hairline is the only thing separating
+           the bar from the page — on a light design it does the whole job that
+           a shadow would do badly. */
         .site-nav.is-scrolled {
-          height: 66px;
           background: var(--nav-glass-bg);
-          -webkit-backdrop-filter: saturate(130%) blur(var(--nav-glass-blur));
-          backdrop-filter: saturate(130%) blur(var(--nav-glass-blur));
-          border-bottom-color: rgba(255, 255, 255, 0.09);
+          -webkit-backdrop-filter: blur(var(--nav-glass-blur));
+          backdrop-filter: blur(var(--nav-glass-blur));
+          border-bottom-color: var(--nav-glass-line);
         }
-        /* Without the filter, a 0.55 fill is unreadable — fall back to opaque. */
+        /* Without the filter, a 0.72 fill is muddy — fall back to opaque. */
         @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-          .site-nav.is-scrolled { background: rgba(12, 12, 12, 0.94); }
+          .site-nav.is-scrolled { background: rgba(255, 255, 255, 0.97); }
         }
         /* The fullscreen menu owns the screen — the bar steps out of the way. */
         .site-nav.is-menu-open { opacity: 0; pointer-events: none; }
 
         .nav-inner {
           width: 100%;
-          max-width: 1480px;
+          max-width: var(--w-page);
           margin: 0 auto;
-          padding: 0 clamp(16px, 3.4vw, 44px);
+          padding: 0 var(--page-gutter);
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 16px;
+          gap: var(--sp-32);
         }
+        @media (max-width: 991px) { .nav-inner { padding: 0 var(--sp-32); } }
+        @media (max-width: 767px) { .nav-inner { padding: 0 var(--sp-24); } }
 
         .nav-logo {
           display: inline-flex;
@@ -291,45 +302,45 @@ const Navbar = () => {
           height: 30px;
           width: auto;
           user-select: none;
-          /* Warm halo tied to the hero shader behind the bar. drop-shadow (not
-             box-shadow) so the glow follows the mark's alpha, not its box.
-             Two stops: a tight core that keeps the edges crisp against the
-             glass, and a wide soft one that reads as light, not as a border. */
-          filter: drop-shadow(0 0 3px rgba(237, 92, 27, 0.34))
-                  drop-shadow(0 0 14px rgba(237, 92, 27, 0.20));
-          animation: nav-logo-glow 7s ease-in-out infinite;
-          transition: filter 320ms cubic-bezier(0.23, 1, 0.32, 1),
-                      transform 320ms cubic-bezier(0.23, 1, 0.32, 1);
+          transition: transform 320ms cubic-bezier(0.23, 1, 0.32, 1);
+          /* No halo. The mark's rays are black on transparent, so on the dark
+             bar they were invisible and an orange drop-shadow was the only
+             thing making it legible. On the light bar the artwork reads on its
+             own and the glow would be a smudge — the mark is finally being
+             shown as drawn. Do not put the drop-shadow back. */
         }
-        /* Slow breathe — under one cycle per 7s it registers as the mark being
-           lit rather than as an animation asking for attention. */
-        @keyframes nav-logo-glow {
-          0%, 100% {
-            filter: drop-shadow(0 0 3px rgba(237, 92, 27, 0.30))
-                    drop-shadow(0 0 12px rgba(237, 92, 27, 0.16));
-          }
-          50% {
-            filter: drop-shadow(0 0 4px rgba(237, 92, 27, 0.42))
-                    drop-shadow(0 0 20px rgba(237, 92, 27, 0.26));
-          }
-        }
-        .nav-logo:hover img {
-          animation: none;
-          filter: drop-shadow(0 0 5px rgba(237, 92, 27, 0.55))
-                  drop-shadow(0 0 24px rgba(237, 92, 27, 0.38));
-          transform: translateY(-1px);
-        }
+        .nav-logo:hover img { transform: translateY(-1px); }
         .nav-logo:active img { transform: scale(0.97); }
-        /* On the scrolled glass bar the backdrop is darker and the halo blooms;
-           pull it back so the bar stays a surface, not a light source. */
-        .site-nav.is-scrolled .nav-logo img {
-          filter: drop-shadow(0 0 3px rgba(237, 92, 27, 0.26))
-                  drop-shadow(0 0 12px rgba(237, 92, 27, 0.14));
-          animation: none;
+
+        /* ── Inline section links (>=1024px) ──
+           Centred in the bar, the way instantly.ai centres its menu. Grey at
+           rest, ink on hover — the same two-value treatment as every other
+           piece of secondary text on the page. No underline, no pill: the
+           orange CTA to their right is the only thing in the bar that is
+           allowed to look clickable at a glance. */
+        .nav-links {
+          display: none;
+          align-items: center;
+          gap: clamp(18px, 2vw, 34px);
         }
-        .site-nav.is-scrolled .nav-logo:hover img {
-          filter: drop-shadow(0 0 5px rgba(237, 92, 27, 0.48))
-                  drop-shadow(0 0 20px rgba(237, 92, 27, 0.30));
+        @media (min-width: 1024px) {
+          .nav-links { display: flex; }
+        }
+        .nav-link {
+          font-family: var(--font-sans);
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: normal;
+          color: var(--ink);
+          text-decoration: none;
+          white-space: nowrap;
+          transition: color .22s ease;
+        }
+        .nav-link:hover { color: var(--brand); }
+        .nav-link:focus-visible {
+          outline: 2px solid rgba(69, 128, 247, 0.65);
+          outline-offset: 4px;
+          border-radius: 4px;
         }
 
         /* Tighter than before: three items where there were four, and two of
@@ -362,17 +373,17 @@ const Navbar = () => {
           border: none;
           border-radius: 10px;
           cursor: pointer;
-          color: rgba(255, 255, 255, 0.92);
+          color: var(--ink-2);
           transition: color .25s ease, background-color .25s ease;
         }
         .nav-phone:hover,
         .nav-menu-trigger:hover {
-          color: #FFFFFF;
-          background: rgba(255, 255, 255, 0.06);
+          color: var(--ink);
+          background: rgba(10, 10, 10, 0.05);
         }
         .nav-phone:focus-visible,
         .nav-menu-trigger:focus-visible {
-          outline: 2px solid #ED5C1B;
+          outline: 2px solid var(--brand);
           outline-offset: 2px;
         }
         .nav-phone:active,
@@ -404,6 +415,11 @@ const Navbar = () => {
         }
         .nav-menu-trigger:hover .nav-burger span:nth-child(1) { width: 86%; }
         .nav-menu-trigger:hover .nav-burger span:nth-child(3) { width: 70%; }
+        /* Above 1024 the sections are already in the bar, so the burger would
+           open an overlay listing the same five links. It goes. */
+        @media (min-width: 1024px) {
+          .nav-menu-trigger { display: none; }
+        }
 
         /* NAV CTA — compact orange pill, mirrors the hero primary button */
         .nav-cta {
@@ -429,7 +445,7 @@ const Navbar = () => {
                       transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
         }
         .nav-cta:hover {
-          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          background: var(--btn-gloss-hover);
           box-shadow: var(--btn-gloss-shadow-sm-hover);
           transform: translateY(-1px);
         }
@@ -450,7 +466,7 @@ const Navbar = () => {
           z-index: 80;
           display: flex;
           flex-direction: column;
-          background: #121212;
+          background: var(--page);
           overflow-y: auto;
           overscroll-behavior: contain;
           padding: clamp(20px, 4vh, 40px) clamp(20px, 5vw, 96px) clamp(24px, 4vh, 44px);
@@ -484,7 +500,7 @@ const Navbar = () => {
           position: absolute;
           inset: 0;
           pointer-events: none;
-          background-image: linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+          background-image: linear-gradient(90deg, rgba(10,10,10,0.05) 1px, transparent 1px);
           background-size: calc(100% / 6) 100%;
           -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
           mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
@@ -505,10 +521,9 @@ const Navbar = () => {
           border-radius: 9999px;
           /* Brighter rim than the standard steel: this is the only way out of
              a fullscreen overlay, so it has to read at a glance. */
-          border: 1px solid var(--btn-steel-border-hover);
-          background: var(--btn-steel);
-          box-shadow: var(--btn-steel-shadow);
-          color: #F5F5F5;
+          border: 1px solid var(--line-2);
+          background: var(--surface);
+          color: var(--ink);
           cursor: pointer;
           transition: border-color .25s ease, color .25s ease,
                       transform .35s cubic-bezier(.23,1,.32,1);
@@ -521,9 +536,7 @@ const Navbar = () => {
           fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round;
         }
         .nav-close:hover {
-          background: var(--btn-steel-hover);
-          border-color: rgba(255, 255, 255, 0.5);
-          color: #ffffff;
+          border-color: var(--ink);
           transform: rotate(90deg);
         }
         @media (max-width: 640px) {
@@ -562,7 +575,7 @@ const Navbar = () => {
           display: inline-flex;
           align-items: baseline;
           text-decoration: none;
-          color: #F5F5F5;
+          color: var(--ink);
           font-family: var(--font-sans);
           font-weight: 600;
           font-size: clamp(2.1rem, 6.2vw, 4.6rem);
@@ -579,10 +592,10 @@ const Navbar = () => {
           position: absolute;
           left: 0; bottom: 0.12em;
           height: 2px; width: 0;
-          background: #ED5C1B;
+          background: var(--brand);
           transition: width .35s cubic-bezier(.23,1,.32,1);
         }
-        .nav-ov-link:hover { color: #ED5C1B; }
+        .nav-ov-link:hover { color: var(--brand); }
         .nav-ov-link:hover .nav-ov-text::after { width: 100%; }
 
         .nav-ov-aside {
@@ -619,7 +632,7 @@ const Navbar = () => {
           transition: transform .25s cubic-bezier(.23,1,.32,1);
         }
         .nav-ov-cta:hover {
-          filter: brightness(var(--btn-gloss-brightness, 1.06));
+          background: var(--btn-gloss-hover);
           box-shadow: var(--btn-gloss-shadow-hover);
           transform: translateY(-1px);
         }
@@ -632,14 +645,14 @@ const Navbar = () => {
           gap: 8px;
         }
         .nav-ov-contact a {
-          color: rgba(255, 255, 255, 0.76);
+          color: var(--text-muted);
           text-decoration: none;
           font-size: 15px;
           font-weight: 500;
           letter-spacing: -0.005em;
           transition: color .25s ease;
         }
-        .nav-ov-contact a:hover { color: #FFFFFF; }
+        .nav-ov-contact a:hover { color: var(--ink); }
 
         .nav-overlay-foot {
           position: relative;
@@ -650,7 +663,7 @@ const Navbar = () => {
           gap: 20px;
           flex-wrap: wrap;
           padding-top: clamp(18px, 2.4vh, 26px);
-          border-top: 1px solid rgba(255, 255, 255, 0.10);
+          border-top: 1px solid var(--line);
           animation: navItemIn .6s cubic-bezier(.16,1,.3,1) both;
           animation-delay: .5s;
         }
@@ -661,22 +674,22 @@ const Navbar = () => {
           flex-wrap: wrap;
         }
         .nav-ov-legal a {
-          color: rgba(255, 255, 255, 0.66);
+          color: var(--text-muted);
           text-decoration: none;
           font-size: 13.5px;
           font-weight: 500;
           transition: color .25s ease;
         }
-        .nav-ov-legal a:hover { color: #ED5C1B; }
+        .nav-ov-legal a:hover { color: var(--brand); }
 
         /* Language switcher inside the dark overlay */
         .nav-overlay .lang-switch {
-          background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(255, 255, 255, 0.12);
+          background: var(--surface);
+          border-color: var(--line-2);
           margin-right: 0;
         }
-        .nav-overlay .lang-btn { color: rgba(255, 255, 255, 0.62); }
-        .nav-overlay .lang-btn:hover { color: #FFFFFF; }
+        .nav-overlay .lang-btn { color: var(--text-muted); }
+        .nav-overlay .lang-btn:hover { color: var(--ink); }
         .nav-overlay .lang-btn.active {
           color: #FFFFFF;
           background: var(--btn-gloss);
@@ -697,8 +710,6 @@ const Navbar = () => {
           .nav-ov-aside,
           .nav-overlay-foot { animation: none; }
           .nav-close:hover { transform: none; }
-          /* Glow stays — it is colour, not motion. Only the breathe stops. */
-          .nav-logo img { animation: none; }
           .nav-logo:hover img,
           .nav-logo:active img { transform: none; }
         }
@@ -714,6 +725,27 @@ const Navbar = () => {
           >
             <img src="/logo-mark.webp" alt="" width={52} height={30} />
           </a>
+
+          {/* Inline section links, >=1024px only. The anchors already existed
+              inside the fullscreen menu; on a light bar with room to spare
+              there is no reason to make a desktop visitor open an overlay to
+              find out what is on the page. Below 1024 they collapse back into
+              the burger, which stays the only navigation on phones. */}
+          <nav className="nav-links" aria-label={t("nav.menu")}>
+            {ANCHOR_IDS.map((id) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className="nav-link"
+                onClick={handleAnchor(id)}
+              >
+                {t(`nav.${id}`)}
+              </a>
+            ))}
+            <Link to="/studii-de-caz" className="nav-link">
+              {t("nav.casestudy")}
+            </Link>
+          </nav>
 
           {/* CALL + MENU TRIGGER + CTA.
               The EN/RO switcher used to open this row. It now lives in the menu
