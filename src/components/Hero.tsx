@@ -3,12 +3,7 @@
 import React, { Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";
 import ContactCTA from "@/components/ContactCTA";
-import { useMediaQuery } from "@/hooks/use-media-query";
 import ShaderBackground from "@/components/ShaderBackground";
-
-// Lazy: keeps react-hook-form/zod out of the critical bundle; never fetched
-// below 768px because the component simply isn't mounted there.
-const HeroContactCard = lazy(() => import("@/components/HeroContactCard"));
 
 // The client logo band sits INSIDE the hero panel (instantly.ai puts its own
 // logo wall there too), but it is twelve images and the hero is the LCP
@@ -32,10 +27,6 @@ const ArrowUpRight = (
 
 const Hero = () => {
   const { t } = useTranslation();
-  // 768, not 1024. The form is centred now rather than in a side column, so it
-  // fits a tablet comfortably; below this the inline form is longer than the
-  // screen and the drawer is the better answer.
-  const isWide = useMediaQuery("(min-width: 768px)");
 
   // Signal the boot loader (in index.html) that the real above-the-fold
   // content is mounted and painted — not just that App.tsx committed an
@@ -175,24 +166,6 @@ const Hero = () => {
           text-wrap: balance;
         }
 
-        /* ── Form card ──
-           White card on the dark panel. Same anatomy as every other card on
-           the page (r16, hairline) so the hero does not invent a second card. */
-        .hero-card-shell {
-          width: 100%;
-          max-width: 620px;
-          border-radius: calc(var(--r-card) + 7px);
-          padding: 7px;
-          background: rgba(255, 255, 255, 0.12);
-          border: 1px solid rgba(255, 255, 255, 0.18);
-          box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.55);
-        }
-        .hero-card-ph {
-          min-height: 470px;
-          border-radius: var(--r-card);
-          background: rgba(255, 255, 255, 0.10);
-        }
-
         /* ── Trust strip ── */
         .hero-trust {
           list-style: none;
@@ -245,7 +218,6 @@ const Hero = () => {
         }
         .hero-reveal-1 { animation: hero-fade 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.06s both; }
         .hero-reveal-2 { animation: hero-fade 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.16s both; }
-        .hero-reveal-3 { animation: hero-fade 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.26s both; }
 
         @media (max-width: 767px) {
           .hero { padding-top: calc(var(--bar-h) + var(--nav-h) + var(--panel-gutter)); }
@@ -253,7 +225,7 @@ const Hero = () => {
           .hero-stage { padding: var(--sp-64) var(--sp-24); }
           .hero-clients { margin-top: var(--sp-48); }
           .hero-title { max-width: 18ch; }
-          .hero-cta-mobile { width: 100%; justify-content: center; }
+          .hero-cta { width: 100%; justify-content: center; }
           .hero-trust { gap: 6px 16px; margin-top: 20px; }
           .hero-trust li { font-size: 12.5px; }
         }
@@ -266,7 +238,7 @@ const Hero = () => {
           .hero-trust li:nth-child(2) { display: none; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .hero-reveal-1, .hero-reveal-2, .hero-reveal-3 { animation: none; }
+          .hero-reveal-1, .hero-reveal-2 { animation: none; }
         }
       `}</style>
 
@@ -287,20 +259,18 @@ const Hero = () => {
 
           <p className="hero-sub hero-reveal-1">{t("hero_v3.subtitle")}</p>
 
-          {isWide ? (
-            <div className="hero-card-shell hero-reveal-3">
-              <Suspense fallback={<div className="hero-card-ph" aria-hidden="true" />}>
-                <HeroContactCard />
-              </Suspense>
-            </div>
-          ) : (
-            <ContactCTA>
-              <button type="button" className="btn btn-primary btn-block hero-cta-mobile hero-reveal-2">
-                {t("whatwedo.cta_primary")}
-                {ArrowUpRight}
-              </button>
-            </ContactCTA>
-          )}
+          {/* One button, every width. The hero carried the full form on
+              desktop until now; it makes the ask here and the form itself
+              lives in the closing panel, where the visitor arrives having read
+              the argument. modal, not "auto": the form is at the very bottom
+              of a long page, and scrolling someone the whole way down is worse
+              than opening it where they are. */}
+          <ContactCTA mode="modal">
+            <button type="button" className="btn btn-primary hero-cta hero-reveal-2">
+              {t("whatwedo.cta_primary")}
+              {ArrowUpRight}
+            </button>
+          </ContactCTA>
 
           {/* Three things a visitor wants to know before they will type their
               phone number. The third is dropped on the shortest screens — see

@@ -1,40 +1,41 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
-import ShaderBackground from "@/components/ShaderBackground";
+
+// The only form on the page, and the only place react-hook-form/zod are ever
+// fetched. It arrives at the very bottom of the document, long after the LCP
+// screen is done, which is exactly where that weight belongs.
+const ContactFormCard = lazy(() => import("@/components/ContactFormCard"));
 
 // Same highlight used across the site (offer/compounding).
 const pillComponents = { pill: <span className="hl" /> };
 
 /**
- * The closing CTA — instantly.ai's `section_cta`, measured off the live page
- * and reproduced to the pixel:
+ * The closing ask — a heading, one paragraph, and the page's only form.
  *
- *   .padding-16px            16px gutter, so the panel lands at 1408
- *     section_cta            radius 24, animated field behind everything
- *       padding-global       72px side gutters
- *         padding-section-xlarge   184px top AND bottom
- *           h2               40/600, ls -2px, white, centred
- *           ↓12              spacer-xxsmall is-0-75rem
- *           p                16/400/24, white, centred, short measure
- *           ↓32              spacer-medium
- *           button           41px pill
+ * NO PANEL. This section has now been through every version of a painted
+ * background there is: the animated WebGL field, the frozen gradient that
+ * replaced it, then flat panel ink. All three are gone and the section sits on
+ * the page like the offer, the process and the FAQ do. That is the right answer
+ * and it took three passes to see why: the section's whole job is one white
+ * card, and a card on a dark panel needs a rim, a shadow and a scrim to read —
+ * three pieces of scaffolding that exist only to solve a problem the panel
+ * introduced. On the page's own ground the card is just a card, with the same
+ * hairline every other card on the site has.
  *
- *   184 + 224 of content + 184 = 592, which is the panel height on their page.
+ * The two dark objects left are the hero and the footer. They bookend the page;
+ * everything between them is light, and this section is now part of that
+ * middle rather than a third panel competing with the two ends.
  *
- * It carried the full contact form until now, which made it 958px tall and the
- * single heaviest object on the page. The form lives in the hero, where the
- * visitor meets it first; down here the panel does what instantly's does —
- * makes the ask, and opens the form in place rather than sending anyone
- * somewhere. The button is `mode="modal"` for exactly that reason: with no
- * inline form left in this section, an "auto" CTA would smooth-scroll to a
- * section that no longer has anywhere to land.
+ * NO BUTTON either. It used to be a title, a paragraph and a pill that opened
+ * the form in a modal. ContactForm brings its own primary pill ("Trimiteți
+ * cererea"), so there is still exactly one blue button here — it is just the
+ * one that actually sends something.
  *
- * It is deliberately the same object as the hero. The page opens on a dark
- * panel making a promise and closes on a dark panel asking for the phone
- * number, with the light argument in between. Those two panels are also the
- * page's only two WebGL surfaces.
+ * Vertical space is deliberately NOT set here. SelectedWorkSection ends with
+ * 128px of its own and .leads-tail below opens with 128px, so this section
+ * padding itself would double every gap around it. It owns its side gutters and
+ * nothing else.
  */
 const GetInTouchSection = () => {
   const { t } = useTranslation();
@@ -44,48 +45,35 @@ const GetInTouchSection = () => {
       <style>{`
         .touch-section {
           position: relative;
-          padding: 0;
           background: var(--page);
-        }
-        .touch-panel {
-          position: relative;
-          isolation: isolate;
-          width: calc(100vw - var(--panel-gutter) * 2);
-          max-width: var(--w-panel);
-          margin-inline: auto;
-          border-radius: var(--r-panel);
-          /* Clips the canvas to the radius. */
-          overflow: hidden;
-          background: var(--panel-ink);
-          box-shadow: var(--shadow-panel);
-        }
-        .touch-bg {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          display: block;
-          pointer-events: none;
-        }
-        /* Sinks the field under the copy — same job as .hero-scrim. */
-        .touch-scrim {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          background:
-            linear-gradient(180deg, rgba(4, 14, 34, 0.34) 0%, rgba(4, 14, 34, 0.10) 34%, rgba(4, 14, 34, 0) 58%),
-            radial-gradient(90% 52% at 50% 30%, rgba(4, 14, 34, 0.30) 0%, rgba(4, 14, 34, 0) 72%);
-        }
-        /* padding-global + padding-section-xlarge, theirs exactly. The 184px is
-           the largest vertical value anywhere on the page and it is what makes
-           this panel read as an ending rather than as one more section. */
-        .touch-inner {
-          position: relative;
+          padding: 0;
+          /* Load-bearing. The card is the LAST thing in this section and the
+             section has no bottom padding, so the card's bottom edge is the
+             section's bottom edge and its drop shadow falls outside the box.
+             The next section (.leads-tail) is position:relative with an opaque
+             background, so it painted straight over that shadow: the card ended
+             up with a halo on its sides and nothing at all underneath, which is
+             what a broken shadow looks like. Measured before the fix — #F7F8FB
+             two pixels below the card, page colour exactly.
+             z-index 1 puts this section above the next one, so the shadow lands
+             on the 128px of empty page below it. Do not remove without giving
+             the section its own bottom padding instead. */
           z-index: 1;
+        }
+        .touch-inner {
           max-width: var(--w-page);
           margin: 0 auto;
           text-align: center;
-          padding: 184px var(--page-gutter);
+          padding: 0 var(--page-gutter);
+        }
+        /* 768, not 1040 — the hero's measure, and the one the form card was
+           already built on. */
+        .touch-col {
+          max-width: 768px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .touch-title {
@@ -94,55 +82,47 @@ const GetInTouchSection = () => {
           font-size: var(--text-section-title);
           line-height: var(--text-heading-lh);
           letter-spacing: var(--text-heading-ls);
-          color: #FFFFFF;
+          color: var(--ink);
           margin: 0 auto;
           max-width: 22ch;
           text-wrap: balance;
         }
-        /* 12px under the heading — spacer-xxsmall is-0-75rem, not the 16px the
-           light sections use. Theirs is tighter on the dark panels. */
+        /* 16px under the heading — the light page's step, not the 12px the dark
+           panels used. Same as every other section header on the page now. */
         .touch-description {
           max-width: 46ch;
-          margin: var(--sp-12) auto 0;
+          margin: var(--sp-16) auto 0;
           line-height: var(--text-body-lh);
           letter-spacing: var(--text-body-ls);
-          color: var(--on-panel-muted);
+          color: var(--text-muted);
           font-family: var(--font-sans);
           font-weight: 400;
           font-size: var(--text-body);
           text-wrap: balance;
         }
-        /* .hl is ink-coloured for the light page; on this panel that is
-           near-black on dark blue. White + the same 600 weight keeps the
-           emphasis doing its job. */
-        .touch-description .hl { color: #FFFFFF; }
+        /* No .hl override here any more. It is --ink by default, which is what
+           an emphasis on a light page should be; the white one existed only
+           because the panel was dark. */
+
         /* 32px — spacer-medium. */
-        .touch-actions {
+        .touch-form {
+          width: 100%;
           display: flex;
           justify-content: center;
-          gap: var(--sp-16);
           margin-top: var(--sp-32);
         }
 
-        /* Webflow's breakpoints. 184px of padding on a phone is half a screen
-           of nothing, so it steps down twice — but the panel keeps its shape:
-           heading, one short paragraph, one button, nothing else. */
         @media (max-width: 991px) {
-          .touch-inner { padding: 128px var(--sp-32); }
+          .touch-inner { padding: 0 var(--sp-32); }
         }
         @media (max-width: 768px) {
-          .touch-panel { border-radius: 18px; }
-          .touch-inner { padding: var(--sp-80) var(--sp-24); }
-          .touch-actions { margin-top: var(--sp-24); }
+          .touch-inner { padding: 0 var(--sp-24); }
         }
       `}</style>
 
       <section className="touch-section" id="contact">
-        <div className="touch-panel">
-          <ShaderBackground className="touch-bg" />
-          <div className="touch-scrim" aria-hidden="true" />
-
-          <div className="touch-inner">
+        <div className="touch-inner">
+          <div className="touch-col">
             {/* Scroll-gated, not mount-gated. These used to be CSS keyframes
                 firing on mount — but the section is lazy-loaded, so the chunk
                 mounts on scroll PROXIMITY and the animation regularly played
@@ -158,16 +138,16 @@ const GetInTouchSection = () => {
               </p>
             </Reveal>
             <Reveal delay={160}>
-              <div className="touch-actions">
-                <ContactCTA mode="modal">
-                  <button type="button" className="btn btn-primary">
-                    {t("offer.cta")}
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
-                         strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M7 17L17 7M9 7h8v8" />
-                    </svg>
-                  </button>
-                </ContactCTA>
+              <div className="touch-form">
+                <Suspense
+                  fallback={<div className="form-card-ph" aria-hidden="true" />}
+                >
+                  <ContactFormCard
+                    id="contact-form"
+                    title={t("form.title")}
+                    note={t("form.subtitle")}
+                  />
+                </Suspense>
               </div>
             </Reveal>
           </div>

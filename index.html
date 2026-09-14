@@ -49,9 +49,11 @@
     <link rel="preload" href="/logo-mark.webp" as="image" />
 
     <!-- Structured data: Person + ProfessionalService + FAQPage + WebSite (one JSON-LD array).
-         The FAQPage entries are copied verbatim from faq.o1-o6 in src/locales/ro.json,
+         The FAQPage entries are copied verbatim from faq.o3-o6 in src/locales/ro.json,
          which is what FaqsSection renders — keep the two in step, a schema that
-         disagrees with the visible page is worse than no schema. -->
+         disagrees with the visible page is worse than no schema. Google requires
+         every entry here to be visible on the page; o1 (price) and o2 (duration)
+         are still in the locale but no longer rendered, so they are not here. -->
     <script type="application/ld+json">
     [
       {
@@ -132,22 +134,6 @@
         "@type": "FAQPage",
         "inLanguage": "ro",
         "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Cât costă?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Depinde de perimetru. Un site de prezentare și un funnel complet cu tracking server-side nu sunt același proiect. Vă dăm cifra pe primul apel, după ce înțelegem ce aveți nevoie. Nu publicăm tarife de listă pentru că nu livrăm pachete de listă."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Cât durează?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Aproximativ patru săptămâni de la kickoff până live. Termenul exact se fixează înainte de începere, nu pe parcurs. Singura variabilă este viteza cu care primim conținutul de la dumneavoastră."
-            }
-          },
           {
             "@type": "Question",
             "name": "De ce noi și nu o agenție de marketing?",

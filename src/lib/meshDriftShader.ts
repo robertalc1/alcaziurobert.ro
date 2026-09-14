@@ -353,8 +353,10 @@ const RAW = {
     timeScale: -1.373,
   },
   ember: {
-    // The field behind the hero panel and the closing CTA panel — the only two
-    // WebGL surfaces on the site.
+    // The field behind the two dark panels on the page: the hero and the
+    // footer. The closing CTA ran it too and no longer does — that section is
+    // light now and holds a white form card, which a moving field behind it
+    // only fought with.
     //
     // COLOURS. This ramp has been through three states and the reasoning is
     // worth keeping, because two of them were wrong for the same reason.

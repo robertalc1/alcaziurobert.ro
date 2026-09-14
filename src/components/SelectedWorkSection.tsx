@@ -270,9 +270,12 @@ const SelectedWorkSection: React.FC = () => {
           transform: translateY(10px);
           pointer-events: none;
         }
+        /* --brand-strong, not --brand: this runs at 11.5px, and the palette
+           note in index.css says the accent is for headings, chips, numerals
+           and borders — never small copy. #4580F7 here measured 3.48:1. */
         .pw-cat {
           display: inline-block;
-          color: var(--brand);
+          color: var(--brand-strong);
           font-family: var(--font-sans);
           font-size: 11.5px;
           font-weight: 600;
@@ -313,8 +316,13 @@ const SelectedWorkSection: React.FC = () => {
         .pw-link {
           display: inline-flex;
           align-items: center;
+          justify-content: flex-end;
           gap: 10px;
           flex-shrink: 0;
+          /* The visible mark is a 40px disc; the target underneath it is 44.
+             Measured at 29x30 on the narrow cards before this. */
+          min-width: 44px;
+          min-height: 44px;
           color: var(--ink);
           font-family: var(--font-sans);
           font-size: 14.5px;
@@ -481,23 +489,41 @@ const SelectedWorkSection: React.FC = () => {
           gap: 8px;
           margin-top: var(--sp-24);
         }
+        /* The dot people SEE is 7px. The dot people HIT is 44. Those are two
+           different boxes: the button is the target and carries no paint, the
+           ::before is the paint and carries no hit testing of its own. Before
+           this the button itself was 7x7 — the smallest control on the site by
+           a factor of six, and unusable with a thumb. */
         .cf-dot {
-          height: 7px;
-          width: 7px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 44px;
+          /* 24, so the target clears 24x24 on its own even before the 8px of
+             spacing between dots is counted. */
+          width: 24px;
           padding: 0;
           border: none;
+          background: none;
+          cursor: pointer;
+        }
+        .cf-dot::before {
+          content: "";
+          display: block;
+          height: 7px;
+          width: 7px;
           border-radius: 9999px;
           background: var(--line-2);
-          cursor: pointer;
           transition: width .35s cubic-bezier(.23,1,.32,1),
                       background-color .3s ease;
         }
-        .cf-dot[aria-current="true"] {
+        .cf-dot[aria-current="true"] { width: 36px; }
+        .cf-dot[aria-current="true"]::before {
           width: 26px;
           background: var(--brand);
         }
-        .cf-dot:hover { background: #C2C5CE; }
-        .cf-dot[aria-current="true"]:hover { background: var(--brand); }
+        .cf-dot:hover::before { background: #C2C5CE; }
+        .cf-dot[aria-current="true"]:hover::before { background: var(--brand); }
 
         /* ── Section CTA (funnel: every section ends at the form) ── */
         .pw-hint {
@@ -561,7 +587,7 @@ const SelectedWorkSection: React.FC = () => {
           .pw-cta { width: 100%; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .cf-card, .cf-meta, .bf-img, .pw-link-icon, .cf-nav, .cf-dot {
+          .cf-card, .cf-meta, .bf-img, .pw-link-icon, .cf-nav, .cf-dot::before {
             transition: none;
           }
           .cf-shot:hover .bf-img,

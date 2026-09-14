@@ -15,10 +15,12 @@ import { trackCall } from "@/lib/analytics";
 import { trackPixelCall } from "@/lib/marketingPixels";
 
 // Order mirrors the page. A menu that lists sections in a different order than
-// the visitor meets them feels broken the first time it is used.
+// the visitor meets them feels broken the first time it is used. The page runs
+// offer → process → work → faq now that the objections are the last thing on
+// it, and this list had drifted out of step even before that move.
 // "results" is gone with the testimonials section — it owned that anchor, and
 // a menu entry pointing at a missing id is a dead link, not a missing section.
-const ANCHOR_IDS = ["offer", "work", "process", "faq"] as const;
+const ANCHOR_IDS = ["offer", "process", "work", "faq"] as const;
 
 // Same path as the footer's phone row (MadeByHumans). One glyph for the number
 // wherever it appears, rather than a second phone icon drawn slightly
@@ -246,7 +248,12 @@ const Navbar = () => {
           top: var(--bar-h);
           left: 0;
           z-index: 60;
-          width: 100%;
+          /* Minus the scrollbar the overlay just took away. use-scroll-lock
+             publishes --scrollbar-gap while the menu or the contact modal owns
+             the screen; width:100% on a fixed element measures the viewport,
+             which widens by exactly that much, and this bar slid sideways on
+             every open. 0px the rest of the time. */
+          width: calc(100% - var(--scrollbar-gap, 0px));
           /* Fixed at instantly's 72px. It used to shrink to 66 on scroll; that
              is gone, because the grid now depends on the nav being one known
              height — the hero pads itself by --nav-h. */
@@ -296,6 +303,9 @@ const Navbar = () => {
           gap: 12px;
           line-height: 1;
           text-decoration: none;
+          /* The mark is 30px tall; the link under it is 44. It is the only way
+             back to the homepage from anywhere on the site. */
+          min-height: 44px;
         }
         .nav-logo img {
           /* Mark is wider than tall (222x128) — size by height, keep the ratio */
@@ -312,36 +322,13 @@ const Navbar = () => {
         .nav-logo:hover img { transform: translateY(-1px); }
         .nav-logo:active img { transform: scale(0.97); }
 
-        /* ── Inline section links (>=1024px) ──
-           Centred in the bar, the way instantly.ai centres its menu. Grey at
-           rest, ink on hover — the same two-value treatment as every other
-           piece of secondary text on the page. No underline, no pill: the
-           orange CTA to their right is the only thing in the bar that is
-           allowed to look clickable at a glance. */
-        .nav-links {
-          display: none;
-          align-items: center;
-          gap: clamp(18px, 2vw, 34px);
-        }
-        @media (min-width: 1024px) {
-          .nav-links { display: flex; }
-        }
-        .nav-link {
-          font-family: var(--font-sans);
-          font-size: 14px;
-          font-weight: 600;
-          letter-spacing: normal;
-          color: var(--ink);
-          text-decoration: none;
-          white-space: nowrap;
-          transition: color .22s ease;
-        }
-        .nav-link:hover { color: var(--brand); }
-        .nav-link:focus-visible {
-          outline: 2px solid rgba(69, 128, 247, 0.65);
-          outline-offset: 4px;
-          border-radius: 4px;
-        }
+        /* No inline section links. They lived here for one day and the bar
+           lost its job: five grey labels across the middle turn a conversion
+           header into a table of contents, and every one of them is already
+           the first thing inside the menu. The bar carries the mark, the two
+           ways to act, and the way in — nothing that only describes the page.
+           .nav-inner is space-between with two children now, so the mark
+           holds the left edge and the actions hold the right. */
 
         /* Tighter than before: three items where there were four, and two of
            them are now icon buttons carrying their own 44px padding, so the
@@ -415,11 +402,9 @@ const Navbar = () => {
         }
         .nav-menu-trigger:hover .nav-burger span:nth-child(1) { width: 86%; }
         .nav-menu-trigger:hover .nav-burger span:nth-child(3) { width: 70%; }
-        /* Above 1024 the sections are already in the bar, so the burger would
-           open an overlay listing the same five links. It goes. */
-        @media (min-width: 1024px) {
-          .nav-menu-trigger { display: none; }
-        }
+        /* Shown at every width. It is the only navigation on the site now, so
+           there is no breakpoint at which hiding it would leave a way around
+           the page. */
 
         /* NAV CTA — compact orange pill, mirrors the hero primary button */
         .nav-cta {
@@ -725,27 +710,6 @@ const Navbar = () => {
           >
             <img src="/logo-mark.webp" alt="" width={52} height={30} />
           </a>
-
-          {/* Inline section links, >=1024px only. The anchors already existed
-              inside the fullscreen menu; on a light bar with room to spare
-              there is no reason to make a desktop visitor open an overlay to
-              find out what is on the page. Below 1024 they collapse back into
-              the burger, which stays the only navigation on phones. */}
-          <nav className="nav-links" aria-label={t("nav.menu")}>
-            {ANCHOR_IDS.map((id) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                className="nav-link"
-                onClick={handleAnchor(id)}
-              >
-                {t(`nav.${id}`)}
-              </a>
-            ))}
-            <Link to="/studii-de-caz" className="nav-link">
-              {t("nav.casestudy")}
-            </Link>
-          </nav>
 
           {/* CALL + MENU TRIGGER + CTA.
               The EN/RO switcher used to open this row. It now lives in the menu

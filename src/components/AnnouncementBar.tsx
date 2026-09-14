@@ -72,14 +72,22 @@ const AnnouncementBar: React.FC = () => {
           top: 0;
           left: 0;
           z-index: 70;
-          width: 100%;
+          /* Minus the scrollbar the overlay just took away. use-scroll-lock
+             publishes --scrollbar-gap while the menu or the contact modal owns
+             the screen; width:100% on a fixed element measures the viewport,
+             which widens by exactly that much, and this bar slid sideways on
+             every open. 0px the rest of the time. */
+          width: calc(100% - var(--scrollbar-gap, 0px));
           height: var(--bar-h-base);
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 8px;
           padding: 0 48px;
-          background: var(--brand);
+          /* --brand-strong, not --brand. White on #4580F7 is 3.69:1 and this
+             text runs at 15px — an AA fail on the first line of the page.
+             #1257C4 is the same hue one step down and clears it at 6.59:1. */
+          background: var(--brand-strong);
           color: #FFFFFF;
           font-family: var(--font-sans);
           font-size: 15px;
@@ -95,7 +103,12 @@ const AnnouncementBar: React.FC = () => {
           text-underline-offset: 3px;
           background: none;
           border: 0;
-          padding: 0;
+          /* The label is 23px tall on its own. The padding is the touch target,
+             not decoration — it costs nothing inside a 52px bar. */
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          padding: 0 4px;
           font: inherit;
           cursor: pointer;
           white-space: nowrap;
@@ -106,8 +119,10 @@ const AnnouncementBar: React.FC = () => {
           right: 12px;
           top: 50%;
           transform: translateY(-50%);
-          width: 32px;
-          height: 32px;
+          /* 44, not 32: this is the only way to dismiss the bar and it has to
+             be hittable with a thumb. The glyph inside stays 16px. */
+          width: 44px;
+          height: 44px;
           display: inline-flex;
           align-items: center;
           justify-content: center;

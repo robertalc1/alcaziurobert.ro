@@ -84,8 +84,12 @@ const CompoundingSection: React.FC = () => {
           letter-spacing: var(--text-body-ls);
           text-align: center;
         }
+        /* --brand-strong, not --brand. This is 16px running copy and the
+           palette note in index.css is explicit: the accent is for headings,
+           chips, numerals, icons and borders, never a paragraph. It measured
+           3.48:1 here, under the 4.5 floor. */
         .comp-card:first-child .comp-card-tag {
-          color: var(--brand);
+          color: var(--brand-strong);
         }
         /* ── Gray summary block ───────────────────── */
         .comp-summary {
@@ -172,29 +176,8 @@ const CompoundingSection: React.FC = () => {
         .comp-cta-btn:hover svg { transform: translateX(2px); }
 
         /* ── 3D emphasis accent ───────────────────── */
-        .comp-accent {
-          position: absolute;
-          top: clamp(6px, 1.5vw, 24px);
-          left: clamp(-8px, 1.4vw, 26px);
-          width: clamp(64px, 8vw, 114px);
-          height: auto;
-          transform: rotate(-8deg);
-          pointer-events: none;
-          user-select: none;
-          animation: comp-accent-float 5.5s ease-in-out infinite;
-          z-index: 2;
-        }
-        @keyframes comp-accent-float {
-          0%, 100% { transform: translateY(0) rotate(-8deg); }
-          50% { transform: translateY(-12px) rotate(-8deg); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .comp-accent { animation: none; }
-        }
-
         /* ── Mobile ───────────────────────────────── */
         @media (max-width: 768px) {
-          .comp-accent { display: none; }
           .comp-grid {
             grid-template-columns: repeat(2, auto);
             gap: 16px;
@@ -224,15 +207,6 @@ const CompoundingSection: React.FC = () => {
       `}</style>
 
       <div className="leads-block" id="compounding">
-        <img
-          src="/plane%20(1).webp"
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          width={1000}
-          height={1000}
-          className="comp-accent"
-        />
         <Reveal>
           <header className="leads-head">
             <h2 className="leads-title">{t("compounding.title")}</h2>

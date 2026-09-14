@@ -78,6 +78,15 @@
     --brand-strong: #1257C4;
     --brand-soft: rgba(69, 128, 247, 0.12);
     --orange: var(--brand);
+
+    /* The one red on the site. It was already here twice over — hardcoded as
+       #EF4444 in ContactForm's invalid state and as a stray #C44E17 orange on
+       the case study's problem list, which was the last survivor of the old
+       palette. Named once, used by both.
+       --danger-soft is the same tint construction the FAQ chips use (14% of
+       the colour), so a red chip and a blue chip are the same object. */
+    --danger: #EF4444;
+    --danger-soft: rgba(239, 68, 68, 0.14);
     --btn-radius: 10px;
 
     /* ── Surface palette — light, measured off instantly.ai ──
@@ -103,9 +112,10 @@
     --ink-2: #14171F;       /* strong body */
     --text-muted: #6D727E;  /* the only grey */
 
-    /* Inside the two showcase panels (hero and the closing CTA — the only two
-       left). Same value as the shader ramp's first stop, so a panel whose WebGL
-       fails to start is still the right colour rather than black. */
+    /* Inside the page's two dark objects — the hero panel and the footer. The
+       closing CTA used to be a third; it sits on the page now. Same value as
+       the shader ramp's first stop, so a panel whose WebGL fails to start is
+       still the right colour rather than black. */
     --panel-ink: #0B2A5C;
     --on-panel: #FFFFFF;
     --on-panel-muted: rgba(255, 255, 255, 0.78);
@@ -124,7 +134,7 @@
       0 2.55px 4.34px rgba(0, 0, 0, 0.02),
       0 11.23px 8.98px rgba(0, 0, 0, 0.03),
       0 30px 24px rgba(0, 0, 0, 0.04);
-    /* For the panels that lift off the page (hero, final CTA). */
+    /* For the panels that lift off the page (hero, footer). */
     --shadow-panel: 0 30px 70px -20px rgba(0, 0, 0, 0.22);
 
     /* ── Widths — measured off instantly.ai at 1440px ──
@@ -556,6 +566,59 @@
   }
 
   /* ============================================================
+     FORM CARD — the contact form's card, on the light page
+     ============================================================
+     It began as .hero-card inside a dark hero panel, wrapped in a translucent
+     7px rim (.form-card-shell) that lifted white off dark. Both the panel and
+     the rim are gone: the closing section sits on the page now, so the card
+     needs exactly what every other card on this site has — white, one hairline,
+     r16, and the page's layered soft shadow because this one is the thing the
+     whole page is asking the visitor to use.
+
+     620px is the measure the form was built on; it stays with the card rather
+     than with whatever mounts it.
+
+     These rules live here rather than in the component so a second instance
+     anywhere would not inject the same block twice. */
+  .form-card {
+    width: 100%;
+    max-width: 620px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-soft);
+    padding: clamp(20px, 2.2vw, 30px);
+    text-align: left;
+  }
+
+  /* The height its lazy chunk reserves, so the card landing does not move the
+     page. Same box, no content. */
+  .form-card-ph {
+    width: 100%;
+    max-width: 620px;
+    min-height: 470px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+  }
+
+  .form-card-title {
+    font-family: var(--font-sans);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin: 0 0 4px;
+  }
+
+  .form-card-note {
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin: 0 0 18px;
+  }
+
+  /* ============================================================
      SECTION GRAMMAR — the shape every section on the page repeats
      ============================================================
      Measured off instantly.ai: centred eyebrow → centred heading →
@@ -828,17 +891,29 @@
     border-radius: 0;
   }
 
+  /* The last .leads on the page — the FAQ, which sits on its own after the
+     closing panel rather than inside the body block.
+     Its bottom padding is short by exactly one panel gutter because the footer
+     that follows opens with 16px of its own before its panel starts. Without
+     this the gap to the footer would be 144px while every other gap on the page
+     is 128, and one section out of rhythm is the thing you cannot unsee. */
+  .leads-tail {
+    padding-bottom: calc(var(--sp-128) - var(--panel-gutter));
+  }
+
   /* Webflow's breakpoints — the grid instantly is built on. The 80px gap and
      the 128px section padding step down together; if only one of them moves,
      the five units stop reading as one block on tablets. */
   @media (max-width: 991px) {
     .leads { padding: var(--sp-96) 0; }
+    .leads-tail { padding-bottom: calc(var(--sp-96) - var(--panel-gutter)); }
     .leads-wrap { padding: 0 var(--sp-32); }
     .leads-col { gap: var(--sp-64); }
     .leads-panel { margin-top: var(--sp-32); min-height: 0; }
   }
   @media (max-width: 767px) {
     .leads { padding: var(--sp-64) 0; }
+    .leads-tail { padding-bottom: calc(var(--sp-64) - var(--panel-gutter)); }
     .leads-wrap { padding: 0 var(--sp-24); }
     .leads-col { gap: var(--sp-48); }
   }

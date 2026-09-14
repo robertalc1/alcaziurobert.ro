@@ -25,7 +25,15 @@ const MobileBottomBar = lazy(() => import("@/components/MobileBottomBar"));
 // Measured 2026-09-07 at 1440x900 / 390x844, after the page moved onto
 // instantly's one-section body. Each number is the midpoint of the two:
 //   offer(2 units + gap) 1136/1692 · process 777/1097 · compounding 528/492
-//   faq 694/736 · work 979/791 · contact 548/319 · footer 418/856
+//   work 979/791
+//
+// Re-measured 2026-09-10, same two viewports, after the objections moved to
+// the end of the page, the closing panel took the form and the footer became
+// an inset panel. Only these three moved:
+//   faq 326/568 · contact 776/883 · footer 587/935
+// The FAQ is two columns now and lists four objections instead of six;
+// contact grew because it carries the form the hero used to, then shrank
+// again when it lost its panel padding.
 //
 // A unit's reservation covers only the unit; the 80px (48px on phones) that
 // separates it from its neighbour belongs to .leads-col's gap and is there
@@ -66,10 +74,10 @@ const Index = () => {
             and the twelve marks that pay for it share one frame. */}
         <Hero />
 
-        {/* ── The body: one section, five units, 80px apart ──────────────
+        {/* ── The body: one section, four units, 80px apart ──────────────
             This is instantly.ai's structure and it is the reason the page
-            reads as one argument instead of a stack of pages. Five topics
-            used to be five <section>s, each with its own 128px of padding
+            reads as one argument instead of a stack of pages. The topics
+            used to be a <section> each, with 128px of their own padding
             top and bottom, so consecutive topics sat 256px apart and every
             one of them announced itself as a fresh start.
 
@@ -80,7 +88,8 @@ const Index = () => {
             structure exists to prevent.
 
             Order is the funnel: name the problem, answer it, show how it
-            runs, show why it keeps paying, clear the objections. */}
+            runs, show why it keeps paying. The objections used to be the fifth
+            unit here; they are the page's last word now — see below. */}
         <section className="leads" id="body">
           <div className="leads-wrap">
             <div className="leads-col">
@@ -94,9 +103,6 @@ const Index = () => {
               <Suspense fallback={<Placeholder minHeight={510} />}>
                 <CompoundingSection />
               </Suspense>
-              <Suspense fallback={<Placeholder minHeight={715} />}>
-                <FaqsSection />
-              </Suspense>
             </div>
           </div>
         </section>
@@ -108,10 +114,26 @@ const Index = () => {
           <SelectedWorkSection />
         </Suspense>
 
-        <Suspense fallback={<Placeholder minHeight={434} />}>
+        <Suspense fallback={<Placeholder minHeight={830} />}>
           <GetInTouchSection />
         </Suspense>
-        <Suspense fallback={<Placeholder minHeight={637} />}>
+
+        {/* The objections, last. FaqsSection renders a .leads-block, so it
+            still needs the body block's frame and column — it just gets its
+            own instead of sharing the one four units up. .leads-tail is that
+            frame minus the footer's opening gutter, so the gap below it lands
+            on the page's 128px like every other one. */}
+        <section className="leads leads-tail">
+          <div className="leads-wrap">
+            <div className="leads-col">
+              <Suspense fallback={<Placeholder minHeight={447} />}>
+                <FaqsSection />
+              </Suspense>
+            </div>
+          </div>
+        </section>
+
+        <Suspense fallback={<Placeholder minHeight={761} />}>
           <MadeByHumans />
         </Suspense>
       </main>

@@ -54,12 +54,19 @@ export function useScrollLock(locked: boolean): void {
     // Stops the rubber-band handoff at the ends of the overlay's own scroll.
     root.style.overscrollBehavior = "none";
     if (gap > 0) body.style.paddingRight = `${gap}px`;
+    // Published for the fixed chrome. Padding the body keeps the PAGE still,
+    // but `position: fixed; width: 100%` measures the viewport, which just got
+    // `gap` wider when the scrollbar went away — so the announcement bar, the
+    // navbar and the mobile bar each jumped half a scrollbar to the left on
+    // every open and back again on every close. They subtract this instead.
+    root.style.setProperty("--scrollbar-gap", `${gap > 0 ? gap : 0}px`);
     stopLenis();
 
     return () => {
       root.style.overflowY = prevOverflow;
       root.style.overscrollBehavior = prevOverscroll;
       body.style.paddingRight = prevPad;
+      root.style.removeProperty("--scrollbar-gap");
       startLenis();
       // Some engines drop the offset while the root is unscrollable. Correct it
       // only when it actually moved — an unconditional scrollTo would fight

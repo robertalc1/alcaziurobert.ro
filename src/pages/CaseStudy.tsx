@@ -98,12 +98,43 @@ const Approach: React.FC = () => {
   return (
     <div className="cs-root">
       <style>{`
-        .cs-root { padding-top: 78px; min-height: 100vh; min-height: 100dvh; background: var(--page); color: var(--ink); }
-        .cs-page { padding: clamp(28px, 4vh, 52px) 20px clamp(36px, 5.5vh, 60px); }
+        /* ─────────────────────────────────────────────────────────────────
+           This page was built before the token system and never joined it: it
+           carried its own type ramp (clamp(1.7rem, 3.6vw, 2.4rem) headings,
+           clamp(.97rem, 1.2vw, 1.07rem) body), its own widths (1180, 880) and
+           a different clamp for every vertical gap. That is exactly the thing
+           index.css warns about — "no two gaps in the page were ever the same
+           number" — and it is why this page read as a different site.
 
-        /* Layout: 2-col on desktop (sticky TOC + content), single column mobile */
+           Everything below now resolves to the same tokens the landing page
+           uses. If a value here is not a var(), it should have a reason
+           written next to it.
+           ───────────────────────────────────────────────────────────────── */
+        .cs-root {
+          /* Reads the chrome instead of guessing at it. This was a flat 78px
+             while the bar and the nav come to 124 — the content cleared them
+             by 6px, and the moment the announcement bar was dismissed (--bar-h
+             goes to 0) it left a 52px hole instead of moving up. */
+          padding-top: calc(var(--bar-h) + var(--nav-h));
+          min-height: 100vh;
+          min-height: 100dvh;
+          background: var(--page);
+          color: var(--ink);
+        }
+        .cs-page { padding: var(--sp-96) 0 var(--sp-128); }
+
+        /* Layout: sticky TOC rail + reading column on desktop, one column below.
+           On the page's own grid now — --w-page and --page-gutter, the same
+           column the navbar and the landing page's body sit on, so the TOC's
+           left edge lines up with the logo above it instead of landing 17px
+           off. The article takes whatever is left of the row rather than being
+           capped at 880 and centred inside its own cell, which is what left a
+           band of dead page down the right-hand side. Line length is handled
+           where it belongs: on the paragraphs, in ch. */
         .cs-layout {
-          max-width: 1180px; margin: 0 auto;
+          max-width: var(--w-page);
+          margin: 0 auto;
+          padding: 0 var(--page-gutter);
           display: grid;
           grid-template-columns: 1fr;
           gap: 0;
@@ -111,9 +142,14 @@ const Approach: React.FC = () => {
         @media (min-width: 1024px) {
           .cs-layout {
             grid-template-columns: 200px minmax(0, 1fr);
-            gap: 56px;
+            gap: var(--sp-64);
             align-items: start;
           }
+        }
+        @media (max-width: 991px) { .cs-layout { padding: 0 var(--sp-32); } }
+        @media (max-width: 767px) {
+          .cs-layout { padding: 0 var(--sp-24); }
+          .cs-page { padding: var(--sp-64) 0 var(--sp-80); }
         }
 
         /* TOC SIDEBAR */
@@ -121,27 +157,31 @@ const Approach: React.FC = () => {
         @media (min-width: 1024px) {
           .cs-toc {
             display: block;
-            position: sticky; top: 96px;
+            /* Clears the same chrome the page does, plus one spacing step. */
+            position: sticky;
+            top: calc(var(--bar-h) + var(--nav-h) + var(--sp-32));
             align-self: start;
           }
         }
         .cs-toc-eyebrow {
-          font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em;
+          font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
           text-transform: uppercase; color: var(--ink);
-          margin: 0 0 14px;
+          margin: 0 0 var(--sp-16);
         }
         .cs-toc nav { display: flex; flex-direction: column; gap: 2px; }
         .cs-toc a {
           display: block;
-          padding: 8px 0 8px 14px;
+          /* 13px, not 8: the rows measured 34px tall and these are the page's
+             primary navigation. 12 landed at 43 — one pixel short of the floor,
+             which is the same as being short. */
+          padding: 13px 0 13px 14px;
           border-left: 2px solid var(--line);
-          font-size: 13.5px; font-weight: 500;
+          font-size: 14px; font-weight: 500;
           color: var(--text-muted); text-decoration: none;
           line-height: 1.35;
           transition:
             color 220ms cubic-bezier(0.23,1,0.32,1),
-            border-color 220ms cubic-bezier(0.23,1,0.32,1),
-            font-weight 220ms cubic-bezier(0.23,1,0.32,1);
+            border-color 220ms cubic-bezier(0.23,1,0.32,1);
         }
         .cs-toc a:hover { color: var(--ink); }
         .cs-toc a.active {
@@ -152,69 +192,95 @@ const Approach: React.FC = () => {
 
         /* CONTENT COLUMN */
         .cs-col {
-          max-width: 880px;
-          margin: 0 auto;
+          margin: 0;
           text-align: left;
         }
-        .cs-col > section + section { margin-top: clamp(40px, 6.5vh, 80px); }
+        /* 80px between units — the landing page's .leads-col gap, not a fifth
+           clamp of this page's own. */
+        .cs-col > section + section { margin-top: var(--sp-80); }
 
         /* HERO */
+        /* One heading metric for the whole site: 40/600 at -0.05em on 1.1.
+           This ran at 500 weight and -0.025em, which is a different typeface's
+           worth of difference from every other h2 on the site. */
         .cs-h1 {
           font-family: var(--font-sans);
-          font-weight: 500; letter-spacing: -0.025em; line-height: 1.15;
-          font-size: clamp(1.7rem, 3.6vw, 2.4rem); color: var(--ink);
-          margin: 0 0 16px; max-width: 24ch;
+          font-weight: var(--text-heading-weight);
+          letter-spacing: var(--text-heading-ls);
+          line-height: var(--text-heading-lh);
+          font-size: var(--text-section-title);
+          color: var(--ink);
+          margin: 0 0 var(--sp-16); max-width: 24ch;
         }
         .cs-lead {
-          font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.6;
-          color: var(--text-muted); margin: 0 0 20px; max-width: 60ch;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
+          color: var(--text-muted); margin: 0 0 var(--sp-24); max-width: 60ch;
         }
 
         /* PAIN */
         .cs-pain-list {
-          list-style: none; padding: 0; margin: 22px 0 0;
-          display: grid; gap: 14px;
+          list-style: none; padding: 0; margin: var(--sp-24) 0 0;
+          display: grid; gap: var(--sp-16);
         }
         .cs-pain-list li {
           position: relative; padding-left: 36px;
-          font-size: clamp(.97rem, 1.2vw, 1.07rem); line-height: 1.55; color: var(--ink);
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
+          color: var(--ink);
         }
+        /* Tinted chip, coloured glyph — the same construction as
+           .faq-trigger-icon on the landing page, so this page does not invent
+           a second kind of chip. The fill used to be #C44E17, the last piece
+           of the orange palette left anywhere on the site. --danger is the red
+           the contact form already flags invalid fields with; there is now one
+           red, in one place. The glyph is a CSS ::before, so it is not in the
+           accessibility tree — the meaning is carried by the sentence next to
+           it, and the chip itself clears the 3:1 floor for non-text. */
         .cs-pain-list li::before {
           content: "✕"; position: absolute; left: 0; top: 1px;
           width: 22px; height: 22px;
           display: inline-flex; align-items: center; justify-content: center;
-          font-size: 11px; font-weight: 700; color: #fff;
-          background: #C44E17; border-radius: 6px;
+          font-size: 11px; font-weight: 700;
+          color: var(--danger);
+          background: var(--danger-soft); border-radius: 6px;
         }
 
         /* ROADMAP */
         .cs-roadmap {
-          list-style: none; padding: 0; margin: 24px 0 0;
-          display: grid; gap: clamp(20px, 3vh, 32px);
+          list-style: none; padding: 0; margin: var(--sp-24) 0 0;
+          display: grid; gap: var(--sp-32);
         }
         .cs-stage {
-          display: grid; grid-template-columns: 88px 1fr; gap: 28px; align-items: start;
-          padding-bottom: clamp(20px, 3vh, 28px);
+          display: grid; grid-template-columns: 88px 1fr; gap: var(--sp-32);
+          align-items: start;
+          padding-bottom: var(--sp-24);
           border-bottom: 1px solid var(--line);
         }
         .cs-stage:last-child { border-bottom: none; padding-bottom: 0; }
+        /* Numerals are one of the four things the palette note allows the
+           accent on, so --brand stays. The size joins the heading scale. */
         .cs-stage-num {
           font-family: var(--font-sans);
-          font-weight: 600; font-size: clamp(2rem, 4.5vw, 3rem);
+          font-weight: 600; font-size: var(--text-section-title);
           letter-spacing: -0.04em; color: var(--brand); line-height: 1;
         }
         .cs-stage-title {
           font-family: var(--font-sans);
-          font-weight: 500; font-size: clamp(1.15rem, 2vw, 1.4rem);
-          letter-spacing: -0.02em; color: var(--ink); margin: 0 0 8px;
+          font-weight: 600; font-size: var(--text-card-title);
+          letter-spacing: -0.02em; color: var(--ink); margin: 0 0 var(--sp-8);
         }
         .cs-stage-lead {
-          font-size: clamp(.97rem, 1.2vw, 1.05rem); line-height: 1.55;
-          color: var(--text-muted); margin: 0 0 14px; max-width: 58ch;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
+          color: var(--text-muted); margin: 0 0 var(--sp-16); max-width: 58ch;
         }
         .cs-stage-tech {
           list-style: none; padding: 0; margin: 0;
-          display: flex; flex-wrap: wrap; gap: 8px;
+          display: flex; flex-wrap: wrap; gap: var(--sp-8);
         }
         .cs-stage-tech li {
           font-size: 12.5px; font-weight: 600; letter-spacing: 0.02em;
@@ -225,19 +291,21 @@ const Approach: React.FC = () => {
 
         /* CHANNELS */
         .cs-channels-body p {
-          font-size: clamp(.97rem, 1.2vw, 1.05rem); line-height: 1.6;
-          color: var(--text-muted); margin: 0 0 14px; max-width: 62ch;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
+          color: var(--text-muted); margin: 0 0 var(--sp-16); max-width: 62ch;
         }
         .cs-channels-body p strong { color: var(--ink); font-weight: 600; }
         .cs-channels-grid {
           display: flex; flex-wrap: wrap;
-          gap: clamp(36px, 5vw, 72px) clamp(40px, 6vw, 80px);
-          margin-top: clamp(36px, 5vh, 56px);
+          gap: var(--sp-48) var(--sp-64);
+          margin-top: var(--sp-48);
           align-items: flex-end;
         }
         .cs-channel {
           display: inline-flex; flex-direction: column; align-items: flex-start;
-          gap: clamp(14px, 1.6vw, 18px);
+          gap: var(--sp-16);
           background: none;
           border: none;
           padding: 0;
@@ -250,12 +318,12 @@ const Approach: React.FC = () => {
           width: auto;
           display: block;
           object-fit: contain;
-          background: #ffffff;
-          border-radius: 14px;
+          background: var(--surface);
+          border-radius: var(--r-card);
           padding: 10px 16px;
         }
         .cs-channel span {
-          font-size: clamp(14.5px, 1.25vw, 16.5px);
+          font-size: var(--text-body);
           font-weight: 600;
           letter-spacing: -0.005em;
           color: var(--ink);
@@ -267,7 +335,7 @@ const Approach: React.FC = () => {
 
         /* ADDON — clean inline layout, no box */
         .cs-addon-cta {
-          margin-top: clamp(20px, 3vh, 28px);
+          margin-top: var(--sp-24);
         }
         .cs-addon-cta svg {
           width: 15px; height: 15px;
@@ -277,18 +345,24 @@ const Approach: React.FC = () => {
 
         /* CTA */
         .cs-cta {
-          padding-top: clamp(28px, 5vh, 56px);
+          padding-top: var(--sp-48);
           border-top: 1px solid var(--line);
         }
         .cs-cta-title {
           font-family: var(--font-sans);
-          font-weight: 500; letter-spacing: -0.025em;
-          font-size: clamp(1.7rem, 3.6vw, 2.4rem); color: var(--ink);
-          margin: 0 0 14px;
+          font-weight: var(--text-heading-weight);
+          letter-spacing: var(--text-heading-ls);
+          line-height: var(--text-heading-lh);
+          font-size: var(--text-section-title);
+          color: var(--ink);
+          margin: 0 0 var(--sp-16);
         }
         .cs-cta-body {
-          font-size: clamp(1rem, 1.3vw, 1.1rem); color: var(--text-muted);
-          line-height: 1.6; margin: 0 0 22px; max-width: 54ch;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          letter-spacing: var(--text-body-ls);
+          color: var(--text-muted);
+          margin: 0 0 var(--sp-24); max-width: 54ch;
         }
         .cs-cta .btn svg {
           width: 15px; height: 15px;
@@ -298,10 +372,10 @@ const Approach: React.FC = () => {
 
         /* MOBILE */
         @media (max-width: 640px) {
-          .cs-stage { grid-template-columns: 1fr; gap: 10px; }
+          .cs-stage { grid-template-columns: 1fr; gap: var(--sp-12); }
           .cs-stage-num { font-size: 2rem; }
           .cs-channels-grid {
-            gap: 32px clamp(28px, 8vw, 44px);
+            gap: var(--sp-32) clamp(28px, 8vw, 44px);
             justify-content: center;
             align-items: center;
           }
@@ -313,7 +387,7 @@ const Approach: React.FC = () => {
           .cs-channel span { font-size: 14px; }
         }
         @media (max-width: 380px) {
-          .cs-channels-grid { gap: 28px 24px; }
+          .cs-channels-grid { gap: var(--sp-24); }
           .cs-channel img { height: 52px; }
         }
 

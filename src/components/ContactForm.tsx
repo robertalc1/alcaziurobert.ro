@@ -115,6 +115,12 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
     reValidateMode: "onChange",
   });
 
+  // Scopes every DOM lookup below to this form. The page can hold two mounted
+  // copies at once — the inline card in #contact and the one in the modal — and
+  // a document-wide querySelector always returned the first in DOM order, which
+  // is the WRONG one whenever the modal is the form being submitted.
+  const formRef = React.useRef<HTMLFormElement>(null);
+
   const [submitting, setSubmitting] = React.useState(false);
   const [sent, setSent] = React.useState(false);
   const [emailSuggestion, setEmailSuggestion] = React.useState<string | null>(null);
@@ -216,7 +222,7 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
     // The project-type control is a Radix trigger, not an <input>, so it is
     // tagged with data-field instead of name — without the second selector the
     // one field a visitor is most likely to skip would never get focused.
-    const el = document.querySelector<HTMLElement>(
+    const el = formRef.current?.querySelector<HTMLElement>(
       `[name="${first}"], [data-field="${first}"]`
     );
     if (el) {
@@ -232,12 +238,12 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
     "transition-[border-color,box-shadow] duration-150 ease-out " +
     "hover:border-[#C8CAD1] " +
     "focus-visible:border-[var(--brand)] focus-visible:ring-[3px] focus-visible:ring-[var(--brand)]/15 focus-visible:ring-offset-0 " +
-    "aria-[invalid=true]:border-[#EF4444] aria-[invalid=true]:hover:border-[#EF4444] " +
-    "aria-[invalid=true]:focus-visible:border-[#EF4444] aria-[invalid=true]:focus-visible:ring-[#EF4444]/15";
+    "aria-[invalid=true]:border-[var(--danger)] aria-[invalid=true]:hover:border-[var(--danger)] " +
+    "aria-[invalid=true]:focus-visible:border-[var(--danger)] aria-[invalid=true]:focus-visible:ring-[var(--danger)]/15";
 
   const labelClass =
     "flex items-center gap-1.5 text-[#0A0A0A] text-[13px] font-medium tracking-[0.01em]";
-  const messageClass = "text-[12.5px] font-normal text-[#EF4444]";
+  const messageClass = "text-[12.5px] font-normal text-[var(--danger)]";
   const optionalClass = "text-[11.5px] font-normal text-[#6D727E]";
 
   const required = (
@@ -375,6 +381,7 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
   return (
     <Form {...form}>
       <form
+        ref={formRef}
         onSubmit={form.handleSubmit(onSubmit, onInvalid)}
         onChangeCapture={markStarted}
         className="space-y-4"
@@ -621,10 +628,12 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
         />
 
         {/* Submit */}
+        {/* No `form.subtitle` here. Every mount of this form already carries it
+            directly above the fields — DialogDescription in the modal,
+            DrawerDescription in the sheet, .form-card-note on the inline card —
+            so printing it again by the buttons put "Răspundem în 24 de ore."
+            on screen twice, six inches apart. */}
         <div className="flex flex-col-reverse sm:flex-row sm:items-center gap-3 sm:justify-end pt-1">
-          <p className="text-[12.5px] text-[#6D727E] text-center sm:text-left sm:mr-auto m-0">
-            {t("form.subtitle")}
-          </p>
           {onClose && (
             <Button
               type="button"
