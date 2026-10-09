@@ -36,7 +36,7 @@ The current implementation in `src/index.css` is the source of truth. The previo
 - Ten projects in the existing coverflow; OCPI first, Laura Predoi second.
 - Laura Predoi links to `https://psihologiecabinet.ro/`. Its WebP is a 1600×1000 crop of the local project's `artifacts/home-1440.png` captured on 2026-10-09; live browser access was unavailable during this update.
 - Project categories and descriptions have matching Romanian and English keys.
-- The client band preserves all existing clients and adds Laura Predoi: 13 cells.
+- The client band has 12 logo cells, including Laura Predoi; the Alma text wordmark was removed.
 - Wrapping, centred rows use 6/4/3 cells at desktop/tablet/mobile widths.
 - Sources remain in `public/logos`; `npm run optimize-logos` creates optically balanced white marks on transparent 400×165 WebP canvases.
 

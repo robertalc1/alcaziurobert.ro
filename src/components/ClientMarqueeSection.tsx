@@ -25,7 +25,6 @@ import Reveal from "@/components/Reveal";
  * layout. Run `npm run optimize-logos` after adding or replacing a source file
  * and read that script before changing how big anything looks here.
  *
- * Alma has no source artwork, so its cell uses a typographic wordmark.
  * The wrapping flex layout centres incomplete rows as the client list grows.
  */
 type Cell =
@@ -44,7 +43,6 @@ const CELLS: ReadonlyArray<Cell> = [
   { kind: "logo", file: "smart-securitate", name: "Smart Securitate" },
   { kind: "logo", file: "everati", name: "Everati" },
   { kind: "logo", file: "traveltwin", name: "Travel Twin" },
-  { kind: "word", name: "Alma" },
   { kind: "logo", file: "laura-predoi", name: "Laura Predoi — Cabinet de psihologie" },
 ];
 
