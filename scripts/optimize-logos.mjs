@@ -83,6 +83,7 @@ const LOGOS = [
   ["9.png", "kickout"],
   ["10.png", "traveltwin"],
   ["11.png", "ancpi"],
+  ["laura-predoi.png", "laura-predoi"],
 ];
 
 /** Trim padding and repaint the ink white, keeping the alpha shape intact. */

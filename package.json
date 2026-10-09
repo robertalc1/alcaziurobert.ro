@@ -15,6 +15,7 @@
     "preview": "vite preview",
     "start": "node server.js",
     "dev:api": "node --env-file=.env.local server.js",
+    "brand-assets": "node scripts/make-brand-assets.mjs",
     "og-image": "node scripts/make-og-image.mjs",
     "optimize-logos": "node scripts/optimize-logos.mjs",
     "prerender": "node scripts/prerender.mjs"

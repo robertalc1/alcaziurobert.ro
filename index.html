@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- Romanian to match lang="ro" above. server.js rewrites these per route
          at request time, but dist/ served directly, `vite preview` and the dev
@@ -45,8 +46,8 @@
     <link rel="preload" href="/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/figtree-latin-ext.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Preload the small logo used by the boot loader + navbar (9KB, not the favicon) -->
-    <link rel="preload" href="/logo-mark.webp" as="image" />
+    <!-- Shared vector master for the boot loader and navbar. -->
+    <link rel="preload" href="/logo-mark.svg" as="image" />
 
     <!-- Structured data: Person + ProfessionalService + FAQPage + WebSite (one JSON-LD array).
          The FAQPage entries are copied verbatim from faq.o3-o6 in src/locales/ro.json,
@@ -62,7 +63,7 @@
         "name": "Alcaziu Robert",
         "jobTitle": "Web Developer",
         "url": "https://alcaziurobert.ro/",
-        "image": "https://alcaziurobert.ro/logo-mark.webp",
+        "image": "https://alcaziurobert.ro/logo-mark.svg",
         "telephone": "+40-773-858-164",
         "email": "contact@alcaziurobert.ro",
         "address": {
@@ -241,7 +242,7 @@
       }
 
       /* ====================================================================
-         BOOT LOADER — premium first-paint moment with the eye logo.
+         BOOT LOADER — premium first-paint moment with the AR monogram.
          Shown once per session via inline JS below.
          ==================================================================== */
       #app-loader {
@@ -269,13 +270,13 @@
         transform: scale(0.985);
         pointer-events: none;
       }
-      #app-loader .al-eye {
+      #app-loader .al-mark {
         width: auto;
         height: clamp(56px, 8vw, 82px);
         display: block;
         opacity: 0;
         transform: scale(0.96);
-        animation: al-eye-in 360ms cubic-bezier(0.23, 1, 0.32, 1) forwards,
+        animation: al-mark-in 360ms cubic-bezier(0.23, 1, 0.32, 1) forwards,
                    al-breathing 3s 360ms ease-in-out infinite;
       }
       #app-loader .al-label {
@@ -288,7 +289,7 @@
         opacity: 0;
         animation: al-label-in 420ms 220ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
       }
-      @keyframes al-eye-in {
+      @keyframes al-mark-in {
         to { opacity: 1; transform: scale(1); }
       }
       @keyframes al-label-in {
@@ -299,7 +300,7 @@
         50%      { transform: scale(1.035); }
       }
       @media (prefers-reduced-motion: reduce) {
-        #app-loader .al-eye {
+        #app-loader .al-mark {
           animation: none;
           opacity: 1;
           transform: none;
@@ -322,7 +323,7 @@
          either hides it instantly (already shown this session) or waits for the
          "app-ready" event dispatched from Hero.tsx after its own first paint. -->
     <div id="app-loader" aria-hidden="true">
-      <img class="al-eye" src="/logo-mark.webp" alt="" decoding="async" />
+      <img class="al-mark" src="/logo-mark.svg" alt="" width="118" height="98" decoding="async" />
       <span class="al-label">Alcaziu Robert</span>
     </div>
     <script>

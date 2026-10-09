@@ -303,21 +303,17 @@ const Navbar = () => {
           gap: 12px;
           line-height: 1;
           text-decoration: none;
-          /* The mark is 30px tall; the link under it is 44. It is the only way
+          /* The mark is 36px tall; the link under it is 44. It is the only way
              back to the homepage from anywhere on the site. */
           min-height: 44px;
         }
         .nav-logo img {
-          /* Mark is wider than tall (222x128) — size by height, keep the ratio */
-          height: 30px;
+          /* Vector AR monogram; preserve its intrinsic ratio. */
+          height: 36px;
           width: auto;
           user-select: none;
           transition: transform 320ms cubic-bezier(0.23, 1, 0.32, 1);
-          /* No halo. The mark's rays are black on transparent, so on the dark
-             bar they were invisible and an orange drop-shadow was the only
-             thing making it legible. On the light bar the artwork reads on its
-             own and the glow would be a smudge — the mark is finally being
-             shown as drawn. Do not put the drop-shadow back. */
+          /* The flat blue mark needs no decorative shadow. */
         }
         .nav-logo:hover img { transform: translateY(-1px); }
         .nav-logo:active img { transform: scale(0.97); }
@@ -708,7 +704,7 @@ const Navbar = () => {
             className="nav-logo"
             aria-label="Alcaziu Robert - Home"
           >
-            <img src="/logo-mark.webp" alt="" width={52} height={30} />
+            <img src="/logo-mark.svg" alt="" width={43} height={36} />
           </a>
 
           {/* CALL + MENU TRIGGER + CTA.

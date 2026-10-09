@@ -10,17 +10,17 @@ const PUBLIC = path.resolve(process.cwd(), "public");
 const W = 1200;
 const H = 630;
 
-const GROUND = "#0F0F0F";
+const GROUND = "#0B2A5C";
 const INK = "#F5F5F5";
-const ORANGE = "#ED5C1B";
+const BLUE = "#4580F7";
 const MUTED = "rgba(245,245,245,0.62)";
 
-// librsvg (sharp's SVG renderer) cannot load @font-face/woff2, so General Sans
+// librsvg (sharp's SVG renderer) cannot load @font-face/woff2, so Figtree
 // is not available here. A common grotesque stack keeps the card on-brand
 // without silently falling back to a serif/monospace mix.
 const STACK = "'Segoe UI Variable Display','Segoe UI',Inter,Roboto,Arial,sans-serif";
 
-const logo = await sharp(path.join(PUBLIC, "logo-mark.webp"))
+const logo = await sharp(path.join(PUBLIC, "logo-mark-white.svg"))
   .resize({ height: 64 })
   .png()
   .toBuffer();
@@ -31,14 +31,14 @@ const svg = `
   <defs>
     <style>
       .h  { font-family: ${STACK}; font-weight: 600; font-size: 78px; letter-spacing: -3.2px; fill: ${INK}; }
-      .ha { font-family: ${STACK}; font-weight: 600; font-size: 78px; letter-spacing: -3.2px; fill: ${ORANGE}; font-style: italic; }
+      .ha { font-family: ${STACK}; font-weight: 600; font-size: 78px; letter-spacing: -3.2px; fill: ${BLUE}; font-style: italic; }
       .s  { font-family: ${STACK}; font-weight: 400; font-size: 27px; letter-spacing: -0.4px; fill: ${MUTED}; }
       .t  { font-family: ${STACK}; font-weight: 600; font-size: 20px; letter-spacing: 2.2px; fill: ${INK}; }
       .u  { font-family: ${STACK}; font-weight: 500; font-size: 23px; letter-spacing: -0.2px; fill: ${MUTED}; }
     </style>
     <radialGradient id="glow" cx="82%" cy="14%" r="62%">
-      <stop offset="0%" stop-color="${ORANGE}" stop-opacity="0.30" />
-      <stop offset="100%" stop-color="${ORANGE}" stop-opacity="0" />
+      <stop offset="0%" stop-color="${BLUE}" stop-opacity="0.30" />
+      <stop offset="100%" stop-color="${BLUE}" stop-opacity="0" />
     </radialGradient>
   </defs>
 
@@ -61,7 +61,7 @@ const svg = `
 
   <text x="80" y="483" class="s">Premium web design &amp; custom development</text>
 
-  <rect x="80" y="536" width="72" height="3" rx="1.5" fill="${ORANGE}" />
+  <rect x="80" y="536" width="72" height="3" rx="1.5" fill="${BLUE}" />
   <text x="80" y="586" class="u">alcaziurobert.ro</text>
 </svg>`;
 

@@ -25,11 +25,8 @@ import Reveal from "@/components/Reveal";
  * layout. Run `npm run optimize-logos` after adding or replacing a source file
  * and read that script before changing how big anything looks here.
  *
- * Twelfth cell: there are eleven logo files and the grid wants twelve, so the
- * last cell carries Alma — a real client from the portfolio that has no logo
- * artwork — set as a wordmark in the site's own type. Swap it for an image the
- * day one arrives; do not fill the slot with a partner or platform mark, this
- * row is clients only.
+ * Alma has no source artwork, so its cell uses a typographic wordmark.
+ * The wrapping flex layout centres incomplete rows as the client list grows.
  */
 type Cell =
   | { kind: "logo"; file: string; name: string }
@@ -48,6 +45,7 @@ const CELLS: ReadonlyArray<Cell> = [
   { kind: "logo", file: "everati", name: "Everati" },
   { kind: "logo", file: "traveltwin", name: "Travel Twin" },
   { kind: "word", name: "Alma" },
+  { kind: "logo", file: "laura-predoi", name: "Laura Predoi — Cabinet de psihologie" },
 ];
 
 const ClientMarqueeSection: React.FC = () => {
@@ -88,15 +86,17 @@ const ClientMarqueeSection: React.FC = () => {
           margin: 0 auto;
           list-style: none;
           padding: 0;
-          display: grid;
-          grid-template-columns: repeat(6, 1fr);
-          column-gap: clamp(14px, 2vw, 30px);
+          --cm-gap: clamp(14px, 2vw, 30px);
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          column-gap: var(--cm-gap);
           row-gap: clamp(14px, 2.2vw, 26px);
-          justify-items: center;
           align-items: center;
         }
         .cm-cell {
-          width: 100%;
+          flex: 0 0 calc((100% - 5 * var(--cm-gap)) / 6);
+          min-width: 0;
           /* Matches the frame every logo file is built on, so the text cell is
              exactly as tall as the image cells and both rows sit level. */
           aspect-ratio: 400 / 165;
@@ -109,7 +109,7 @@ const ClientMarqueeSection: React.FC = () => {
           height: auto;
           /* Lower than the old 0.88. On the dark page these sat alone; inside
              the panel they share the frame with a white headline and a white
-             card, and at full strength twelve marks out-shout both. */
+             card, and at full strength the client marks out-shout both. */
           opacity: 0.68;
           transition: opacity 0.3s ease;
         }
@@ -128,13 +128,11 @@ const ClientMarqueeSection: React.FC = () => {
         .cm-cell:hover .cm-word { opacity: 1; }
 
         @media (max-width: 900px) {
-          .cm-grid { grid-template-columns: repeat(4, 1fr); }
+          .cm-cell { flex-basis: calc((100% - 3 * var(--cm-gap)) / 4); }
         }
         @media (max-width: 520px) {
-          .cm-grid {
-            grid-template-columns: repeat(3, 1fr);
-            column-gap: 14px;
-          }
+          .cm-grid { --cm-gap: 14px; }
+          .cm-cell { flex-basis: calc((100% - 2 * var(--cm-gap)) / 3); }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -142,7 +140,7 @@ const ClientMarqueeSection: React.FC = () => {
         }
       `}</style>
 
-      {/* blur={0}: the subtree holds twelve images and blur() re-rasterises all
+      {/* blur={0}: the subtree holds the client images and blur() re-rasterises all
           of it on every frame of the reveal. */}
       <Reveal blur={0}>
         <p className="cm-label">{t("whatwedo.clients_eyebrow")}</p>

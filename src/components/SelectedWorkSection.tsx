@@ -17,6 +17,7 @@ type Project = {
 // Every live build, OCPI first — the carousel shows them all.
 const PROJECTS: Project[] = [
   { slug: "sgc", name: "Oficiul de Cadastru — OCPI", url: "https://sgc.ocpict.ro/", img: "/sgc-live.webp", domain: "sgc.ocpict.ro" },
+  { slug: "laura-predoi", name: "Laura Predoi — Cabinet de psihologie", url: "https://psihologiecabinet.ro/", img: "/laura-predoi.webp", domain: "psihologiecabinet.ro" },
   { slug: "picaps", name: "Picaps", url: "https://picaps.ro/", img: "/picaps3.webp", domain: "picaps.ro" },
   { slug: "kickout", name: "Kickout", url: "https://kickout.ro/", img: "/kickout.webp", domain: "kickout.ro" },
   { slug: "rdraw", name: "R-Draw", url: "https://r-draw.com/", img: "/r-draw.com.webp", domain: "r-draw.com" },
@@ -105,7 +106,7 @@ const BrowserFrame: React.FC<{ src: string; alt: string; domain?: string; eager?
  * nine equal cards, which made every project look equally weighted and asked
  * the visitor to scan rather than to look. A coverflow has one hero at a time:
  * the centre card is the argument, the flanking cards only say "there are
- * more". Same nine projects, same browser chrome, same buttons.
+ * more". All ten projects, same browser chrome, same buttons.
  *
  * Autoplay pauses on hover, focus and touch, and never runs under
  * prefers-reduced-motion.
@@ -372,7 +373,7 @@ const SelectedWorkSection: React.FC = () => {
         }
         /* The centre card is lifted, not tinted. It briefly carried an orange
            rim and halo, which put a warm cast over a section whose whole job is
-           to show nine screenshots truthfully — the colour was competing with
+           to show the project screenshots truthfully — the colour was competing with
            the work. Depth alone separates it: it is the only card at full
            opacity and scale 1, and it is the only one with its own text. */
         .cf-card[data-side="false"] .bf {
@@ -486,7 +487,7 @@ const SelectedWorkSection: React.FC = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
+          gap: clamp(4px, 1.4vw, 8px);
           margin-top: var(--sp-24);
         }
         /* The dot people SEE is 7px. The dot people HIT is 44. Those are two
@@ -496,6 +497,7 @@ const SelectedWorkSection: React.FC = () => {
            a factor of six, and unusable with a thumb. */
         .cf-dot {
           display: inline-flex;
+          flex-shrink: 0;
           align-items: center;
           justify-content: center;
           height: 44px;
@@ -611,7 +613,7 @@ const SelectedWorkSection: React.FC = () => {
         </Reveal>
       </div>
 
-      {/* blur={0}: the stage runs nine cards through a 3D transform on every
+      {/* blur={0}: the stage runs the cards through a 3D transform on every
           index change. A live filter on the wrapper would force the browser to
           re-rasterise all of it each frame, and it would create a containing
           block the perspective should never have to reason about. */}

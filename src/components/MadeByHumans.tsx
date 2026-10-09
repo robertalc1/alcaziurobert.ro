@@ -196,29 +196,15 @@ const MadeByHumans = () => {
           align-items: center;
           justify-content: center;
         }
-        /* The mark is black rays around an orange disc, and dropped straight
-           onto the ink it loses the rays and becomes a floating dot — the same
-           defect the navbar had on the old dark bar, where an orange
-           drop-shadow was the only thing keeping it legible. The tile carries
-           its own light instead.
-
-           ⚠ The tile must be PURE WHITE. logo-mark.webp is not transparent
-           behind the artwork: it has an opaque white lens baked into the middle
-           of the frame. On #FFFFFF that lens is invisible; on --page (#F7F8FB)
-           or any tint it shows up as a white eye around the rays. Tested both.
-           Fix the asset before tinting this.
-
-           104px, not the 128 it started at: this is a brand note, not the
-           loudest object in the footer, and the CTA on the left has to keep
-           the eye. */
+        /* The transparent white AR mark sits directly on the navy panel. */
         .ft-mark {
           display: grid;
           place-items: center;
           width: 104px;
           aspect-ratio: 1;
           border-radius: var(--r-card);
-          background: #FFFFFF;
-          box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.5);
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
         }
         .ft-mark img {
           width: 70%;
@@ -455,7 +441,7 @@ const MadeByHumans = () => {
             {/* Brand mark */}
             <div className="ft-logo">
               <span className="ft-mark">
-                <img src="/logo-mark.webp" alt="" width={222} height={128} loading="lazy" />
+                <img src="/logo-mark-white.svg" alt="Alcaziu Robert" width={118} height={98} loading="lazy" />
               </span>
             </div>
 
