@@ -414,7 +414,8 @@
     "success_close": "Închideți"
   },
   "fab": {
-    "aria": "Deschide opțiuni de contact",
+    "aria": "Scrie-i lui Alcaziu Robert pe WhatsApp",
+    "whatsapp": "Scrie-mi pe WhatsApp",
     "heading": "Contact",
     "call": "Sunați-ne",
     "email": "Trimiteți email",

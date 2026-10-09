@@ -196,18 +196,17 @@ const MadeByHumans = () => {
           align-items: center;
           justify-content: center;
         }
-        /* The transparent white AR mark sits directly on the navy panel. */
+        /* The SVG owns the enamel surface, fine border and dimensional edge. */
         .ft-mark {
           display: grid;
           place-items: center;
           width: 104px;
           aspect-ratio: 1;
           border-radius: var(--r-card);
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.12);
+          background: transparent;
         }
         .ft-mark img {
-          width: 70%;
+          width: 100%;
           height: auto;
           display: block;
         }
@@ -441,7 +440,7 @@ const MadeByHumans = () => {
             {/* Brand mark */}
             <div className="ft-logo">
               <span className="ft-mark">
-                <img src="/logo-mark-white.svg" alt="Alcaziu Robert" width={118} height={98} loading="lazy" />
+                <img src="/logo-mark.svg" alt="Alcaziu Robert" width={104} height={104} loading="lazy" />
               </span>
             </div>
 

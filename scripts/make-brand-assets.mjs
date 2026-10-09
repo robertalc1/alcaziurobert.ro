@@ -6,10 +6,21 @@ import sharp from "sharp";
 
 const asset = (name) => fileURLToPath(new URL(`../public/${name}`, import.meta.url));
 const master = await readFile(asset("logo-mark.svg"), "utf8");
-await writeFile(asset("logo-mark-white.svg"), master.replace('fill="#4580F7"', 'fill="#FFFFFF"'));
+const glyph = master.match(/<path id="ar-glyph" d="([^"]+)"/);
+if (!glyph) throw new Error("Vector master must contain the ar-glyph path.");
+// A single-colour companion for tiny in-button applications.
+await writeFile(asset("logo-mark-white.svg"), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 118 98" fill="none"><title>Alcaziu Robert — AR</title><path fill="#FFFFFF" fill-rule="evenodd" d="${glyph[1]}"/></svg>\n`);
+
+// Keep the outlined wordmark's embedded emblem aligned with the master.
+const wordmark = await readFile(asset("logo-wordmark.svg"), "utf8");
+const embedded = master.trim().replace('<svg xmlns="http://www.w3.org/2000/svg"', '<svg x="0" y="0" width="104" height="104"');
+await writeFile(asset("logo-wordmark.svg"), wordmark.replace(/<!-- emblem:start -->[\s\S]*?<!-- emblem:end -->/, `<!-- emblem:start -->\n${embedded}\n  <!-- emblem:end -->`));
 
 // Square optical frame, with enough margin for the smallest browser tabs.
-const icon = master.replace('viewBox="0 0 118 98"', 'viewBox="-5 -15 128 128"');
+// Tight framing and no shadow at browser-tab sizes; keep the same AR geometry.
+const icon = master
+  .replace('viewBox="0 0 104 104"', 'viewBox="5 4 94 94"')
+  .replace('filter="url(#ar-shadow)"', '');
 await writeFile(asset("favicon.svg"), icon);
 for (const size of [32, 48, 192, 512]) {
   await sharp(Buffer.from(icon)).resize(size, size).png().toFile(asset(`favicon-${size}.png`));

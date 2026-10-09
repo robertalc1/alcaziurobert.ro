@@ -1,4 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 118 98" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 104 104" fill="none">
   <title>Alcaziu Robert — AR</title>
-  <path fill="#4580F7" fill-rule="evenodd" d="M9 84c-1 0-1.5-.8-1-1.8L37 20q3-6 10-6h29c19 0 30 10 30 26 0 12-6 20-17 24l19 18q2 2-1 2H91q-1 0-2-1L70 63h-9v19q0 2-2 2H48q-2 0-2-2V63H32l-8.5 19.5Q23 84 21 84Zm29-35h8V31Zm23-21v21h14c10 0 16-3 16-10 0-7-6-11-15-11Z"/>
+  <defs>
+    <linearGradient id="ar-face" x1="30" y1="7" x2="72" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#78A5FF"/>
+      <stop offset=".42" stop-color="#4580F7"/>
+      <stop offset="1" stop-color="#1C5DDF"/>
+    </linearGradient>
+    <linearGradient id="ar-rim" x1="52" y1="7" x2="52" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B7D0FF"/>
+      <stop offset=".48" stop-color="#4A81ED"/>
+      <stop offset="1" stop-color="#1043A5"/>
+    </linearGradient>
+    <linearGradient id="ar-edge" x1="31" y1="10" x2="80" y2="89" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".68"/>
+      <stop offset=".48" stop-color="#FFFFFF" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".24"/>
+    </linearGradient>
+    <linearGradient id="ar-letter" x1="58" y1="14" x2="58" y2="84" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#EDF4FF"/>
+    </linearGradient>
+    <filter id="ar-shadow" x="0" y="0" width="104" height="104" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#0B2A5C" flood-opacity=".18"/>
+    </filter>
+    <path id="ar-glyph" d="M9 84c-1 0-1.5-.8-1-1.8L37 20q3-6 10-6h29c19 0 30 10 30 26 0 12-6 20-17 24l19 18q2 2-1 2H91q-1 0-2-1L70 63h-9v19q0 2-2 2H48q-2 0-2-2V63H32l-8.5 19.5Q23 84 21 84Zm29-35h8V31Zm23-21v21h14c10 0 16-3 16-10 0-7-6-11-15-11Z"/>
+  </defs>
+  <g filter="url(#ar-shadow)">
+    <rect x="7" y="6" width="90" height="90" rx="27" fill="url(#ar-rim)"/>
+    <rect x="8" y="7" width="88" height="86" rx="26" fill="url(#ar-face)"/>
+    <rect x="9.5" y="8.5" width="85" height="83" rx="24.5" stroke="url(#ar-edge)"/>
+    <path d="M31 11H73" stroke="#FFFFFF" stroke-opacity=".32" stroke-linecap="round"/>
+    <g transform="translate(12.5 16.5) scale(.67)" fill-rule="evenodd">
+      <use href="#ar-glyph" transform="translate(0 1.8)" fill="#1043A5" fill-opacity=".48"/>
+      <use href="#ar-glyph" fill="url(#ar-letter)"/>
+    </g>
+  </g>
 </svg>

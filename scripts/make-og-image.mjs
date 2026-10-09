@@ -20,7 +20,7 @@ const MUTED = "rgba(245,245,245,0.62)";
 // without silently falling back to a serif/monospace mix.
 const STACK = "'Segoe UI Variable Display','Segoe UI',Inter,Roboto,Arial,sans-serif";
 
-const logo = await sharp(path.join(PUBLIC, "logo-mark-white.svg"))
+const logo = await sharp(path.join(PUBLIC, "logo-mark.svg"))
   .resize({ height: 64 })
   .png()
   .toBuffer();

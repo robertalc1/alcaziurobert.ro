@@ -303,19 +303,25 @@ const Navbar = () => {
           gap: 12px;
           line-height: 1;
           text-decoration: none;
-          /* The mark is 36px tall; the link under it is 44. It is the only way
+          /* The mark and its wordmark share a 44px touch target. This is the way
              back to the homepage from anywhere on the site. */
           min-height: 44px;
+          flex-shrink: 0;
         }
+        .nav-logo picture { display: block; }
         .nav-logo img {
-          /* Vector AR monogram; preserve its intrinsic ratio. */
+          /* Self-contained vector emblem and outlined Figtree wordmark. */
           height: 36px;
           width: auto;
           user-select: none;
           transition: transform 320ms cubic-bezier(0.23, 1, 0.32, 1);
-          /* The flat blue mark needs no decorative shadow. */
+          /* The restrained relief and border live inside the SVG. */
         }
         .nav-logo:hover img { transform: translateY(-1px); }
+        @media (max-width: 767px) {
+          .nav-logo img { width: 36px; height: 36px; max-width: none; }
+          .nav-inner { gap: 12px; }
+        }
         .nav-logo:active img { transform: scale(0.97); }
 
         /* No inline section links. They lived here for one day and the bar
@@ -438,6 +444,12 @@ const Navbar = () => {
           /* The .site-nav .lang-btn rule above is more specific than the
              component's own mobile rule, so without this the language buttons
              stayed at 32px on phones while everything else moved to 44px. */
+        }
+
+        @media (max-width: 389px) {
+          .nav-inner { padding: 0 16px; }
+          .nav-actions { gap: 2px; }
+          .nav-actions .nav-cta { margin-left: 2px; padding: 0 14px; font-size: 13px; }
         }
 
         /* ─────────────────────── FULLSCREEN MENU ─────────────────────── */
@@ -704,7 +716,10 @@ const Navbar = () => {
             className="nav-logo"
             aria-label="Alcaziu Robert - Home"
           >
-            <img src="/logo-mark.svg" alt="" width={43} height={36} />
+            <picture>
+              <source media="(max-width: 767px)" srcSet="/logo-mark.svg" width={104} height={104} />
+              <img src="/logo-wordmark.svg" alt="" width={503} height={104} />
+            </picture>
           </a>
 
           {/* CALL + MENU TRIGGER + CTA.

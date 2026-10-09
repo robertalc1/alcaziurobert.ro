@@ -1,16 +1,17 @@
-﻿# Design system
+# Design system
 
 ## Identity (updated 2026-10-09)
 
-The AR monogram joins a geometric A and R around one vertical stem. Its open counters and flat colour keep it legible at navigation and favicon sizes.
+The original joined AR monogram sits on a blue rounded-square emblem. A fine bevel, inset border and short directional shadow give the mark restrained depth. The geometry remains specific to Alcaziu Robert; the supplied agency reference informs the symbol-plus-name presentation only.
 
-- Vector master: `public/logo-mark.svg`, blue `#4580F7`, transparent, viewBox `0 0 118 98`.
-- Dark surfaces: `public/logo-mark-white.svg`, the same paths in white.
-- Navbar: blue mark, 36px image height; loader: blue mark, 56–82px.
-- Footer: white mark on a subtle translucent tile over the navy panel.
-- No fonts, embedded raster images, gradients or filters inside the logo.
-- Run `npm run brand-assets` after editing the master. It generates the white version, SVG/ICO/PNG favicons, Apple touch icon and legacy PNG/WebP fallbacks.
+- Vector master: `public/logo-mark.svg`, 104×104, brand-blue gradients, a fine border and an SVG shadow. No raster images or external dependencies.
+- Full signature: `public/logo-wordmark.svg`, 503×104. “Alcaziu Robert” uses outlined Figtree at weight 650; the SVG needs no installed or embedded font.
+- Navbar: full signature on desktop, 36px emblem on mobile. Loader and footer use the same emblem.
+- Single-colour companion: `public/logo-mark-white.svg`, the original flat white AR geometry for tiny in-button applications.
+- Favicons use the same emblem with tighter framing and no outer shadow, including SVG and 16/32/48px ICO frames.
+- Run `npm run brand-assets` after editing the master. It synchronizes the signature emblem and generates the white companion, SVG/ICO/PNG favicons, Apple icon and PNG/WebP fallbacks.
 - Run `npm run og-image` to regenerate the 1200×630 sharing card.
+- Mobile WhatsApp shortcut: centred at the bottom, 54px tall, the existing blue gloss finish with inset shadows only. AR at left, name and translated invitation in the middle, WhatsApp at right. No outer glow. It links directly to the shared WhatsApp contact and retains hero/footer hiding and the safe-area inset.
 
 ## Colour
 

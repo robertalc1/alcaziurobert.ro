@@ -46,8 +46,9 @@
     <link rel="preload" href="/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/figtree-latin-ext.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Shared vector master for the boot loader and navbar. -->
+    <!-- Vector emblem for the loader and outlined wordmark for the navbar. -->
     <link rel="preload" href="/logo-mark.svg" as="image" />
+    <link rel="preload" href="/logo-wordmark.svg" as="image" />
 
     <!-- Structured data: Person + ProfessionalService + FAQPage + WebSite (one JSON-LD array).
          The FAQPage entries are copied verbatim from faq.o3-o6 in src/locales/ro.json,
@@ -323,7 +324,7 @@
          either hides it instantly (already shown this session) or waits for the
          "app-ready" event dispatched from Hero.tsx after its own first paint. -->
     <div id="app-loader" aria-hidden="true">
-      <img class="al-mark" src="/logo-mark.svg" alt="" width="118" height="98" decoding="async" />
+      <img class="al-mark" src="/logo-mark.svg" alt="" width="104" height="104" decoding="async" />
       <span class="al-label">Alcaziu Robert</span>
     </div>
     <script>

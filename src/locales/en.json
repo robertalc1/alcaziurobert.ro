@@ -414,7 +414,8 @@
     "success_close": "Close"
   },
   "fab": {
-    "aria": "Open contact options",
+    "aria": "Message Alcaziu Robert on WhatsApp",
+    "whatsapp": "Message me on WhatsApp",
     "heading": "Contact",
     "call": "Call us",
     "email": "Email us",
