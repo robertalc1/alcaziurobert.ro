@@ -11,8 +11,7 @@ import Reveal from "@/components/Reveal";
  *
  * It lives on the dark panel rather than on the light page for a hard reason,
  * not a stylistic one: scripts/optimize-logos.mjs repaints every source logo
- * WHITE and keeps only its alpha (UNBACDE10 retains its coloured badge), so
- * these files need a dark background. If
+ * WHITE and keeps only its alpha, so these files need a dark background. If
  * this band ever has to move onto the light page, either re-run
  * `npm run optimize-logos` with a dark ink or add
  * `filter: brightness(0) opacity(.55)` — do not just move the markup.
@@ -45,7 +44,7 @@ const CELLS: ReadonlyArray<Cell> = [
   { kind: "logo", file: "everati", name: "Everati" },
   { kind: "logo", file: "traveltwin", name: "Travel Twin" },
   { kind: "logo", file: "laura-predoi", name: "Laura Predoi — Cabinet de psihologie" },
-  { kind: "logo", file: "unbacde10", name: "UNBACDE10" },
+  { kind: "logo", file: "unbacde10-white", name: "UNBACDE10" },
 ];
 
 const ClientMarqueeSection: React.FC = () => {

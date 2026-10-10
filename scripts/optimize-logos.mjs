@@ -19,7 +19,7 @@ import sharp from "sharp";
  *                  artwork rather than whatever margin the exporter left.
  *   2. recolour  — keep alpha, force every colour channel to white. One set,
  *                  one colour, and the black logo stops being a special case.
- *                  UNBACDE10 retains its badge colours to preserve its "10".
+ *                  Filled badges first become outlines to preserve their glyphs.
  *   3. scale     — see "Optical sizing" below.
  *   4. extend    — centre the result on a fixed CANVAS_W x CANVAS_H frame.
  *
@@ -85,19 +85,24 @@ const LOGOS = [
   ["10.png", "traveltwin"],
   ["11.png", "ancpi"],
   ["laura-predoi.png", "laura-predoi"],
-  ["unbacde10.svg", "unbacde10", { preserveColour: true }],
+  ["unbacde10.svg", "unbacde10-white", { outlineBadge: true, opticalScale: 1.15 }],
 ];
 
 /** Trim padding and repaint the ink white, keeping the alpha shape intact. */
-async function normalise(file, { preserveColour = false } = {}) {
-  // This supplied SVG has an opaque badge: repainting its alpha would erase
-  // the "10" inside it. Keep the badge and brand colours, and lighten only
-  // the wordmark and tagline for the dark panel. The original stays intact.
-  const input = preserveColour
-    ? Buffer.from((await fs.readFile(file, "utf8"))
-      .replaceAll('#0F172A', '#FFFFFF')
-      .replaceAll('#64748B', '#CBD5E1'))
-    : file;
+async function normalise(file, { outlineBadge = false } = {}) {
+  let input = file;
+  if (outlineBadge) {
+    // The supplied UNBACDE10 badge has an opaque face. Repainting that face
+    // white would hide its "10", so retain the original number paths inside
+    // one clean white outline. The original SVG stays untouched.
+    const svg = await fs.readFile(file, "utf8");
+    const badge = svg.match(/<g filter="url\(#ub3-shadow\)">[\s\S]*?<\/g>/)?.[0];
+    const digits = badge?.match(/<path\b[^>]*fill="#(?:2563EB|F59E0B)"[^>]*\/>/g);
+    if (!badge || digits?.length !== 2) throw new Error("UNBACDE10 badge paths not found");
+    input = Buffer.from(svg
+      .replace(/<defs>[\s\S]*?<\/defs>/, "")
+      .replace(badge, `<g><rect x="8" y="7" width="88" height="88" rx="26" fill="none" stroke="#FFFFFF" stroke-width="2"/>${digits.join("")}</g>`));
+  }
   // threshold 10: the sources are anti-aliased, so the outermost ring of
   // pixels carries an alpha of 1-2. Trimming at 0 keeps a hairline of padding.
   const trimmed = await sharp(input)
@@ -127,7 +132,7 @@ async function normalise(file, { preserveColour = false } = {}) {
     .toBuffer();
 
   return {
-    buf: preserveColour ? trimmed : white,
+    buf: white,
     w: meta.width,
     h: meta.height,
     coverage: ink / (meta.width * meta.height),
@@ -147,7 +152,9 @@ async function processOne(file, slug, options) {
     (TARGET_INK * CANVAS_W * CANVAS_H) /
       (art.w * art.h * Math.pow(art.coverage, 2 * DAMPING))
   );
-  const scale = Math.min(fit, optical);
+  // The UNBACDE10 badge shares the width with a long wordmark. A small
+  // optical correction keeps its lettering level with the other wordmarks.
+  const scale = Math.min(fit, optical * (options?.opticalScale ?? 1));
 
   const w = Math.max(1, Math.round(art.w * scale));
   const h = Math.max(1, Math.round(art.h * scale));
@@ -172,7 +179,7 @@ async function processOne(file, slug, options) {
     coverage: art.coverage,
     w,
     h,
-    atCeiling: optical >= fit,
+    atCeiling: scale === fit,
     inkArea: w * h * art.coverage,
     fromKB: stat.size / 1024,
     toKB: buf.length / 1024,
