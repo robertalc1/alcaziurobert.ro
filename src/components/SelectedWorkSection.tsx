@@ -17,6 +17,7 @@ type Project = {
 // Every live build, OCPI first — the carousel shows them all.
 const PROJECTS: Project[] = [
   { slug: "sgc", name: "Oficiul de Cadastru — OCPI", url: "https://sgc.ocpict.ro/", img: "/sgc-live.webp", domain: "sgc.ocpict.ro" },
+  { slug: "black-sea-gis", name: "Black Sea GIS", url: "https://bsgis.ocpict.ro/", img: "/black-sea-gis.webp", domain: "bsgis.ocpict.ro" },
   { slug: "laura-predoi", name: "Laura Predoi — Cabinet de psihologie", url: "https://psihologiecabinet.ro/", img: "/laura-predoi.webp", domain: "psihologiecabinet.ro" },
   { slug: "unbacde10", name: "UNBACDE10", url: "https://unbacde10.ro/", img: "/unbacde10.webp", domain: "unbacde10.ro" },
   { slug: "picaps", name: "Picaps", url: "https://picaps.ro/", img: "/picaps3.webp", domain: "picaps.ro" },
@@ -486,9 +487,13 @@ const SelectedWorkSection: React.FC = () => {
           position: relative;
           z-index: 1;
           display: flex;
+          flex-wrap: wrap;
+          width: 100%;
           align-items: center;
           justify-content: center;
-          gap: clamp(4px, 1.4vw, 8px);
+          /* Keep every 24px hit target inside narrow phones as projects grow.
+             The active button takes 12px more; excess items can wrap. */
+          gap: 0 clamp(1px, calc((100% - ${total * 24 + 12}px) / ${Math.max(total - 1, 1)}), 8px);
           margin-top: var(--sp-24);
         }
         /* The dot people SEE is 7px. The dot people HIT is 44. Those are two

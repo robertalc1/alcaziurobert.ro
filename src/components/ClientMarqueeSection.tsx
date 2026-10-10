@@ -45,6 +45,7 @@ const CELLS: ReadonlyArray<Cell> = [
   { kind: "logo", file: "traveltwin", name: "Travel Twin" },
   { kind: "logo", file: "laura-predoi", name: "Laura Predoi — Cabinet de psihologie" },
   { kind: "logo", file: "unbacde10-white", name: "UNBACDE10" },
+  { kind: "logo", file: "black-sea-gis-white", name: "Black Sea GIS" },
 ];
 
 const ClientMarqueeSection: React.FC = () => {

@@ -86,10 +86,11 @@ const LOGOS = [
   ["11.png", "ancpi"],
   ["laura-predoi.png", "laura-predoi"],
   ["unbacde10.svg", "unbacde10-white", { outlineBadge: true, opticalScale: 1.15 }],
+  ["black-sea-gis.svg", "black-sea-gis-white", { flatTiles: true, opticalScale: 1.25 }],
 ];
 
 /** Trim padding and repaint the ink white, keeping the alpha shape intact. */
-async function normalise(file, { outlineBadge = false } = {}) {
+async function normalise(file, { outlineBadge = false, flatTiles = false } = {}) {
   let input = file;
   if (outlineBadge) {
     // The supplied UNBACDE10 badge has an opaque face. Repainting that face
@@ -102,6 +103,18 @@ async function normalise(file, { outlineBadge = false } = {}) {
     input = Buffer.from(svg
       .replace(/<defs>[\s\S]*?<\/defs>/, "")
       .replace(badge, `<g><rect x="8" y="7" width="88" height="88" rx="26" fill="none" stroke="#FFFFFF" stroke-width="2"/>${digits.join("")}</g>`));
+  }
+  if (flatTiles) {
+    // Keep the four top faces and original lettering of Black Sea GIS.
+    // Its metallic walls and shadows would otherwise merge into one white
+    // silhouette and erase the gaps between the map tiles.
+    const svg = await fs.readFile(file, "utf8");
+    const root = svg.match(/<svg\b[^>]*>/)?.[0];
+    const title = svg.match(/<title\b[^>]*>[\s\S]*?<\/title>/)?.[0];
+    const tiles = svg.match(/<path\b[^>]*fill="url\(#(?:pearl|sapphire)\)"[^>]*\/>/g);
+    const wordmark = svg.match(/<g transform="[^"]+">[\s\S]*?<\/g>/)?.[0];
+    if (!root || !title || tiles?.length !== 4 || !wordmark) throw new Error("Black Sea GIS logo paths not found");
+    input = Buffer.from(`${root}${title}${tiles.map(tile => tile.replace(/fill="[^"]+"/, 'fill="#FFFFFF"')).join("")}${wordmark}</svg>`);
   }
   // threshold 10: the sources are anti-aliased, so the outermost ring of
   // pixels carries an alpha of 1-2. Trimming at 0 keeps a hairline of padding.
@@ -152,8 +165,8 @@ async function processOne(file, slug, options) {
     (TARGET_INK * CANVAS_W * CANVAS_H) /
       (art.w * art.h * Math.pow(art.coverage, 2 * DAMPING))
   );
-  // The UNBACDE10 badge shares the width with a long wordmark. A small
-  // optical correction keeps its lettering level with the other wordmarks.
+  // Some symbols share their width with a long wordmark. A small optical
+  // correction keeps the lettering level with the other wordmarks.
   const scale = Math.min(fit, optical * (options?.opticalScale ?? 1));
 
   const w = Math.max(1, Math.round(art.w * scale));
