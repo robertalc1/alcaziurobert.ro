@@ -15,6 +15,11 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      # Public GA4 web-stream ID, compiled into the client bundle by Vite.
+      # Keep it explicit so a legacy repository secret cannot route hits to
+      # the old property. Consent remains controlled by the cookie banner.
+      VITE_GA_MEASUREMENT_ID: G-PJKHF484GD
 
     steps:
       - name: Checkout cod
@@ -29,24 +34,15 @@ jobs:
       - name: Instalare dependente
         run: npm ci
 
-      # A missing VITE_* secret does not fail the build — it silently inlines an
-      # empty string, and the feature it powers simply stops existing in
-      # production with nothing in the log to say so. This is exactly how GA4
-      # went missing from the deployed bundle, so the gap gets announced.
-      - name: Verifica secretele de tracking
+      - name: Verifica ID-ul Google Analytics
         env:
-          GA: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
+          GA: ${{ env.VITE_GA_MEASUREMENT_ID }}
         run: |
-          if [ -z "$GA" ]; then
-            echo "::warning title=GA4 lipseste::VITE_GA_MEASUREMENT_ID nu este setat in Settings -> Secrets -> Actions. Google Analytics NU va exista in build-ul de productie."
-          elif ! printf '%s' "$GA" | grep -qE '^G-[A-Z0-9]+$'; then
-            # Un spatiu lipit odata cu ID-ul trece de orice verificare de tipul
-            # "e gol?" si ajunge in URL-ul tag-ului ca %20. Scriptul se incarca,
-            # Google raspunde, nu se colecteaza nimic si nu apare nicio eroare.
-            echo "::warning title=GA4 invalid::VITE_GA_MEASUREMENT_ID nu are forma G-XXXXXXXXXX (spatiu in plus? ghilimele?). Codul face trim, dar curata secretul."
-          else
-            echo "GA4 configurat."
+          if ! printf '%s' "$GA" | grep -qE '^G-[A-Z0-9]{10}$'; then
+            echo "::error title=GA4 invalid::VITE_GA_MEASUREMENT_ID trebuie sa aiba forma G-XXXXXXXXXX."
+            exit 1
           fi
+          echo "GA4 configurat: $GA"
 
       # `npm run build` prerenders every route in a real browser after vite
       # finishes, so the runner needs one. Chromium only — the other engines
@@ -57,9 +53,7 @@ jobs:
       - name: Build (vite build + prerender)
         run: npm run build
         env:
-          # VITE_* vars are inlined at build time, so GA4 has to be set here.
-          # Empty secret = analytics simply stays off.
-          VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
+          # VITE_GA_MEASUREMENT_ID is inherited from the job's public config.
           # Optional override; src/lib/marketingPixels.ts falls back to the
           # hardcoded pixel id when this secret is not set.
           VITE_FB_PIXEL_ID: ${{ secrets.VITE_FB_PIXEL_ID }}
