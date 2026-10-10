@@ -18,6 +18,7 @@ type Project = {
 const PROJECTS: Project[] = [
   { slug: "sgc", name: "Oficiul de Cadastru — OCPI", url: "https://sgc.ocpict.ro/", img: "/sgc-live.webp", domain: "sgc.ocpict.ro" },
   { slug: "laura-predoi", name: "Laura Predoi — Cabinet de psihologie", url: "https://psihologiecabinet.ro/", img: "/laura-predoi.webp", domain: "psihologiecabinet.ro" },
+  { slug: "unbacde10", name: "UNBACDE10", url: "https://unbacde10.ro/", img: "/unbacde10.webp", domain: "unbacde10.ro" },
   { slug: "picaps", name: "Picaps", url: "https://picaps.ro/", img: "/picaps3.webp", domain: "picaps.ro" },
   { slug: "kickout", name: "Kickout", url: "https://kickout.ro/", img: "/kickout.webp", domain: "kickout.ro" },
   { slug: "rdraw", name: "R-Draw", url: "https://r-draw.com/", img: "/r-draw.com.webp", domain: "r-draw.com" },
@@ -106,7 +107,7 @@ const BrowserFrame: React.FC<{ src: string; alt: string; domain?: string; eager?
  * nine equal cards, which made every project look equally weighted and asked
  * the visitor to scan rather than to look. A coverflow has one hero at a time:
  * the centre card is the argument, the flanking cards only say "there are
- * more". All ten projects, same browser chrome, same buttons.
+ * more". Every project, same browser chrome, same buttons.
  *
  * Autoplay pauses on hover, focus and touch, and never runs under
  * prefers-reduced-motion.

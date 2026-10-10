@@ -5,7 +5,7 @@ import sharp from "sharp";
 /**
  * Prepares the client logos for the proof grid (ClientMarqueeSection).
  *
- * The eleven sources share a 500x312 canvas and nothing else. Their artwork
+ * The original PNG sources share a 500x312 canvas and nothing else. Their artwork
  * ranges from a 6:1 slab wordmark that is 74% solid ink to a 1:1 hairline
  * badge that is 15% ink, and one of them (Lukton) is drawn in black, which is
  * invisible on the section's background. Dropped into a grid with one
@@ -19,11 +19,12 @@ import sharp from "sharp";
  *                  artwork rather than whatever margin the exporter left.
  *   2. recolour  — keep alpha, force every colour channel to white. One set,
  *                  one colour, and the black logo stops being a special case.
+ *                  UNBACDE10 retains its badge colours to preserve its "10".
  *   3. scale     — see "Optical sizing" below.
  *   4. extend    — centre the result on a fixed CANVAS_W x CANVAS_H frame.
  *
  * Because step 4 makes every file the same size, the component needs no
- * per-logo CSS at all: one `width: 100%` rule gives twelve cells that align
+ * per-logo CSS at all: one `width: 100%` rule gives cells that align
  * perfectly, and replacing a logo cannot break the row.
  *
  * ## Optical sizing
@@ -84,13 +85,22 @@ const LOGOS = [
   ["10.png", "traveltwin"],
   ["11.png", "ancpi"],
   ["laura-predoi.png", "laura-predoi"],
+  ["unbacde10.svg", "unbacde10", { preserveColour: true }],
 ];
 
 /** Trim padding and repaint the ink white, keeping the alpha shape intact. */
-async function normalise(file) {
+async function normalise(file, { preserveColour = false } = {}) {
+  // This supplied SVG has an opaque badge: repainting its alpha would erase
+  // the "10" inside it. Keep the badge and brand colours, and lighten only
+  // the wordmark and tagline for the dark panel. The original stays intact.
+  const input = preserveColour
+    ? Buffer.from((await fs.readFile(file, "utf8"))
+      .replaceAll('#0F172A', '#FFFFFF')
+      .replaceAll('#64748B', '#CBD5E1'))
+    : file;
   // threshold 10: the sources are anti-aliased, so the outermost ring of
   // pixels carries an alpha of 1-2. Trimming at 0 keeps a hairline of padding.
-  const trimmed = await sharp(file)
+  const trimmed = await sharp(input)
     .ensureAlpha()
     .trim({ threshold: 10 })
     .png()
@@ -117,17 +127,17 @@ async function normalise(file) {
     .toBuffer();
 
   return {
-    buf: white,
+    buf: preserveColour ? trimmed : white,
     w: meta.width,
     h: meta.height,
     coverage: ink / (meta.width * meta.height),
   };
 }
 
-async function processOne(file, slug) {
+async function processOne(file, slug, options) {
   const full = path.join(SRC_DIR, file);
   const stat = await fs.stat(full);
-  const art = await normalise(full);
+  const art = await normalise(full, options);
 
   const fit = Math.min(
     (SAFE_W * CANVAS_W) / art.w,
@@ -172,9 +182,9 @@ async function processOne(file, slug) {
 await fs.mkdir(OUT_DIR, { recursive: true });
 
 const results = [];
-for (const [file, slug] of LOGOS) {
+for (const [file, slug, options] of LOGOS) {
   try {
-    results.push(await processOne(file, slug));
+    results.push(await processOne(file, slug, options));
   } catch (e) {
     console.error("FAIL", file, e.message);
     process.exitCode = 1;
