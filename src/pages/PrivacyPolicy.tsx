@@ -109,11 +109,6 @@ const PrivacyPolicy: React.FC = () => {
             align-self: start;
           }
         }
-        .cs-toc-eyebrow {
-          font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em;
-          text-transform: uppercase; color: var(--ink);
-          margin: 0 0 14px;
-        }
         .cs-toc nav { display: flex; flex-direction: column; gap: 2px; }
         .cs-toc a {
           display: block;

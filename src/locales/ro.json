@@ -106,20 +106,6 @@
       "alma": "Servicii, galerie de lucrări și programări",
       "lukton": "Fișe de produs pentru încărcătoare telescopice",
       "ecartop": "Servicii de cadastru și intabulare, cu formular de ofertă"
-    },
-    "categories": {
-      "sgc": "ADMINISTRAȚIE PUBLICĂ",
-      "black-sea-gis": "GIS ȘI CARTOGRAFIE",
-      "laura-predoi": "CABINET DE PSIHOLOGIE",
-      "unbacde10": "EDUCAȚIE",
-      "picaps": "CONSTRUCȚII MODULARE",
-      "kickout": "MAGAZIN ONLINE",
-      "rdraw": "INGINERIE DE TRAFIC",
-      "everun": "UTILAJE DE CONSTRUCȚII",
-      "everati": "VEHICULE ELECTRICE",
-      "alma": "SERVICE AUTO",
-      "lukton": "ECHIPAMENTE INDUSTRIALE",
-      "ecartop": "CADASTRU ȘI TOPOGRAFIE"
     }
   },
   "approach": {
@@ -442,7 +428,6 @@
     "d4_meta": "Reclame",
     "d4_title": "Pe infrastructura dumneavoastră",
     "d4_body": "Meta și Google, conectate direct la ce am construit. Conturile rămân pe numele dumneavoastră. Fără agenție intermediară care păstrează accesul la propriile campanii.",
-    "guarantee_label": "Garanție",
     "guarantee_title": "Garanție pe rezultat, la 90 de zile",
     "guarantee_body": "Dacă la 90 de zile de la lansare conversia nu a trecut peste reperul stabilit la start, pe aceleași surse de trafic, continuăm <pill>fără costuri</pill> până trece.",
     "cta": "Solicitați o ofertă"

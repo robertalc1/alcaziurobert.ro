@@ -37,6 +37,10 @@ const MobileBottomBar = lazy(() => import("@/components/MobileBottomBar"));
 // screenshot at 1106x691 instead of 504x315, and the roster of twelve named
 // thumbnails sits under it.
 //   work 1420/870  (via `node artifacts.local/verify-work.mjs`)
+//
+// Re-measured 2026-10-12 again, after the sector eyebrow came off every
+// caption and the roster lost its heading:
+//   work 1389/842
 // The FAQ is two columns now and lists four objections instead of six;
 // contact grew because it carries the form the hero used to, then shrank
 // again when it lost its panel padding.
@@ -116,7 +120,7 @@ const Index = () => {
         {/* Proof: the work itself. Full-bleed, outside the body column —
             instantly's testimonial slot, which is the one band on their page
             that breaks the 1040 grid so the carousel can run edge to edge. */}
-        <Suspense fallback={<Placeholder minHeight={1145} />}>
+        <Suspense fallback={<Placeholder minHeight={1116} />}>
           <SelectedWorkSection />
         </Suspense>
 

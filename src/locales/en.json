@@ -106,20 +106,6 @@
       "alma": "Services, a work gallery and bookings",
       "lukton": "Product pages for telescopic loaders",
       "ecartop": "Cadastral and land registration, with a quote form"
-    },
-    "categories": {
-      "sgc": "PUBLIC ADMINISTRATION",
-      "black-sea-gis": "GIS AND MAPPING",
-      "laura-predoi": "PSYCHOLOGY PRACTICE",
-      "unbacde10": "EDUCATION",
-      "picaps": "MODULAR CONSTRUCTION",
-      "kickout": "ONLINE STORE",
-      "rdraw": "TRAFFIC ENGINEERING",
-      "everun": "CONSTRUCTION MACHINERY",
-      "everati": "ELECTRIC VEHICLES",
-      "alma": "AUTO BODY SHOP",
-      "lukton": "INDUSTRIAL EQUIPMENT",
-      "ecartop": "LAND SURVEYING"
     }
   },
   "approach": {
@@ -442,7 +428,6 @@
     "d4_meta": "Ads",
     "d4_title": "On your own infrastructure",
     "d4_body": "Meta and Google wired straight into what we built. The accounts stay in your name. No middleman agency holding the keys to your own campaigns.",
-    "guarantee_label": "Guarantee",
     "guarantee_title": "Results guarantee, at 90 days",
     "guarantee_body": "If conversion has not passed the baseline we set at kickoff within 90 days of launch, on the same traffic sources, we keep working <pill>at no cost</pill> until it does.",
     "cta": "Request a quote"

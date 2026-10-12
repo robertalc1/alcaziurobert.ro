@@ -387,7 +387,10 @@ const SelectedWorkSection: React.FC = () => {
            every line has to be in that HTML. */
         .vt-meta {
           display: grid;
-          padding: 22px 6px 20px;
+          /* 18 at the top rather than 22: the caption used to open with an
+             eyebrow that carried 10px of its own margin, so the name now sits
+             closer to the frame than the old spacing assumed. */
+          padding: 18px 6px 20px;
         }
         .vt-card {
           grid-area: 1 / 1;
@@ -401,19 +404,11 @@ const SelectedWorkSection: React.FC = () => {
           transform: none;
           pointer-events: auto;
         }
-        /* --brand-strong, not --brand: this runs at 11.5px and the palette note
-           in index.css reserves the lighter accent for headings, chips and
-           borders — never small copy. #1257C4 clears AA here. */
-        .vt-cat {
-          display: block;
-          color: var(--brand-strong);
-          font-family: var(--font-sans);
-          font-size: 11.5px;
-          font-weight: 600;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          margin: 0 0 10px;
-        }
+        /* There is no sector eyebrow above the name, and there is not going to
+           be one. A 11.5px line in brand blue, shouted in capitals and tracked
+           out to 0.14em, is the single most recognisable tell of a generated
+           landing page — PRODUCT.md bans exactly that look. The client's name
+           and the line under it already say what the project is. */
         .vt-row {
           display: flex;
           align-items: flex-end;
@@ -476,21 +471,15 @@ const SelectedWorkSection: React.FC = () => {
           border-top: 1px solid var(--line);
           padding-top: 18px;
         }
+        /* Counter only. "TOATE PROIECTELE" sat here in the same shouted caps
+           as the sector eyebrow, and it was labelling a strip of twelve
+           screenshots that explains itself. The tablist keeps the words as its
+           aria-label, which is the one place they were doing real work. */
         .vt-rosterhead {
           display: flex;
           align-items: baseline;
-          justify-content: space-between;
-          gap: 16px;
+          justify-content: flex-end;
           margin: 0 2px 14px;
-        }
-        .vt-rosterlabel {
-          font-family: var(--font-sans);
-          font-size: 10.5px;
-          font-weight: 600;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
-          color: var(--text-muted);
-          margin: 0;
         }
         .vt-count {
           font-family: var(--font-sans);
@@ -732,7 +721,6 @@ const SelectedWorkSection: React.FC = () => {
                   const on = i === index;
                   return (
                     <div className="vt-card" key={p.slug} data-on={on} aria-hidden={on ? undefined : true}>
-                      <span className="vt-cat">{t(`portfolio.categories.${p.slug}`)}</span>
                       <div className="vt-row">
                         <div>
                           <h3 className="vt-name">{p.name}</h3>
@@ -758,9 +746,6 @@ const SelectedWorkSection: React.FC = () => {
 
             <div className="vt-rosterwrap">
               <div className="vt-rosterhead">
-                <p className="vt-rosterlabel" id="vt-roster-label">
-                  {t("work.roster_label")}
-                </p>
                 <span className="vt-count" aria-hidden="true">
                   <b>{String(index + 1).padStart(2, "0")}</b> / {TOTAL}
                 </span>
@@ -769,7 +754,7 @@ const SelectedWorkSection: React.FC = () => {
               {/* Roving tabindex: one stop for the whole strip, arrows move
                   inside it. Twelve separate tab stops between the screenshot
                   and the form would be twelve too many. */}
-              <ul className="vt-roster" role="tablist" aria-labelledby="vt-roster-label">
+              <ul className="vt-roster" role="tablist" aria-label={t("work.roster_label")}>
                 {PROJECTS.map((p, i) => {
                   const on = i === index;
                   return (

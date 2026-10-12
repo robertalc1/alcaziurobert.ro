@@ -93,11 +93,16 @@ const ProcessSection: React.FC = () => {
         }
         .proc-meta {
           font-family: var(--font-sans);
-          font-size: 10.5px;
-          font-weight: 600;
+          /* Plain text, not an eyebrow. This ran at 10.5px/600 in capitals,
+             tracked out to 0.16em — the same generated-page tell as the sector
+             label that used to sit over the portfolio captions. The words earn
+             their place (without them the second card reads as "Nu un teanc de
+             pagini" with nothing saying it is about the funnel); the costume
+             did not. */
+          font-size: 13px;
+          font-weight: 500;
           line-height: 1;
-          text-transform: uppercase;
-          letter-spacing: 0.16em;
+          letter-spacing: normal;
           color: var(--text-muted);
         }
         .proc-num {

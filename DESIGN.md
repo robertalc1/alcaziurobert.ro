@@ -39,8 +39,8 @@ The current implementation in `src/index.css` is the source of truth. The previo
 Twelve projects; OCPI first. The 3D coverflow is gone — it showed one project at 504×315 inside a ring of rotated ghost cards and twelve anonymous dots. The section is now a single white case holding three things in order:
 
 1. **Stage** — the active project in browser chrome at the full 1240px band. The image lands near 1100px wide, roughly five times the old area. This frame carries **the only drop shadow in the section**; the case, the chips and the buttons carry none. One shadow, and it belongs to the product image.
-2. **Caption** — category eyebrow, project name set solid (never `-webkit-text-stroke`; the outlined name was the only outlined type on the site), one line of result or description, and the plain secondary pill to the live site.
-3. **Roster** — a filmstrip of all twelve thumbnails with the client's short name under each, as an ARIA tablist with roving tabindex. Selection is a change of surface, not a splash of colour: inactive chips sit recessed on `--page`, the active one lifts to `--surface` with a `--brand` rim. Below 1024px the strip becomes a scroll-snap rail with a mask at the right edge.
+2. **Caption** — project name set solid (never `-webkit-text-stroke`; the outlined name was the only outlined type on the site), one line of result or description, and the plain secondary pill to the live site. Nothing sits above the name.
+3. **Roster** — a filmstrip of all twelve thumbnails with the client's short name under each, as an ARIA tablist with roving tabindex, named by `aria-label` rather than by a visible heading. Selection is a change of surface, not a splash of colour: inactive chips sit recessed on `--page`, the active one lifts to `--surface` with a `--brand` rim. Below 1024px the strip becomes a scroll-snap rail with a mask at the right edge.
 
 Autoplay runs only while the section is on screen, pauses on hover/focus/touch, never runs under `prefers-reduced-motion`, and stops permanently once the visitor picks a project.
 
@@ -53,12 +53,29 @@ Autoplay runs only while the section is on screen, pauses on hover/focus/touch, 
 
 ### Copy
 
-- `portfolio.lines` (renamed from `portfolio.metrics`, which was never only metrics) and `portfolio.categories` have matching Romanian and English keys.
-- Categories name the client's **sector**, not the type of site or the funnel mechanism. "SITE DEALER" and "FUNNEL B2B" described our work, not their business; a prospect scans this strip for someone like themselves.
+- `portfolio.lines` (renamed from `portfolio.metrics`, which was never only metrics) has matching Romanian and English keys.
 - Lines carry a number only where one is documented in `ANALIZA-SI-PLAN.md` (OCPI, Picaps, R-Draw, Kickout). The other eight describe what the site does. No invented metrics, and no English in the Romanian file — `"Conversion rate 4.2% · Industry avg: 1.8%"` was sitting untranslated in `ro.json`.
+- **`portfolio.categories` is gone and is not coming back** (removed 2026-10-12, the day it shipped). It rendered as an 11.5px line in brand blue, in capitals, tracked out to 0.14em, above every project name. See the next section.
 - The client band has 12 logo cells, including Laura Predoi; the Alma text wordmark was removed.
 - Wrapping, centred rows use 6/4/3 cells at desktop/tablet/mobile widths.
 - Sources remain in `public/logos`; `npm run optimize-logos` creates optically balanced white marks on transparent 400×165 WebP canvases.
+
+## No eyebrow labels
+
+There are no small-caps "eyebrow" labels anywhere on this site, and none are to be added. The pattern — roughly 10–12px, weight 600+, `text-transform: uppercase`, `letter-spacing` above `0.1em`, often in the accent colour, sitting above a heading — is the most recognisable signature of a generated landing page, and `PRODUCT.md` bans that look outright.
+
+Swept out on 2026-10-12: `.vt-cat` and `.vt-rosterlabel` (portfolio), `.offer-guar-label` (offer), plus the dead `.sec-eyebrow` in `index.css` and four unused copies of `.cs-toc-eyebrow` in the case-study and legal pages.
+
+Where the words carried real information they survived as ordinary text — 13px / 500 / normal tracking / `--text-muted`: `.offer-meta` ("Site", "Funnel", "Tracking", "Reclame") and `.proc-meta` ("Zilele 1–5" …). Without them the second offer card reads as "Nu un teanc de pagini" with nothing saying it is about the funnel, and `PRODUCT.md` requires the process to be "a dated table, not a narrative". **Those two rules are deliberately identical** — the two sections run the same card grid, so change one and change the other. Where a label only restated the heading under it, it was deleted outright: "GARANȚIE" sat above "Garanție pe rezultat, la 90 de zile".
+
+A grep that must keep returning nothing inside `src/`:
+
+```
+text-transform: *uppercase
+letter-spacing: *0\.(1[0-9]|[2-9])
+```
+
+Two all-caps strings are not this pattern and stay: `nav.faq` ("FAQ", an acronym) and `footer.wordmark` ("ALCAZIU ROBERT", a 104px SVG logotype with a gradient fill).
 
 ## Motion
 

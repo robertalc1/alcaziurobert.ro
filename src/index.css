@@ -660,14 +660,6 @@
     margin-inline: auto;
   }
 
-  .sec-eyebrow {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--brand);
-    margin: 0 0 var(--sp-16);
-  }
 
   .sec-title {
     font-size: var(--text-section-title);

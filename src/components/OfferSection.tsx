@@ -94,11 +94,16 @@ const OfferSection: React.FC = () => {
         }
         .offer-meta {
           font-family: var(--font-sans);
-          font-size: 10.5px;
-          font-weight: 600;
+          /* Plain text, not an eyebrow. This ran at 10.5px/600 in capitals,
+             tracked out to 0.16em — the same generated-page tell as the sector
+             label that used to sit over the portfolio captions. The words earn
+             their place (without them the second card reads as "Nu un teanc de
+             pagini" with nothing saying it is about the funnel); the costume
+             did not. */
+          font-size: 13px;
+          font-weight: 500;
           line-height: 1;
-          text-transform: uppercase;
-          letter-spacing: 0.16em;
+          letter-spacing: normal;
           color: var(--text-muted);
         }
         /* Card title scale — --text-card-title in index.css. */
@@ -133,7 +138,10 @@ const OfferSection: React.FC = () => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 10px;
+          /* 8, not 10: the block opened with a "GARANȚIE" eyebrow that only
+             repeated the title under it — "Garanție pe rezultat, la 90 de
+             zile" — so the title is the first line now. */
+          gap: 8px;
           max-width: 620px;
           margin: var(--sp-24) auto 0;
           padding: var(--sp-32) var(--sp-32);
@@ -143,14 +151,6 @@ const OfferSection: React.FC = () => {
             radial-gradient(120% 160% at 50% 0%, rgba(69, 128, 247, 0.07), transparent 62%),
             var(--surface);
           text-align: center;
-        }
-        .offer-guar-label {
-          font-family: var(--font-sans);
-          font-size: 11px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.18em;
-          color: var(--brand);
         }
         .offer-guar-title {
           font-family: var(--font-sans);
@@ -256,7 +256,6 @@ const OfferSection: React.FC = () => {
 
           <Reveal delay={80}>
             <div className="offer-guarantee">
-              <span className="offer-guar-label">{t("offer.guarantee_label")}</span>
               <h3 className="offer-guar-title">{t("offer.guarantee_title")}</h3>
               <p className="offer-guar-body">
                 <Trans i18nKey="offer.guarantee_body" components={pillComponents} />
