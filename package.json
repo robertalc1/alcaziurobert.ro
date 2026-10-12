@@ -11,6 +11,7 @@
     "dev": "vite",
     "build": "vite build && node scripts/prerender.mjs",
     "build:dev": "vite build --mode development",
+    "capture-portfolio": "node scripts/capture-portfolio.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node server.js",

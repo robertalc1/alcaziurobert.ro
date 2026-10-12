@@ -34,13 +34,36 @@ The current implementation in `src/index.css` is the source of truth. The previo
 
 ## Portfolio and client marks
 
-- Ten projects in the existing coverflow; OCPI first, Laura Predoi second.
-- Laura Predoi links to `https://psihologiecabinet.ro/`. Its WebP is a 1600×1000 crop of the local project's `artifacts/home-1440.png` captured on 2026-10-09; live browser access was unavailable during this update.
-- Project categories and descriptions have matching Romanian and English keys.
+### The showcase (replaced the coverflow, 2026-10-12)
+
+Twelve projects; OCPI first. The 3D coverflow is gone — it showed one project at 504×315 inside a ring of rotated ghost cards and twelve anonymous dots. The section is now a single white case holding three things in order:
+
+1. **Stage** — the active project in browser chrome at the full 1240px band. The image lands near 1100px wide, roughly five times the old area. This frame carries **the only drop shadow in the section**; the case, the chips and the buttons carry none. One shadow, and it belongs to the product image.
+2. **Caption** — category eyebrow, project name set solid (never `-webkit-text-stroke`; the outlined name was the only outlined type on the site), one line of result or description, and the plain secondary pill to the live site.
+3. **Roster** — a filmstrip of all twelve thumbnails with the client's short name under each, as an ARIA tablist with roving tabindex. Selection is a change of surface, not a splash of colour: inactive chips sit recessed on `--page`, the active one lifts to `--surface` with a `--brand` rim. Below 1024px the strip becomes a scroll-snap rail with a mask at the right edge.
+
+Autoplay runs only while the section is on screen, pauses on hover/focus/touch, never runs under `prefers-reduced-motion`, and stops permanently once the visitor picks a project.
+
+### Screenshots
+
+- **Every image is a capture of the live page, nothing else.** Before 2026-10-12, eight of the twelve were product photos, stock images or — for `r-draw.com` — a generated image still carrying its watermark. A photo inside a browser frame labelled with a client's domain is a false claim, and `PRODUCT.md` bans exactly that look.
+- Run `npm run capture-portfolio` to refresh all twelve, or `npm run capture-portfolio -- <slug> <slug>` for a few. The script captures at 1600×1000 and deviceScaleFactor 2, dismisses cookie walls, scrolls the page so IntersectionObserver reveals fire, then writes `public/work/<slug>.webp` (1600×1000) and `public/work/<slug>-thumb.webp` (480×300). A site that fails keeps its existing files.
+- Filenames key off the slug. Do not reintroduce per-project filenames (`sgc-live.webp`, `picaps3.webp`, `r-draw.com.webp`) — the component derives both paths from the slug.
+- Re-measure `Placeholder minHeight` for the work section in `src/pages/Index.tsx` after any change to this section's content.
+
+### Copy
+
+- `portfolio.lines` (renamed from `portfolio.metrics`, which was never only metrics) and `portfolio.categories` have matching Romanian and English keys.
+- Categories name the client's **sector**, not the type of site or the funnel mechanism. "SITE DEALER" and "FUNNEL B2B" described our work, not their business; a prospect scans this strip for someone like themselves.
+- Lines carry a number only where one is documented in `ANALIZA-SI-PLAN.md` (OCPI, Picaps, R-Draw, Kickout). The other eight describe what the site does. No invented metrics, and no English in the Romanian file — `"Conversion rate 4.2% · Industry avg: 1.8%"` was sitting untranslated in `ro.json`.
 - The client band has 12 logo cells, including Laura Predoi; the Alma text wordmark was removed.
 - Wrapping, centred rows use 6/4/3 cells at desktop/tablet/mobile widths.
 - Sources remain in `public/logos`; `npm run optimize-logos` creates optically balanced white marks on transparent 400×165 WebP canvases.
 
 ## Motion
 
-Preserve existing transform/opacity animations and reduced-motion support. Carousel autoplay pauses on hover, focus and touch; keyboard and swipe navigation remain available. The logo introduces no new animation.
+Preserve existing transform/opacity animations and reduced-motion support. Keyboard and swipe navigation remain available everywhere they were. The logo introduces no new animation.
+
+The showcase's stage dissolves rather than slides: opacity over 420ms on `--ease-out-quart`, a 1.2% scale settle over 620ms, and a 5px blur that resolves with the opacity. The blur is load-bearing — without it a crossfade reads as two separate pictures overlapping rather than as one changing. Under `prefers-reduced-motion` the opacity change survives (it is what makes the change comprehensible) and the movement and the blur do not.
+
+Press feedback is `transform: scale(0.97)` on every pressable thing, matching `.btn:active`. Hover states on the roster sit behind `@media (hover: hover) and (pointer: fine)`, because a touch device fires `:hover` on tap and leaves the chip looking half-selected after the finger lifts.

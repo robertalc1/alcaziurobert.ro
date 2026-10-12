@@ -88,40 +88,38 @@
   },
   "work": {
     "visit": "Vedeți live",
-    "prev": "Proiectul anterior",
-    "next": "Proiectul următor",
     "section_title": "Proiecte de succes",
-    "swipe_hint": "Trageți lateral pentru toate proiectele"
+    "roster_label": "Toate proiectele"
   },
   "portfolio": {
     "title": "Munca noastră vorbește de la sine.",
-    "metrics": {
-      "sgc": "Proiect de stat · live de 12 luni",
-      "picaps": "LCP 1.1s · Bounce -38%",
-      "rdraw": "Sub 1.5s global · CWV: 100/100/100/100",
-      "everun": "Conversion rate 4.2% · Industry avg: 1.8%",
-      "everati": "Lansat în 4 săptămâni · primul client în 7 zile",
-      "kickout": "Mobile-first · 70% trafic mobil convertit",
-      "alma": "Lead pipeline automatizat 24/7",
-      "lukton": "Tracking server-side · attribution 97%",
-      "ecartop": "B2B sales funnel · cycle redus cu 40%",
-      "laura-predoi": "Prezentarea serviciilor și solicitări de programare online.",
-      "unbacde10": "Pregătire pentru BAC la informatică și matematică.",
-      "black-sea-gis": "Platformă GIS pentru administrația publică locală."
+    "lines": {
+      "sgc": "Sistem de gestionare a contestațiilor · live de 12 luni",
+      "black-sea-gis": "Hărți și date GIS pentru administrația locală",
+      "laura-predoi": "Prezentarea serviciilor și programări online",
+      "unbacde10": "Pregătire pentru BAC la informatică și matematică",
+      "picaps": "Încărcare de la 6s la 1,1s · abandon −38%",
+      "kickout": "Conversie de la 1,4% la 3,8%",
+      "rdraw": "7 cereri organice în primele 30 de zile",
+      "everun": "Catalog de utilaje noi, cu cerere de ofertă",
+      "everati": "Lansarea gamei de vehicule electrice în România",
+      "alma": "Servicii, galerie de lucrări și programări",
+      "lukton": "Fișe de produs pentru încărcătoare telescopice",
+      "ecartop": "Servicii de cadastru și intabulare, cu formular de ofertă"
     },
     "categories": {
-      "sgc": "INSTITUȚIE PUBLICĂ",
-      "picaps": "SITE DE PREZENTARE",
-      "kickout": "MAGAZIN ONLINE",
-      "rdraw": "SITE CORPORATE",
-      "everun": "SITE DEALER",
-      "everati": "LANSARE PRODUS",
-      "alma": "SERVICII LOCALE",
-      "lukton": "FUNNEL DE LEAD-URI",
-      "ecartop": "FUNNEL B2B",
+      "sgc": "ADMINISTRAȚIE PUBLICĂ",
+      "black-sea-gis": "GIS ȘI CARTOGRAFIE",
       "laura-predoi": "CABINET DE PSIHOLOGIE",
-      "unbacde10": "PLATFORMĂ EDUCAȚIONALĂ",
-      "black-sea-gis": "PLATFORMĂ GIS"
+      "unbacde10": "EDUCAȚIE",
+      "picaps": "CONSTRUCȚII MODULARE",
+      "kickout": "MAGAZIN ONLINE",
+      "rdraw": "INGINERIE DE TRAFIC",
+      "everun": "UTILAJE DE CONSTRUCȚII",
+      "everati": "VEHICULE ELECTRICE",
+      "alma": "SERVICE AUTO",
+      "lukton": "ECHIPAMENTE INDUSTRIALE",
+      "ecartop": "CADASTRU ȘI TOPOGRAFIE"
     }
   },
   "approach": {

@@ -4,150 +4,185 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import Reveal from "@/components/Reveal";
 import ContactCTA from "@/components/ContactCTA";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 type Project = {
   slug: string;
+  /** Full name — the stage heading and the image's alt text. */
   name: string;
+  /** Roster label. A filmstrip cell is ~90px; full names do not fit in one. */
+  short: string;
   url: string;
-  img: string;
   domain: string;
 };
 
-// Every live build, OCPI first — the carousel shows them all.
+/* Every live build, OCPI first. Images come from scripts/capture-portfolio.mjs
+   and are named off the slug — there is no per-project filename to keep in
+   sync here any more. */
 const PROJECTS: Project[] = [
-  { slug: "sgc", name: "Oficiul de Cadastru — OCPI", url: "https://sgc.ocpict.ro/", img: "/sgc-live.webp", domain: "sgc.ocpict.ro" },
-  { slug: "black-sea-gis", name: "Black Sea GIS", url: "https://bsgis.ocpict.ro/", img: "/black-sea-gis.webp", domain: "bsgis.ocpict.ro" },
-  { slug: "laura-predoi", name: "Laura Predoi — Cabinet de psihologie", url: "https://psihologiecabinet.ro/", img: "/laura-predoi.webp", domain: "psihologiecabinet.ro" },
-  { slug: "unbacde10", name: "UNBACDE10", url: "https://unbacde10.ro/", img: "/unbacde10.webp", domain: "unbacde10.ro" },
-  { slug: "picaps", name: "Picaps", url: "https://picaps.ro/", img: "/picaps3.webp", domain: "picaps.ro" },
-  { slug: "kickout", name: "Kickout", url: "https://kickout.ro/", img: "/kickout.webp", domain: "kickout.ro" },
-  { slug: "rdraw", name: "R-Draw", url: "https://r-draw.com/", img: "/r-draw.com.webp", domain: "r-draw.com" },
-  { slug: "everun", name: "Everun", url: "https://www.everunromania.ro/", img: "/everun.webp", domain: "everunromania.ro" },
-  { slug: "everati", name: "Everati", url: "https://everati.ro/", img: "/everati.webp", domain: "everati.ro" },
-  { slug: "alma", name: "Alma", url: "https://vopsitoriaalma.ro/", img: "/alma.webp", domain: "vopsitoriaalma.ro" },
-  { slug: "lukton", name: "Lukton", url: "https://lukton.ro/", img: "/lukton.webp", domain: "lukton.ro" },
-  { slug: "ecartop", name: "Ecartop", url: "https://ecartop.com/", img: "/ecartop.webp", domain: "ecartop.com" },
+  { slug: "sgc", name: "Oficiul de Cadastru — OCPI", short: "OCPI", url: "https://sgc.ocpict.ro/", domain: "sgc.ocpict.ro" },
+  { slug: "black-sea-gis", name: "Black Sea GIS", short: "Black Sea GIS", url: "https://bsgis.ocpict.ro/", domain: "bsgis.ocpict.ro" },
+  { slug: "laura-predoi", name: "Laura Predoi — Cabinet de psihologie", short: "Laura Predoi", url: "https://psihologiecabinet.ro/", domain: "psihologiecabinet.ro" },
+  { slug: "unbacde10", name: "UNBACDE10", short: "UNBACDE10", url: "https://unbacde10.ro/", domain: "unbacde10.ro" },
+  { slug: "picaps", name: "Picaps", short: "Picaps", url: "https://picaps.ro/", domain: "picaps.ro" },
+  { slug: "kickout", name: "Kickout", short: "Kickout", url: "https://kickout.ro/", domain: "kickout.ro" },
+  { slug: "rdraw", name: "R-Draw", short: "R-Draw", url: "https://r-draw.com/", domain: "r-draw.com" },
+  { slug: "everun", name: "Everun", short: "Everun", url: "https://www.everunromania.ro/", domain: "everunromania.ro" },
+  { slug: "everati", name: "Everati", short: "Everati", url: "https://everati.ro/", domain: "everati.ro" },
+  { slug: "alma", name: "Alma", short: "Alma", url: "https://vopsitoriaalma.ro/", domain: "vopsitoriaalma.ro" },
+  { slug: "lukton", name: "Lukton", short: "Lukton", url: "https://lukton.ro/", domain: "lukton.ro" },
+  { slug: "ecartop", name: "Ecartop", short: "Ecartop", url: "https://ecartop.com/", domain: "ecartop.com" },
 ];
 
-const AUTOPLAY_MS = 5200;
+const TOTAL = PROJECTS.length;
 
-/* Depth ladder for the coverflow. Two of them: phones have no room for a
-   second ring of cards, so the far slots collapse onto the near ones and
-   fade out instead of piling up at the edge of a 390px screen.
-   translateX is a percentage of the card's own width, so the whole stage
-   stays fluid — the reference implementation used fixed pixel offsets and
-   broke below ~1100px. */
-const DEPTH = {
-  desktop: [
-    { x: 0, scale: 1, rotate: 0, opacity: 1, z: 30 },
-    { x: 58, scale: 0.84, rotate: 22, opacity: 0.78, z: 20 },
-    { x: 104, scale: 0.7, rotate: 32, opacity: 0.4, z: 10 },
-  ],
-  mobile: [
-    { x: 0, scale: 1, rotate: 0, opacity: 1, z: 30 },
-    { x: 66, scale: 0.8, rotate: 20, opacity: 0.45, z: 20 },
-    { x: 96, scale: 0.7, rotate: 28, opacity: 0, z: 10 },
-  ],
-} as const;
+/* Up from 5.2s. The stage is five times the area it used to be and carries a
+   sentence of its own; the old interval moved on before the picture had been
+   read. */
+const AUTOPLAY_MS = 6500;
+
+const shot = (slug: string) => `/work/${slug}.webp`;
+const thumb = (slug: string) => `/work/${slug}-thumb.webp`;
+
+const reduced = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const ArrowUpRight = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M5 19L19 5" />
     <path d="M9 5h10v10" />
   </svg>
 );
 
-const ChevronLeft = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M15 19l-7-7 7-7" />
-  </svg>
-);
+/* ── The dissolve ─────────────────────────────────────────────────────────
+   Two slots that ping-pong. The incoming image is written into whichever slot
+   is NOT in front, then front flips; the slot being left keeps its picture for
+   the length of the dissolve and is dropped on the next change. So the DOM
+   never holds more than two 1600x1000 bitmaps — rendering all twelve would be
+   roughly 77MB of decoded image on a phone, for eleven pictures nobody is
+   looking at.
 
-const ChevronRight = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M9 5l7 7-7 7" />
-  </svg>
-);
+   Both slots start on the same index, which is why the first paint is a single
+   image and not a crossfade from nothing. */
+type Stage = { a: number; b: number; front: "a" | "b" };
 
-// CSS browser chrome around a screenshot — double-bezel: dark outer tray,
-// darker inner core with concentric radii. Screenshots never ship raw here;
-// the chrome is what makes them read as a live site rather than a mockup.
-const BrowserFrame: React.FC<{ src: string; alt: string; domain?: string; eager?: boolean }> = ({
-  src,
-  alt,
-  domain,
-  eager,
-}) => (
-  <figure className="bf">
-    <div className="bf-core">
-      <div className="bf-bar" aria-hidden="true">
-        <span className="bf-dot" />
-        <span className="bf-dot" />
-        <span className="bf-dot" />
-        {domain && <span className="bf-domain">{domain}</span>}
-      </div>
-      <div className="bf-view">
-        <img
-          src={src}
-          alt={alt}
-          loading={eager ? "eager" : "lazy"}
-          decoding="async"
-          width={1600}
-          height={1000}
-          className="bf-img"
-          draggable={false}
-        />
-      </div>
-    </div>
-  </figure>
-);
+const current = (s: Stage) => (s.front === "a" ? s.a : s.b);
+
+const moveTo = (s: Stage, to: number): Stage => {
+  if (to === current(s)) return s;
+  return s.front === "a" ? { a: s.a, b: to, front: "b" } : { a: to, b: s.b, front: "a" };
+};
 
 /**
- * The work, as a 3D coverflow. It used to be a horizontally drifting track of
- * nine equal cards, which made every project look equally weighted and asked
- * the visitor to scan rather than to look. A coverflow has one hero at a time:
- * the centre card is the argument, the flanking cards only say "there are
- * more". Every project, same browser chrome, same buttons.
+ * The work, as a showcase: one project at full band width, every project named
+ * underneath it.
  *
- * Autoplay pauses on hover, focus and touch, and never runs under
- * prefers-reduced-motion.
+ * It was a 3D coverflow — a 520px centre card ringed by four rotated ghost
+ * cards and twelve anonymous dots. Three things were wrong with that and only
+ * one of them was the layout. The centre image rendered at 504x315, which is
+ * too small to read a website in; the flanking cards were noise around the one
+ * thing worth looking at; and eight of the twelve "screenshots" were not
+ * screenshots at all but stock photos and product renders, so the browser
+ * chrome was framing a picture of a tractor and calling it a website.
+ *
+ * Now: the stage runs the full 1240px band (the image lands near 1100px wide,
+ * about five times the old area), the roster below it is a filmstrip of all
+ * twelve real thumbnails with the client's name under each, and every image is
+ * a capture of the page that is live at that address today.
+ *
+ * Autoplay runs only while the section is on screen, pauses on hover, focus
+ * and touch, never runs under prefers-reduced-motion — and stops for good the
+ * moment the visitor picks a project. Once somebody has taken the wheel you do
+ * not take it back from them.
  */
 const SelectedWorkSection: React.FC = () => {
   const { t } = useTranslation();
-  const isMobile = useIsMobile();
-  const total = PROJECTS.length;
 
-  const [index, setIndex] = React.useState(0);
+  const [stage, setStage] = React.useState<Stage>({ a: 0, b: 0, front: "a" });
+  const index = current(stage);
+
+  /** The visitor has chosen a project. Autoplay is over for this session. */
+  const [taken, setTaken] = React.useState(false);
   const [paused, setPaused] = React.useState(false);
+  const [inView, setInView] = React.useState(false);
+
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const chipRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
   const touchX = React.useRef<number | null>(null);
+  const firstPaint = React.useRef(true);
 
-  const go = React.useCallback(
-    (delta: number) => setIndex((i) => (i + delta + total) % total),
-    [total],
+  const goTo = React.useCallback((to: number) => setStage((s) => moveTo(s, to)), []);
+  const advance = React.useCallback(
+    () => setStage((s) => moveTo(s, (current(s) + 1) % TOTAL)),
+    [],
   );
-  const goTo = React.useCallback((i: number) => setIndex(((i % total) + total) % total), [total]);
+  const pick = React.useCallback(
+    (to: number) => {
+      setTaken(true);
+      goTo(to);
+    },
+    [goTo],
+  );
 
-  // Autoplay. Reduced motion turns it off entirely rather than shortening it:
-  // the whole point of the setting is that nothing moves unasked.
+  /* Autoplay is gated on visibility as well as on hover. A carousel ticking
+     away four screens above the fold spends frames and bandwidth on a section
+     nobody is looking at, and it means the first project a visitor actually
+     sees is whichever one the timer happened to land on. */
   React.useEffect(() => {
-    if (paused || total <= 1) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => go(1), AUTOPLAY_MS);
-    return () => window.clearInterval(id);
-  }, [paused, go, total]);
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), {
+      threshold: 0.2,
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
-  // Arrow keys are bound to the stage, not to window. A landing page has one
-  // job below this section (the form); stealing the arrow keys page-wide to
-  // drive a carousel would break scrolling for keyboard visitors.
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      go(-1);
-    } else if (e.key === "ArrowRight") {
-      e.preventDefault();
-      go(1);
+  React.useEffect(() => {
+    if (taken || paused || !inView || TOTAL <= 1 || reduced()) return;
+    const id = window.setInterval(advance, AUTOPLAY_MS);
+    return () => window.clearInterval(id);
+  }, [taken, paused, inView, advance]);
+
+  /* Warm the two neighbours so stepping through the roster never shows an
+     empty frame. Only once the section is on screen — this is 12 x ~60KB and
+     none of it is needed by a visitor who never scrolls this far. */
+  React.useEffect(() => {
+    if (!inView) return;
+    for (const d of [1, -1]) {
+      const img = new Image();
+      img.src = shot(PROJECTS[(index + d + TOTAL) % TOTAL].slug);
     }
+  }, [index, inView]);
+
+  /* Keep the active chip in frame. On desktop the filmstrip fits and this is a
+     no-op; below 1024px it is a scroll-snap rail and the chip would otherwise
+     march off the right edge while autoplay runs. */
+  React.useEffect(() => {
+    if (firstPaint.current) {
+      firstPaint.current = false;
+      return;
+    }
+    chipRefs.current[index]?.scrollIntoView({
+      behavior: reduced() ? "auto" : "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  }, [index]);
+
+  /* Arrow keys live on the tablist, never on window: this page's job below the
+     fold is the contact form, and stealing the arrow keys page-wide would take
+     scrolling away from keyboard visitors. */
+  const onRosterKey = (e: React.KeyboardEvent) => {
+    let to: number | null = null;
+    if (e.key === "ArrowRight") to = (index + 1) % TOTAL;
+    else if (e.key === "ArrowLeft") to = (index - 1 + TOTAL) % TOTAL;
+    else if (e.key === "Home") to = 0;
+    else if (e.key === "End") to = TOTAL - 1;
+    if (to === null) return;
+    e.preventDefault();
+    pick(to);
+    chipRefs.current[to]?.focus();
   };
 
   const onTouchStart = (e: React.TouchEvent) => {
@@ -160,39 +195,55 @@ const SelectedWorkSection: React.FC = () => {
     setPaused(false);
     if (start === null) return;
     const dx = e.changedTouches[0].clientX - start;
-    if (Math.abs(dx) > 45) go(dx < 0 ? 1 : -1);
+    if (Math.abs(dx) > 45) pick((index + (dx < 0 ? 1 : -1) + TOTAL) % TOTAL);
   };
 
-  const ladder = isMobile ? DEPTH.mobile : DEPTH.desktop;
+  const active = PROJECTS[index];
 
   return (
-    <section className="work-section" id="work" aria-label={t("portfolio.title")}>
+    <section
+      className="work-section"
+      id="work"
+      ref={sectionRef}
+      aria-label={t("work.section_title")}
+    >
       <style>{`
+        /* padding-section_testimonial: 0 top, 128 bottom. The body section
+           above already spends 128 on its own bottom edge, and
+           GetInTouchSection below opens with none — a top value here would
+           double the gap above and leave a seam below. Load-bearing. */
         .work-section {
           position: relative;
           width: 100%;
           background: var(--page);
-          /* padding-section_testimonial: 0 top, 128 bottom. The body section
-             above already spends 128 on its own bottom edge, so a top value
-             here would double the gap to 256. */
           padding: 0 0 var(--sp-128);
-          /* Clips the flanking coverflow cards at the viewport edge. This lived
-             on the dark panel that used to wrap the deck; the panel is gone
-             (the page carries a background field in the hero and the closing
-             CTA only), so the section owns it again. */
-          overflow: hidden;
         }
+        /* 1240, wider than the page's own 1296-minus-gutters and much wider
+           than the body's 1040 column. This is the one band on the page that
+           is allowed to break the grid, and the extra width is the whole
+           argument: the screenshot has to be big enough to read. */
         .work-inner {
           position: relative;
-          z-index: 1;
-          max-width: 1180px;
+          max-width: 1240px;
           margin: 0 auto;
           padding: 0 clamp(18px, 3vw, 32px);
         }
 
-        /* 16px under the heading — testimonial_header-wrapper's spacer-xsmall,
-           then a centred muted line at body scale. Same anatomy as .leads-head
-           in the body; restated because this band is outside the body column. */
+        /* Same spec as every other section title (see .leads-title). */
+        .work-title {
+          font-family: var(--font-sans);
+          font-weight: var(--text-heading-weight);
+          letter-spacing: var(--text-heading-ls);
+          font-size: var(--text-section-title);
+          line-height: var(--text-heading-lh);
+          color: var(--ink);
+          margin: 0 auto;
+          max-width: 30ch;
+          text-align: center;
+          text-wrap: balance;
+        }
+        /* 16px under the heading, body scale, the only grey — the same header
+           anatomy the five units in the body use. */
         .work-sub {
           font-family: var(--font-sans);
           font-weight: 400;
@@ -206,401 +257,408 @@ const SelectedWorkSection: React.FC = () => {
           text-wrap: balance;
         }
 
-        /* Same spec as every other section title (see .comp-title) */
-        .work-title {
-          font-family: var(--font-sans);
-          font-weight: var(--text-heading-weight);
-          letter-spacing: var(--text-heading-ls);
-          font-size: var(--text-section-title);
-          line-height: var(--text-heading-lh);
-          color: var(--ink);
-          margin: 0 auto;
-          max-width: 30ch;
-          text-align: center;
-          text-wrap: balance;
+        /* ── The case ───────────────────────────────────────────────────
+           One white object on the grey page holding the screenshot, its
+           caption and the roster. The alternative was three loose elements
+           stacked on the page; the case is what makes them read as one
+           exhibit rather than as three sections that happen to be adjacent. */
+        .vt-case {
+          margin-top: var(--sp-48);
+          background: var(--surface);
+          border: 1px solid var(--line);
+          border-radius: var(--r-panel);
+          padding: clamp(14px, 1.6vw, 22px);
+          box-shadow: var(--shadow-soft);
         }
 
-        /* ── Coverflow stage ──────────────────────────────────────────────
-           --cf-w is declared once and reused by the card width and by the
-           centring margin, so there is only ever one number to change. */
-        .cf-stage {
-          --cf-w: clamp(290px, 36vw, 520px);
+        /* ── Browser chrome ─────────────────────────────────────────────
+           Double bezel: light outer tray, dark core, concentric radii.
+           Screenshots never ship raw here — the chrome is what makes the
+           image read as a live site rather than as a picture. It used to run
+           at 7px padding and a 9px radius, which were sized for a 520px card
+           and looked like a toy at this width. */
+        .vt-frame {
           position: relative;
-          z-index: 1;
-          width: 100%;
-          height: clamp(360px, 40vw, 500px);
-          margin: var(--sp-48) auto 0;
-          perspective: 1600px;
-          touch-action: pan-y;
-          outline: none;
+          margin: 0;
+          border-radius: 18px;
+          padding: clamp(7px, 0.8vw, 10px);
+          background: var(--surface);
+          border: 1px solid #E6E7EB;
+          /* The one real shadow in the section. Apple's rule, and it is right:
+             a drop shadow belongs to the product image and to nothing else —
+             not to the case, not to the chips, not to the buttons. */
+          box-shadow:
+            0 32px 64px -30px rgba(10, 22, 51, 0.34),
+            0 8px 18px -12px rgba(10, 22, 51, 0.14);
         }
-        .cf-stage:focus-visible { outline: 2px solid var(--brand); outline-offset: 8px; border-radius: 12px; }
-
-        .cf-card {
-          position: absolute;
-          top: 0;
-          left: 50%;
-          width: var(--cf-w);
-          margin-left: calc(var(--cf-w) / -2);
-          transform-origin: center center;
-          transition: transform 760ms cubic-bezier(.23,1,.32,1),
-                      opacity 520ms ease,
-                      filter 520ms ease;
-          will-change: transform, opacity;
+        .vt-core {
+          border-radius: 12px;
+          overflow: hidden;
+          background: #111111;
+          border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        /* Only the flanking cards are clickable, and only to bring themselves
-           forward. The centre card's own links do the rest. */
-        .cf-card[data-side="true"] { cursor: pointer; }
-
-        .cf-shot {
-          display: block;
-          width: 100%;
-          text-decoration: none;
-        }
-
-        /* ── Meta under the frame ── */
-        .cf-meta {
+        .vt-bar {
           display: flex;
-          flex-direction: column;
-          padding: 16px 4px 0;
-          transition: opacity 420ms ease, transform 420ms ease;
+          align-items: center;
+          gap: 7px;
+          height: 40px;
+          padding: 0 14px;
+          background: #191919;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         }
-        /* Off-centre cards keep the screenshot and drop the words: three sets
-           of project names fighting for the same strip of page was the reason
-           the old track read as a wall rather than as a portfolio. */
-        .cf-card[data-side="true"] .cf-meta {
+        /* The accent rather than traffic lights. It is the one spot of colour
+           inside the chrome, so the frame reads as ours. */
+        .vt-dot {
+          width: 9px;
+          height: 9px;
+          border-radius: 9999px;
+          background: var(--brand);
+          flex: 0 0 auto;
+        }
+        .vt-domain {
+          margin-left: 12px;
+          font-family: var(--font-sans);
+          font-size: 12.5px;
+          color: rgba(255, 255, 255, 0.55);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        /* Where a real browser keeps its go button. A second target for the
+           same destination, in the place the eye already expects one. */
+        .vt-bar-cta {
+          margin-left: auto;
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          height: 26px;
+          padding: 0 12px;
+          border-radius: 9999px;
+          background: rgba(255, 255, 255, 0.09);
+          color: rgba(255, 255, 255, 0.82);
+          font-family: var(--font-sans);
+          font-size: 11.5px;
+          font-weight: 500;
+          text-decoration: none;
+          white-space: nowrap;
+          flex: 0 0 auto;
+          transition: background-color .2s ease, color .2s ease;
+        }
+        .vt-bar-cta svg { width: 10px; height: 10px; }
+
+        .vt-view {
+          position: relative;
+          aspect-ratio: 16 / 10;
+          background: #111111;
+          overflow: hidden;
+        }
+        /* Both slots are absolutely placed and stacked. Only opacity, a hair of
+           scale and a short blur move — the blur is what stops the dissolve
+           reading as two separate pictures overlapping. */
+        .vt-shot {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top center;
+          display: block;
+          user-select: none;
           opacity: 0;
-          transform: translateY(10px);
-          pointer-events: none;
+          transform: scale(1.012);
+          filter: blur(5px);
+          transition: opacity 420ms var(--ease-out-quart),
+                      transform 620ms var(--ease-out-quart),
+                      filter 420ms var(--ease-out-quart);
         }
-        /* --brand-strong, not --brand: this runs at 11.5px, and the palette
-           note in index.css says the accent is for headings, chips, numerals
-           and borders — never small copy. #4580F7 here measured 3.48:1. */
-        .pw-cat {
-          display: inline-block;
+        .vt-shot[data-front="true"] {
+          opacity: 1;
+          transform: scale(1);
+          filter: blur(0);
+          z-index: 1;
+        }
+
+        /* ── Caption ────────────────────────────────────────────────────
+           All twelve are in the DOM, stacked on one grid cell so the block is
+           as tall as the longest of them and nothing reflows on change. Two
+           reasons they are not conditionally rendered: the crossfade needs
+           both present, and scripts/prerender.mjs snapshots this markup for
+           the crawlers that do not run JavaScript — every project name and
+           every line has to be in that HTML. */
+        .vt-meta {
+          display: grid;
+          padding: 22px 6px 20px;
+        }
+        .vt-card {
+          grid-area: 1 / 1;
+          opacity: 0;
+          transform: translateY(6px);
+          pointer-events: none;
+          transition: opacity 300ms ease, transform 300ms var(--ease-out-quart);
+        }
+        .vt-card[data-on="true"] {
+          opacity: 1;
+          transform: none;
+          pointer-events: auto;
+        }
+        /* --brand-strong, not --brand: this runs at 11.5px and the palette note
+           in index.css reserves the lighter accent for headings, chips and
+           borders — never small copy. #1257C4 clears AA here. */
+        .vt-cat {
+          display: block;
           color: var(--brand-strong);
           font-family: var(--font-sans);
           font-size: 11.5px;
           font-weight: 600;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          margin-bottom: 10px;
+          margin: 0 0 10px;
         }
-        .pw-meta-row {
+        .vt-row {
           display: flex;
-          align-items: center;
+          align-items: flex-end;
           justify-content: space-between;
-          gap: 16px;
+          gap: var(--sp-24);
         }
-        .pw-metric {
-          font-family: var(--font-sans);
-          font-size: 13.5px;
-          line-height: 1.5;
-          color: var(--text-muted);
-          margin: 8px 0 0;
-        }
-        .pw-name {
+        /* Solid, not outlined. The name used to render in -webkit-text-stroke,
+           the only outlined type anywhere on the site; at this size a hollow
+           letterform reads as a rendering fault rather than as display type,
+           and it broke the one-typographic-system rule in index.css. */
+        .vt-name {
           font-family: var(--font-sans);
           font-weight: 700;
-          font-size: clamp(1.35rem, 1.9vw, 1.8rem);
-          line-height: 1.1;
-          letter-spacing: -0.03em;
+          font-size: clamp(1.4rem, 2.1vw, 1.75rem);
+          line-height: 1.05;
+          letter-spacing: -0.035em;
           color: var(--ink);
           margin: 0;
           text-wrap: balance;
         }
-        /* Outlined display type, static — falls back to solid where text-stroke is unsupported */
-        @supports (-webkit-text-stroke: 1px #fff) {
-          .pw-name {
-            color: transparent;
-            -webkit-text-stroke: 1.4px var(--ink);
-          }
-        }
-        .pw-link {
-          display: inline-flex;
-          align-items: center;
-          justify-content: flex-end;
-          gap: 10px;
-          flex-shrink: 0;
-          /* The visible mark is a 40px disc; the target underneath it is 44.
-             Measured at 29x30 on the narrow cards before this. */
-          min-width: 44px;
-          min-height: 44px;
-          color: var(--ink);
+        .vt-line {
           font-family: var(--font-sans);
-          font-size: 14.5px;
-          font-weight: 500;
-          text-decoration: none;
-          transition: color .25s ease;
+          font-size: var(--text-body);
+          line-height: var(--text-body-lh);
+          color: var(--text-muted);
+          margin: 10px 0 0;
+          max-width: 62ch;
         }
-        /* Label kept for screen readers; the round icon carries it visually */
-        .pw-link-label {
-          position: absolute;
-          width: 1px; height: 1px;
-          padding: 0; margin: -1px;
-          overflow: hidden;
-          clip: rect(0, 0, 0, 0);
-          white-space: nowrap;
-          border: 0;
-        }
-        .pw-link-icon {
-          width: var(--btn-h); height: var(--btn-h);
-          border-radius: 9999px;
-          border: 1px solid var(--btn-plain-border);
-          background: var(--btn-plain-bg);
-          box-shadow: none;
+        /* The site's plain secondary pill — same height, padding and font as
+           every other button here. The blue gloss is reserved for the one
+           control that asks for the sale, and that is the CTA below. */
+        .vt-visit {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          transition: border-color .25s ease, background-color .25s ease,
-                      transform .25s cubic-bezier(.23,1,.32,1);
-        }
-        .pw-link-icon svg { width: 12px; height: 12px; }
-        .pw-link:hover { color: var(--brand); }
-        .pw-link:hover .pw-link-icon {
-          border-color: var(--brand);
-          color: var(--brand);
-          transform: translate(2px, -2px);
-        }
-
-        /* ── Browser chrome ── */
-        .bf {
-          margin: 0;
-          border-radius: 14px;
-          padding: 7px;
-          background: var(--surface);
-          border: 1px solid var(--line);
-          box-shadow: 0 22px 44px -28px rgba(0, 0, 0, 0.30);
-          transition: box-shadow 520ms ease, border-color 520ms ease;
-        }
-        /* The centre card is lifted, not tinted. It briefly carried an orange
-           rim and halo, which put a warm cast over a section whose whole job is
-           to show the project screenshots truthfully — the colour was competing with
-           the work. Depth alone separates it: it is the only card at full
-           opacity and scale 1, and it is the only one with its own text. */
-        .cf-card[data-side="false"] .bf {
-          box-shadow: 0 30px 60px -26px rgba(0, 0, 0, 0.38);
-        }
-        .bf-core {
-          border-radius: 9px;
-          overflow: hidden;
-          background: #111111;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .bf-bar {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          padding: 9px 12px;
-          background: #191919;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-        }
-        /* The accent rather than the usual grey or traffic-light dots. It is
-           the one spot of colour inside the chrome, so the frame reads as ours
-           instead of as a generic browser mockup. */
-        .bf-dot {
-          width: 8px; height: 8px;
+          gap: var(--btn-gap);
+          height: var(--btn-h);
+          padding: 0 var(--btn-px);
           border-radius: 9999px;
-          background: var(--brand);
+          background: var(--btn-plain-bg);
+          border: 1px solid var(--btn-plain-border);
+          color: var(--btn-plain-fg);
+          font-family: var(--font-sans);
+          font-size: var(--btn-font);
+          font-weight: 500;
+          text-decoration: none;
+          white-space: nowrap;
+          flex: 0 0 auto;
+          transition: border-color .22s ease, transform .16s var(--ease-out-quart);
         }
+        .vt-visit svg { width: 13px; height: 13px; }
+        .vt-visit:active { transform: scale(0.97); }
 
-        .bf-domain {
-          margin-left: 10px;
+        /* ── Roster ─────────────────────────────────────────────────────
+           A filmstrip, not a grid and not a row of dots. Twelve dots carry no
+           information; twelve thumbnails with the client's name under them are
+           themselves the proof, and they put every project on screen at once
+           instead of behind a timer. */
+        .vt-rosterwrap {
+          border-top: 1px solid var(--line);
+          padding-top: 18px;
+        }
+        .vt-rosterhead {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 16px;
+          margin: 0 2px 14px;
+        }
+        .vt-rosterlabel {
+          font-family: var(--font-sans);
+          font-size: 10.5px;
+          font-weight: 600;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+          margin: 0;
+        }
+        .vt-count {
           font-family: var(--font-sans);
           font-size: 11.5px;
-          color: rgba(255, 255, 255, 0.55);
-          letter-spacing: 0.01em;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          font-weight: 600;
+          color: var(--text-muted);
+          font-variant-numeric: tabular-nums;
+          letter-spacing: 0.04em;
         }
-        .bf-view {
+        .vt-count b { color: var(--ink); font-weight: 700; }
+
+        .vt-roster {
+          display: grid;
+          grid-template-columns: repeat(${TOTAL}, minmax(0, 1fr));
+          gap: 10px;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        .vt-chip {
+          display: block;
+          width: 100%;
+          /* 6px of padding plus the thumbnail and the label clears the 44px
+             touch floor on its short side at every breakpoint. */
+          padding: 6px 5px 0;
+          border-radius: 12px;
+          border: 1px solid transparent;
+          /* Inactive sits recessed into the case; active lifts to white with a
+             brand rim. Selection is a change of surface, not a splash of
+             colour — same move Linear makes on its pricing tabs. */
+          background: var(--page);
+          cursor: pointer;
+          text-align: left;
+          font-family: inherit;
+          transition: background-color .22s ease, border-color .22s ease,
+                      box-shadow .22s ease, transform .16s var(--ease-out-quart);
+        }
+        .vt-chip:active { transform: scale(0.97); }
+        .vt-chip[aria-selected="true"] {
+          background: var(--surface);
+          border-color: var(--brand);
+          box-shadow: 0 0 0 1px var(--brand);
+        }
+        .vt-chip-shot {
+          display: block;
           aspect-ratio: 16 / 10;
+          border-radius: 7px;
           overflow: hidden;
-          background: #111111;
+          background: #E9EBF1;
         }
-        .bf-img {
+        .vt-chip-shot img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: top center;
           display: block;
-          transition: transform .6s cubic-bezier(.23,1,.32,1);
-          user-select: none;
+          opacity: 0.55;
+          filter: saturate(0.75);
+          transition: opacity .25s ease, filter .25s ease;
         }
-        .cf-shot:hover .bf-img { transform: scale(1.03); }
-
-        /* ── Navigation — instantly's testimonial-swiper_arrow-wrap ──
-           Two 56px discs, centred as a pair BELOW the deck with 16px between
-           them, rather than one pinned to each edge of the stage. Theirs are
-           not a symmetric pair: prev is white and next carries the brand blue,
-           so the control that advances the story is the one that reads as a
-           button. Copying that asymmetry is most of what makes the band look
-           designed rather than defaulted.
-
-           They also stop overlapping the flanking cards, which is why the
-           edge-pinned version had to be hidden on mobile. */
-        .cf-nav-row {
-          display: flex;
-          justify-content: center;
-          gap: var(--sp-16);
-          margin-top: var(--sp-32);
-        }
-        .cf-nav {
-          width: 56px;
-          height: 56px;
-          border-radius: 100%;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          border: 1px solid transparent;
-          transition: background-color .25s ease, border-color .25s ease,
-                      filter .25s ease,
-                      transform .25s cubic-bezier(.23,1,.32,1);
-        }
-        .cf-nav svg { width: 17px; height: 17px; }
-        .cf-nav:active { transform: scale(0.94); }
-        .cf-prev {
-          background: var(--btn-plain-bg);
-          border-color: var(--btn-plain-border);
-          box-shadow: var(--shadow-soft);
-          color: var(--ink);
-        }
-        .cf-prev:hover { border-color: var(--btn-plain-border-hover); }
-        /* The blue disc is the same gloss recipe as the primary pill, so the
-           two blue objects on the page are the same material. */
-        .cf-next {
-          background: var(--btn-gloss);
-          box-shadow: var(--btn-gloss-shadow-sm);
-          color: #FFFFFF;
-        }
-        .cf-next:hover {
-          filter: brightness(var(--btn-gloss-brightness, 1.06));
-          box-shadow: var(--btn-gloss-shadow-sm-hover);
-        }
-        .cf-prev:hover { transform: translateX(-2px); }
-        .cf-next:hover { transform: translateX(2px); }
-
-        /* ── Dots ── */
-        .cf-dots {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          flex-wrap: wrap;
-          width: 100%;
-          align-items: center;
-          justify-content: center;
-          /* Keep every 24px hit target inside narrow phones as projects grow.
-             The active button takes 12px more; excess items can wrap. */
-          gap: 0 clamp(1px, calc((100% - ${total * 24 + 12}px) / ${Math.max(total - 1, 1)}), 8px);
-          margin-top: var(--sp-24);
-        }
-        /* The dot people SEE is 7px. The dot people HIT is 44. Those are two
-           different boxes: the button is the target and carries no paint, the
-           ::before is the paint and carries no hit testing of its own. Before
-           this the button itself was 7x7 — the smallest control on the site by
-           a factor of six, and unusable with a thumb. */
-        .cf-dot {
-          display: inline-flex;
-          flex-shrink: 0;
-          align-items: center;
-          justify-content: center;
-          height: 44px;
-          /* 24, so the target clears 24x24 on its own even before the 8px of
-             spacing between dots is counted. */
-          width: 24px;
-          padding: 0;
-          border: none;
-          background: none;
-          cursor: pointer;
-        }
-        .cf-dot::before {
-          content: "";
+        .vt-chip-name {
           display: block;
-          height: 7px;
-          width: 7px;
-          border-radius: 9999px;
-          background: var(--line-2);
-          transition: width .35s cubic-bezier(.23,1,.32,1),
-                      background-color .3s ease;
-        }
-        .cf-dot[aria-current="true"] { width: 36px; }
-        .cf-dot[aria-current="true"]::before {
-          width: 26px;
-          background: var(--brand);
-        }
-        .cf-dot:hover::before { background: #C2C5CE; }
-        .cf-dot[aria-current="true"]:hover::before { background: var(--brand); }
-
-        /* ── Section CTA (funnel: every section ends at the form) ── */
-        .pw-hint {
-          display: none;
           font-family: var(--font-sans);
-          font-size: 13px;
-          /* Sits in the CTA row BELOW the panel, i.e. on the light page — not
-             inside the dark panel with the deck. It kept the panel's white and
-             was invisible on #F7F8FB. */
+          /* 11px, not 11.5: at twelve columns the widest label in the set
+             ("Black Sea GIS") clipped to "Black Sea ..." at the larger size,
+             and a truncated client name is worse than a small one. */
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: -0.015em;
+          line-height: 1.2;
           color: var(--text-muted);
-          text-align: center;
-          margin: 18px 0 0;
+          padding: 8px 1px 9px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          transition: color .22s ease;
         }
-        .pw-cta {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: var(--btn-gap);
-          min-height: var(--btn-h);
-          margin-top: var(--sp-32);
-          padding: 0 var(--btn-px);
-          border: none;
-          border-radius: 9999px;
-          background: var(--btn-gloss);
-          box-shadow: var(--btn-gloss-shadow);
-          color: #ffffff;
-          font-family: var(--font-sans);
-          font-weight: 500;
-          font-size: var(--btn-font);
-          cursor: pointer;
-          transition: filter 220ms cubic-bezier(.23,1,.32,1),
-                      box-shadow 220ms cubic-bezier(.23,1,.32,1),
-                      transform 160ms cubic-bezier(.23,1,.32,1);
+        .vt-chip[aria-selected="true"] .vt-chip-shot img { opacity: 1; filter: none; }
+        .vt-chip[aria-selected="true"] .vt-chip-name { color: var(--ink); }
+
+        /* Touch devices fire :hover on tap, which leaves a chip looking half
+           selected after the finger lifts. */
+        @media (hover: hover) and (pointer: fine) {
+          .vt-chip:hover { border-color: var(--line-2); }
+          .vt-chip:hover .vt-chip-shot img { opacity: 0.85; filter: saturate(0.9); }
+          .vt-chip:hover .vt-chip-name { color: var(--ink-2); }
+          .vt-chip[aria-selected="true"]:hover { border-color: var(--brand); }
+          .vt-visit:hover { border-color: var(--btn-plain-border-hover); }
+          .vt-bar-cta:hover { background: rgba(255, 255, 255, 0.17); color: #FFFFFF; }
         }
-        .pw-cta:hover {
-          background: var(--btn-gloss-hover);
-          box-shadow: var(--btn-gloss-shadow-hover);
-          transform: translateY(-1px);
+
+        /* ── Section CTA ────────────────────────────────────────────────
+           Below the work, not above it. It used to sit between the standfirst
+           and the deck, which asked for the sale before the visitor had been
+           shown a single thing. */
+        .work-cta { margin-top: var(--sp-48); text-align: center; }
+
+        /* ── Tablet: the filmstrip becomes a rail ───────────────────────
+           Twelve cells stop being legible somewhere under 1024px. A rail keeps
+           each chip at a readable size and makes the overflow obvious, which a
+           squeezed grid does not. The mask is the affordance — a cut-off chip
+           at the right edge says "there is more" better than a hint line. */
+        @media (max-width: 1024px) {
+          .vt-roster {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            -webkit-mask-image: linear-gradient(90deg, #000 90%, transparent 100%);
+            mask-image: linear-gradient(90deg, #000 90%, transparent 100%);
+          }
+          .vt-roster::-webkit-scrollbar { display: none; }
+          .vt-roster li { flex: 0 0 132px; scroll-snap-align: center; }
         }
-        .pw-cta:active { transform: scale(0.98); }
-        .pw-cta svg { width: 15px; height: 15px; }
-        .cf-cta-row { text-align: center; }
-        /* 24px under the standfirst — the same gap .leads-cta uses, so this
-           band's header scans identically to the five in the body. */
-        .work-cta { margin-top: var(--sp-24); text-align: center; }
 
         @media (max-width: 767px) {
-          /* Steps down with .leads above it — 128px of bottom padding
-             on a phone is a fifth of a screen of nothing. */
+          /* Steps down with .leads above it — 128px of bottom padding on a
+             phone is a fifth of a screen of nothing. */
           .work-section { padding-bottom: var(--sp-64); }
           .work-title { max-width: 100%; }
-          /* The arrows would sit on top of the flanking cards on a 390px
-             screen. Touch has the swipe and the dots; the arrows are a
-             pointer-device affordance. */
-          .cf-nav { width: 48px; height: 48px; }
-          .cf-meta { padding: 14px 2px 0; }
-          .pw-cat { font-size: 12px; margin-bottom: 8px; }
-          .bf-domain { font-size: 12px; }
-          .pw-name { font-size: 1.25rem; -webkit-text-stroke-width: 1px; }
-          .pw-hint { display: block; }
-          .pw-cta { width: 100%; }
+          /* The gutter tightens and the case gives up its own chrome. Nested
+             padding was costing the screenshot 80px of a 390px screen — a
+             fifth of the viewport spent on a border, and the stage came out
+             narrower than the card it replaced. The case earns its keep on a
+             desktop, where it groups three blocks that would otherwise float;
+             on a phone they are stacked and obviously one thing already. */
+          .work-inner { padding: 0 14px; }
+          .vt-case {
+            margin-top: var(--sp-32);
+            padding: 0;
+            background: none;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+          }
+          .vt-frame { border-radius: 13px; padding: 5px; }
+          .vt-core { border-radius: 9px; }
+          .vt-bar { height: 32px; padding: 0 10px; gap: 5px; }
+          .vt-dot { width: 7px; height: 7px; }
+          .vt-domain { font-size: 11px; margin-left: 8px; }
+          .vt-bar-cta { display: none; }
+          .vt-meta { padding: 16px 2px 18px; }
+          .vt-rosterwrap { padding-top: 16px; }
+          .vt-row { flex-direction: column; align-items: stretch; gap: 16px; }
+          .vt-line { max-width: 100%; }
+          .vt-visit { width: 100%; }
+          .vt-roster li { flex-basis: 124px; }
+          .work-cta { margin-top: var(--sp-32); }
+          .work-cta .btn { width: 100%; }
         }
+
+        /* Reduced motion keeps the crossfade — it is what makes the change
+           comprehensible — and drops every movement and the blur. */
         @media (prefers-reduced-motion: reduce) {
-          .cf-card, .cf-meta, .bf-img, .pw-link-icon, .cf-nav, .cf-dot::before {
+          .vt-shot {
+            transition: opacity 200ms ease;
+            transform: none;
+            filter: none;
+          }
+          .vt-shot[data-front="true"] { transform: none; }
+          .vt-card { transition: opacity 180ms ease; transform: none; }
+          .vt-chip, .vt-chip-shot img, .vt-chip-name, .vt-visit, .vt-bar-cta {
             transition: none;
           }
-          .cf-shot:hover .bf-img,
-          .cf-nav:hover,
-          .pw-cta:hover { transform: none; }
+          .vt-chip:active, .vt-visit:active { transform: none; }
         }
       `}</style>
 
@@ -608,125 +666,158 @@ const SelectedWorkSection: React.FC = () => {
         <Reveal>
           <h2 className="work-title">{t("work.section_title")}</h2>
           <p className="work-sub">{t("portfolio.title")}</p>
-          <div className="work-cta">
-            <ContactCTA mode="modal">
-              <button type="button" className="pw-cta">
-                {t("nav.cta")}
-                {ArrowUpRight}
-              </button>
-            </ContactCTA>
-          </div>
         </Reveal>
-      </div>
 
-      {/* blur={0}: the stage runs the cards through a 3D transform on every
-          index change. A live filter on the wrapper would force the browser to
-          re-rasterise all of it each frame, and it would create a containing
-          block the perspective should never have to reason about. */}
-      <Reveal delay={90} blur={0}>
-        <div
-          className="cf-stage"
-          role="region"
-          aria-roledescription="carousel"
-          aria-label={t("portfolio.title")}
-          tabIndex={0}
-          onKeyDown={onKeyDown}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocusCapture={() => setPaused(true)}
-          onBlurCapture={() => setPaused(false)}
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
-        >
-          {PROJECTS.map((p, i) => {
-            // Shortest signed distance, so wrapping from the last card to the
-            // first animates forward instead of rewinding through the deck.
-            let d = i - index;
-            if (d > total / 2) d -= total;
-            if (d < -total / 2) d += total;
-
-            const depth = ladder[Math.min(Math.abs(d), ladder.length - 1)];
-            const beyond = Math.abs(d) >= ladder.length;
-            const dir = Math.sign(d);
-            const isCentre = d === 0;
-
-            return (
-              <div
-                key={p.slug}
-                className="cf-card"
-                data-side={!isCentre}
-                aria-hidden={isCentre ? undefined : true}
-                onClick={isCentre ? undefined : () => goTo(i)}
-                style={{
-                  transform: `translateX(${dir * depth.x}%) scale(${depth.scale}) rotateY(${-dir * depth.rotate}deg)`,
-                  opacity: beyond ? 0 : depth.opacity,
-                  zIndex: beyond ? 0 : depth.z,
-                  pointerEvents: beyond || depth.opacity === 0 ? "none" : undefined,
-                }}
-              >
-                <a
-                  className="cf-shot"
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  tabIndex={isCentre ? undefined : -1}
-                  aria-label={`${p.name} — ${t("work.visit")}`}
-                >
-                  <BrowserFrame src={p.img} alt={p.name} domain={p.domain} eager={i < 2} />
-                </a>
-                <div className="cf-meta">
-                  <span className="pw-cat">{t(`portfolio.categories.${p.slug}`)}</span>
-                  <div className="pw-meta-row">
-                    <h3 className="pw-name">{p.name}</h3>
+        {/* blur={0}: the subtree holds two full-size screenshots and twelve
+            thumbnails, and filter: blur() re-rasterises all of it on every
+            frame of the reveal. */}
+        <Reveal delay={90} blur={0}>
+          <div className="vt-case">
+            <div
+              id="vt-panel"
+              role="tabpanel"
+              aria-labelledby={`vt-tab-${active.slug}`}
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+              onFocusCapture={() => setPaused(true)}
+              onBlurCapture={() => setPaused(false)}
+              onTouchStart={onTouchStart}
+              onTouchEnd={onTouchEnd}
+              style={{ touchAction: "pan-y" }}
+            >
+              <figure className="vt-frame">
+                <div className="vt-core">
+                  <div className="vt-bar">
+                    <span className="vt-dot" aria-hidden="true" />
+                    <span className="vt-dot" aria-hidden="true" />
+                    <span className="vt-dot" aria-hidden="true" />
+                    <span className="vt-domain">{active.domain}</span>
                     <a
-                      className="pw-link"
-                      href={p.url}
+                      className="vt-bar-cta"
+                      href={active.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      tabIndex={isCentre ? undefined : -1}
-                      aria-label={`${p.name} — ${t("work.visit")}`}
+                      aria-label={`${active.name} — ${t("work.visit")}`}
                     >
-                      <span className="pw-link-label">{t("work.visit")}</span>
-                      <span className="pw-link-icon">{ArrowUpRight}</span>
+                      {t("work.visit")}
+                      {ArrowUpRight}
                     </a>
                   </div>
-                  {/* The outcome, not the craft. */}
-                  <p className="pw-metric">{t(`portfolio.metrics.${p.slug}`)}</p>
+
+                  <div className="vt-view">
+                    {(["a", "b"] as const).map((slot) => {
+                      const p = PROJECTS[stage[slot]];
+                      const front = stage.front === slot;
+                      return (
+                        <img
+                          key={slot}
+                          className="vt-shot"
+                          data-front={front}
+                          src={shot(p.slug)}
+                          alt={front ? `${p.name} — ${p.domain}` : ""}
+                          aria-hidden={front ? undefined : true}
+                          width={1600}
+                          height={1000}
+                          decoding="async"
+                          draggable={false}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
+              </figure>
+
+              <div className="vt-meta">
+                {PROJECTS.map((p, i) => {
+                  const on = i === index;
+                  return (
+                    <div className="vt-card" key={p.slug} data-on={on} aria-hidden={on ? undefined : true}>
+                      <span className="vt-cat">{t(`portfolio.categories.${p.slug}`)}</span>
+                      <div className="vt-row">
+                        <div>
+                          <h3 className="vt-name">{p.name}</h3>
+                          <p className="vt-line">{t(`portfolio.lines.${p.slug}`)}</p>
+                        </div>
+                        <a
+                          className="vt-visit"
+                          href={p.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          tabIndex={on ? undefined : -1}
+                          aria-label={`${p.name} — ${t("work.visit")}`}
+                        >
+                          {t("work.visit")}
+                          {ArrowUpRight}
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
+            </div>
 
+            <div className="vt-rosterwrap">
+              <div className="vt-rosterhead">
+                <p className="vt-rosterlabel" id="vt-roster-label">
+                  {t("work.roster_label")}
+                </p>
+                <span className="vt-count" aria-hidden="true">
+                  <b>{String(index + 1).padStart(2, "0")}</b> / {TOTAL}
+                </span>
+              </div>
+
+              {/* Roving tabindex: one stop for the whole strip, arrows move
+                  inside it. Twelve separate tab stops between the screenshot
+                  and the form would be twelve too many. */}
+              <ul className="vt-roster" role="tablist" aria-labelledby="vt-roster-label">
+                {PROJECTS.map((p, i) => {
+                  const on = i === index;
+                  return (
+                    <li key={p.slug}>
+                      <button
+                        type="button"
+                        role="tab"
+                        id={`vt-tab-${p.slug}`}
+                        className="vt-chip"
+                        aria-selected={on}
+                        aria-controls="vt-panel"
+                        tabIndex={on ? 0 : -1}
+                        onClick={() => pick(i)}
+                        onKeyDown={onRosterKey}
+                        ref={(el) => {
+                          chipRefs.current[i] = el;
+                        }}
+                      >
+                        <span className="vt-chip-shot">
+                          <img
+                            src={thumb(p.slug)}
+                            alt=""
+                            width={480}
+                            height={300}
+                            loading="lazy"
+                            decoding="async"
+                            draggable={false}
+                          />
+                        </span>
+                        <span className="vt-chip-name">{p.short}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </Reveal>
+
+        <div className="work-cta">
+          <ContactCTA mode="modal">
+            <button type="button" className="btn btn-primary">
+              {t("nav.cta")}
+              {ArrowUpRight}
+            </button>
+          </ContactCTA>
         </div>
-      </Reveal>
-
-      <div className="cf-nav-row">
-        <button type="button" className="cf-nav cf-prev" onClick={() => go(-1)} aria-label={t("work.prev")}>
-          {ChevronLeft}
-        </button>
-        <button type="button" className="cf-nav cf-next" onClick={() => go(1)} aria-label={t("work.next")}>
-          {ChevronRight}
-        </button>
       </div>
-
-      <div className="cf-dots">
-        {PROJECTS.map((p, i) => (
-          <button
-            key={p.slug}
-            type="button"
-            className="cf-dot"
-            aria-current={i === index}
-            aria-label={p.name}
-            onClick={() => goTo(i)}
-          />
-        ))}
-      </div>
-
-      {isMobile && (
-        <div className="work-inner cf-cta-row">
-          <p className="pw-hint">{t("work.swipe_hint")}</p>
-        </div>
-      )}
     </section>
   );
 };

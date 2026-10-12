@@ -31,6 +31,12 @@ const MobileBottomBar = lazy(() => import("@/components/MobileBottomBar"));
 // the end of the page, the closing panel took the form and the footer became
 // an inset panel. Only these three moved:
 //   faq 326/568 · contact 776/883 · footer 587/935
+//
+// Re-measured 2026-10-12 after the work section became the showcase. It is the
+// only one that moved, and it nearly doubled: the stage now renders the
+// screenshot at 1106x691 instead of 504x315, and the roster of twelve named
+// thumbnails sits under it.
+//   work 1420/870  (via `node artifacts.local/verify-work.mjs`)
 // The FAQ is two columns now and lists four objections instead of six;
 // contact grew because it carries the form the hero used to, then shrank
 // again when it lost its panel padding.
@@ -110,7 +116,7 @@ const Index = () => {
         {/* Proof: the work itself. Full-bleed, outside the body column —
             instantly's testimonial slot, which is the one band on their page
             that breaks the 1040 grid so the carousel can run edge to edge. */}
-        <Suspense fallback={<Placeholder minHeight={885} />}>
+        <Suspense fallback={<Placeholder minHeight={1145} />}>
           <SelectedWorkSection />
         </Suspense>
 
