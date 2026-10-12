@@ -45,6 +45,9 @@ const MobileBottomBar = lazy(() => import("@/components/MobileBottomBar"));
 // contact grew because it carries the form the hero used to, then shrank
 // again when it lost its panel padding.
 //
+// Re-measured 2026-10-12 after integrating the 3D number assets:
+//   offer(2 units + gap) 1219/1839 · process 945/1317 (larger digits)
+//
 // A unit's reservation covers only the unit; the 80px (48px on phones) that
 // separates it from its neighbour belongs to .leads-col's gap and is there
 // whether the chunk has landed or not. The one exception is OfferSection,
@@ -103,11 +106,11 @@ const Index = () => {
         <section className="leads" id="body">
           <div className="leads-wrap">
             <div className="leads-col">
-              <Suspense fallback={<Placeholder minHeight={1414} />}>
+              <Suspense fallback={<Placeholder minHeight={1529} />}>
                 {/* Units 1 and 2 — the problem, then the offer. */}
                 <OfferSection />
               </Suspense>
-              <Suspense fallback={<Placeholder minHeight={937} />}>
+              <Suspense fallback={<Placeholder minHeight={1131} />}>
                 <ProcessSection />
               </Suspense>
               <Suspense fallback={<Placeholder minHeight={510} />}>

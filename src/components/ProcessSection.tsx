@@ -4,6 +4,7 @@ import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import Reveal from "@/components/Reveal";
 import ContactCTA from "@/components/ContactCTA";
+import BrandNumber from "@/components/BrandNumber";
 
 const STEPS = [1, 2, 3, 4, 5] as const;
 
@@ -67,19 +68,8 @@ const ProcessSection: React.FC = () => {
           padding: var(--sp-32) var(--sp-32);
           text-align: center;
         }
-        /* Bare step number, bold — the week labels it replaced only repeated
-           what the numeral already said. On --text-body so it tracks the rest
-           of the copy instead of inventing a size of its own, and one clear
-           step below the title above it.
-
-           line-height: 1, not --text-body-lh: a single glyph on its own row
-           does not need paragraph leading, and 1.55 padded 4.7px of dead space
-           above and below it, so the 9px card gap read as 14px on one side.
-           .offer-num carries this identical spec — the two card grids are the
-           same component in two sections, and they must not drift. */
-        /* The card header is one baseline-aligned row: step number, then the
-           day range it covers. Byte-identical to .offer-eyebrow in
-           OfferSection — the two sections run the same card grid.
+        /* The independent 3D glyph and its date share a centred row, with
+           the same geometry as OfferSection.
 
            The range is what turns five stage names into a schedule the
            visitor can hold us to. Relative, not absolute: the delivery term
@@ -87,7 +77,7 @@ const ProcessSection: React.FC = () => {
            finish date. */
         .proc-eyebrow {
           display: flex;
-          align-items: baseline;
+          align-items: center;
           justify-content: center;
           gap: 9px;
         }
@@ -104,15 +94,6 @@ const ProcessSection: React.FC = () => {
           line-height: 1;
           letter-spacing: normal;
           color: var(--text-muted);
-        }
-        .proc-num {
-          font-family: var(--font-sans);
-          font-size: var(--text-body);
-          font-weight: 700;
-          line-height: 1;
-          color: var(--brand);
-          font-variant-numeric: tabular-nums;
-          letter-spacing: var(--text-body-ls);
         }
         /* Card title scale — --text-card-title in index.css. */
         .proc-step-title {
@@ -175,7 +156,7 @@ const ProcessSection: React.FC = () => {
               <Reveal delay={Math.min(i, 3) * 70} className="proc-card-wrap">
                 <div className="proc-card">
                   <span className="proc-eyebrow">
-                    <span className="proc-num">{n}</span>
+                    <BrandNumber value={n} />
                     <span className="proc-meta">{t(`process.step${n}_days`)}</span>
                   </span>
                   <h3 className="proc-step-title">{t(`process.step${n}_title`)}</h3>

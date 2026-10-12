@@ -1059,6 +1059,26 @@
 
 }
 
+/* Outlined 3D digits, shared by offer, process and case-study stages.
+   The SVG owns the gloss/bevel/shadow; the box reserves space before loading. */
+.brand-number {
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: var(--number-height, 72px);
+  line-height: 1;
+  vertical-align: middle;
+}
+.brand-number > img {
+  display: block;
+  width: calc(var(--number-height, 72px) * 0.8);
+  height: 100%;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+@media (max-width: 768px) {
+  .offer-eyebrow, .proc-eyebrow { --number-height: 60px; }
+}
+
 /* ===== Scroll reveal (used by <Reveal /> in src/components/Reveal.tsx) =====
 
    Content arrives by fading UP and INTO FOCUS. The defocus is the half that

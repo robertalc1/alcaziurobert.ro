@@ -24,6 +24,14 @@ The current implementation in `src/index.css` is the source of truth. The previo
 - Hero and footer panels: `#0B2A5C` with white text and blue shader accents.
 - The lighter brand blue is reserved for marks, controls and large accents; small text uses the stronger blue or the body text colours.
 
+## 3D numerals (2026-10-12)
+
+- Independent, transparent outlined digits: `public/numbers/0.svg` through `9.svg`. The requested 1–9 set is complete; 0 supports the existing 01–05 stage labels.
+- Figtree at weight 800, with the exact primary-button face gradient (`#6294F8` → `#4580F7` → `#286CF6`), a light top bevel, a short darker extrusion and a restrained blue shadow. No badge or container behind the glyph.
+- `BrandNumber` renders the same assets in offer, process and case-study stage numbering, preserving readable text for assistive technology. Figures in copy, measurements, prices and contact details stay ordinary text.
+- The shared frame is 72px tall on desktop and 60px on mobile, including case-study pairs. All SVG geometry is outlined, so rendering needs no font, bitmap or new runtime dependency.
+- Regenerate with `python scripts/make-number-assets.py` (tooling: `fonttools` and `brotli`). The SVGs live in `public`; regeneration is not a build step.
+
 ## Typography and layout
 
 - Figtree, self-hosted variable font (300–900), including Latin Extended for Romanian.

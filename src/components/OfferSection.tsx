@@ -4,6 +4,7 @@ import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import Reveal from "@/components/Reveal";
 import ContactCTA from "@/components/ContactCTA";
+import BrandNumber from "@/components/BrandNumber";
 
 const DELIVERABLES = [1, 2, 3, 4] as const;
 
@@ -68,29 +69,13 @@ const OfferSection: React.FC = () => {
           padding: var(--sp-32) var(--sp-32);
           text-align: center;
         }
-        /* The card header is one row, not two. The number ran at
-           --text-card-title, the same size as the title under it, with a
-           10.5px category label wedged between them: three stacked rows, two
-           of them at the same size, which read as clutter rather than as a
-           hierarchy. Number and category now share a single baseline-aligned
-           eyebrow, so every card descends cleanly 17 → 24 → 17px.
-
-           Byte-identical to .proc-num in ProcessSection. The two sections run
-           the same card grid; if you change one, change the other. */
+        /* The independent 3D glyph and its label share a centred row.
+           Keep the same geometry in ProcessSection. */
         .offer-eyebrow {
           display: flex;
-          align-items: baseline;
+          align-items: center;
           justify-content: center;
           gap: 9px;
-        }
-        .offer-num {
-          font-family: var(--font-sans);
-          font-size: var(--text-body);
-          font-weight: 700;
-          line-height: 1;
-          color: var(--brand);
-          font-variant-numeric: tabular-nums;
-          letter-spacing: var(--text-body-ls);
         }
         .offer-meta {
           font-family: var(--font-sans);
@@ -243,7 +228,7 @@ const OfferSection: React.FC = () => {
                 <Reveal delay={Math.min(i, 3) * 70} className="offer-card-wrap">
                   <div className="offer-card">
                     <span className="offer-eyebrow">
-                      <span className="offer-num">{n}</span>
+                      <BrandNumber value={n} />
                       <span className="offer-meta">{t(`offer.d${n}_meta`)}</span>
                     </span>
                     <h3 className="offer-item-title">{t(`offer.d${n}_title`)}</h3>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="100" viewBox="0 0 80 100" fill="none">
+  <title>6</title>
+  <defs>
+    <path id="digit" d="M40.36 80Q33.8 80 29.1 77.67Q24.39 75.34 21.38 71.21Q18.36 67.08 16.9 61.58Q15.45 56.09 15.45 49.68Q15.45 42.52 16.94 35.78Q18.44 29.04 21.65 23.67Q24.86 18.31 30.16 15.16Q35.45 12 43.08 12Q48.47 12 53.45 13.51Q58.43 15.02 62.41 17.82L55.14 28.89Q52.21 26.95 48.94 26.07Q45.67 25.19 43.12 25.19Q36.9 25.19 33.13 30.83Q29.37 36.48 29.5 48.99L26.46 47.24Q28.64 42.3 32.94 39.31Q37.24 36.33 43.21 36.33Q49.45 36.33 54.27 39.34Q59.09 42.36 61.82 47.44Q64.55 52.52 64.55 58.79Q64.55 64.84 61.59 69.67Q58.63 74.5 53.21 77.25Q47.8 80 40.36 80ZM40.43 67.34Q43.01 67.34 45.07 66.12Q47.14 64.9 48.33 62.79Q49.52 60.69 49.52 58.04Q49.52 55.32 48.33 53.15Q47.14 50.98 45.07 49.72Q43.01 48.46 40.43 48.46Q37.86 48.46 35.75 49.72Q33.63 50.98 32.4 53.15Q31.17 55.32 31.17 58.04Q31.17 60.69 32.4 62.79Q33.63 64.9 35.75 66.12Q37.86 67.34 40.43 67.34Z"/>
+    <!-- Matches the primary button gradient in src/index.css. -->
+    <linearGradient id="face" x1="40" y1="12" x2="40" y2="80" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6294F8"/>
+      <stop offset=".46" stop-color="#4580F7"/>
+      <stop offset="1" stop-color="#286CF6"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="40" y1="12" x2="40" y2="85" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4580F7"/>
+      <stop offset=".5" stop-color="#2463D3"/>
+      <stop offset="1" stop-color="#174CAB"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="80" height="100" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#4580F7" flood-opacity=".2"/>
+    </filter>
+    <filter id="bevel" x="0" y="0" width="80" height="100" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation=".45" result="soft"/>
+      <feOffset in="soft" dy="1.15" result="down"/>
+      <feComposite in="SourceAlpha" in2="down" operator="out" result="top-rim"/>
+      <feFlood flood-color="#FFFFFF" flood-opacity=".78"/>
+      <feComposite in2="top-rim" operator="in" result="highlight"/>
+      <feOffset in="soft" dy="-1.1" result="up"/>
+      <feComposite in="SourceAlpha" in2="up" operator="out" result="bottom-rim"/>
+      <feFlood flood-color="#1245A1" flood-opacity=".42"/>
+      <feComposite in2="bottom-rim" operator="in" result="shade"/>
+      <feMerge>
+        <feMergeNode in="SourceGraphic"/>
+        <feMergeNode in="shade"/>
+        <feMergeNode in="highlight"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <g fill="url(#edge)">
+    <use href="#digit" transform="translate(0.72 4.50)"/>
+    <use href="#digit" transform="translate(0.68 4.25)"/>
+    <use href="#digit" transform="translate(0.64 4.00)"/>
+    <use href="#digit" transform="translate(0.60 3.75)"/>
+    <use href="#digit" transform="translate(0.56 3.50)"/>
+    <use href="#digit" transform="translate(0.52 3.25)"/>
+    <use href="#digit" transform="translate(0.48 3.00)"/>
+    <use href="#digit" transform="translate(0.44 2.75)"/>
+    <use href="#digit" transform="translate(0.40 2.50)"/>
+    <use href="#digit" transform="translate(0.36 2.25)"/>
+    <use href="#digit" transform="translate(0.32 2.00)"/>
+    <use href="#digit" transform="translate(0.28 1.75)"/>
+    <use href="#digit" transform="translate(0.24 1.50)"/>
+    <use href="#digit" transform="translate(0.20 1.25)"/>
+    <use href="#digit" transform="translate(0.16 1.00)"/>
+    <use href="#digit" transform="translate(0.12 0.75)"/>
+    <use href="#digit" transform="translate(0.08 0.50)"/>
+    <use href="#digit" transform="translate(0.04 0.25)"/>
+    </g>
+    <use href="#digit" fill="url(#face)" filter="url(#bevel)"/>
+  </g>
+</svg>

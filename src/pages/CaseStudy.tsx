@@ -3,14 +3,15 @@ import { useTranslation } from "react-i18next";
 import Navbar from "@/components/Navbar";
 import MadeByHumans from "@/components/MadeByHumans";
 import ContactCTA from "@/components/ContactCTA";
+import BrandNumber from "@/components/BrandNumber";
 import { jumpToTop, scrollToEl } from "@/lib/scroll";
 
 const STAGES = [
-  "discovery",
-  "performance",
-  "security",
-  "tracking",
-  "seo",
+  { key: "discovery", number: "01" },
+  { key: "performance", number: "02" },
+  { key: "security", number: "03" },
+  { key: "tracking", number: "04" },
+  { key: "seo", number: "05" },
 ] as const;
 
 const CHANNELS = [
@@ -249,18 +250,18 @@ const Approach: React.FC = () => {
           display: grid; gap: var(--sp-32);
         }
         .cs-stage {
-          display: grid; grid-template-columns: 88px 1fr; gap: var(--sp-32);
+          display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: var(--sp-32);
           align-items: start;
           padding-bottom: var(--sp-24);
           border-bottom: 1px solid var(--line);
         }
         .cs-stage:last-child { border-bottom: none; padding-bottom: 0; }
-        /* Numerals are one of the four things the palette note allows the
-           accent on, so --brand stays. The size joins the heading scale. */
+        /* Same outlined 3D digits as the homepage, with room for two digits. */
         .cs-stage-num {
-          font-family: var(--font-sans);
-          font-weight: 600; font-size: var(--text-section-title);
-          letter-spacing: -0.04em; color: var(--brand); line-height: 1;
+          display: inline-flex;
+          gap: 0;
+          --number-height: 72px;
+          justify-self: start;
         }
         .cs-stage-title {
           font-family: var(--font-sans);
@@ -368,7 +369,7 @@ const Approach: React.FC = () => {
         /* MOBILE */
         @media (max-width: 640px) {
           .cs-stage { grid-template-columns: 1fr; gap: var(--sp-12); }
-          .cs-stage-num { font-size: 2rem; }
+          .cs-stage-num { --number-height: 60px; }
           .cs-channels-grid {
             gap: var(--sp-32) clamp(28px, 8vw, 44px);
             justify-content: center;
@@ -462,9 +463,9 @@ const Approach: React.FC = () => {
               <p className="cs-lead">{t("approach.road_lead")}</p>
 
               <ol className="cs-roadmap">
-                {STAGES.map((key, i) => (
+                {STAGES.map(({ key, number }) => (
                   <li key={key} className="cs-stage">
-                    <span className="cs-stage-num">{String(i + 1).padStart(2, "0")}</span>
+                    <BrandNumber value={number} className="cs-stage-num" />
                     <div className="cs-stage-body">
                       <h3 className="cs-stage-title">{t(`approach.stage.${key}.title`)}</h3>
                       <p className="cs-stage-lead">{t(`approach.stage.${key}.lead`)}</p>
