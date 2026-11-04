@@ -114,3 +114,9 @@ export function trackCall(source: string): void {
   if (!granted || !GA_MEASUREMENT_ID || !window.gtag) return;
   window.gtag("event", "phone_click", { source });
 }
+
+/** Fixed event names only; never send form values or contact details to GA4. */
+export function trackContactAction(action: "quote_request" | "whatsapp_click"): void {
+  if (!granted || !GA_MEASUREMENT_ID || !window.gtag) return;
+  window.gtag("event", action);
+}

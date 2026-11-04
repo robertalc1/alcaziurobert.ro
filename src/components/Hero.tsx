@@ -1,14 +1,12 @@
 "use client";
 
-import React, { Suspense, lazy } from "react";
+import React, { Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import ContactCTA from "@/components/ContactCTA";
 import ShaderBackground from "@/components/ShaderBackground";
 
-// The client logo band sits INSIDE the hero panel (instantly.ai puts its own
-// logo wall there too), but it is twelve images and the hero is the LCP
-// screen, so it stays in its own chunk behind a height-reserving fallback.
-const ClientMarqueeSection = lazy(() => import("@/components/ClientMarqueeSection"));
+// Render the known logo dimensions immediately to avoid a late hero height change.
+import ClientMarqueeSection from "@/components/ClientMarqueeSection";
 
 const ArrowUpRight = (
   <svg

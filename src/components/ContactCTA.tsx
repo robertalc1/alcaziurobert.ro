@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useContactModal } from "@/components/ContactModal";
 import { scrollToEl } from "@/lib/scroll";
+import { trackContactAction } from "@/lib/analytics";
 
 type Props = {
   children: React.ReactNode;
@@ -36,6 +37,7 @@ const ContactCTA: React.FC<Props> = ({ children, mode = "auto" }) => {
   const { openContact } = useContactModal();
 
   const openOverlay = (e: React.MouseEvent) => {
+    trackContactAction("quote_request");
     e.preventDefault();
     e.stopPropagation();
     // Read synchronously: React nulls currentTarget once the handler returns.
@@ -46,6 +48,7 @@ const ContactCTA: React.FC<Props> = ({ children, mode = "auto" }) => {
   // the form isn't on the current page (e.g. /studii-de-caz), go home and let
   // Index scroll to it.
   const scrollToContact = (e: React.MouseEvent) => {
+    trackContactAction("quote_request");
     e.preventDefault();
     const target = document.getElementById(CONTACT_SECTION_ID);
     if (!target) {

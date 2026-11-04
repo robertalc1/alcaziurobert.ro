@@ -1,7 +1,7 @@
 {
   "bar": {
-    "text": "Lucrăm cu maximum patru clienți simultan.",
-    "cta": "Vedeți dacă mai este loc",
+    "text": "Proiecte de la 1.000 €. Ofertă adaptată cerințelor.",
+    "cta": "Discutați proiectul",
     "close": "Închideți anunțul"
   },
   "nav": {
@@ -13,81 +13,111 @@
     "call": "Sunați-ne",
     "menu": "Meniu",
     "close": "Închideți",
-    "offer": "Ofertă"
+    "offer": "Ofertă",
+    "cta_label": "Solicitați o ofertă personalizată"
   },
   "compounding": {
-    "title": "De ce funcționează?",
+    "title": "După lansare, putem continua să dezvoltăm.",
     "s1": {
-      "what": "Cu noi",
-      "tag": "Transformă vizitatorii\nîn clienți"
+      "what": "Trafic și conversie",
+      "tag": "Google Ads, Meta Ads și SEO.\nMăsurare și optimizare pe date disponibile."
     },
     "s2": {
-      "what": "Fără noi",
-      "tag": "Îi pierde\nîn câteva secunde"
+      "what": "Întreținere și extindere",
+      "tag": "Mentenanță, pagini și funcționalități.\nIntervenții punctuale sau colaborare periodică."
     },
-    "summary_l1": "Funcționează pentru că site-ul e construit să <pill>convertească</pill>, nu doar să arate bine.",
-    "summary_l2": "Aceiași vizitatori, același buget. Singura diferență e <pill>cine a construit site-ul</pill>.",
-    "takeaway": "<pill>Un singur client nou</pill> din sistem acoperă tot build-ul. Tot ce aduce după aceea e profit curat."
+    "summary_l1": "Alegeți serviciile potrivite pentru etapa afacerii. Sunt <pill>opționale și ofertate separat</pill>, cu volum, cost și perioadă stabilite înainte.",
+    "summary_l2": "Serviciile punctuale și cele recurente au <pill>o ofertă distinctă</pill>. Bugetul media nu este tariful de administrare. Frecvența rapoartelor și limitele intervențiilor se stabilesc în acord.",
+    "takeaway": "Discutăm ce este util proiectului dumneavoastră. <pill>Fără abonamente activate automat</pill> și fără promisiuni de vânzări garantate.",
+    "cta": "Discutați opțiunile pentru proiectul dumneavoastră"
   },
   "faq": {
-    "title": "Răspunsuri la întrebările frecvente.",
-    "lead": "Patru obiecții, în ordinea în care apar la telefon.",
+    "title": "Întrebări înainte de colaborare.",
+    "lead": "Preț, livrabile, termene și opțiuni după lansare.",
     "o1": {
-      "q": "Cât costă?",
-      "a": "Depinde de perimetru. Un site de prezentare și un funnel complet cu tracking server-side nu sunt același proiect. Vă dăm cifra pe primul apel, după ce înțelegem ce aveți nevoie. Nu publicăm tarife de listă pentru că nu livrăm pachete de listă."
+      "q": "Ce înseamnă „de la 1.000 €”?",
+      "a": "Este pragul minim pentru un proiect, nu un preț fix pentru orice website sau aplicație. Stabilim costul, livrabilele și etapele înainte de începere. Nu toate serviciile prezentate sunt incluse în prețul de pornire."
     },
     "o2": {
-      "q": "Cât durează?",
-      "a": "Aproximativ patru săptămâni de la kickoff până live. Termenul exact se fixează înainte de începere, nu pe parcurs. Singura variabilă este viteza cu care primim conținutul de la dumneavoastră."
+      "q": "Ce influențează prețul final?",
+      "a": "Numărul paginilor, complexitatea funcționalităților, integrările, conținutul și materialele disponibile, numărul limbilor, serviciile suplimentare și cerințele sau termenele speciale."
     },
     "o3": {
-      "q": "De ce noi și nu o agenție de marketing?",
-      "a": "Într-o agenție, site-ul, tracking-ul și reclamele sunt trei furnizori diferiți care dau vina unul pe altul când cifrele nu vin. Aici tot lanțul stă sub un singur contract și un singur responsabil. Compromisul este capacitatea: lucrăm cu maximum patru clienți simultan."
+      "q": "Ce este inclus în oferta mea?",
+      "a": "Oferta personalizată delimitează tipul proiectului, paginile sau secțiunile, designul, dezvoltarea, adaptarea pentru mobil, contactul, SEO tehnic și orice alte servicii convenite. Tracking-ul, reviziile, predarea și excluderile sunt precizate înainte de start."
     },
     "o4": {
-      "q": "Ce se întâmplă dacă nu vă place?",
-      "a": "Vedeți direcția vizuală înainte să se scrie prima linie de cod și o ajustăm până este bine. Nu vă treziți cu un site terminat pe care îl vedeți prima dată la livrare — este cel mai scump mod de a lucra, pentru amândouă părțile."
+      "q": "Există costuri recurente?",
+      "a": "Costurile punctuale și cele recurente se separă în ofertă. Găzduirea, domeniul, licențele și orice colaborare periodică sunt discutate distinct; nu activăm automat un abonament."
     },
     "o5": {
-      "q": "Ce se întâmplă după lansare?",
-      "a": "Primele 30 de zile sunt incluse: reglaje, corecturi, tot ce iese la iveală din datele reale. După aceea primiți rapoarte lunare și răspuns în 24 de ore. Codul, hostingul și datele rămân ale dumneavoastră — fără dependență de noi."
+      "q": "Hostingul și domeniul sunt incluse?",
+      "a": "Oferta precizează cine asigură găzduirea și domeniul, cine deține accesurile și ce costuri recurente există. Prețul de pornire nu trebuie interpretat ca incluzând automat aceste servicii."
     },
     "o6": {
       "q": "Cum se măsoară garanția pe rezultat?",
       "a": "Reperul se stabilește la start: rata de conversie de acum, dacă aveți deja analytics, sau ținta convenită împreună dacă pornim de la zero. Se măsoară la 90 de zile de la lansare, pe aceleași surse de trafic. Dacă nu a trecut peste reper, continuăm fără costuri până trece."
+    },
+    "o7": {
+      "q": "Ce materiale trebuie să pregătesc?",
+      "a": "Discutăm textele, logo-ul, imaginile, informațiile despre servicii și accesurile necesare. Conținutul lipsă, copywriting-ul și migrarea se delimitează în ofertă, dacă sunt necesare."
+    },
+    "o8": {
+      "q": "Câte modificări sunt incluse?",
+      "a": "Numărul rundelor de revizii și etapele de aprobare se stabilesc în oferta personalizată. Cerințele noi față de livrabilele agreate se discută separat; remedierea defectelor propriei implementări nu este un serviciu suplimentar plătit."
+    },
+    "o9": {
+      "q": "Cât durează proiectul?",
+      "a": "Estimarea existentă pentru un website este de aproximativ patru săptămâni. Termenul exact depinde de complexitate, materiale și aprobări și se fixează înainte de începere. Aplicațiile și integrările complexe au estimări proprii."
+    },
+    "o10": {
+      "q": "Cine primește accesurile?",
+      "a": "Predarea accesurilor și drepturile de utilizare se precizează în acord, înainte de start. Stabilim explicit ce se predă pentru cod, domeniu, găzduire și conturile folosite."
+    },
+    "o11": {
+      "q": "Ce înseamnă SEO tehnic inițial?",
+      "a": "Structura paginilor, titlurile și descrierile, URL-urile canonice, sitemap-ul și accesibilitatea pentru motoarele de căutare, în limitele proiectului. SEO continuu și conținutul sunt servicii distincte. Nu garantăm poziții în Google sau recomandări AI."
+    },
+    "o12": {
+      "q": "Reclamele și bugetul media sunt separate?",
+      "a": "Da. Administrarea Google Ads sau Meta Ads se ofertează separat de dezvoltarea website-ului. Bugetul plătit platformelor este distinct de tariful de administrare; volumul și perioada se stabilesc în acord."
+    },
+    "o13": {
+      "q": "Ce se întâmplă după lansare?",
+      "a": "Primele 30 de zile de suport sunt incluse. Delimităm intervențiile în acord. Ulterior, mentenanța, rapoartele și dezvoltările noi sunt opționale și ofertate separat; nu sunt incluse automat în pragul de 1.000 €."
     }
   },
   "hero_v3": {
-    "headline_pre": "Site-uri construite",
-    "headline_accent": "să convertească.",
-    "subtitle": "Site, funnel, tracking și reclame — tot lanțul sub un singur contract. Termen fixat înainte de start.",
+    "headline_pre": "Website-uri premium,",
+    "headline_accent": "clare de la început.",
+    "subtitle": "Proiecte de la 1.000 €. Creăm site-uri și aplicații web pentru afaceri, cu ofertă clară și un parcurs simplu către contact.",
     "form_title": "Descrieți-ne proiectul",
     "form_note": "Răspundem în maximum 24 de ore.",
-    "trust_1": "Răspuns în 24 de ore, garantat",
-    "trust_2": "Livrare estimată în 4 săptămâni",
-    "trust_3": "Garanție pe rezultat la 90 de zile"
+    "trust_1": "Răspuns în 24 de ore",
+    "trust_2": "Discutăm cerințele, apoi oferta",
+    "trust_3": "Cost și etape stabilite înainte de start"
   },
   "process": {
-    "step1_title": "Unde se pierd banii",
-    "step1_body": "Audit, analytics și harta funnel-ului. Știm exact pe unde se pierde traficul înainte să scriem o linie de cod.",
-    "step2_title": "Construim să convertească",
-    "step2_body": "Design și build, în jurul singurei metrici care contează: lead-uri calificate.",
-    "step3_title": "Lansare",
-    "step3_body": "Tracking server-side inclus, încărcare sub 2 secunde, zero capete lăsate libere.",
-    "step4_title": "Scalăm ce merge",
-    "step4_body": "Reclame și SEO îndreptate spre paginile care deja convertesc.",
-    "step5_title": "Creștere compusă",
-    "step5_body": "Rămânem în spatele cifrelor dumneavoastră, lună de lună. Raport lunar, fără să îl cereți.",
-    "title": "Cinci etape. Știți tot timpul unde suntem.",
-    "lead": "Fără ședințe de status și fără să întrebați ce se întâmplă. La fiecare etapă <pill>vedeți ce s-a livrat</pill> și ce urmează.",
-    "step1_days": "Zilele 1–5",
-    "step2_days": "Zilele 5–15",
-    "step3_days": "Zilele 15–25",
-    "step4_days": "Zilele 25–30",
-    "step5_days": "Lunar, după lansare"
+    "step1_title": "Înțelegem cerințele",
+    "step1_body": "Stabilim tipul site-ului sau al aplicației, paginile, limbile și integrările. Identificăm textele, imaginile și accesurile disponibile.",
+    "step2_title": "Agreăm oferta și direcția",
+    "step2_body": "Vedeți direcția vizuală înainte de dezvoltare. Stabilim livrabilele, reviziile, etapele de aprobare și termenul, potrivit cerințelor și materialelor.",
+    "step3_title": "Dezvoltăm și verificăm",
+    "step3_body": "Implementăm funcționalitățile convenite și verificăm mobilul, formularul și SEO tehnic. Măsurarea se configurează dacă este inclusă în ofertă.",
+    "step4_title": "Lansăm și predăm",
+    "step4_body": "Verificăm împreună livrabilele și predăm accesurile convenite. Drepturile de utilizare, găzduirea și eventualele licențe sunt precizate în acord.",
+    "step5_title": "Suport și pașii următori",
+    "step5_body": "Primele 30 de zile de suport sunt incluse, conform condițiilor agreate. Dezvoltările noi și colaborarea periodică se stabilesc separat, fără abonament automat.",
+    "title": "De la cerințe la predare, în cinci etape.",
+    "lead": "După solicitare discutăm obiectivul, materialele și funcționalitățile. Oferta precizează <pill>costul și ce se livrează</pill>; implementarea începe după acord.",
+    "step1_days": "Înainte de ofertă",
+    "step2_days": "Înainte de implementare",
+    "step3_days": "Conform etapelor agreate",
+    "step4_days": "La lansare",
+    "step5_days": "După lansare"
   },
   "work": {
-    "intro": "Două platforme pentru administrație. Și o selecție de site-uri pentru afaceri.",
+    "intro": "Website-uri și aplicații web dezvoltate pentru nevoi concrete. Proiectele complexe se ofertează individual.",
     "other_title": "Alte proiecte realizate",
     "pause": "Pauză",
     "resume": "Reia derularea",
@@ -96,7 +126,7 @@
       "black-sea-gis": "Platformă GIS pentru administrația locală. Hărți și date geografice organizate într-o interfață clară."
     },
     "visit": "Vedeți live",
-    "section_title": "Proiecte de succes",
+    "section_title": "Proiecte realizate",
     "roster_label": "Toate proiectele"
   },
   "portfolio": {
@@ -106,9 +136,9 @@
       "black-sea-gis": "Hărți și date GIS pentru administrația locală",
       "laura-predoi": "Prezentarea serviciilor și programări online",
       "unbacde10": "Pregătire pentru BAC la informatică și matematică",
-      "picaps": "Încărcare de la 6s la 1,1s · abandon −38%",
-      "kickout": "Conversie de la 1,4% la 3,8%",
-      "rdraw": "7 cereri organice în primele 30 de zile",
+      "picaps": "Website de prezentare pentru produse",
+      "kickout": "Website de prezentare pentru brand",
+      "rdraw": "Prezentarea serviciilor de proiectare",
       "everun": "Catalog de utilaje noi, cu cerere de ofertă",
       "everati": "Lansarea gamei de vehicule electrice în România",
       "alma": "Servicii, galerie de lucrări și programări",
@@ -117,74 +147,74 @@
     }
   },
   "approach": {
-    "h1": "Site-uri premium care chiar funcționează.",
-    "lead": "Majoritatea site-urilor sunt template. Ale noastre convertesc. Iată cum.",
-    "pain_title": "Majoritatea site-urilor sunt rupte.",
-    "pain_1": "Core Web Vitals lente. Google vă penalizează. Clienții pleacă.",
-    "pain_2": "Pixeli doar client-side. Reclamele plătite nu scalează.",
-    "pain_3": "Fără conformare NIS2. Expunere legală directă din 2024.",
+    "h1": "Cum construim site-uri și aplicații web.",
+    "lead": "De la cerințe și ofertă la implementare, verificare și predare. Serviciile se aleg după nevoile proiectului.",
+    "pain_title": "Ce clarificăm înainte de implementare.",
+    "pain_1": "Ce oferiți și cui: informațiile care ajută vizitatorul să decidă.",
+    "pain_2": "Cum ajunge la contact și ce acțiuni pot fi măsurate cu consimțământ.",
+    "pain_3": "Ce funcționalități, materiale și accesuri sunt necesare.",
     "road_title": "Cinci etape. Un singur standard.",
-    "road_lead": "Același standard pentru site-uri, ecommerce, aplicații.",
+    "road_lead": "Etapele și serviciile incluse sunt stabilite în oferta personalizată.",
     "stage": {
       "discovery": {
-        "title": "Discovery & strategie",
-        "lead": "Audit. KPI. Funnel. Definite înainte de cod.",
-        "t1": "Audit + analytics",
-        "t2": "Hartă KPI"
+        "title": "Cerințe și structură",
+        "lead": "Definim publicul, informațiile, paginile și funcționalitățile.",
+        "t1": "Cerințe și materiale",
+        "t2": "Structura paginilor"
       },
       "performance": {
         "title": "Performanță — viteză reală",
-        "lead": "Livrare prin CDN, imagini optimizate, cod minim. Încărcare rapidă pe orice conexiune.",
+        "lead": "Optimizăm imaginile și codul și verificăm încărcarea pe mobil. Rezultatele depind și de găzduire și integrări.",
         "t1": "CDN + cache",
         "t2": "Core Web Vitals"
       },
       "security": {
-        "title": "Securitate — NIS2 compliant",
-        "lead": "WAF, DDoS, SSL, backup-uri. NIS2 ready.",
-        "t1": "WAF + DDoS",
-        "t2": "NIS2 ready"
+        "title": "Securitate tehnică",
+        "lead": "Configurăm măsurile tehnice potrivite infrastructurii convenite. Nu reprezintă o certificare sau o garanție de conformitate NIS2.",
+        "t1": "HTTPS și accesuri",
+        "t2": "Configurare agreată"
       },
       "tracking": {
-        "title": "Tracking și reclame",
-        "lead": "Pixeli Facebook și Google, server-side. Cele două care scalează.",
+        "title": "Măsurare, dacă este inclusă",
+        "lead": "Evenimente relevante în GA4 și Meta Conversions API, în limitele consimțământului și datelor disponibile.",
         "t1": "FB Conversions API",
         "t2": "GA4 + Google Ads"
       },
       "seo": {
-        "title": "SEO care se compune",
-        "lead": "On-page, tehnic, content. Trafic calificat, fără CPC.",
+        "title": "SEO tehnic și conținut",
+        "lead": "SEO tehnic inițial în limitele ofertei; optimizarea continuă și conținutul se ofertează separat. Fără poziții garantate.",
         "t1": "On-page + tehnic",
         "t2": "Schema + sitemap"
       }
     },
-    "channels_title": "Marketing pentru high-ticket.",
-    "channels_p1": "Mai întâi audiențe reci. Apoi retargetare precisă. Obiectiv Purchase mereu. Fără metrici de vanitate.",
+    "channels_title": "Trafic către paginile potrivite.",
+    "channels_p1": "Administrare Google Ads și Meta Ads, ofertată separat. Alegem obiectivele după afacere și măsurarea disponibilă. Bugetul media este separat de tariful de administrare; logo-urile identifică platformele, nu parteneriate oficiale.",
     "channel_meta": "Facebook Ads",
     "channel_google": "Google Ads",
-    "addon_title": "VPS Linux și Windows — administrate integral.",
-    "addon_body": "Puțini o fac corect. Le arhitectăm, le punem în producție și le întreținem — instanțe Linux sau Windows dedicate.",
-    "addon_cta": "Solicitați o ofertă",
+    "addon_title": "Aplicații web pentru procese concrete.",
+    "addon_body": "Dezvoltăm interfețe, logică și integrări pentru fluxuri specifice. SGC OCPI și Black Sea GIS sunt exemple din portofoliu. Complexitatea, accesurile și etapele se ofertează individual; aceste aplicații nu reprezintă un pachet de 1.000 €.",
+    "addon_cta": "Solicitați o ofertă personalizată",
     "cta_title": "Începem?",
-    "cta_body": "Discuție de 30 de minute în care definim proiectul. Fără introduceri lungi.",
-    "cta_button": "Solicitați o ofertă",
+    "cta_body": "Descrieți cerințele. Stabilim ce poate fi realizat, ce materiale sunt necesare și cum se formează oferta.",
+    "cta_button": "Solicitați o ofertă personalizată",
     "toc": {
       "title": "Pe această pagină",
       "overview": "Prezentare",
       "problem": "Problema",
       "roadmap": "Cum construim",
       "channels": "Canale",
-      "addon": "VPS custom",
+      "addon": "Aplicații web",
       "cta": "Contact"
     }
   },
   "whatwedo": {
     "clients_eyebrow": "Au lucrat cu noi",
-    "cta_primary": "Solicitați o ofertă"
+    "cta_primary": "Solicitați o ofertă personalizată"
   },
   "contact": {
-    "title": "O discuție, fără obligație.",
-    "description_l1": "Vă spunem <pill>direct</pill> dacă vă putem ajuta sau nu.",
-    "description_l2": "Dacă da, plecați cu <pill>un plan concret</pill>."
+    "title": "Să definim proiectul dumneavoastră.",
+    "description_l1": "Spuneți-ne ce aveți nevoie. Clarificăm <pill>cerințele și materialele</pill>.",
+    "description_l2": "Apoi stabilim <pill>oferta, livrabilele și etapele</pill>."
   },
   "footer": {
     "copyright_l": "Alcaziu Robert",
@@ -192,8 +222,8 @@
     "privacy_link": "Politica de confidențialitate",
     "cookies_link": "Politica de Cookie-uri",
     "cta_title": "Hai să discutăm.",
-    "cta_body": "Spuneți-ne ce construiți. Vă răspundem direct dacă vă putem ajuta — și ce ar presupune.",
-    "cta_button": "Solicitați o ofertă",
+    "cta_body": "Proiecte de la 1.000 €. Discutăm cerințele și vă propunem livrabile și etape potrivite proiectului.",
+    "cta_button": "Solicitați o ofertă personalizată",
     "email_label": "Email",
     "phone_label": "Telefon · răspundem în 24h",
     "whatsapp_label": "WhatsApp",
@@ -225,7 +255,7 @@
       "contact": "Contact"
     },
     "intro_title": "1. Identitatea operatorului",
-    "intro_body": "alcaziurobert.ro este site-ul personal al lui Alcaziu Robert și are rol de portofoliu profesional (un CV online): prezintă proiecte la care am lucrat și modul în care lucrez. Site-ul nu vinde produse sau servicii online, nu afișează prețuri, nu procesează plăți și nu încheie contracte prin intermediul lui. Singura interacțiune posibilă este trimiterea unui mesaj prin formularul de contact sau contactarea directă pe email, telefon ori WhatsApp. Prin utilizarea site-ului ești de acord cu acești termeni; dacă nu ești de acord, te rog să încetezi utilizarea lui.",
+    "intro_body": "alcaziurobert.ro este site-ul personal al lui Alcaziu Robert și are rol de portofoliu profesional (un CV online): prezintă proiecte la care am lucrat și modul în care lucrez. Site-ul nu vinde produse sau servicii online, nu procesează plăți și nu încheie contracte prin intermediul lui. Singura interacțiune posibilă este trimiterea unui mesaj prin formularul de contact sau contactarea directă pe email, telefon ori WhatsApp. Prin utilizarea site-ului ești de acord cu acești termeni; dacă nu ești de acord, te rog să încetezi utilizarea lui.",
     "services_title": "2. Scopul site-ului",
     "services_body": "Conținutul site-ului are caracter informativ și de prezentare. Proiectele afișate ilustrează experiența mea profesională. Orice colaborare se discută și se stabilește separat, în afara site-ului, printr-un acord direct între părți — site-ul în sine nu constituie o ofertă comercială și nu creează obligații contractuale.",
     "form_title": "3. Utilizarea formularului de contact",
@@ -370,7 +400,7 @@
   },
   "form": {
     "title": "Descrieți-ne proiectul",
-    "subtitle": "Răspundem în 24 de ore.",
+    "subtitle": "Proiecte de la 1.000 €. Discutăm cerințele înainte de oferta finală.",
     "name_label": "Nume",
     "name_placeholder": "Ion Popescu",
     "email_label": "Email",
@@ -396,16 +426,16 @@
     "toast_rate_body": "Ați trimis deja câteva mesaje. Așteptați câteva minute sau scrieți-ne direct la contact@alcaziurobert.ro.",
     "privacy_note": "Prin trimitere sunteți de acord ca datele dumneavoastră să fie folosite pentru a vă răspunde. Detalii în <privacy>Politica de confidențialitate</privacy>.",
     "message_label": "Mesaj",
-    "message_placeholder": "Descrieți pe scurt ce aveți în minte.",
+    "message_placeholder": "Ce doriți să realizăm? Menționați paginile, funcționalitățile sau serviciile suplimentare care vă interesează.",
     "v_message": "Mesajul poate avea maximum 1000 de caractere.",
     "optional": "(opțional)",
     "email_suggestion": "Ați vrut să scrieți <fix>{{suggestion}}</fix>?",
     "v_email_required": "Emailul este obligatoriu.",
     "v_name_long": "Numele poate avea maximum 80 de caractere.",
     "success_title": "Am primit cererea. Vă răspundem în 24 de ore.",
-    "success_body": "Nu primiți un autoresponder. Până vă scriem, deschidem site-ul dumneavoastră și reclamele care rulează acum — ca la primul mesaj să aveți deja observații concrete, nu întrebări de încălzire.",
+    "success_body": "Vă contactăm pentru a clarifica cerințele, materialele și termenul dorit. Oferta personalizată va preciza costul, livrabilele și etapele înainte de începere.",
     "success_guarantee": "Dacă lucrăm împreună: dacă la 90 de zile conversia nu a trecut peste reperul stabilit la start, continuăm fără costuri până trece.",
-    "success_proof": "Ultimul proiect: 1,4% → 3,8% rată de conversie, pe același trafic.",
+    "success_proof": "Website-urile și aplicațiile din portofoliu ilustrează implementări reale; nu garantează rezultate comerciale pentru alte proiecte.",
     "success_whatsapp": "Nu doriți să așteptați? Scrieți-ne pe WhatsApp",
     "success_close": "Închideți"
   },
@@ -419,25 +449,25 @@
   },
   "offer": {
     "problem_kicker": "Problema",
-    "problem_title": "Complimente multe, cereri de ofertă puține.",
-    "problem": "Majoritatea site-urilor primesc complimente și nu aduc <pill>cereri de ofertă</pill>. Nu pentru că arată prost — ci pentru că <pill>nimeni nu a construit drumul</pill> de la vizitator la client.",
+    "problem_title": "Vizitatorii înțeleg ce le oferiți?",
+    "problem": "De la <pill>găsirea afacerii</pill> la înțelegerea ofertei și contact, fiecare pas are nevoie de informații clare. Măsurăm acțiunile relevante pentru a vedea ce poate fi îmbunătățit.",
     "kicker": "Ce primiți",
-    "title": "Tot lanțul, de la primul wireframe până la <pill>primul client venit din reclame</pill>.",
-    "lead": "Un site care arată bine e jumătate de treabă. Cealaltă jumătate — funnel, tracking, reclame — e de obicei împărțită între trei furnizori care dau vina unul pe altul. Aici e <pill>un singur contract</pill>.",
-    "d1_meta": "Site",
-    "d1_title": "Construit de la zero",
-    "d1_body": "Cod scris de la zero și măsurat pe Core Web Vitals. Fără template, fără page builder, fără pluginuri care adaugă secunde la încărcare.",
-    "d2_meta": "Funnel",
-    "d2_title": "Nu un teanc de pagini",
-    "d2_body": "Fiecare secțiune are o singură sarcină: să vă ducă la următoarea. Formularul este destinația. Fără pagini care există doar ca să existe.",
-    "d3_meta": "Tracking",
-    "d3_title": "Cifrele rămân întregi",
-    "d3_body": "Tracking server-side prin Meta Conversions API și GA4, implementat conform GDPR. Fără pixel lăsat singur în browser, fără date pierdute la blocantele de reclame.",
-    "d4_meta": "Reclame",
-    "d4_title": "Pe infrastructura dumneavoastră",
-    "d4_body": "Meta și Google, conectate direct la ce am construit. Conturile rămân pe numele dumneavoastră. Fără agenție intermediară care păstrează accesul la propriile campanii.",
+    "title": "Un website potrivit afacerii. O ofertă cu <pill>livrabile clare</pill>.",
+    "lead": "Proiecte de la 1.000 €. Stabilim costul, livrabilele și etapele înainte de începerea colaborării. Numărul paginilor și serviciile incluse se definesc în oferta personalizată.",
+    "d1_meta": "Website custom",
+    "d1_title": "Structură și dezvoltare",
+    "d1_body": "Pentru afaceri care au nevoie de o prezentare proprie. Design, dezvoltare și adaptare pentru mobil; paginile, funcționalitățile și SEO tehnic inițial sunt delimitate în ofertă.",
+    "d2_meta": "Parcurs către contact",
+    "d2_title": "Oferta, ușor de înțeles",
+    "d2_body": "Organizăm informațiile, acțiunile și formularul în jurul întrebărilor clienților. Textele și materialele disponibile se discută la start; crearea de conținut se ofertează separat când este necesară.",
+    "d3_meta": "Măsurare opțională",
+    "d3_title": "Acțiuni relevante, măsurate",
+    "d3_body": "Configurăm GA4 și, când este necesar, Meta Conversions API. Măsurarea depinde de consimțământ și de datele disponibile. Configurarea și rapoartele se delimitează separat în ofertă.",
+    "d4_meta": "Campanii opționale",
+    "d4_title": "Google Ads și Meta Ads",
+    "d4_body": "Pentru afaceri care doresc trafic către paginile potrivite. Administrarea se ofertează separat; bugetul media plătit platformelor este distinct de tariful de administrare.",
     "guarantee_title": "Garanție pe rezultat, la 90 de zile",
     "guarantee_body": "Dacă la 90 de zile de la lansare conversia nu a trecut peste reperul stabilit la start, pe aceleași surse de trafic, continuăm <pill>fără costuri</pill> până trece.",
-    "cta": "Solicitați o ofertă"
+    "cta": "Solicitați o ofertă personalizată"
   }
 }

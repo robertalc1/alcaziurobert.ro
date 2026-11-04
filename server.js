@@ -601,9 +601,9 @@ function renderIndexFor(pathname, forCrawler) {
       // next to a "noindex" is two contradictory directives on one page. The
       // strictest one wins at Google, but the pair is a trap for the next
       // person who reads the source.
-      html: indexHtmlTemplate.replace(
-        /<meta name="robots" content="[^"]*" \/>/,
-        '<meta name="robots" content="noindex, follow" />'
+      html: indexHtmlTemplate.replace(/<script id="site-schema"[^>]*>[\s\S]*?<\/script>/, "").replace(
+        /<meta\b[^>]*name="robots"[^>]*>/,
+        '<meta data-rh="true" name="robots" content="noindex, follow" />'
       ),
     };
   }
@@ -613,37 +613,51 @@ function renderIndexFor(pathname, forCrawler) {
   const canonical = `${SITE_URL}${pathname === "/" ? "/" : pathname}`;
 
   const html = indexHtmlTemplate
-    .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeAttr(title)}</title>`)
+    .replace(/<title[^>]*>[\s\S]*?<\/title>/, `<title data-rh="true">${escapeAttr(title)}</title>`)
     .replace(
-      /<meta name="description" content="[\s\S]*?" \/>/,
-      `<meta name="description" content="${escapeAttr(description)}" />`
+      /<meta\b[^>]*name="description"[^>]*>/,
+      `<meta data-rh="true" name="description" content="${escapeAttr(description)}" />`
     )
     .replace(
-      /<link rel="canonical" href="[^"]*" \/>/,
-      `<link rel="canonical" href="${escapeAttr(canonical)}" />`
+      /<link\b[^>]*rel="canonical"[^>]*>/,
+      `<link data-rh="true" rel="canonical" href="${escapeAttr(canonical)}" />`
     )
     .replace(
-      /<meta property="og:url" content="[^"]*" \/>/,
-      `<meta property="og:url" content="${escapeAttr(canonical)}" />`
+      /<meta\b[^>]*property="og:url"[^>]*>/,
+      `<meta data-rh="true" property="og:url" content="${escapeAttr(canonical)}" />`
     )
     .replace(
-      /<meta property="og:title" content="[\s\S]*?" \/>/,
-      `<meta property="og:title" content="${escapeAttr(title)}" />`
+      /<meta\b[^>]*property="og:title"[^>]*>/,
+      `<meta data-rh="true" property="og:title" content="${escapeAttr(title)}" />`
     )
     .replace(
-      /<meta property="og:description" content="[\s\S]*?" \/>/,
-      `<meta property="og:description" content="${escapeAttr(description)}" />`
+      /<meta\b[^>]*property="og:description"[^>]*>/,
+      `<meta data-rh="true" property="og:description" content="${escapeAttr(description)}" />`
     )
     .replace(
-      /<meta name="twitter:title" content="[\s\S]*?" \/>/,
-      `<meta name="twitter:title" content="${escapeAttr(title)}" />`
+      /<meta\b[^>]*name="twitter:title"[^>]*>/,
+      `<meta data-rh="true" name="twitter:title" content="${escapeAttr(title)}" />`
     )
     .replace(
-      /<meta name="twitter:description" content="[\s\S]*?" \/>/,
-      `<meta name="twitter:description" content="${escapeAttr(description)}" />`
+      /<meta\b[^>]*name="twitter:description"[^>]*>/,
+      `<meta data-rh="true" name="twitter:description" content="${escapeAttr(description)}" />`
     );
 
-  return { status: 200, html };
+  const schemaMatch = indexHtmlTemplate.match(/<script id="site-schema"[^>]*>([\s\S]*?)<\/script>/);
+  const baseSchema = schemaMatch ? JSON.parse(schemaMatch[1]) : null;
+  let renderedHtml = html;
+  if (baseSchema) {
+    baseSchema["@graph"] = baseSchema["@graph"].filter(node =>
+      node["@type"] !== "WebPage" && (node["@type"] !== "Service" || pathname === "/" || pathname === "/studii-de-caz"));
+    baseSchema["@graph"].push({
+      "@type": "WebPage", "@id": `${canonical}#webpage`, url: canonical,
+      name: title, description, inLanguage: "ro",
+      isPartOf: { "@id": `${SITE_URL}/#website` }, about: { "@id": `${SITE_URL}/#person` },
+    });
+    renderedHtml = html.replace(/(<script id="site-schema"[^>]*>)[\s\S]*?(<\/script>)/,
+      (_, start, end) => start + JSON.stringify(baseSchema).replace(/</g, "\\u003c") + end);
+  }
+  return { status: 200, html: renderedHtml };
 }
 
 // SPA fallback — Express 5 nu mai acceptă "*" cu path-to-regexp v8.
@@ -666,6 +680,11 @@ app.use((req, res, next) => {
   // instead of a clear 404 (this happens to anyone holding an old build).
   if (/\.[a-z0-9]{2,5}$/i.test(req.path)) {
     return res.status(404).type("text/plain").send("Not found");
+  }
+
+  const canonicalPath = req.path === "/" ? "/" : req.path.replace(/\/+$/, "").toLowerCase();
+  if (routeMeta[canonicalPath] && req.path !== canonicalPath) {
+    return res.redirect(301, canonicalPath + req.originalUrl.slice(req.path.length));
   }
 
   res.setHeader("Cache-Control", "no-cache");

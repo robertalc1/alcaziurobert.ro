@@ -11,17 +11,7 @@ import {
 import Reveal from "@/components/Reveal";
 import ContactCTA from "@/components/ContactCTA";
 
-// Objection-shaped, in the order they come up on a real call: why not an
-// agency, what if I hate it, what happens after, how the guarantee is measured.
-// The old why1-3 were statements dressed as questions, which is also why the
-// page had no FAQPage schema worth emitting.
-//
-// o1 (price) and o2 (duration) are deliberately NOT rendered. They are still in
-// src/locales/{ro,en}.json — parked, not deleted, so putting them back is one
-// key in this array. Two things travel with that decision: faq.lead counts the
-// questions out loud, and the FAQPage JSON-LD in index.html must list exactly
-// what is on the page. Change all three together or none.
-const FAQ_KEYS = ["o3", "o4", "o5", "o6"] as const;
+const FAQ_KEYS = ["o1", "o2", "o3", "o4", "o5", "o7", "o8", "o9", "o10", "o11", "o12", "o13", "o6"] as const;
 
 const FaqsSection: React.FC = () => {
   const { t } = useTranslation();

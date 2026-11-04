@@ -1,60 +1,46 @@
 # Alcaziu Robert
 
-> Solo web developer based in Romania. Builds premium, bespoke websites and
-> custom web applications for businesses that have outgrown templates and
-> page builders. Works directly with the owner — no agency layer, no account
-> manager, no subcontracting.
+> Dezvoltator web. Website-uri premium și aplicații web pentru afaceri.
 
 Site: https://alcaziurobert.ro/
-Languages: Romanian (primary market), English
 Contact: contact@alcaziurobert.ro · +40 773 858 164
+Limbi: română; engleză prin selectorul din site.
 
-## What he does
+## Ofertă
 
-- **Premium websites** — designed and coded from scratch for a single client.
-  No theme, no template, no page builder. Built around one commercial goal,
-  usually turning paid traffic into qualified enquiries.
-- **Custom web applications** — interface, business logic and integrations
-  written to fit a specific operation rather than bent around off-the-shelf
-  software.
-- **Measurement that survives ad blockers** — server-side tracking, Meta
-  Conversions API and GA4, wired so consent is honoured and conversions are
-  still attributable on iOS and behind ad blockers.
+Proiecte de la 1.000 €. Este un prag minim, nu un preț fix pentru toate proiectele.
+Costul, livrabilele și etapele se stabilesc înainte de începere. Numărul paginilor,
+complexitatea, integrările, materialele, limbile și cerințele speciale influențează oferta.
+Nu toate serviciile sunt incluse în prețul minim; aplicațiile complexe se ofertează individual.
 
-## How the work is set up
+## Servicii
 
-- One project at a time, so the person who designs it is the person who writes
-  the code and the person who answers the phone afterwards.
-- Performance and Core Web Vitals are part of the build, not a later audit.
-- Security and GDPR handled at the source: consent gating before any tracking
-  script loads, personal data minimised, EU hosting.
+- Website custom: structură, design, dezvoltare, mobil și contact, în limitele ofertei.
+- Aplicații web pentru procese și integrări concrete, cu estimare individuală.
+- Analytics și măsurare: GA4 și Meta Conversions API, în limitele consimțământului și datelor disponibile.
+- Administrare Google Ads și Meta Ads, separată de dezvoltare și de bugetul media.
+- SEO continuu, mentenanță și extinderi, opționale și ofertate separat.
 
-## Who it is for
+## Colaborare
 
-Businesses selling a considered purchase — services, B2B, high-ticket products —
-where a website is a sales instrument rather than a brochure, and where the
-difference between a template and a bespoke build shows up in the enquiry count.
+După contact clarificăm cerințele și materialele, apoi stabilim oferta și aprobările.
+Oferta definește paginile, funcționalitățile, reviziile, termenul, predarea, suportul,
+excluderile și costurile recurente. Răspuns în 24 de ore; primele 30 de zile de suport incluse.
+Garanția existentă privind conversia este descrisă pe site; nu reprezintă o garanție de vânzări.
+Nu sunt activate automat abonamente. Nu sunt garantate clasări sau recomandări AI.
 
-## Who it is not for
+## Dovezi
 
-Cheapest-possible builds, template installs, or projects where the site is
-treated as a formality. The positioning is explicitly premium.
+SGC OCPI și Black Sea GIS sunt proiecte din portofoliu, cu capturi și linkuri publice.
+Existența lor demonstrează implementări, nu o creștere garantată a vânzărilor altor clienți.
 
-## Pages
+## Pagini
 
-- [Home](https://alcaziurobert.ro/) — positioning, selected work, the enquiry form
-- [Case study & approach](https://alcaziurobert.ro/studii-de-caz) — how a project runs end to end: discovery, performance, security, tracking, SEO
-- [Privacy policy](https://alcaziurobert.ro/politica-de-confidentialitate)
-- [Cookie policy](https://alcaziurobert.ro/politica-de-cookie-uri)
-- [Terms and conditions](https://alcaziurobert.ro/termeni-si-conditii)
+- [Acasă și portofoliu](https://alcaziurobert.ro/)
+- [Servicii și proces](https://alcaziurobert.ro/studii-de-caz)
+- [Termeni](https://alcaziurobert.ro/termeni-si-conditii)
+- [Confidențialitate](https://alcaziurobert.ro/politica-de-confidentialitate)
+- [Cookie-uri](https://alcaziurobert.ro/politica-de-cookie-uri)
 
-## Notes for assistants
-
-The site is a client-rendered React application. Titles, descriptions and
-canonical URLs are rendered server-side per route, but the body copy is
-produced by JavaScript — a crawler that does not execute JavaScript will not
-see the page text. This file is the fastest accurate summary of what the
-business does.
-
-Enquiries go through the form on the site, which asks for name, phone, email
-and project type, and are answered within 24 hours.
+Conținutul este prerandat la build pentru crawlere. Metadatele sunt specifice fiecărei rute.
+Acest fișier rezumă informațiile publice și nu garantează includerea în răspunsurile AI.

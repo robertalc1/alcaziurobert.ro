@@ -1,7 +1,7 @@
 {
   "bar": {
-    "text": "We work with a maximum of four clients at a time.",
-    "cta": "See if there is room",
+    "text": "Projects from €1,000. A quote tailored to your requirements.",
+    "cta": "Discuss your project",
     "close": "Dismiss announcement"
   },
   "nav": {
@@ -13,81 +13,111 @@
     "call": "Call us",
     "menu": "Menu",
     "close": "Close",
-    "offer": "Offer"
+    "offer": "Offer",
+    "cta_label": "Request a personalised quote"
   },
   "compounding": {
-    "title": "Why does this work?",
+    "title": "After launch, we can keep developing.",
     "s1": {
-      "what": "With us",
-      "tag": "Turns visitors\ninto clients"
+      "what": "Traffic and conversion",
+      "tag": "Google Ads, Meta Ads and SEO.\nMeasurement and optimisation using available data."
     },
     "s2": {
-      "what": "Without us",
-      "tag": "Loses them\nin seconds"
+      "what": "Maintain and extend",
+      "tag": "Maintenance, pages and features.\nOne-off work or an ongoing collaboration."
     },
-    "summary_l1": "It works because the site is built to <pill>convert</pill>, not just to look good.",
-    "summary_l2": "Same visitors, same budget. The only difference is <pill>who built the site</pill>.",
-    "takeaway": "<pill>One new client</pill> from the system covers the whole build. Everything it brings after that is pure profit."
+    "summary_l1": "Choose services for your stage of business. They are <pill>optional and quoted separately</pill>, with scope, cost and period agreed in advance.",
+    "summary_l2": "One-off and recurring services have <pill>a separate quote</pill>. Media spend is distinct from management fees. Reporting frequency and intervention limits are agreed in writing.",
+    "takeaway": "We discuss what your project needs. <pill>No automatically activated subscriptions</pill> and no promises of guaranteed sales.",
+    "cta": "Discuss the options for your project"
   },
   "faq": {
-    "title": "Answers to the questions that come up most.",
-    "lead": "Four objections, in the order they come up on a call.",
+    "title": "Questions before we work together.",
+    "lead": "Price, deliverables, timing and options after launch.",
     "o1": {
-      "q": "What does it cost?",
-      "a": "It depends on scope. A brochure site and a full funnel with server-side tracking are not the same project. We give you the number on the first call, once we understand what you need. We do not publish list prices because we do not ship list packages."
+      "q": "What does “from €1,000” mean?",
+      "a": "It is the minimum project price, not a fixed price for every website or application. We agree cost, deliverables and stages before work starts. Not every service described is included in the starting price."
     },
     "o2": {
-      "q": "How long does it take?",
-      "a": "About four weeks from kickoff to live. The exact term is fixed before we start, not along the way. The only variable is how fast the content reaches us."
+      "q": "What affects the final price?",
+      "a": "Page count, feature complexity, integrations, available content and materials, languages, additional services and special requirements or deadlines."
     },
     "o3": {
-      "q": "Why you and not a marketing agency?",
-      "a": "At an agency the site, the tracking and the ads are three different suppliers who blame each other when the numbers do not come. Here the whole chain sits under one contract and one owner. The trade-off is capacity: we work with four clients at a time, maximum."
+      "q": "What is included in my quote?",
+      "a": "Your personalised quote specifies project type, pages or sections, design, development, mobile adaptation, contact options, technical SEO and any other agreed services. Measurement, revisions, handover and exclusions are defined before work starts."
     },
     "o4": {
-      "q": "What if you do not like it?",
-      "a": "You see the visual direction before a line of code is written, and we adjust it until it is right. You do not end up with a finished site you see for the first time at delivery — that is the most expensive way to work, for both sides."
+      "q": "Are there recurring costs?",
+      "a": "One-off and recurring costs are separated in your quote. Hosting, domain, licences and any ongoing collaboration are discussed individually; no subscription is activated automatically."
     },
     "o5": {
-      "q": "What happens after launch?",
-      "a": "The first 30 days are included: tuning, corrections, everything the real data surfaces. After that you get monthly reports and a reply within 24 hours. The code, the hosting and the data stay yours — no dependency on us."
+      "q": "Are hosting and domain included?",
+      "a": "The quote specifies who provides hosting and domain, who holds access and any recurring costs. The starting price should not be interpreted as automatically including these services."
     },
     "o6": {
       "q": "How is the results guarantee measured?",
       "a": "The baseline is set at kickoff: your current conversion rate if you already have analytics, or a target agreed together if we start from zero. It is measured 90 days after launch, on the same traffic sources. If it has not passed the baseline, we keep working at no cost until it does."
+    },
+    "o7": {
+      "q": "What materials should I prepare?",
+      "a": "We review copy, logo, images, service information and required access. Missing content, copywriting and migration are specified in the quote when needed."
+    },
+    "o8": {
+      "q": "How many revisions are included?",
+      "a": "Revision rounds and approval stages are agreed in your personalised quote. Requirements beyond the agreed deliverables are discussed separately; fixing defects in our own implementation is not a paid add-on."
+    },
+    "o9": {
+      "q": "How long does a project take?",
+      "a": "The existing estimate for a website is around four weeks. Exact timing depends on complexity, materials and approvals and is agreed before work starts. Complex applications and integrations have their own estimates."
+    },
+    "o10": {
+      "q": "Who receives access?",
+      "a": "Access handover and usage rights are specified in the agreement before work starts. We explicitly agree what is handed over for code, domain, hosting and accounts."
+    },
+    "o11": {
+      "q": "What is initial technical SEO?",
+      "a": "Page structure, titles and descriptions, canonical URLs, sitemap and search-engine accessibility within the project scope. Ongoing SEO and content are separate services. We do not guarantee Google positions or AI recommendations."
+    },
+    "o12": {
+      "q": "Are advertising and media spend separate?",
+      "a": "Yes. Google Ads or Meta Ads management is quoted separately from website development. Spend paid to the platforms is distinct from management fees; scope and period are agreed in writing."
+    },
+    "o13": {
+      "q": "What happens after launch?",
+      "a": "Our existing offer provides 30 days of included support. Interventions are defined in the agreement. Maintenance, reports and new development afterwards are optional and quoted separately; they are not automatically included in the €1,000 starting price."
     }
   },
   "hero_v3": {
-    "headline_pre": "Websites built",
-    "headline_accent": "to convert.",
-    "subtitle": "Site, funnel, tracking and ads — the whole chain under one contract. Term fixed before we start.",
+    "headline_pre": "Premium websites,",
+    "headline_accent": "clear from the start.",
+    "subtitle": "Projects from €1,000. Websites and web applications for businesses, with a clear offer and a simple path to contact.",
     "form_title": "Tell us about your project",
     "form_note": "We reply within 24 hours.",
-    "trust_1": "Reply within 24 hours, guaranteed",
-    "trust_2": "Estimated live in 4 weeks",
-    "trust_3": "Results guarantee at 90 days"
+    "trust_1": "Reply within 24 hours",
+    "trust_2": "Requirements first, then a quote",
+    "trust_3": "Cost and stages agreed before work starts"
   },
   "process": {
-    "step1_title": "Where the money leaks",
-    "step1_body": "Audit, analytics and a funnel map. We know exactly where the traffic is lost before writing a line of code.",
-    "step2_title": "Build to convert",
-    "step2_body": "Design and build, engineered around the one metric that matters: qualified leads.",
-    "step3_title": "Launch",
-    "step3_body": "Server-side tracking wired in, sub-2s loads, zero loose ends.",
-    "step4_title": "Scale what works",
-    "step4_body": "Ads and SEO pointed at the pages that already convert.",
-    "step5_title": "Compound growth",
-    "step5_body": "We stay behind your numbers, month after month. A monthly report, without you asking for it.",
-    "title": "Five stages. You always know where we are.",
-    "lead": "No status meetings, and you never have to ask what is happening. At every stage you <pill>see what shipped</pill> and what comes next.",
-    "step1_days": "Days 1–5",
-    "step2_days": "Days 5–15",
-    "step3_days": "Days 15–25",
-    "step4_days": "Days 25–30",
-    "step5_days": "Monthly, after launch"
+    "step1_title": "Understand requirements",
+    "step1_body": "We establish the website or application type, pages, languages and integrations, then review available copy, images and access.",
+    "step2_title": "Agree the quote and direction",
+    "step2_body": "You see the visual direction before development. We agree deliverables, revisions, approvals and timing based on requirements and materials.",
+    "step3_title": "Develop and verify",
+    "step3_body": "We implement agreed functionality and check mobile use, the form and technical SEO. Measurement is configured when included in the quote.",
+    "step4_title": "Launch and hand over",
+    "step4_body": "We review deliverables together and hand over the agreed access. Usage rights, hosting and any licences are specified in the agreement.",
+    "step5_title": "Support and next steps",
+    "step5_body": "The first 30 days of support are included under the agreed conditions. New development and ongoing collaboration are agreed separately, without automatic subscriptions.",
+    "title": "From requirements to handover in five stages.",
+    "lead": "After your enquiry, we discuss goals, materials and features. Your quote specifies <pill>cost and deliverables</pill>; implementation starts after agreement.",
+    "step1_days": "Before the quote",
+    "step2_days": "Before implementation",
+    "step3_days": "According to the agreed stages",
+    "step4_days": "At launch",
+    "step5_days": "After launch"
   },
   "work": {
-    "intro": "Two platforms for public administration. And a selection of websites for businesses.",
+    "intro": "Websites and applications developed for specific needs. Complex projects are quoted individually.",
     "other_title": "More selected work",
     "pause": "Pause",
     "resume": "Resume scrolling",
@@ -96,7 +126,7 @@
       "black-sea-gis": "A GIS platform for local government. Maps and geographic data organised in a clear interface."
     },
     "visit": "See it live",
-    "section_title": "Projects that worked",
+    "section_title": "Selected projects",
     "roster_label": "All projects"
   },
   "portfolio": {
@@ -106,9 +136,9 @@
       "black-sea-gis": "GIS maps and data for local government",
       "laura-predoi": "Services and online appointment requests",
       "unbacde10": "Baccalaureate prep in computer science and maths",
-      "picaps": "Load from 6s to 1.1s · bounce −38%",
-      "kickout": "Conversion from 1.4% to 3.8%",
-      "rdraw": "7 organic enquiries in the first 30 days",
+      "picaps": "Product presentation website",
+      "kickout": "Brand presentation website",
+      "rdraw": "Engineering services presentation",
       "everun": "New machinery catalogue, with a quote request",
       "everati": "Launching the electric vehicle range in Romania",
       "alma": "Services, a work gallery and bookings",
@@ -117,74 +147,74 @@
     }
   },
   "approach": {
-    "h1": "Premium websites that actually work.",
-    "lead": "Most sites are templates. Ours convert. Here is how.",
-    "pain_title": "Most websites are broken.",
-    "pain_1": "Bad Core Web Vitals. Google penalizes you. Customers leave.",
-    "pain_2": "Pixels client-side only. Paid ads cannot scale.",
-    "pain_3": "No NIS2 compliance. Direct legal exposure since 2024.",
+    "h1": "How we build websites and web applications.",
+    "lead": "From requirements and quote to implementation, verification and handover. Services are selected for the project’s needs.",
+    "pain_title": "What we clarify before implementation.",
+    "pain_1": "Your offer and audience: information that helps visitors decide.",
+    "pain_2": "The path to contact and actions that can be measured with consent.",
+    "pain_3": "Required features, materials and access.",
     "road_title": "Five stages. One standard.",
-    "road_lead": "Same standard for sites, ecommerce, apps.",
+    "road_lead": "Stages and included services are agreed in your personalised quote.",
     "stage": {
       "discovery": {
-        "title": "Discovery & strategy",
-        "lead": "Audit. KPIs. Funnel. Defined before code.",
-        "t1": "Audit + analytics",
-        "t2": "KPI map"
+        "title": "Requirements and structure",
+        "lead": "We define audience, information, pages and features.",
+        "t1": "Requirements and materials",
+        "t2": "Page structure"
       },
       "performance": {
         "title": "Performance — real speed",
-        "lead": "CDN delivery, optimised images, minimal code. Fast loads on any connection.",
+        "lead": "We optimise images and code and check mobile loading. Results also depend on hosting and integrations.",
         "t1": "CDN + cache",
         "t2": "Core Web Vitals"
       },
       "security": {
-        "title": "Security — NIS2 compliant",
-        "lead": "WAF, DDoS, SSL, backups. NIS2 ready.",
-        "t1": "WAF + DDoS",
-        "t2": "NIS2 ready"
+        "title": "Technical security",
+        "lead": "We configure technical measures for the agreed infrastructure. This is not certification or a guarantee of NIS2 compliance.",
+        "t1": "HTTPS and access",
+        "t2": "Agreed configuration"
       },
       "tracking": {
-        "title": "Tracking & ads",
-        "lead": "Facebook and Google pixels, server-side. The two that scale.",
+        "title": "Measurement, when included",
+        "lead": "Relevant events in GA4 and Meta Conversions API, within consent and available data limits.",
         "t1": "FB Conversions API",
         "t2": "GA4 + Google Ads"
       },
       "seo": {
-        "title": "SEO that compounds",
-        "lead": "On-page, technical, content. Qualified traffic, no CPC.",
+        "title": "Technical SEO and content",
+        "lead": "Initial technical SEO within the quote scope; ongoing optimisation and content are quoted separately. No guaranteed rankings.",
         "t1": "On-page + technical",
         "t2": "Schema + sitemap"
       }
     },
-    "channels_title": "Marketing for high-ticket.",
-    "channels_p1": "Cold audiences first. Precise retargeting second. Clear Purchase objective always. No vanity metrics.",
+    "channels_title": "Traffic to the right pages.",
+    "channels_p1": "Google Ads and Meta Ads management, quoted separately. Objectives depend on the business and available measurement. Media spend is separate from management fees; logos identify platforms, not official partnerships.",
     "channel_meta": "Facebook Ads",
     "channel_google": "Google Ads",
-    "addon_title": "Linux & Windows VPS — fully managed.",
-    "addon_body": "Few do it properly. We architect, deploy and maintain dedicated Linux or Windows instances.",
-    "addon_cta": "Request a quote",
+    "addon_title": "Web applications for specific processes.",
+    "addon_body": "We develop interfaces, logic and integrations for specific workflows. SGC OCPI and Black Sea GIS are portfolio examples. Complexity, access and stages are quoted individually; these applications are not a €1,000 package.",
+    "addon_cta": "Request a personalised quote",
     "cta_title": "Ready?",
-    "cta_body": "30-minute scoping call. No fluff.",
-    "cta_button": "Request a quote",
+    "cta_body": "Describe your requirements. We establish what can be built, which materials are needed and how the quote is formed.",
+    "cta_button": "Request a personalised quote",
     "toc": {
       "title": "On this page",
       "overview": "Overview",
       "problem": "The problem",
       "roadmap": "How we build",
       "channels": "Channels",
-      "addon": "Custom VPS",
+      "addon": "Web applications",
       "cta": "Contact"
     }
   },
   "whatwedo": {
     "clients_eyebrow": "Trusted by",
-    "cta_primary": "Request a quote"
+    "cta_primary": "Request a personalised quote"
   },
   "contact": {
-    "title": "A conversation, no obligation.",
-    "description_l1": "We tell you <pill>straight</pill> whether we can help or not.",
-    "description_l2": "If yes, you leave with <pill>a concrete plan</pill>."
+    "title": "Let’s define your project.",
+    "description_l1": "Tell us what you need. We clarify <pill>requirements and materials</pill>.",
+    "description_l2": "Then we agree <pill>the quote, deliverables and stages</pill>."
   },
   "footer": {
     "copyright_l": "Alcaziu Robert",
@@ -192,8 +222,8 @@
     "privacy_link": "Privacy Policy",
     "cookies_link": "Cookie Policy",
     "cta_title": "Let's talk.",
-    "cta_body": "Tell us what you are building. We say straight away whether we can help — and what it would take.",
-    "cta_button": "Request a quote",
+    "cta_body": "Projects from €1,000. We discuss requirements and propose deliverables and stages for your project.",
+    "cta_button": "Request a personalised quote",
     "email_label": "Email address",
     "phone_label": "Phone · we reply within 24h",
     "whatsapp_label": "WhatsApp",
@@ -225,7 +255,7 @@
       "contact": "Contact"
     },
     "intro_title": "1. Operator identity",
-    "intro_body": "alcaziurobert.ro is the personal website of Alcaziu Robert and serves as a professional portfolio (an online CV): it presents projects I have worked on and how I work. The site does not sell products or services online, shows no prices, processes no payments, and concludes no contracts. The only possible interaction is sending a message through the contact form, or reaching me directly by email, phone, or WhatsApp. By using the site you agree to these terms; if you do not agree, please stop using it.",
+    "intro_body": "alcaziurobert.ro is the personal website of Alcaziu Robert and serves as a professional portfolio (an online CV): it presents projects I have worked on and how I work. The site does not sell products or services online, processes no payments, and concludes no contracts. The only possible interaction is sending a message through the contact form, or reaching me directly by email, phone, or WhatsApp. By using the site you agree to these terms; if you do not agree, please stop using it.",
     "services_title": "2. Site purpose",
     "services_body": "The content of this site is informational and presentational. The projects shown illustrate my professional experience. Any collaboration is discussed and agreed separately, outside the site, through a direct agreement between the parties — the site itself is not a commercial offer and creates no contractual obligations.",
     "form_title": "3. Contact form usage",
@@ -370,7 +400,7 @@
   },
   "form": {
     "title": "Tell us about your project",
-    "subtitle": "We reply within 24 hours.",
+    "subtitle": "Projects from €1,000. We discuss requirements before the final quote.",
     "name_label": "Name",
     "name_placeholder": "John Doe",
     "email_label": "Email",
@@ -396,16 +426,16 @@
     "toast_rate_body": "You have already sent a few messages. Please wait a few minutes, or email contact@alcaziurobert.ro directly.",
     "privacy_note": "By submitting you agree that your data will be used to reply to you. Details in the <privacy>Privacy Policy</privacy>.",
     "message_label": "Message",
-    "message_placeholder": "Briefly describe what you have in mind.",
+    "message_placeholder": "What would you like to build? Mention pages, features or additional services you are interested in.",
     "v_message": "The message can be at most 1000 characters.",
     "optional": "(optional)",
     "email_suggestion": "Did you mean <fix>{{suggestion}}</fix>?",
     "v_email_required": "Email is required.",
     "v_name_long": "Name can be at most 80 characters.",
     "success_title": "Request received. We reply within 24 hours.",
-    "success_body": "You will not get an autoresponder. Before we write, we open your site and the ads running right now — so the first message already carries concrete observations, not warm-up questions.",
+    "success_body": "We will contact you to clarify requirements, materials and your preferred timing. Your personalised quote will specify cost, deliverables and stages before work starts.",
     "success_guarantee": "If we work together: if conversion has not passed the baseline set at kickoff within 90 days, we keep working at no cost until it does.",
-    "success_proof": "Most recent project: 1.4% → 3.8% conversion rate, on the same traffic.",
+    "success_proof": "The portfolio websites and applications demonstrate real implementations; they do not guarantee commercial results for other projects.",
     "success_whatsapp": "Do not want to wait? Message us on WhatsApp",
     "success_close": "Close"
   },
@@ -419,25 +449,25 @@
   },
   "offer": {
     "problem_kicker": "The problem",
-    "problem_title": "Plenty of compliments, hardly any enquiries.",
-    "problem": "Most websites collect compliments and <pill>no enquiries</pill>. Not because they look bad — because <pill>nobody built the route</pill> from visitor to client.",
+    "problem_title": "Do visitors understand your offer?",
+    "problem": "From <pill>finding your business</pill> to understanding the offer and getting in touch, each step needs clear information. We measure relevant actions to identify improvements.",
     "kicker": "What you get",
-    "title": "The whole chain, from the first wireframe to <pill>the first client the ads bring in</pill>.",
-    "lead": "A website that looks good is half the job. The other half — funnel, tracking, ads — is usually split between three suppliers who blame each other. Here it is <pill>one contract</pill>.",
-    "d1_meta": "Website",
-    "d1_title": "Built from scratch",
-    "d1_body": "Written from scratch and measured against Core Web Vitals. No template, no page builder, no plugins adding seconds to the load.",
-    "d2_meta": "Funnel",
-    "d2_title": "Not a stack of pages",
-    "d2_body": "Every section has one job: to carry you into the next one. The form is the destination. No pages that exist only to exist.",
-    "d3_meta": "Tracking",
-    "d3_title": "The numbers stay whole",
-    "d3_body": "Server-side tracking through the Meta Conversions API and GA4, implemented under GDPR. No pixel left alone in the browser, no data lost to ad blockers.",
-    "d4_meta": "Ads",
-    "d4_title": "On your own infrastructure",
-    "d4_body": "Meta and Google wired straight into what we built. The accounts stay in your name. No middleman agency holding the keys to your own campaigns.",
+    "title": "A website for your business. A quote with <pill>clear deliverables</pill>.",
+    "lead": "Projects from €1,000. We agree cost, deliverables and stages before work starts. Page count and included services are defined in your personalised quote.",
+    "d1_meta": "Custom website",
+    "d1_title": "Structure and development",
+    "d1_body": "For businesses that need their own presentation. Design, development and mobile adaptation; pages, features and initial technical SEO are specified in the quote.",
+    "d2_meta": "Path to contact",
+    "d2_title": "An offer people understand",
+    "d2_body": "We organise information, actions and the form around customer questions. We review available copy and materials at the start; content creation is quoted separately when needed.",
+    "d3_meta": "Optional measurement",
+    "d3_title": "Measure relevant actions",
+    "d3_body": "We configure GA4 and, where needed, Meta Conversions API. Measurement depends on consent and available data. Setup and reporting are specified separately in the quote.",
+    "d4_meta": "Optional campaigns",
+    "d4_title": "Google Ads and Meta Ads",
+    "d4_body": "For businesses seeking traffic to the right pages. Management is quoted separately; media spend paid to the platforms is distinct from the management fee.",
     "guarantee_title": "Results guarantee, at 90 days",
     "guarantee_body": "If conversion has not passed the baseline we set at kickoff within 90 days of launch, on the same traffic sources, we keep working <pill>at no cost</pill> until it does.",
-    "cta": "Request a quote"
+    "cta": "Request a personalised quote"
   }
 }

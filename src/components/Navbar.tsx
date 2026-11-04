@@ -761,7 +761,7 @@ const Navbar = () => {
             </button>
 
             <ContactCTA mode="modal">
-              <button type="button" className="nav-cta">
+              <button type="button" className="nav-cta" aria-label={t("nav.cta_label")}>
                 {t("nav.cta")}
               </button>
             </ContactCTA>

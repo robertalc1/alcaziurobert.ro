@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "node scripts/sync-seo.mjs && vite build && node scripts/prerender.mjs",
     "build:dev": "vite build --mode development",
     "capture-portfolio": "node scripts/capture-portfolio.mjs",
     "lint": "eslint .",

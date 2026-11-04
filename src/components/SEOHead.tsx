@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import routeMeta from "../../route-meta.json";
+import siteSchema from "@/lib/siteSchema.json";
 
 const SITE_URL = "https://alcaziurobert.ro";
 
@@ -36,26 +37,40 @@ const SEOHead: React.FC = () => {
   const lang = i18n.language?.startsWith("en") ? "en" : "ro";
   const ogLocale = lang === "en" ? "en_US" : "ro_RO";
 
-  const copy = ROUTE_COPY[pathname];
+  const route = pathname === "/" ? "/" : pathname.replace(/\/+$/, "");
+  const copy = ROUTE_COPY[route];
   const isKnownRoute = Boolean(copy);
   const { title, description } = copy ?? ROUTE_COPY["/"];
   // Trailing slash kept on the homepage so this matches sitemap.xml and the
   // copy server.js renders. Two spellings of the same URL is exactly the kind
   // of thing that splits a page's signals in half.
-  const canonicalUrl = `${SITE_URL}${pathname === "/" ? "/" : pathname}`;
+  const canonicalUrl = `${SITE_URL}${route}`;
+  const schema = {
+    "@context": siteSchema["@context"],
+    "@graph": [
+      ...siteSchema["@graph"].filter(node => node["@type"] !== "Service" || route === "/" || route === "/studii-de-caz"),
+      {
+        "@type": "WebPage", "@id": `${canonicalUrl}#webpage`,
+        url: canonicalUrl, name: title[lang], description: description[lang], inLanguage: lang,
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        about: { "@id": `${SITE_URL}/#person` },
+      },
+    ],
+  };
 
   return (
     <Helmet htmlAttributes={{ lang }}>
       <title>{title[lang]}</title>
       <meta name="description" content={description[lang]} />
       <link rel="canonical" href={canonicalUrl} />
-      {!isKnownRoute && <meta name="robots" content="noindex, follow" />}
+      <meta name="robots" content={isKnownRoute ? "index, follow" : "noindex, follow"} />
       <meta property="og:title" content={title[lang]} />
       <meta property="og:description" content={description[lang]} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:locale" content={ogLocale} />
       <meta name="twitter:title" content={title[lang]} />
       <meta name="twitter:description" content={description[lang]} />
+      {isKnownRoute && <script id="site-schema" type="application/ld+json">{JSON.stringify(schema).replace(/</g, "\\u003c")}</script>}
     </Helmet>
   );
 };

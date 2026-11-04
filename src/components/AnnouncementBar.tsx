@@ -29,7 +29,10 @@ const AnnouncementBar: React.FC = () => {
   // already dismissed it never sees a frame of the bar and never sees the page
   // jump down and back up.
   const [ready, setReady] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(() => {
+    try { return localStorage.getItem(STORAGE_KEY) !== "1"; }
+    catch { return true; }
+  });
 
   React.useEffect(() => {
     let dismissed = false;

@@ -419,8 +419,8 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
                 {t("form.name_label")}
                 {required}
               </FormLabel>
-              <FormControl>
-                <div className="relative">
+              <div className="relative">
+                <FormControl>
                   <Input
                     autoComplete="name"
                     autoCapitalize="words"
@@ -430,9 +430,9 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
                     className={fieldClass + (isGood("name") ? " pr-10" : "")}
                     {...field}
                   />
-                  {isGood("name") && <ValidTick />}
-                </div>
-              </FormControl>
+                </FormControl>
+                {isGood("name") && <ValidTick />}
+              </div>
               <FormMessage className={messageClass} />
             </FormItem>
           )}
@@ -449,8 +449,8 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
                   {t("form.phone_label")}
                   {required}
                 </FormLabel>
-                <FormControl>
-                  <div className="relative">
+                <div className="relative">
+                  <FormControl>
                     <Input
                       type="tel"
                       inputMode="tel"
@@ -482,9 +482,9 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
                         });
                       }}
                     />
-                    {isGood("phone") && <ValidTick />}
-                  </div>
-                </FormControl>
+                  </FormControl>
+                  {isGood("phone") && <ValidTick />}
+                </div>
                 <FormMessage className={messageClass} />
               </FormItem>
             )}
@@ -500,8 +500,8 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
                   {t("form.email_label")}
                   {required}
                 </FormLabel>
-                <FormControl>
-                  <div className="relative">
+                <div className="relative">
+                  <FormControl>
                     <Input
                       type="email"
                       inputMode="email"
@@ -523,9 +523,9 @@ const ContactForm: React.FC<Props> = ({ onClose, onSent }) => {
                         setEmailSuggestion(suggestEmail(e.currentTarget.value));
                       }}
                     />
-                    {isGood("email") && !emailSuggestion && <ValidTick />}
-                  </div>
-                </FormControl>
+                  </FormControl>
+                  {isGood("email") && !emailSuggestion && <ValidTick />}
+                </div>
                 <FormMessage className={messageClass} />
                 {/* A valid-but-probably-mistyped domain: offered, never enforced. */}
                 {emailSuggestion && !errors.email && (

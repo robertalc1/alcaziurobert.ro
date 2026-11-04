@@ -110,10 +110,10 @@ const Index = () => {
                 {/* Units 1 and 2 — the problem, then the offer. */}
                 <OfferSection />
               </Suspense>
-              <Suspense fallback={<Placeholder minHeight={1131} />}>
+              <Suspense fallback={<Placeholder minHeight={1275} />}>
                 <ProcessSection />
               </Suspense>
-              <Suspense fallback={<Placeholder minHeight={510} />}>
+              <Suspense fallback={<Placeholder minHeight={681} />}>
                 <CompoundingSection />
               </Suspense>
             </div>
@@ -121,8 +121,8 @@ const Index = () => {
         </section>
 
         {/* Featured platforms, followed by a continuous rail in a bounded container.
-            Measured 2026-11-04: 1287px desktop / 1607px mobile. */}
-        <Suspense fallback={<Placeholder minHeight={1447} />}>
+            Reservations remeasured after the 2026-11-04 copy update. */}
+        <Suspense fallback={<Placeholder minHeight={1461} />}>
           <SelectedWorkSection />
         </Suspense>
 
@@ -138,7 +138,7 @@ const Index = () => {
         <section className="leads leads-tail">
           <div className="leads-wrap">
             <div className="leads-col">
-              <Suspense fallback={<Placeholder minHeight={447} />}>
+              <Suspense fallback={<Placeholder minHeight={1203} />}>
                 <FaqsSection />
               </Suspense>
             </div>

@@ -6,17 +6,15 @@ import { CookieConsentProvider } from "@/hooks/use-cookie-consent";
 import { ContactModalProvider } from "@/components/ContactModal";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import Index from "./pages/Index";
+import AnnouncementBar from "@/components/AnnouncementBar";
+import CookieConsentBanner from "@/components/CookieConsentBanner";
 
 const CaseStudy = lazy(() => import("./pages/CaseStudy"));
 const TermsConditions = lazy(() => import("./pages/TermsConditions"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-// Above the navbar on every route, like instantly.ai's. Lazy because it is not
-// part of the first paint and it owns nothing the page needs to lay out — it
-// publishes --bar-h, which defaults to 0px until it mounts.
-const AnnouncementBar = lazy(() => import("@/components/AnnouncementBar"));
-const CookieConsentBanner = lazy(() => import("@/components/CookieConsentBanner"));
+// Above-the-fold chrome renders immediately; delaying it shifts the hero and LCP.
 const CookiePreferencesModal = lazy(() => import("@/components/CookiePreferencesModal"));
 const Sonner = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
 

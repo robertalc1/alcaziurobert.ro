@@ -1,5 +1,10 @@
 # Design system
 
+## Content-only intervention — 2026-11-04
+
+The user requires the existing design to remain unchanged. This revision changes copy, metadata, semantic associations and load timing only. No stylesheets, typography tokens, colours, radii, shadows, component layouts or animation definitions were changed. Before/after computed styles and screenshots at 360/390/768/1440px are under `artifacts.local/commercial/`. Existing hero/chrome are rendered earlier to eliminate measured late layout changes; their final styling is unchanged. The compact navbar CTA keeps its existing visible label and exposes the full request action through its accessible name.
+
+
 ## Identity (updated 2026-10-09)
 
 The original joined AR monogram sits on a blue rounded-square emblem. A fine bevel, inset border and short directional shadow give the mark restrained depth. The geometry remains specific to Alcaziu Robert; the supplied agency reference informs the symbol-plus-name presentation only.

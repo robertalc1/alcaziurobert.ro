@@ -30,8 +30,7 @@ const pillComponents = { pill: <span className="hl" /> };
  * pretending to be evidence. The unit keeps the rhythm; it just has nothing
  * below the fold line.
  *
- * No price and no budget field, deliberately. Qualification happens on the
- * call, not on the page.
+ * The starting price is explicit; the final scope is agreed in a quote.
  */
 const OfferSection: React.FC = () => {
   const { t } = useTranslation();

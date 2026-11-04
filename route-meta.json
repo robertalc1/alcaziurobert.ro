@@ -1,22 +1,22 @@
 {
   "/": {
     "title": {
-      "en": "Alcaziu Robert — Premium web design & custom development",
-      "ro": "Alcaziu Robert — Web design premium și dezvoltare custom"
+      "ro": "Creare site web premium și aplicații web | Alcaziu Robert",
+      "en": "Premium websites and web applications | Alcaziu Robert"
     },
     "description": {
-      "en": "Premium websites and custom web applications for businesses that don't settle for templates. Bespoke design, scalable development, real conversion.",
-      "ro": "Site-uri premium și aplicații web custom pentru afaceri care nu se mulțumesc cu template-uri. Design pe măsură, dezvoltare scalabilă, conversie reală."
+      "ro": "Creare site web premium și aplicații web pentru afaceri. Proiecte de la 1.000 €. Livrabile, cost și etape stabilite înainte de start. Solicitați o ofertă personalizată.",
+      "en": "Premium websites and custom web applications for businesses. Projects from €1,000. Cost, deliverables and stages agreed before work starts. Request a quote."
     }
   },
   "/studii-de-caz": {
     "title": {
-      "en": "Case Study & Approach — Alcaziu Robert",
-      "ro": "Studiu de caz & abordare — Alcaziu Robert"
+      "ro": "Servicii web și proces de lucru | Alcaziu Robert",
+      "en": "Web services and how we work | Alcaziu Robert"
     },
     "description": {
-      "en": "How a premium website gets built end to end: discovery, Cloudflare performance, NIS2-grade security, server-side tracking, and SEO that compounds.",
-      "ro": "Cum se construiește un site premium de la un capăt la altul: discovery, performanță Cloudflare, securitate NIS2, tracking server-side și SEO care se compune."
+      "ro": "Cum definim și dezvoltăm website-uri și aplicații web: cerințe, design, mobil, SEO tehnic, măsurare și predare. Servicii opționale ofertate separat.",
+      "en": "How we define and build websites and web applications: requirements, design, mobile, technical SEO, measurement and handover. Optional services quoted separately."
     }
   },
   "/termeni-si-conditii": {

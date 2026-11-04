@@ -1,5 +1,10 @@
 # PRODUCT.md
 
+## Current editorial decision — 2026-11-04
+
+The current user brief overrides older pricing/copy decisions below: preserve the existing visual design; display “Proiecte de la 1.000 €.” as a minimum, never a universal package price. Agree deliverables and stages before work starts. Optional services are quoted separately, with media spend distinct from management fees. Do not guarantee sales, ROI, complete attribution or AI recommendations. Existing 24-hour reply, 30-day support and 90-day conversion commitments were not extended or replaced; unresolved guarantee conditions require owner review before publication. This iteration is local only. See `docs/commercial-review-2026-11-04.md` and `docs/offer-confirmation-2026-11-04.md`.
+
+
 ## What this is
 
 Personal conversion funnel for Alcaziu Robert, a senior solo web developer selling high-ticket website/funnel builds. The site IS the product being sold: a visitor who lands here from a Meta/IG ad must feel "this is what my site could feel like." Every pixel is a portfolio piece.

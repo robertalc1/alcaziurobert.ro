@@ -62,7 +62,7 @@ try {
     assert.equal(await rail.evaluate(el => el.scrollLeft), focusStart, 'Keyboard focus pauses scrolling');
 
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.waitForTimeout(150);
+    await page.waitForFunction(() => document.querySelectorAll('.work-group').length === 1);
     assert.equal(await page.locator('.work-group').count(), 1, 'Reduced motion has no duplicate projects');
     assert.equal(await page.locator('.work-motion').count(), 0);
     const reducedStart = await rail.evaluate(el => el.scrollLeft);

@@ -1,0 +1,87 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://alcaziurobert.ro/#person",
+      "name": "Alcaziu Robert",
+      "url": "https://alcaziurobert.ro/",
+      "jobTitle": "Dezvoltator web",
+      "email": "contact@alcaziurobert.ro",
+      "telephone": "+40773858164"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://alcaziurobert.ro/#website",
+      "url": "https://alcaziurobert.ro/",
+      "name": "Alcaziu Robert",
+      "inLanguage": [
+        "ro",
+        "en"
+      ],
+      "publisher": {
+        "@id": "https://alcaziurobert.ro/#person"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://alcaziurobert.ro/#service-website",
+      "name": "Creare site web premium",
+      "description": "Structură, design și dezvoltare adaptate afacerii, cu livrabile stabilite în oferta personalizată.",
+      "url": "https://alcaziurobert.ro/#offer",
+      "provider": {
+        "@id": "https://alcaziurobert.ro/#person"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://alcaziurobert.ro/#service-web-apps",
+      "name": "Dezvoltare aplicații web",
+      "description": "Interfețe, logică și integrări pentru procese concrete, ofertate individual.",
+      "url": "https://alcaziurobert.ro/studii-de-caz#cs-addon",
+      "provider": {
+        "@id": "https://alcaziurobert.ro/#person"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://alcaziurobert.ro/#service-measurement",
+      "name": "Analytics și măsurare",
+      "description": "Configurare GA4 și Meta Conversions API, în limitele consimțământului și datelor disponibile; ofertată separat.",
+      "url": "https://alcaziurobert.ro/#offer",
+      "provider": {
+        "@id": "https://alcaziurobert.ro/#person"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://alcaziurobert.ro/#service-campaigns",
+      "name": "Administrare Google Ads și Meta Ads",
+      "description": "Administrare campanii ofertată separat de website și de bugetul media.",
+      "url": "https://alcaziurobert.ro/#offer",
+      "provider": {
+        "@id": "https://alcaziurobert.ro/#person"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://alcaziurobert.ro/#service-seo",
+      "name": "SEO tehnic și conținut",
+      "description": "SEO tehnic inițial în limitele proiectului; SEO continuu și conținut ofertate separat.",
+      "url": "https://alcaziurobert.ro/#offer",
+      "provider": {
+        "@id": "https://alcaziurobert.ro/#person"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://alcaziurobert.ro/#service-maintenance",
+      "name": "Întreținere și extindere website",
+      "description": "Mentenanță, pagini și funcționalități, prin intervenții punctuale sau colaborare periodică, ofertate separat.",
+      "url": "https://alcaziurobert.ro/#compounding",
+      "provider": {
+        "@id": "https://alcaziurobert.ro/#person"
+      }
+    }
+  ]
+}

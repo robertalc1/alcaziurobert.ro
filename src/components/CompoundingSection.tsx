@@ -219,7 +219,7 @@ const CompoundingSection: React.FC = () => {
             <div className="leads-cta">
               <ContactCTA mode="modal">
                 <button type="button" className="comp-cta-btn">
-                  {t("whatwedo.cta_primary")}
+                  {t("compounding.cta")}
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
