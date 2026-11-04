@@ -17,7 +17,7 @@
     "cta_label": "Request a personalised quote"
   },
   "compounding": {
-    "title": "After launch, we can keep developing.",
+    "title": "Reach the right people.",
     "s1": {
       "what": "Traffic and conversion",
       "tag": "Google Ads, Meta Ads and SEO.\nMeasurement and optimisation using available data."
@@ -29,7 +29,11 @@
     "summary_l1": "Choose services for your stage of business. They are <pill>optional and quoted separately</pill>, with scope, cost and period agreed in advance.",
     "summary_l2": "One-off and recurring services have <pill>a separate quote</pill>. Media spend is distinct from management fees. Reporting frequency and intervention limits are agreed in writing.",
     "takeaway": "We discuss what your project needs. <pill>No automatically activated subscriptions</pill> and no promises of guaranteed sales.",
-    "cta": "Discuss the options for your project"
+    "cta": "Discuss the options",
+    "channels": "SEO · Google Ads · Meta Ads",
+    "note": "Optional services, quoted separately. Media spend excludes management fees.",
+    "aftercare": "Maintenance and further development, on request.",
+    "visual_alt": "3D concept on white: a search bridge connects a business with potential customers."
   },
   "faq": {
     "title": "Questions before we work together.",
@@ -58,12 +62,12 @@
   "hero_v3": {
     "headline_pre": "Premium websites,",
     "headline_accent": "clear from the start.",
-    "subtitle": "Projects from €1,000. Websites and web applications for businesses, with a clear offer and a simple path to contact.",
+    "subtitle": "Projects from €1,000. Websites and web applications built for your business.",
     "form_title": "Tell us about your project",
     "form_note": "We reply within 24 hours.",
     "trust_1": "Reply within 24 hours",
-    "trust_2": "Requirements first, then a quote",
-    "trust_3": "Cost and stages agreed before work starts"
+    "trust_2": "Clear requirements and quote",
+    "trust_3": "Cost agreed before work starts"
   },
   "process": {
     "step1_title": "Understand requirements",
@@ -76,16 +80,29 @@
     "step4_body": "We review deliverables together and hand over the agreed access. Usage rights, hosting and any licences are specified in the agreement.",
     "step5_title": "Support and next steps",
     "step5_body": "The first 30 days of support are included under the agreed conditions. New development and ongoing collaboration are agreed separately, without automatic subscriptions.",
-    "title": "From requirements to handover in five stages.",
-    "lead": "After your enquiry, we discuss goals, materials and features. Your quote specifies <pill>cost and deliverables</pill>; implementation starts after agreement.",
+    "title": "Know what you receive.",
+    "lead": "Clarity before work starts. Commitment through handover.",
     "step1_days": "Before the quote",
     "step2_days": "Before implementation",
     "step3_days": "According to the agreed stages",
     "step4_days": "At launch",
-    "step5_days": "After launch"
+    "step5_days": "After launch",
+    "scope": {
+      "title": "Agreed cost.",
+      "body": "Deliverables, revisions and timing set out in your quote."
+    },
+    "direction": {
+      "title": "Approved direction.",
+      "body": "See the design before development begins."
+    },
+    "handover": {
+      "title": "Access handed over.",
+      "body": "Agreed usage rights. 30 days of support."
+    },
+    "details": "Explore our approach"
   },
   "work": {
-    "intro": "Websites and applications developed for specific needs. Complex projects are quoted individually.",
+    "intro": "Websites and web applications. Complex projects are quoted individually.",
     "other_title": "More selected work",
     "pause": "Pause",
     "resume": "Resume scrolling",
@@ -180,9 +197,9 @@
     "cta_primary": "Request a personalised quote"
   },
   "contact": {
-    "title": "Let’s define your project.",
-    "description_l1": "Tell us what you need. We clarify <pill>requirements and materials</pill>.",
-    "description_l2": "Then we agree <pill>the quote, deliverables and stages</pill>."
+    "title": "Let’s talk about your project.",
+    "description_l1": "Tell us what you have in mind.",
+    "description_l2": "We clarify requirements and your quote."
   },
   "footer": {
     "copyright_l": "Alcaziu Robert",
@@ -417,31 +434,31 @@
   },
   "offer": {
     "problem_kicker": "The problem",
-    "problem_title": "Do visitors understand your offer?",
-    "problem": "From <pill>finding your business</pill> to understanding the offer and getting in touch, each step needs clear information. We measure relevant actions to identify improvements.",
+    "problem_title": "Beautiful to see. Simple to use.",
+    "problem": "A website that makes your offer clear.",
     "kicker": "What you get",
-    "title": "A website for your business. A quote with <pill>clear deliverables</pill>.",
-    "lead": "Projects from €1,000. We agree cost, deliverables and stages before work starts. Page count and included services are defined in your personalised quote.",
+    "title": "Projects from €1,000.",
+    "lead": "Deliverables and cost agreed before work starts. Every project has its own quote.",
     "d1_meta": "Custom website",
-    "d1_title": "Structure and development",
-    "d1_body": "For businesses that need their own presentation. Design, development and mobile adaptation; pages, features and initial technical SEO are specified in the quote.",
+    "d1_title": "Custom websites",
+    "d1_body": "Design, structure and mobile adaptation.",
     "d2_meta": "Path to contact",
-    "d2_title": "An offer people understand",
-    "d2_body": "We organise information, actions and the form around customer questions. We review available copy and materials at the start; content creation is quoted separately when needed.",
+    "d2_title": "Web applications",
+    "d2_body": "Features built for your business. Quoted individually.",
     "d3_meta": "Optional measurement",
-    "d3_title": "Measure relevant actions",
-    "d3_body": "We configure GA4 and, where needed, Meta Conversions API. Measurement depends on consent and available data. Setup and reporting are specified separately in the quote.",
+    "d3_title": "Technical SEO",
+    "d3_body": "A foundation for indexing, within the agreed scope.",
     "d4_meta": "Optional campaigns",
-    "d4_title": "Google Ads and Meta Ads",
-    "d4_body": "For businesses seeking traffic to the right pages. Management is quoted separately; media spend paid to the platforms is distinct from the management fee.",
+    "d4_title": "Measurement",
+    "d4_body": "Optional. With consent, using available data.",
     "guarantee_title": "Results guarantee, at 90 days",
     "guarantee_body": "If conversion has not passed the baseline we set at kickoff within 90 days of launch, on the same traffic sources, we keep working <pill>at no cost</pill> until it does.",
     "cta": "Request a personalised quote",
-    "visual_phone_alt": "Illustration: a hand holds a phone with a conceptual search and business information.",
-    "visual_bridge_alt": "Illustration: a search bar forms a bridge between a business and potential customers.",
-    "visual_phone_caption": "First, help people find you.",
-    "visual_bridge_caption": "Then, give them a reason to get in touch.",
-    "visual_phone_body": "SEO and campaigns help people interested in your services reach your website. Traffic is the first step.",
-    "visual_bridge_body": "A clear offer, project examples and easy-to-find contact details help visitors decide whether your services fit their needs."
+    "visual_website_alt": "3D concept: a website inside a glass browser window on white.",
+    "visual_contact_alt": "3D concept: a phone with a contact form and a send symbol.",
+    "visual_website_title": "Design that explains.",
+    "visual_website_line": "Your offer, clear at a glance.",
+    "visual_contact_title": "An easier way to connect.",
+    "visual_contact_line": "From interest to conversation."
   }
 }

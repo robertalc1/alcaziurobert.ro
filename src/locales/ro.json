@@ -17,7 +17,7 @@
     "cta_label": "Solicitați o ofertă personalizată"
   },
   "compounding": {
-    "title": "După lansare, putem continua să dezvoltăm.",
+    "title": "Ajungeți la oamenii potriviți.",
     "s1": {
       "what": "Trafic și conversie",
       "tag": "Google Ads, Meta Ads și SEO.\nMăsurare și optimizare pe date disponibile."
@@ -29,7 +29,11 @@
     "summary_l1": "Alegeți serviciile potrivite pentru etapa afacerii. Sunt <pill>opționale și ofertate separat</pill>, cu volum, cost și perioadă stabilite înainte.",
     "summary_l2": "Serviciile punctuale și cele recurente au <pill>o ofertă distinctă</pill>. Bugetul media nu este tariful de administrare. Frecvența rapoartelor și limitele intervențiilor se stabilesc în acord.",
     "takeaway": "Discutăm ce este util proiectului dumneavoastră. <pill>Fără abonamente activate automat</pill> și fără promisiuni de vânzări garantate.",
-    "cta": "Discutați opțiunile pentru proiectul dumneavoastră"
+    "cta": "Discutați opțiunile",
+    "channels": "SEO · Google Ads · Meta Ads",
+    "note": "Servicii opționale, ofertate separat. Bugetul media nu include administrarea.",
+    "aftercare": "Mentenanță și dezvoltări ulterioare, la cerere.",
+    "visual_alt": "Concept 3D pe alb: o punte de căutare conectează o afacere cu potențialii clienți."
   },
   "faq": {
     "title": "Întrebări înainte de colaborare.",
@@ -58,12 +62,12 @@
   "hero_v3": {
     "headline_pre": "Website-uri premium,",
     "headline_accent": "clare de la început.",
-    "subtitle": "Proiecte de la 1.000 €. Creăm site-uri și aplicații web pentru afaceri, cu ofertă clară și un parcurs simplu către contact.",
+    "subtitle": "Proiecte de la 1.000 €. Website-uri și aplicații web, construite pentru afacerea dumneavoastră.",
     "form_title": "Descrieți-ne proiectul",
     "form_note": "Răspundem în maximum 24 de ore.",
     "trust_1": "Răspuns în 24 de ore",
-    "trust_2": "Discutăm cerințele, apoi oferta",
-    "trust_3": "Cost și etape stabilite înainte de start"
+    "trust_2": "Cerințe și ofertă clare",
+    "trust_3": "Cost agreat înainte de start"
   },
   "process": {
     "step1_title": "Înțelegem cerințele",
@@ -76,16 +80,29 @@
     "step4_body": "Verificăm împreună livrabilele și predăm accesurile convenite. Drepturile de utilizare, găzduirea și eventualele licențe sunt precizate în acord.",
     "step5_title": "Suport și pașii următori",
     "step5_body": "Primele 30 de zile de suport sunt incluse, conform condițiilor agreate. Dezvoltările noi și colaborarea periodică se stabilesc separat, fără abonament automat.",
-    "title": "De la cerințe la predare, în cinci etape.",
-    "lead": "După solicitare discutăm obiectivul, materialele și funcționalitățile. Oferta precizează <pill>costul și ce se livrează</pill>; implementarea începe după acord.",
+    "title": "Știți ce primiți.",
+    "lead": "Claritate înainte de start. Implicare până la predare.",
     "step1_days": "Înainte de ofertă",
     "step2_days": "Înainte de implementare",
     "step3_days": "Conform etapelor agreate",
     "step4_days": "La lansare",
-    "step5_days": "După lansare"
+    "step5_days": "După lansare",
+    "scope": {
+      "title": "Cost agreat.",
+      "body": "Livrabile, revizii și termen, stabilite în ofertă."
+    },
+    "direction": {
+      "title": "Direcție aprobată.",
+      "body": "Vedeți designul înainte de dezvoltare."
+    },
+    "handover": {
+      "title": "Accesuri predate.",
+      "body": "Drepturi convenite. 30 de zile de suport."
+    },
+    "details": "Descoperiți abordarea noastră"
   },
   "work": {
-    "intro": "Website-uri și aplicații web dezvoltate pentru nevoi concrete. Proiectele complexe se ofertează individual.",
+    "intro": "Website-uri și aplicații web. Proiectele complexe se ofertează individual.",
     "other_title": "Alte proiecte realizate",
     "pause": "Pauză",
     "resume": "Reia derularea",
@@ -180,9 +197,9 @@
     "cta_primary": "Solicitați o ofertă personalizată"
   },
   "contact": {
-    "title": "Să definim proiectul dumneavoastră.",
-    "description_l1": "Spuneți-ne ce aveți nevoie. Clarificăm <pill>cerințele și materialele</pill>.",
-    "description_l2": "Apoi stabilim <pill>oferta, livrabilele și etapele</pill>."
+    "title": "Să vorbim despre proiect.",
+    "description_l1": "Spuneți-ne ce aveți în minte.",
+    "description_l2": "Clarificăm cerințele și oferta."
   },
   "footer": {
     "copyright_l": "Alcaziu Robert",
@@ -417,31 +434,31 @@
   },
   "offer": {
     "problem_kicker": "Problema",
-    "problem_title": "Vizitatorii înțeleg ce le oferiți?",
-    "problem": "De la <pill>găsirea afacerii</pill> la înțelegerea ofertei și contact, fiecare pas are nevoie de informații clare. Măsurăm acțiunile relevante pentru a vedea ce poate fi îmbunătățit.",
+    "problem_title": "Frumos de privit. Simplu de folosit.",
+    "problem": "Un website care vă pune oferta în valoare.",
     "kicker": "Ce primiți",
-    "title": "Un website potrivit afacerii. O ofertă cu <pill>livrabile clare</pill>.",
-    "lead": "Proiecte de la 1.000 €. Stabilim costul, livrabilele și etapele înainte de începerea colaborării. Numărul paginilor și serviciile incluse se definesc în oferta personalizată.",
+    "title": "Proiecte de la 1.000 €.",
+    "lead": "Livrabile și cost stabilite înainte de start. Fiecare proiect are oferta lui.",
     "d1_meta": "Website custom",
-    "d1_title": "Structură și dezvoltare",
-    "d1_body": "Pentru afaceri care au nevoie de o prezentare proprie. Design, dezvoltare și adaptare pentru mobil; paginile, funcționalitățile și SEO tehnic inițial sunt delimitate în ofertă.",
+    "d1_title": "Website custom",
+    "d1_body": "Design, structură și adaptare pentru mobil.",
     "d2_meta": "Parcurs către contact",
-    "d2_title": "Oferta, ușor de înțeles",
-    "d2_body": "Organizăm informațiile, acțiunile și formularul în jurul întrebărilor clienților. Textele și materialele disponibile se discută la start; crearea de conținut se ofertează separat când este necesară.",
+    "d2_title": "Aplicații web",
+    "d2_body": "Funcționalități pentru afacerea dumneavoastră. Ofertate individual.",
     "d3_meta": "Măsurare opțională",
-    "d3_title": "Acțiuni relevante, măsurate",
-    "d3_body": "Configurăm GA4 și, când este necesar, Meta Conversions API. Măsurarea depinde de consimțământ și de datele disponibile. Configurarea și rapoartele se delimitează separat în ofertă.",
+    "d3_title": "SEO tehnic",
+    "d3_body": "Baza pentru indexare, în limitele proiectului.",
     "d4_meta": "Campanii opționale",
-    "d4_title": "Google Ads și Meta Ads",
-    "d4_body": "Pentru afaceri care doresc trafic către paginile potrivite. Administrarea se ofertează separat; bugetul media plătit platformelor este distinct de tariful de administrare.",
+    "d4_title": "Măsurare",
+    "d4_body": "Opțională. Cu consimțământ, pe datele disponibile.",
     "guarantee_title": "Garanție pe rezultat, la 90 de zile",
     "guarantee_body": "Dacă la 90 de zile de la lansare conversia nu a trecut peste reperul stabilit la start, pe aceleași surse de trafic, continuăm <pill>fără costuri</pill> până trece.",
     "cta": "Solicitați o ofertă personalizată",
-    "visual_phone_alt": "Ilustrație: o mână ține un telefon cu o căutare demonstrativă și informații despre o afacere.",
-    "visual_bridge_alt": "Ilustrație: o bară de căutare formează o punte între o afacere și potențialii clienți.",
-    "visual_phone_caption": "Mai întâi, să vă găsească.",
-    "visual_bridge_caption": "Apoi, să știe de ce să vă contacteze.",
-    "visual_phone_body": "SEO și campaniile ajută oamenii interesați de serviciile dumneavoastră să ajungă pe website. Traficul este primul pas.",
-    "visual_bridge_body": "Oferta clară, exemplele de proiecte și un contact ușor de găsit îi ajută să decidă dacă serviciile li se potrivesc."
+    "visual_website_alt": "Concept 3D: un website într-o fereastră de sticlă, pe fundal alb.",
+    "visual_contact_alt": "Concept 3D: un telefon cu formular de contact și simbol de trimitere.",
+    "visual_website_title": "Design care explică.",
+    "visual_website_line": "Oferta, clară dintr-o privire.",
+    "visual_contact_title": "Contact fără ocolișuri.",
+    "visual_contact_line": "De la interes la conversație."
   }
 }

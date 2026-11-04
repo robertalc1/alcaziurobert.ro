@@ -30,7 +30,7 @@ try {
       headings: [...document.querySelectorAll('h1,h2,h3')].map(el => ({tag:el.tagName,text:el.textContent})),
       schema: [...document.querySelectorAll('script[type="application/ld+json"]')].map(el => JSON.parse(el.textContent)),
       overflow: document.documentElement.scrollWidth > innerWidth,
-      styles: Object.fromEntries(['.hero-panel','.hero-title','.hero-sub','.hero-cta','.offer-card','.proc-card','.comp-card','.faq-item'].map(selector => {
+      styles: Object.fromEntries(['.hero-panel','.hero-title','.hero-sub','.hero-cta','.offer-card','.proc-list li','.funnel-panorama','.faq-item'].map(selector => {
         const el = document.querySelector(selector), s = getComputedStyle(el);
         return [selector, Object.fromEntries(['fontFamily','fontSize','fontWeight','lineHeight','letterSpacing','color','background','borderRadius','boxShadow','padding','gap','textAlign','animation','transition'].map(key => [key,s[key]]))];
       })),

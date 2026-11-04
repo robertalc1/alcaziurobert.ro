@@ -1,5 +1,13 @@
 # Design system
 
+## White 3D visual funnel — owner revision, 2026-11-04
+
+The latest owner request explicitly replaces the earlier small image/caption pair and long explanatory copy with a wide, image-led funnel. Two original 3D renders on white introduce design and easy contact. A panoramic search bridge appears separately after the real portfolio. Their short headings are real, translated HTML inside the image panels. Width uses the existing 1296px page token, with 16px minimum viewport gutters. At mobile widths the pair stacks and the panorama headline moves above its image inside the same white panel.
+
+The hero layout, Figtree, blue/glass identity, CTA components, consent and form integration remain. Body copy is condensed, the numbered service/process presentation becomes concise service benefits and three collaboration assurances, and FAQ stays at five. Existing guarantee conditions remain in FAQ. Detailed commercial scope is still agreed per project; the starting price is not a fixed bundle.
+
+See `docs/white-funnel-2026-11-04.md` for assets, prompts and verification. This direction supersedes the content-only and previous illustration-layout rules below where they conflict.
+
 ## Educational illustrations and shorter FAQ — 2026-11-04
 
 Following the content-only revision, the owner explicitly requested two reference-inspired visuals in the existing brand palette and a maximum of five FAQ questions. The problem unit now uses the existing two-column offer grid for two original illustrations: search on a phone and a search bridge connecting a business with prospective customers. They explain discovery and the path to contact; they are not portfolio evidence or real search results. The hero, shared typography, palette and existing motion remain unchanged. The illustrations use responsive, lazy-loaded WebP files with reserved square dimensions; the grid stacks only below 640px. FAQ uses the same accordion with five grouped questions in both languages. The existing guarantee wording is retained within the post-launch answer.

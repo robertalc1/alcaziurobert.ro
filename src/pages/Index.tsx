@@ -106,15 +106,9 @@ const Index = () => {
         <section className="leads" id="body">
           <div className="leads-wrap">
             <div className="leads-col">
-              <Suspense fallback={<Placeholder minHeight={2331} />}>
+              <Suspense fallback={<Placeholder minHeight={1338} />}>
                 {/* Units 1 and 2 — the problem, then the offer. */}
                 <OfferSection />
-              </Suspense>
-              <Suspense fallback={<Placeholder minHeight={1275} />}>
-                <ProcessSection />
-              </Suspense>
-              <Suspense fallback={<Placeholder minHeight={681} />}>
-                <CompoundingSection />
               </Suspense>
             </div>
           </div>
@@ -125,6 +119,20 @@ const Index = () => {
         <Suspense fallback={<Placeholder minHeight={1461} />}>
           <SelectedWorkSection />
         </Suspense>
+
+        {/* The panoramic discovery visual follows real project proof. */}
+        <section className="leads funnel-followup">
+          <div className="leads-wrap">
+            <div className="leads-col">
+              <Suspense fallback={<Placeholder minHeight={628} />}>
+                <CompoundingSection />
+              </Suspense>
+              <Suspense fallback={<Placeholder minHeight={366} />}>
+                <ProcessSection />
+              </Suspense>
+            </div>
+          </div>
+        </section>
 
         <Suspense fallback={<Placeholder minHeight={830} />}>
           <GetInTouchSection />
