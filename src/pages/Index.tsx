@@ -106,7 +106,7 @@ const Index = () => {
         <section className="leads" id="body">
           <div className="leads-wrap">
             <div className="leads-col">
-              <Suspense fallback={<Placeholder minHeight={1529} />}>
+              <Suspense fallback={<Placeholder minHeight={2331} />}>
                 {/* Units 1 and 2 — the problem, then the offer. */}
                 <OfferSection />
               </Suspense>
@@ -138,7 +138,7 @@ const Index = () => {
         <section className="leads leads-tail">
           <div className="leads-wrap">
             <div className="leads-col">
-              <Suspense fallback={<Placeholder minHeight={1203} />}>
+              <Suspense fallback={<Placeholder minHeight={541} />}>
                 <FaqsSection />
               </Suspense>
             </div>

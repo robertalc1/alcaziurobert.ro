@@ -11,7 +11,7 @@ import {
 import Reveal from "@/components/Reveal";
 import ContactCTA from "@/components/ContactCTA";
 
-const FAQ_KEYS = ["o1", "o2", "o3", "o4", "o5", "o7", "o8", "o9", "o10", "o11", "o12", "o13", "o6"] as const;
+const FAQ_KEYS = ["o1", "o3", "o9", "o4", "o6"] as const;
 
 const FaqsSection: React.FC = () => {
   const { t } = useTranslation();

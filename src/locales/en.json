@@ -36,55 +36,23 @@
     "lead": "Price, deliverables, timing and options after launch.",
     "o1": {
       "q": "What does “from €1,000” mean?",
-      "a": "It is the minimum project price, not a fixed price for every website or application. We agree cost, deliverables and stages before work starts. Not every service described is included in the starting price."
-    },
-    "o2": {
-      "q": "What affects the final price?",
-      "a": "Page count, feature complexity, integrations, available content and materials, languages, additional services and special requirements or deadlines."
+      "a": "It is the minimum starting price, not a fixed price for every website or application. Cost depends on pages, features, integrations, materials, languages and deadlines. We agree cost, deliverables and stages before starting; additional services are not automatically included."
     },
     "o3": {
-      "q": "What is included in my quote?",
-      "a": "Your personalised quote specifies project type, pages or sections, design, development, mobile adaptation, contact options, technical SEO and any other agreed services. Measurement, revisions, handover and exclusions are defined before work starts."
-    },
-    "o4": {
-      "q": "Are there recurring costs?",
-      "a": "One-off and recurring costs are separated in your quote. Hosting, domain, licences and any ongoing collaboration are discussed individually; no subscription is activated automatically."
-    },
-    "o5": {
-      "q": "Are hosting and domain included?",
-      "a": "The quote specifies who provides hosting and domain, who holds access and any recurring costs. The starting price should not be interpreted as automatically including these services."
-    },
-    "o6": {
-      "q": "How is the results guarantee measured?",
-      "a": "The baseline is set at kickoff: your current conversion rate if you already have analytics, or a target agreed together if we start from zero. It is measured 90 days after launch, on the same traffic sources. If it has not passed the baseline, we keep working at no cost until it does."
-    },
-    "o7": {
-      "q": "What materials should I prepare?",
-      "a": "We review copy, logo, images, service information and required access. Missing content, copywriting and migration are specified in the quote when needed."
-    },
-    "o8": {
-      "q": "How many revisions are included?",
-      "a": "Revision rounds and approval stages are agreed in your personalised quote. Requirements beyond the agreed deliverables are discussed separately; fixing defects in our own implementation is not a paid add-on."
+      "q": "What do I receive and what should I prepare?",
+      "a": "Your quote specifies pages, design, development, mobile adaptation, contact features and initial technical SEO. We also agree revisions, tracking, access and usage rights. We review your copy, logo and images; missing content is quoted separately when needed. SEO does not guarantee Google positions or AI recommendations."
     },
     "o9": {
-      "q": "How long does a project take?",
-      "a": "The existing estimate for a website is around four weeks. Exact timing depends on complexity, materials and approvals and is agreed before work starts. Complex applications and integrations have their own estimates."
+      "q": "How long does the project take?",
+      "a": "A website is estimated at around four weeks. Exact timing depends on complexity, materials and approvals and is agreed before work starts. Complex applications and integrations have their own estimates."
     },
-    "o10": {
-      "q": "Who receives access?",
-      "a": "Access handover and usage rights are specified in the agreement before work starts. We explicitly agree what is handed over for code, domain, hosting and accounts."
+    "o4": {
+      "q": "Are there additional or recurring costs?",
+      "a": "Domain, hosting, licences and post-launch services are specified in the quote. Google Ads, Meta Ads and ongoing SEO are optional and quoted separately. Media spend is distinct from management fees. We do not automatically activate subscriptions."
     },
-    "o11": {
-      "q": "What is initial technical SEO?",
-      "a": "Page structure, titles and descriptions, canonical URLs, sitemap and search-engine accessibility within the project scope. Ongoing SEO and content are separate services. We do not guarantee Google positions or AI recommendations."
-    },
-    "o12": {
-      "q": "Are advertising and media spend separate?",
-      "a": "Yes. Google Ads or Meta Ads management is quoted separately from website development. Spend paid to the platforms is distinct from management fees; scope and period are agreed in writing."
-    },
-    "o13": {
-      "q": "What happens after launch?",
-      "a": "Our existing offer provides 30 days of included support. Interventions are defined in the agreement. Maintenance, reports and new development afterwards are optional and quoted separately; they are not automatically included in the €1,000 starting price."
+    "o6": {
+      "q": "What support and guarantee do I have after launch?",
+      "a": "The first 30 days of support are included within the agreed scope. Maintenance and new development afterwards are quoted separately. The existing guarantee is measured as follows: The baseline is set at kickoff: your current conversion rate if you already have analytics, or a target agreed together if we start from zero. It is measured 90 days after launch, on the same traffic sources. If it has not passed the baseline, we keep working at no cost until it does."
     }
   },
   "hero_v3": {
@@ -468,6 +436,12 @@
     "d4_body": "For businesses seeking traffic to the right pages. Management is quoted separately; media spend paid to the platforms is distinct from the management fee.",
     "guarantee_title": "Results guarantee, at 90 days",
     "guarantee_body": "If conversion has not passed the baseline we set at kickoff within 90 days of launch, on the same traffic sources, we keep working <pill>at no cost</pill> until it does.",
-    "cta": "Request a personalised quote"
+    "cta": "Request a personalised quote",
+    "visual_phone_alt": "Illustration: a hand holds a phone with a conceptual search and business information.",
+    "visual_bridge_alt": "Illustration: a search bar forms a bridge between a business and potential customers.",
+    "visual_phone_caption": "First, help people find you.",
+    "visual_bridge_caption": "Then, give them a reason to get in touch.",
+    "visual_phone_body": "SEO and campaigns help people interested in your services reach your website. Traffic is the first step.",
+    "visual_bridge_body": "A clear offer, project examples and easy-to-find contact details help visitors decide whether your services fit their needs."
   }
 }

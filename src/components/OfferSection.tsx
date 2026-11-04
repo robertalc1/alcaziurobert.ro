@@ -24,11 +24,8 @@ const pillComponents = { pill: <span className="hl" /> };
  * and the vertical rhythm belongs to `.leads` in index.css. Nothing here sets
  * a top or bottom margin; if a gap looks wrong, it is `.leads-col`'s gap.
  *
- * The problem unit is header-only. Every instantly unit has a visual panel
- * under its header, but "most sites collect compliments" has no artefact to
- * show, and a 480px box of invented chrome under it would be decoration
- * pretending to be evidence. The unit keeps the rhythm; it just has nothing
- * below the fold line.
+ * The two brand illustrations explain the search-to-contact journey;
+ * real project screenshots remain in the portfolio section.
  *
  * The starting price is explicit; the final scope is agreed in a quote.
  */
@@ -55,6 +52,20 @@ const OfferSection: React.FC = () => {
         /* Both the li and the Reveal wrapper have to stretch, otherwise two
            cards in a row settle at their own content heights. */
         .offer-list li { display: flex; }
+        .offer-visual { margin: 0; min-width: 0; }
+        .offer-visual img {
+          display: block;
+          width: 100%;
+          height: auto;
+          aspect-ratio: 1;
+          border-radius: var(--r-panel);
+        }
+        .offer-visual figcaption {
+          margin-top: 12px;
+          text-align: center;
+          display: grid;
+          gap: 9px;
+        }
         .offer-card-wrap { flex: 1; display: flex; }
         .offer-card {
           flex: 1;
@@ -169,6 +180,9 @@ const OfferSection: React.FC = () => {
           .offer-guarantee { padding: 20px 18px; }
           .offer-item-body { max-width: 42ch; }
         }
+        @media (min-width: 640px) and (max-width: 768px) {
+          .offer-visuals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
       `}</style>
 
       {/* ── Unit 1 — the problem ─────────────────────────────────────── */}
@@ -194,6 +208,30 @@ const OfferSection: React.FC = () => {
             </div>
           </header>
         </Reveal>
+        <div className="leads-panel is-bare">
+          <div className="offer-list offer-visuals">
+            {(["phone", "bridge"] as const).map((visual, i) => (
+              <Reveal key={visual} delay={i * 70}>
+                <figure className="offer-visual">
+                  <img
+                    src={`/visuals/search-${visual}-960.webp`}
+                    srcSet={`/visuals/search-${visual}-480.webp 480w, /visuals/search-${visual}-960.webp 960w`}
+                    sizes="(max-width: 639px) calc(100vw - 48px), (max-width: 1088px) calc((100vw - 72px) / 2), 508px"
+                    width={960}
+                    height={960}
+                    loading="lazy"
+                    decoding="async"
+                    alt={t(`offer.visual_${visual}_alt`)}
+                  />
+                  <figcaption>
+                    <h3 className="offer-item-title">{t(`offer.visual_${visual}_caption`)}</h3>
+                    <p className="offer-item-body">{t(`offer.visual_${visual}_body`)}</p>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* ── Unit 2 — the offer ───────────────────────────────────────── */}

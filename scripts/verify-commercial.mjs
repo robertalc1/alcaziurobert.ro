@@ -31,7 +31,7 @@ try {
     assert.equal(checks.h1, 1); assert.equal(checks.descriptions, 1); assert.equal(checks.canonicals, 1);
     assert.equal(checks.schemas, 1); assert.equal(checks.price, true); assert.equal(checks.trackers, 0);
     assert.equal(checks.overflow, false); assert.deepEqual(checks.clippedButtons, []);
-    assert.equal(await page.locator('.faq-trigger').count(), 13);
+    assert.equal(await page.locator('.faq-trigger').count(), 5);
     await page.locator('.faq-trigger').first().click();
     await page.getByText('Este pragul minim pentru un proiect,', { exact: false }).waitFor();
     assert.equal(await page.locator('.faq-trigger').first().getAttribute('aria-expanded'), 'true');

@@ -36,55 +36,23 @@
     "lead": "Preț, livrabile, termene și opțiuni după lansare.",
     "o1": {
       "q": "Ce înseamnă „de la 1.000 €”?",
-      "a": "Este pragul minim pentru un proiect, nu un preț fix pentru orice website sau aplicație. Stabilim costul, livrabilele și etapele înainte de începere. Nu toate serviciile prezentate sunt incluse în prețul de pornire."
-    },
-    "o2": {
-      "q": "Ce influențează prețul final?",
-      "a": "Numărul paginilor, complexitatea funcționalităților, integrările, conținutul și materialele disponibile, numărul limbilor, serviciile suplimentare și cerințele sau termenele speciale."
+      "a": "Este pragul minim pentru un proiect, nu un preț fix pentru orice website sau aplicație. Costul depinde de pagini, funcționalități, integrări, materiale, limbi și termene. Stabilim costul, livrabilele și etapele înainte de începere; serviciile suplimentare nu sunt incluse automat."
     },
     "o3": {
-      "q": "Ce este inclus în oferta mea?",
-      "a": "Oferta personalizată delimitează tipul proiectului, paginile sau secțiunile, designul, dezvoltarea, adaptarea pentru mobil, contactul, SEO tehnic și orice alte servicii convenite. Tracking-ul, reviziile, predarea și excluderile sunt precizate înainte de start."
-    },
-    "o4": {
-      "q": "Există costuri recurente?",
-      "a": "Costurile punctuale și cele recurente se separă în ofertă. Găzduirea, domeniul, licențele și orice colaborare periodică sunt discutate distinct; nu activăm automat un abonament."
-    },
-    "o5": {
-      "q": "Hostingul și domeniul sunt incluse?",
-      "a": "Oferta precizează cine asigură găzduirea și domeniul, cine deține accesurile și ce costuri recurente există. Prețul de pornire nu trebuie interpretat ca incluzând automat aceste servicii."
-    },
-    "o6": {
-      "q": "Cum se măsoară garanția pe rezultat?",
-      "a": "Reperul se stabilește la start: rata de conversie de acum, dacă aveți deja analytics, sau ținta convenită împreună dacă pornim de la zero. Se măsoară la 90 de zile de la lansare, pe aceleași surse de trafic. Dacă nu a trecut peste reper, continuăm fără costuri până trece."
-    },
-    "o7": {
-      "q": "Ce materiale trebuie să pregătesc?",
-      "a": "Discutăm textele, logo-ul, imaginile, informațiile despre servicii și accesurile necesare. Conținutul lipsă, copywriting-ul și migrarea se delimitează în ofertă, dacă sunt necesare."
-    },
-    "o8": {
-      "q": "Câte modificări sunt incluse?",
-      "a": "Numărul rundelor de revizii și etapele de aprobare se stabilesc în oferta personalizată. Cerințele noi față de livrabilele agreate se discută separat; remedierea defectelor propriei implementări nu este un serviciu suplimentar plătit."
+      "q": "Ce primesc și ce trebuie să pregătesc?",
+      "a": "Oferta precizează paginile, designul, dezvoltarea, adaptarea pentru mobil, contactul și SEO tehnic inițial. Stabilim și reviziile, tracking-ul, accesurile și drepturile de utilizare. Discutăm textele, logo-ul și imaginile disponibile; conținutul lipsă se ofertează separat, dacă este necesar. SEO nu garantează poziții în Google sau recomandări AI."
     },
     "o9": {
-      "q": "Cât durează proiectul?",
-      "a": "Estimarea existentă pentru un website este de aproximativ patru săptămâni. Termenul exact depinde de complexitate, materiale și aprobări și se fixează înainte de începere. Aplicațiile și integrările complexe au estimări proprii."
+      "q": "Cât durează realizarea proiectului?",
+      "a": "Pentru un website, estimarea este de aproximativ patru săptămâni. Termenul exact depinde de complexitate, materiale și aprobări și se stabilește înainte de începere. Aplicațiile și integrările complexe au estimări proprii."
     },
-    "o10": {
-      "q": "Cine primește accesurile?",
-      "a": "Predarea accesurilor și drepturile de utilizare se precizează în acord, înainte de start. Stabilim explicit ce se predă pentru cod, domeniu, găzduire și conturile folosite."
+    "o4": {
+      "q": "Există costuri suplimentare sau recurente?",
+      "a": "Domeniul, găzduirea, licențele și serviciile după lansare sunt delimitate în ofertă. Google Ads, Meta Ads și SEO continuu sunt opționale și ofertate separat. Bugetul plătit platformelor de reclame este distinct de administrare. Nu activăm automat abonamente."
     },
-    "o11": {
-      "q": "Ce înseamnă SEO tehnic inițial?",
-      "a": "Structura paginilor, titlurile și descrierile, URL-urile canonice, sitemap-ul și accesibilitatea pentru motoarele de căutare, în limitele proiectului. SEO continuu și conținutul sunt servicii distincte. Nu garantăm poziții în Google sau recomandări AI."
-    },
-    "o12": {
-      "q": "Reclamele și bugetul media sunt separate?",
-      "a": "Da. Administrarea Google Ads sau Meta Ads se ofertează separat de dezvoltarea website-ului. Bugetul plătit platformelor este distinct de tariful de administrare; volumul și perioada se stabilesc în acord."
-    },
-    "o13": {
-      "q": "Ce se întâmplă după lansare?",
-      "a": "Primele 30 de zile de suport sunt incluse. Delimităm intervențiile în acord. Ulterior, mentenanța, rapoartele și dezvoltările noi sunt opționale și ofertate separat; nu sunt incluse automat în pragul de 1.000 €."
+    "o6": {
+      "q": "Ce suport și garanție am după lansare?",
+      "a": "Primele 30 de zile de suport sunt incluse, în limitele convenite. Ulterior, mentenanța și dezvoltările noi se ofertează separat. Garanția existentă se măsoară astfel: Reperul se stabilește la start: rata de conversie de acum, dacă aveți deja analytics, sau ținta convenită împreună dacă pornim de la zero. Se măsoară la 90 de zile de la lansare, pe aceleași surse de trafic. Dacă nu a trecut peste reper, continuăm fără costuri până trece."
     }
   },
   "hero_v3": {
@@ -468,6 +436,12 @@
     "d4_body": "Pentru afaceri care doresc trafic către paginile potrivite. Administrarea se ofertează separat; bugetul media plătit platformelor este distinct de tariful de administrare.",
     "guarantee_title": "Garanție pe rezultat, la 90 de zile",
     "guarantee_body": "Dacă la 90 de zile de la lansare conversia nu a trecut peste reperul stabilit la start, pe aceleași surse de trafic, continuăm <pill>fără costuri</pill> până trece.",
-    "cta": "Solicitați o ofertă personalizată"
+    "cta": "Solicitați o ofertă personalizată",
+    "visual_phone_alt": "Ilustrație: o mână ține un telefon cu o căutare demonstrativă și informații despre o afacere.",
+    "visual_bridge_alt": "Ilustrație: o bară de căutare formează o punte între o afacere și potențialii clienți.",
+    "visual_phone_caption": "Mai întâi, să vă găsească.",
+    "visual_bridge_caption": "Apoi, să știe de ce să vă contacteze.",
+    "visual_phone_body": "SEO și campaniile ajută oamenii interesați de serviciile dumneavoastră să ajungă pe website. Traficul este primul pas.",
+    "visual_bridge_body": "Oferta clară, exemplele de proiecte și un contact ușor de găsit îi ajută să decidă dacă serviciile li se potrivesc."
   }
 }

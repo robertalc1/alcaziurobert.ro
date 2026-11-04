@@ -1,5 +1,11 @@
 # Design system
 
+## Educational illustrations and shorter FAQ — 2026-11-04
+
+Following the content-only revision, the owner explicitly requested two reference-inspired visuals in the existing brand palette and a maximum of five FAQ questions. The problem unit now uses the existing two-column offer grid for two original illustrations: search on a phone and a search bridge connecting a business with prospective customers. They explain discovery and the path to contact; they are not portfolio evidence or real search results. The hero, shared typography, palette and existing motion remain unchanged. The illustrations use responsive, lazy-loaded WebP files with reserved square dimensions; the grid stacks only below 640px. FAQ uses the same accordion with five grouped questions in both languages. The existing guarantee wording is retained within the post-launch answer.
+
+Assets: `public/visuals/search-phone-{480,960}.webp` and `search-bridge-{480,960}.webp`. Generation prompts and provenance: `docs/educational-visuals-2026-11-04.md`.
+
 ## Content-only intervention — 2026-11-04
 
 The user requires the existing design to remain unchanged. This revision changes copy, metadata, semantic associations and load timing only. No stylesheets, typography tokens, colours, radii, shadows, component layouts or animation definitions were changed. Before/after computed styles and screenshots at 360/390/768/1440px are under `artifacts.local/commercial/`. Existing hero/chrome are rendered earlier to eliminate measured late layout changes; their final styling is unchanged. The compact navbar CTA keeps its existing visible label and exposes the full request action through its accessible name.
