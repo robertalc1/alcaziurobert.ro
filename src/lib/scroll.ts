@@ -1,8 +1,11 @@
 import { getLenis } from "@/lib/lenis";
 
-// Shared anchor-scroll helper — same offsets the fixed navbar needs
-// (100px under 768px, 80px above), used by Navbar/Hero/Index anchors.
-export const navOffset = () => (window.innerWidth < 768 ? 100 : 80);
+// Both pieces of fixed chrome publish their actual height, including a dismissed bar.
+export const navOffset = () => {
+  const styles = getComputedStyle(document.documentElement);
+  return (parseFloat(styles.getPropertyValue("--bar-h")) || 0)
+    + (parseFloat(styles.getPropertyValue("--nav-h")) || 72) + 16;
+};
 
 /**
  * Every programmatic scroll in the app goes through here.
@@ -13,6 +16,11 @@ export const navOffset = () => (window.innerWidth < 768 ? 100 : 80);
  * this falls back to native smooth behaviour and nothing else has to care.
  */
 export function scrollToEl(el: Element, offset: number = navOffset()): void {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: y, behavior: "instant" });
+    return;
+  }
   const lenis = getLenis();
   if (lenis) {
     lenis.scrollTo(el as HTMLElement, { offset: -offset, duration: 1.1 });

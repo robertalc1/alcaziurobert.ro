@@ -35,7 +35,7 @@ try {
     await page.locator('.faq-trigger').first().click();
     await page.getByText('Este pragul minim pentru un proiect,', { exact: false }).waitFor();
     assert.equal(await page.locator('.faq-trigger').first().getAttribute('aria-expanded'), 'true');
-    await page.locator('.hero-cta').click();
+    await page.locator('.nav-cta').click();
     const dialog = page.getByRole('dialog');
     await dialog.waitFor();
     await dialog.getByRole('button', { name: 'Trimiteți cererea', exact: true }).click();
@@ -54,7 +54,7 @@ try {
   await page.getByRole('button', { name:'Acceptă toate',exact:true }).click();
   await page.waitForSelector('#ga4-gtag-script', { state:'attached' });
   const events = () => page.evaluate(() => (window.dataLayer || []).filter(args => args[0] === 'event').map(args => ({name:args[1],params:args[2]})));
-  await page.locator('.hero-cta').click();
+  await page.locator('.nav-cta').click();
   const dialog = page.getByRole('dialog');
   await dialog.getByLabel(/^Nume/).fill('Test QA');
   await dialog.getByLabel(/^Telefon/).fill('0712345678');
@@ -88,7 +88,7 @@ try {
   await page.getByRole('button', { name:'Setări cookie-uri',exact:true }).click();
   await page.getByRole('dialog').getByRole('button', { name:'Acceptă necesare',exact:true }).click();
   const beforeRevoke = (await events()).length;
-  await page.locator('.hero-cta').click();
+  await page.locator('.nav-cta').click();
   assert.equal((await events()).length,beforeRevoke,'Revocation stops contact event collection');
   results.push({ form:'success and failure mocked',analytics:await events(),personalDataInEvents:false,consentRevocation:'passed' });
   await context.close();

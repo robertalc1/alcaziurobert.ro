@@ -120,3 +120,9 @@ export function trackContactAction(action: "quote_request" | "whatsapp_click"): 
   if (!granted || !GA_MEASUREMENT_ID || !window.gtag) return;
   window.gtag("event", action);
 }
+
+/** Fixed, non-personal events; uses the existing Performance consent gate. */
+export function trackFunnelAction(action: "explore_services" | "video_start" | "video_complete" | "view_service_options"): void {
+  if (!granted || !GA_MEASUREMENT_ID || !window.gtag) return;
+  window.gtag("event", action);
+}

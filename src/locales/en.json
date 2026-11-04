@@ -29,11 +29,48 @@
     "summary_l1": "Choose services for your stage of business. They are <pill>optional and quoted separately</pill>, with scope, cost and period agreed in advance.",
     "summary_l2": "One-off and recurring services have <pill>a separate quote</pill>. Media spend is distinct from management fees. Reporting frequency and intervention limits are agreed in writing.",
     "takeaway": "We discuss what your project needs. <pill>No automatically activated subscriptions</pill> and no promises of guaranteed sales.",
-    "cta": "Discuss the options",
-    "channels": "SEO · Google Ads · Meta Ads",
-    "note": "Optional services, quoted separately. Media spend excludes management fees.",
+    "cta": "Discuss your project options",
+    "channels": "Search · Content · Campaigns",
+    "note": "Options quoted separately, with agreed scope, cost and duration. No automatic subscriptions.",
     "aftercare": "Maintenance and further development, on request.",
-    "visual_alt": "3D concept on white: a search bridge connects a business with potential customers."
+    "visual_alt": "3D concept on white: a search bridge connects a business with potential customers.",
+    "options_title": "After launch, there is room to grow.",
+    "options_lead": "Choose what helps your business now. Extend when it makes sense.",
+    "details": "What it can include",
+    "options": [
+      {
+        "title": "Reach relevant visitors.",
+        "body": "SEO, GEO, AEO and campaigns to the right pages.",
+        "scope": "One-off project or ongoing work",
+        "details": [
+          "SEO: indexing, structure and content for search engines.",
+          "GEO: clear, verifiable information for generative search.",
+          "AEO: direct answers organized around customer questions.",
+          "One shared technical and editorial foundation. Scope is quoted; rankings and AI recommendations are not guaranteed.",
+          "Google Ads and Meta Ads: ongoing management on request. Media spend is separate from management fees."
+        ]
+      },
+      {
+        "title": "Make contact easier.",
+        "body": "Measurement and improvements based on real actions.",
+        "scope": "One-off setup · analysis on request",
+        "details": [
+          "Relevant events and reports, subject to consent and available data.",
+          "We review pages and forms to identify where the path to contact breaks down.",
+          "Experiments need sufficient traffic and data. Frequency and interventions are agreed in the quote."
+        ]
+      },
+      {
+        "title": "Maintain and extend.",
+        "body": "Pages, integrations and features as your needs develop.",
+        "scope": "One-off extensions · ongoing maintenance",
+        "details": [
+          "Additional pages, languages and integrations with agreed requirements and cost.",
+          "Technical maintenance and content updates with defined volume and frequency.",
+          "Domains, hosting and licences are itemized in the quote. Included support and fixes to our own defects do not become paid extensions."
+        ]
+      }
+    ]
   },
   "faq": {
     "title": "Questions before we work together.",
@@ -44,7 +81,7 @@
     },
     "o3": {
       "q": "What do I receive and what should I prepare?",
-      "a": "Your quote specifies pages, design, development, mobile adaptation, contact features and initial technical SEO. We also agree revisions, tracking, access and usage rights. We review your copy, logo and images; missing content is quoted separately when needed. SEO does not guarantee Google positions or AI recommendations."
+      "a": "Your quote specifies pages, design, development, mobile adaptation and contact methods. We agree revisions, materials, access and included services. SEO, GEO and AEO can cover technical structure and content within the agreed scope; they do not guarantee rankings or AI recommendations."
     },
     "o9": {
       "q": "How long does the project take?",
@@ -60,14 +97,20 @@
     }
   },
   "hero_v3": {
-    "headline_pre": "Premium websites,",
-    "headline_accent": "clear from the start.",
-    "subtitle": "Projects from €1,000. Websites and web applications built for your business.",
+    "headline_pre": "A premium website.",
+    "headline_accent": "Ready for the way people search today.",
+    "subtitle": "Design, development and SEO, GEO and AEO options for your business.",
     "form_title": "Tell us about your project",
     "form_note": "We reply within 24 hours.",
     "trust_1": "Reply within 24 hours",
     "trust_2": "Clear requirements and quote",
-    "trust_3": "Cost agreed before work starts"
+    "trust_3": "Cost agreed before work starts",
+    "price": "Projects from €1,000.",
+    "cta": "Discover what we can build",
+    "services_label": "Services",
+    "service_website": "Premium websites",
+    "service_search": "SEO · GEO · AEO",
+    "service_apps": "Web applications"
   },
   "process": {
     "step1_title": "Understand requirements",
@@ -166,10 +209,10 @@
         "t2": "GA4 + Google Ads"
       },
       "seo": {
-        "title": "Technical SEO and content",
-        "lead": "Initial technical SEO within the quote scope; ongoing optimisation and content are quoted separately. No guaranteed rankings.",
-        "t1": "On-page + technical",
-        "t2": "Schema + sitemap"
+        "title": "SEO, GEO and AEO",
+        "lead": "A shared technical and editorial foundation: indexable pages, structured data, verifiable information and answers to customer questions. Content and implementation scope are agreed in your quote. No guaranteed rankings or AI recommendations.",
+        "t1": "Structure and indexing",
+        "t2": "Content and answers"
       }
     },
     "channels_title": "Traffic to the right pages.",
@@ -438,7 +481,7 @@
     "problem": "A website that makes your offer clear.",
     "kicker": "What you get",
     "title": "Projects from €1,000.",
-    "lead": "Deliverables and cost agreed before work starts. Every project has its own quote.",
+    "lead": "Cost, deliverables and stages agreed before work starts. Extensions are quoted separately.",
     "d1_meta": "Custom website",
     "d1_title": "Custom websites",
     "d1_body": "Design, structure and mobile adaptation.",
@@ -446,8 +489,8 @@
     "d2_title": "Web applications",
     "d2_body": "Features built for your business. Quoted individually.",
     "d3_meta": "Optional measurement",
-    "d3_title": "Technical SEO",
-    "d3_body": "A foundation for indexing, within the agreed scope.",
+    "d3_title": "SEO · GEO · AEO",
+    "d3_body": "Technical structure and clear content. Scope agreed in your quote.",
     "d4_meta": "Optional campaigns",
     "d4_title": "Measurement",
     "d4_body": "Optional. With consent, using available data.",
@@ -460,5 +503,22 @@
     "visual_website_line": "Your offer, clear at a glance.",
     "visual_contact_title": "An easier way to connect.",
     "visual_contact_line": "From interest to conversation."
+  },
+  "vsl": {
+    "title": "Before you request a quote.",
+    "lead": "What we build. What you can choose. How we start.",
+    "label": "Alcaziu Robert services presentation in Romanian",
+    "play": "Watch the presentation",
+    "duration": "1 min 17 sec · Romanian",
+    "transcript_label": "Read the Romanian transcript.",
+    "error": "The video could not start. You can read the transcript below.",
+    "transcript": [
+      "Un website frumos atrage privirea. Dar un client trebuie să înțeleagă repede ce oferiți, de ce i se potrivește și cum vă poate contacta.",
+      "La Alcaziu Robert, construim website-uri premium în jurul afacerii dumneavoastră. Cu o structură clară, adaptare pentru mobil și un parcurs simplu către contact.",
+      "În portofoliu găsiți SGC OCPI și Black Sea GIS. Platforme reale, pe care le puteți explora. Dezvoltăm și aplicații web pentru procese specifice, ofertate după complexitate.",
+      "SEO, GEO și AEO pornesc de la aceeași bază: pagini accesibile, informații verificabile și răspunsuri clare. Stabilim intervențiile tehnice și conținutul potrivit, fără promisiuni de poziții sau recomandări garantate.",
+      "După lansare, puteți alege campanii, măsurare, mentenanță sau funcționalități noi. Sunt opționale și ofertate separat. Bugetul pentru reclame este distinct de administrare.",
+      "Proiectele pornesc de la o mie de euro. Costul final, livrabilele și etapele se stabilesc înainte de start. Descrieți-ne afacerea și ce doriți să construiți. Solicitați o ofertă personalizată."
+    ]
   }
 }

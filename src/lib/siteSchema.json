@@ -66,9 +66,9 @@
     {
       "@type": "Service",
       "@id": "https://alcaziurobert.ro/#service-seo",
-      "name": "SEO tehnic și conținut",
-      "description": "SEO tehnic inițial în limitele proiectului; SEO continuu și conținut ofertate separat.",
-      "url": "https://alcaziurobert.ro/#offer",
+      "name": "SEO, GEO și AEO — structură tehnică și conținut",
+      "description": "Indexabilitate, date structurate, informații verificabile și răspunsuri clare la întrebările clienților. Volum de implementare și conținut stabilit în oferta individuală, fără poziții sau recomandări AI garantate.",
+      "url": "https://alcaziurobert.ro/#compounding",
       "provider": {
         "@id": "https://alcaziurobert.ro/#person"
       }

@@ -1,5 +1,12 @@
 # Design system
 
+## Search hero and video funnel — owner revision, 2026-11-04
+
+The owner explicitly approved a new centered hero inspired by the hierarchy of afacere.ai, retaining the current shader background, Figtree and blue/glass identity. An original transparent browser/search render leads the headline; a wide exploration CTA scrolls to the offer. The glass service band names websites, SEO/GEO/AEO and applications, with three original 3D icons. Real client marks remain. No competitor claims, testimonials or metrics are reused.
+
+A locally hosted, click-to-play 77-second Romanian presentation appears directly after the hero. It uses the approved illustrations, real portfolio screenshots, generic synthetic narration, captions and a readable transcript. Native video controls preserve accessibility; no media file is requested until Play. Optional extensions reuse offer-card styles with native disclosure for detail. The two transparent introductory renders and separate panoramic visual are preserved.
+
+See `docs/hero-funnel-2026-11-04.md` for scope, analysis, assets and verification. This owner revision supersedes earlier hero-preservation rules only for the approved hero, VSL and service-option changes.
 ## Transparent introductory renders — 2026-11-04
 
 The owner approved the two introductory 3D illustrations and requested transparent backgrounds with no white surrounding panels. They now use `website-3d-cutout-{640,1280}.webp` and `contact-3d-cutout-{640,1280}.webp`, with real alpha and subtle contact shadows. Only `.funnel-pair .funnel-frame` loses its white fill, corner rounding and clipping. Its dimensions, captions, responsive layout and motion stay the same. The separate panoramic section retains its white presentation. Original white assets remain available for comparison.

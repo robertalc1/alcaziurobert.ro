@@ -51,12 +51,25 @@
 .offer-card { flex: 1; padding: 28px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); text-align: center; }
 .funnel-action { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: var(--sp-32); text-align: center; }
 .funnel-note { margin: 0; max-width: 60ch; }
+.funnel-options-head { margin-top: var(--sp-64); }
+.funnel-options { grid-template-columns: repeat(3,minmax(0,1fr)); align-items: start; }
+.funnel-options li { min-width: 0; }
+.funnel-options .offer-card { text-align: left; padding: 28px 24px; }
+.funnel-option-scope { font-size: 13px; line-height: 1.5; color: var(--brand-strong); margin: 18px 0; }
+.funnel-options summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; min-height: 44px; border-top: 1px solid var(--line); color: var(--ink); font-size: 14px; font-weight: 600; list-style: none; }
+.funnel-options summary::-webkit-details-marker { display: none; }
+.funnel-options summary span { font-size: 20px; font-weight: 400; }
+.funnel-options details[open] summary span { transform: rotate(45deg); }
+.funnel-options summary:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 4px; }
+.funnel-options details p { font-size: 14px; line-height: 1.65; color: var(--text-muted); margin: 14px 0 0; }
+#offer:focus { outline: none; }
+#offer:focus-visible > .reveal { outline: 2px solid var(--brand); outline-offset: 6px; }
 .proc-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-32); list-style: none; padding: 0; margin: 0; text-align: center; }
 .proc-list li { border-top: 1px solid var(--line-2); padding-top: 24px; }
 .funnel-detail-link { color: var(--brand-strong); font-size: var(--text-body); text-underline-offset: 5px; }
 .funnel-detail-link:hover { text-decoration: underline; }
 .funnel-detail-link:focus-visible { outline: 2px solid var(--brand); outline-offset: 5px; border-radius: 4px; }
-@media (max-width: 900px) { .offer-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .offer-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } .funnel-options { grid-template-columns: minmax(0,1fr); } }
 @media (max-width: 639px) {
   .funnel-pair { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .funnel-frame figcaption { inset-inline: 16px; }

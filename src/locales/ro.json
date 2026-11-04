@@ -29,11 +29,48 @@
     "summary_l1": "Alegeți serviciile potrivite pentru etapa afacerii. Sunt <pill>opționale și ofertate separat</pill>, cu volum, cost și perioadă stabilite înainte.",
     "summary_l2": "Serviciile punctuale și cele recurente au <pill>o ofertă distinctă</pill>. Bugetul media nu este tariful de administrare. Frecvența rapoartelor și limitele intervențiilor se stabilesc în acord.",
     "takeaway": "Discutăm ce este util proiectului dumneavoastră. <pill>Fără abonamente activate automat</pill> și fără promisiuni de vânzări garantate.",
-    "cta": "Discutați opțiunile",
-    "channels": "SEO · Google Ads · Meta Ads",
-    "note": "Servicii opționale, ofertate separat. Bugetul media nu include administrarea.",
+    "cta": "Discutați opțiunile proiectului",
+    "channels": "Căutare · Conținut · Campanii",
+    "note": "Opțiuni ofertate separat, cu volum, cost și perioadă agreate. Fără abonamente activate automat.",
     "aftercare": "Mentenanță și dezvoltări ulterioare, la cerere.",
-    "visual_alt": "Concept 3D pe alb: o punte de căutare conectează o afacere cu potențialii clienți."
+    "visual_alt": "Concept 3D pe alb: o punte de căutare conectează o afacere cu potențialii clienți.",
+    "options_title": "După lansare, putem continua să dezvoltăm.",
+    "options_lead": "Alegeți ce ajută afacerea acum. Extindeți când are sens.",
+    "details": "Ce poate include",
+    "options": [
+      {
+        "title": "Atrageți vizitatori relevanți.",
+        "body": "SEO, GEO, AEO și campanii către paginile potrivite.",
+        "scope": "Proiect punctual sau colaborare periodică",
+        "details": [
+          "SEO: indexare, structură și conținut pentru motoarele de căutare.",
+          "GEO: informații clare și verificabile pentru căutările generative.",
+          "AEO: răspunsuri directe, organizate după întrebările clienților.",
+          "Aceeași bază tehnică și editorială. Volumul se stabilește în ofertă; nu promitem poziții sau recomandări AI.",
+          "Google Ads și Meta Ads: administrare periodică, la cerere. Bugetul media se plătește separat de administrare."
+        ]
+      },
+      {
+        "title": "Ușurați drumul către contact.",
+        "body": "Măsurare și îmbunătățiri pe baza acțiunilor reale.",
+        "scope": "Configurare punctuală · analiză la cerere",
+        "details": [
+          "Evenimente relevante și rapoarte, în limitele consimțământului și datelor disponibile.",
+          "Analizăm paginile și formularul pentru a identifica unde se întrerupe parcursul.",
+          "Experimentele au sens când există trafic și date suficiente. Frecvența și intervențiile se stabilesc în ofertă."
+        ]
+      },
+      {
+        "title": "Mențineți și extindeți.",
+        "body": "Pagini, integrări și funcționalități, pe măsura nevoilor.",
+        "scope": "Extensii punctuale · mentenanță periodică",
+        "details": [
+          "Pagini suplimentare, versiuni multilingve și integrări, cu cerințe și cost agreate.",
+          "Mentenanță tehnică și actualizări de conținut, cu volum și frecvență stabilite.",
+          "Domeniul, găzduirea și licențele sunt delimitate în ofertă. Suportul inclus și remedierea defectelor nu devin extensii plătite."
+        ]
+      }
+    ]
   },
   "faq": {
     "title": "Întrebări înainte de colaborare.",
@@ -44,7 +81,7 @@
     },
     "o3": {
       "q": "Ce primesc și ce trebuie să pregătesc?",
-      "a": "Oferta precizează paginile, designul, dezvoltarea, adaptarea pentru mobil, contactul și SEO tehnic inițial. Stabilim și reviziile, tracking-ul, accesurile și drepturile de utilizare. Discutăm textele, logo-ul și imaginile disponibile; conținutul lipsă se ofertează separat, dacă este necesar. SEO nu garantează poziții în Google sau recomandări AI."
+      "a": "Oferta precizează paginile, designul, dezvoltarea, adaptarea pentru mobil și modalitățile de contact. Stabilim reviziile, materialele, accesurile și serviciile incluse. SEO, GEO și AEO pot acoperi structura tehnică și conținutul, în volumul agreat; nu garantează poziții sau recomandări AI."
     },
     "o9": {
       "q": "Cât durează realizarea proiectului?",
@@ -60,14 +97,20 @@
     }
   },
   "hero_v3": {
-    "headline_pre": "Website-uri premium,",
-    "headline_accent": "clare de la început.",
-    "subtitle": "Proiecte de la 1.000 €. Website-uri și aplicații web, construite pentru afacerea dumneavoastră.",
+    "headline_pre": "Website premium.",
+    "headline_accent": "Pregătit pentru căutările de azi.",
+    "subtitle": "Design, dezvoltare și opțiuni SEO, GEO și AEO pentru afacerea dumneavoastră.",
     "form_title": "Descrieți-ne proiectul",
     "form_note": "Răspundem în maximum 24 de ore.",
     "trust_1": "Răspuns în 24 de ore",
     "trust_2": "Cerințe și ofertă clare",
-    "trust_3": "Cost agreat înainte de start"
+    "trust_3": "Cost agreat înainte de start",
+    "price": "Proiecte de la 1.000 €.",
+    "cta": "Descoperiți ce putem construi",
+    "services_label": "Servicii",
+    "service_website": "Website premium",
+    "service_search": "SEO · GEO · AEO",
+    "service_apps": "Aplicații web"
   },
   "process": {
     "step1_title": "Înțelegem cerințele",
@@ -166,10 +209,10 @@
         "t2": "GA4 + Google Ads"
       },
       "seo": {
-        "title": "SEO tehnic și conținut",
-        "lead": "SEO tehnic inițial în limitele ofertei; optimizarea continuă și conținutul se ofertează separat. Fără poziții garantate.",
-        "t1": "On-page + tehnic",
-        "t2": "Schema + sitemap"
+        "title": "SEO, GEO și AEO",
+        "lead": "O bază tehnică și editorială comună: pagini indexabile, date structurate, informații verificabile și răspunsuri la întrebările clienților. Volumul de conținut și implementare se stabilește în ofertă. Fără poziții sau recomandări AI garantate.",
+        "t1": "Structură și indexare",
+        "t2": "Conținut și răspunsuri"
       }
     },
     "channels_title": "Trafic către paginile potrivite.",
@@ -438,7 +481,7 @@
     "problem": "Un website care vă pune oferta în valoare.",
     "kicker": "Ce primiți",
     "title": "Proiecte de la 1.000 €.",
-    "lead": "Livrabile și cost stabilite înainte de start. Fiecare proiect are oferta lui.",
+    "lead": "Cost, livrabile și etape agreate înainte de start. Extensiile se aleg separat.",
     "d1_meta": "Website custom",
     "d1_title": "Website custom",
     "d1_body": "Design, structură și adaptare pentru mobil.",
@@ -446,8 +489,8 @@
     "d2_title": "Aplicații web",
     "d2_body": "Funcționalități pentru afacerea dumneavoastră. Ofertate individual.",
     "d3_meta": "Măsurare opțională",
-    "d3_title": "SEO tehnic",
-    "d3_body": "Baza pentru indexare, în limitele proiectului.",
+    "d3_title": "SEO · GEO · AEO",
+    "d3_body": "Structură tehnică și conținut clar. Volum stabilit în ofertă.",
     "d4_meta": "Campanii opționale",
     "d4_title": "Măsurare",
     "d4_body": "Opțională. Cu consimțământ, pe datele disponibile.",
@@ -460,5 +503,22 @@
     "visual_website_line": "Oferta, clară dintr-o privire.",
     "visual_contact_title": "Contact fără ocolișuri.",
     "visual_contact_line": "De la interes la conversație."
+  },
+  "vsl": {
+    "title": "Înainte să cereți o ofertă.",
+    "lead": "Ce construim. Ce puteți alege. Cum începem.",
+    "label": "Prezentarea serviciilor Alcaziu Robert, în limba română",
+    "play": "Urmăriți prezentarea",
+    "duration": "1 min 17 sec · în română",
+    "transcript_label": "Preferați să citiți? Deschideți prezentarea.",
+    "error": "Videoul nu poate porni momentan. Puteți citi prezentarea de mai jos.",
+    "transcript": [
+      "Un website frumos atrage privirea. Dar un client trebuie să înțeleagă repede ce oferiți, de ce i se potrivește și cum vă poate contacta.",
+      "La Alcaziu Robert, construim website-uri premium în jurul afacerii dumneavoastră. Cu o structură clară, adaptare pentru mobil și un parcurs simplu către contact.",
+      "În portofoliu găsiți SGC OCPI și Black Sea GIS. Platforme reale, pe care le puteți explora. Dezvoltăm și aplicații web pentru procese specifice, ofertate după complexitate.",
+      "SEO, GEO și AEO pornesc de la aceeași bază: pagini accesibile, informații verificabile și răspunsuri clare. Stabilim intervențiile tehnice și conținutul potrivit, fără promisiuni de poziții sau recomandări garantate.",
+      "După lansare, puteți alege campanii, măsurare, mentenanță sau funcționalități noi. Sunt opționale și ofertate separat. Bugetul pentru reclame este distinct de administrare.",
+      "Proiectele pornesc de la o mie de euro. Costul final, livrabilele și etapele se stabilesc înainte de start. Descrieți-ne afacerea și ce doriți să construiți. Solicitați o ofertă personalizată."
+    ]
   }
 }

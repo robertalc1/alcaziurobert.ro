@@ -41,10 +41,10 @@ const OfferSection: React.FC = () => {
         </div>
       </div>
 
-      <div className="leads-block" id="offer">
+      <div className="leads-block" id="offer" tabIndex={-1} aria-labelledby="offer-title">
         <Reveal>
           <header className="leads-head">
-            <h2 className="leads-title">{t("offer.title")}</h2>
+            <h2 className="leads-title" id="offer-title">{t("offer.title")}</h2>
             <p className="leads-sub">{t("offer.lead")}</p>
           </header>
         </Reveal>

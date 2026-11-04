@@ -7,6 +7,7 @@ import { scrollToEl } from "@/lib/scroll";
 // Below-the-fold sections — lazy-loaded so the initial bundle stays small.
 // Each Suspense fallback reserves enough vertical space to keep CLS = 0.
 const OfferSection = lazy(() => import("@/components/OfferSection"));
+const VideoSection = lazy(() => import("@/components/VideoSection"));
 const SelectedWorkSection = lazy(() => import("@/components/SelectedWorkSection"));
 const ProcessSection = lazy(() => import("@/components/ProcessSection"));
 const CompoundingSection = lazy(() => import("@/components/CompoundingSection"));
@@ -106,6 +107,9 @@ const Index = () => {
         <section className="leads" id="body">
           <div className="leads-wrap">
             <div className="leads-col">
+              <Suspense fallback={<Placeholder minHeight={600} />}>
+                <VideoSection />
+              </Suspense>
               <Suspense fallback={<Placeholder minHeight={1338} />}>
                 {/* Units 1 and 2 — the problem, then the offer. */}
                 <OfferSection />
