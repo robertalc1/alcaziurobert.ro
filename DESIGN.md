@@ -42,15 +42,16 @@ The current implementation in `src/index.css` is the source of truth. The previo
 
 ## Portfolio and client marks
 
-### The showcase (replaced the coverflow, 2026-10-12)
+### Featured platforms and continuous project rail (2026-11-04)
 
-Twelve projects; OCPI first. The 3D coverflow is gone — it showed one project at 504×315 inside a ring of rotated ghost cards and twelve anonymous dots. The section is now a single white case holding three things in order:
-
-1. **Stage** — the active project in browser chrome at the full 1240px band. The image lands near 1100px wide, roughly five times the old area. This frame carries **the only drop shadow in the section**; the case, the chips and the buttons carry none. One shadow, and it belongs to the product image.
-2. **Caption** — project name set solid (never `-webkit-text-stroke`; the outlined name was the only outlined type on the site), one line of result or description, and the plain secondary pill to the live site. Nothing sits above the name.
-3. **Roster** — a filmstrip of all twelve thumbnails with the client's short name under each, as an ARIA tablist with roving tabindex, named by `aria-label` rather than by a visible heading. Selection is a change of surface, not a splash of colour: inactive chips sit recessed on `--page`, the active one lifts to `--surface` with a `--brand` rim. Below 1024px the strip becomes a scroll-snap rail with a mask at the right edge.
-
-Autoplay runs only while the section is on screen, pauses on hover/focus/touch, never runs under `prefers-reduced-motion`, and stops permanently once the visitor picks a project.
+- The section is bounded to a 1120px container with 24px gutters (20px on mobile), never full bleed.
+- SGC OCPI and Black Sea GIS are permanent featured cards, first and separate from the rail. Two columns on desktop; stacked below 640px. Each has a real screenshot, domain, name, descriptive copy and live link.
+- The other ten projects run in a continuous horizontal rail: screenshot, short project name and domain link. Cards are 320px wide on desktop and 280px on mobile, with 20px/16px gaps.
+- Native horizontal scrolling advances at 28px per second, only while visible. A second, accessibility-hidden group makes the loop seamless; its links are excluded from keyboard navigation.
+- Hover and keyboard focus pause movement. Touch or wheel interaction pauses until the visitor explicitly resumes. A labelled pause/resume button is always available while motion is enabled.
+- Reduced motion disables autoplay and removes the duplicate group; all projects remain accessible by native horizontal scrolling and keyboard navigation.
+- Images, type, colour and CTA reuse the existing assets and design tokens. There is no oversized browser frame, filmstrip, active-project counter or crossfade.
+- Verify with `node scripts/verify-portfolio.mjs` while the dev server is running at port 8080. The script checks desktop/mobile layouts, continuous movement, looping, pause behaviour, keyboard focus, reduced motion and contact CTA, and writes local screenshots.
 
 ### Screenshots
 
@@ -61,7 +62,7 @@ Autoplay runs only while the section is on screen, pauses on hover/focus/touch, 
 
 ### Copy
 
-- `portfolio.lines` (renamed from `portfolio.metrics`, which was never only metrics) has matching Romanian and English keys.
+- Featured copy and rail controls live in `work` with matching Romanian and English keys. Existing `portfolio.lines` is retained for other references.
 - Lines carry a number only where one is documented in `ANALIZA-SI-PLAN.md` (OCPI, Picaps, R-Draw, Kickout). The other eight describe what the site does. No invented metrics, and no English in the Romanian file — `"Conversion rate 4.2% · Industry avg: 1.8%"` was sitting untranslated in `ro.json`.
 - **`portfolio.categories` is gone and is not coming back** (removed 2026-10-12, the day it shipped). It rendered as an 11.5px line in brand blue, in capitals, tracked out to 0.14em, above every project name. See the next section.
 - The client band has 12 logo cells, including Laura Predoi; the Alma text wordmark was removed.

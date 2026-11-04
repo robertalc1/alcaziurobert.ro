@@ -87,6 +87,14 @@
     "step5_days": "Lunar, după lansare"
   },
   "work": {
+    "intro": "Două platforme pentru administrație. Și o selecție de site-uri pentru afaceri.",
+    "other_title": "Alte proiecte realizate",
+    "pause": "Pauză",
+    "resume": "Reia derularea",
+    "featured": {
+      "sgc": "Platformă de gestionare a contestațiilor pentru OCPI Constanța. Contracte, persoane și rapoarte, într-un singur spațiu de lucru.",
+      "black-sea-gis": "Platformă GIS pentru administrația locală. Hărți și date geografice organizate într-o interfață clară."
+    },
     "visit": "Vedeți live",
     "section_title": "Proiecte de succes",
     "roster_label": "Toate proiectele"

@@ -87,6 +87,14 @@
     "step5_days": "Monthly, after launch"
   },
   "work": {
+    "intro": "Two platforms for public administration. And a selection of websites for businesses.",
+    "other_title": "More selected work",
+    "pause": "Pause",
+    "resume": "Resume scrolling",
+    "featured": {
+      "sgc": "Appeal management platform for OCPI Constanța. Contracts, people and reports brought together in one workspace.",
+      "black-sea-gis": "A GIS platform for local government. Maps and geographic data organised in a clear interface."
+    },
     "visit": "See it live",
     "section_title": "Projects that worked",
     "roster_label": "All projects"

@@ -120,10 +120,9 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Proof: the work itself. Full-bleed, outside the body column —
-            instantly's testimonial slot, which is the one band on their page
-            that breaks the 1040 grid so the carousel can run edge to edge. */}
-        <Suspense fallback={<Placeholder minHeight={1116} />}>
+        {/* Featured platforms, followed by a continuous rail in a bounded container.
+            Measured 2026-11-04: 1287px desktop / 1607px mobile. */}
+        <Suspense fallback={<Placeholder minHeight={1447} />}>
           <SelectedWorkSection />
         </Suspense>
 
