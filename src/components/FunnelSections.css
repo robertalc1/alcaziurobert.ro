@@ -12,6 +12,11 @@
   border-radius: var(--r-panel);
   background: var(--surface);
 }
+.funnel-pair .funnel-frame {
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
 .funnel-frame img { display: block; width: 100%; height: auto; }
 .funnel-frame figcaption { position: absolute; inset: 5% 24px auto; text-align: center; }
 .funnel-frame h3, .offer-item-title, .proc-step-title {

@@ -24,8 +24,8 @@ const OfferSection: React.FC = () => {
               <Reveal key={visual} delay={i * 80} blur={0}>
                 <figure className="funnel-frame">
                   <img
-                    src={`/visuals/${visual}-3d-white-1280.webp`}
-                    srcSet={`/visuals/${visual}-3d-white-640.webp 640w, /visuals/${visual}-3d-white-1280.webp 1280w`}
+                    src={`/visuals/${visual}-3d-cutout-1280.webp`}
+                    srcSet={`/visuals/${visual}-3d-cutout-640.webp 640w, /visuals/${visual}-3d-cutout-1280.webp 1280w`}
                     sizes="(max-width: 639px) calc(100vw - 32px), (max-width: 1328px) calc((100vw - 56px) / 2), 636px"
                     width={1280} height={1280} loading="lazy" decoding="async"
                     alt={t(`offer.visual_${visual}_alt`)}

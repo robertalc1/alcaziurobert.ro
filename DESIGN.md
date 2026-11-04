@@ -1,5 +1,9 @@
 # Design system
 
+## Transparent introductory renders — 2026-11-04
+
+The owner approved the two introductory 3D illustrations and requested transparent backgrounds with no white surrounding panels. They now use `website-3d-cutout-{640,1280}.webp` and `contact-3d-cutout-{640,1280}.webp`, with real alpha and subtle contact shadows. Only `.funnel-pair .funnel-frame` loses its white fill, corner rounding and clipping. Its dimensions, captions, responsive layout and motion stay the same. The separate panoramic section retains its white presentation. Original white assets remain available for comparison.
+
 ## White 3D visual funnel — owner revision, 2026-11-04
 
 The latest owner request explicitly replaces the earlier small image/caption pair and long explanatory copy with a wide, image-led funnel. Two original 3D renders on white introduce design and easy contact. A panoramic search bridge appears separately after the real portfolio. Their short headings are real, translated HTML inside the image panels. Width uses the existing 1296px page token, with 16px minimum viewport gutters. At mobile widths the pair stacks and the panorama headline moves above its image inside the same white panel.
